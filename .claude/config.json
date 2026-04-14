@@ -1,0 +1,7 @@
+{
+  "name": "pencil",
+  "transport": "stdio",
+  "command": "/tmp/.mount_pencilWzBivz/resources/app.asar.unpacked/out/mcp-server-linux-x64",
+  "args": ["--app", "desktop"],
+  "env": {}
+}
