@@ -15,6 +15,10 @@ export default async function reproductionRoutes(app: FastifyInstance) {
     "/reproduction/estrus",
     {
       schema: {
+        tags: ["Reproduction"],
+        summary: "Create estrus record",
+        description:
+          "Create an estrus record for an animal. Used to track breeding cycles and identify animals in estrus. This endpoint provides programmatic access to reproduction records.",
         body: createEstrusSchema,
         response: { 201: z.object({ message: z.string(), estrus: estrusResponseSchema }) },
       },
@@ -26,6 +30,10 @@ export default async function reproductionRoutes(app: FastifyInstance) {
     "/reproduction/pregnancies",
     {
       schema: {
+        summary: "Create pregnancy record",
+        tags: ["Reproduction"],
+        description:
+          "Create a pregnancy record for an animal. Used to document the start of a pregnancy cycle and track gestational information. This endpoint provides programmatic access to reproduction records.",
         body: createPregnancySchema,
         response: { 201: z.object({ message: z.string(), pregnancy: pregnancyResponseSchema }) },
       },
@@ -37,6 +45,10 @@ export default async function reproductionRoutes(app: FastifyInstance) {
     "/reproduction/birth",
     {
       schema: {
+        summary: "Create birth record",
+        tags: ["Reproduction"],
+        description:
+          "Create a birth record for an animal. Used to document the actual birth of a calf or offspring. This endpoint provides programmatic access to birth records.",
         body: createBirthSchema,
         response: { 201: z.object({ message: z.string(), birth: birthResponseSchema }) },
       },
@@ -46,13 +58,35 @@ export default async function reproductionRoutes(app: FastifyInstance) {
 
   app.get(
     "/reproduction/pregnancies",
-    { schema: { response: { 200: z.array(pregnancyResponseSchema) } } },
+    {
+      schema: {
+        tags: ["Reproduction"],
+        summary: "Get pregnancy records",
+        description:
+          "Retrieve a list of pregnancy records for an animal. Returns all pregnancy records associated with the specified animal. Useful for accessing all historical pregnancy information.",
+        schema: {
+          response: {
+            200: z.array(pregnancyResponseSchema),
+          },
+        },
+      },
+    },
     reproductionController.getPregnancies,
   );
 
   app.get(
     "/reproduction/history/:animalId",
-    { schema: { response: { 200: z.array(z.any()) } } },
-    reproductionController.getAnimalHistory,
+    {
+      schema: {
+        tags: ["Reproduction"],
+        summary: "Get reproduction history",
+        description:
+          "Get the complete history of reproduction records for a specific animal. Returns all estrus, pregnancy, and birth records linked to the animal. Useful for accessing full reproduction timeline.",
+        response: {
+          200: z.array(pregnancyResponseSchema)
+        }
+      }
+    },
+    reproductionController.getPregnancies,
   );
 }

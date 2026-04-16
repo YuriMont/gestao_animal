@@ -61,6 +61,10 @@ export async function createApp() {
     "/",
     {
       schema: {
+        tags: ["System"],
+        summary: "Health check endpoint",
+        description:
+          "Health check endpoint. Returns server status and information. Useful for monitoring if the API is running and healthy.",
         response: {
           200: z.object({
             message: z.string(),
