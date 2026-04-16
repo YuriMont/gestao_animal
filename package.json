@@ -2,6 +2,7 @@
   "name": "gestao_animal",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -13,5 +14,6 @@
   ],
   "devDependencies": {
     "turbo": "^2.9.6"
-  }
+  },
+  "dependencies": {}
 }
