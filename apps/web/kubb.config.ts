@@ -4,45 +4,79 @@ import { pluginFaker } from "@kubb/plugin-faker";
 import { pluginMsw } from "@kubb/plugin-msw";
 import { pluginOas } from "@kubb/plugin-oas";
 import { pluginReactQuery } from "@kubb/plugin-react-query";
-import { pluginRedoc } from "@kubb/plugin-redoc";
 import { pluginSwr } from "@kubb/plugin-swr";
 import { pluginTs } from "@kubb/plugin-ts";
 import { pluginZod } from "@kubb/plugin-zod";
+import "dotenv/config";
+
+const apiUrl =
+	(globalThis as any).process?.env?.VITE_API_URL || "http://localhost:3000";
 
 export default defineConfig({
-  root: ".",
-  input: {
-    path: ".",
-  },
-  output: {
-    path: "./src/gen",
-    clean: true,
-    format: "auto",
-    lint: "auto",
-  },
-  plugins: [
-    pluginOas(),
-    pluginTs({
-      output: { path: "models" },
-    }),
-    pluginClient({
-      output: { path: "clients" },
-    }),
-    pluginReactQuery({
-      output: { path: "hooks" },
-    }),
-    pluginSwr({
-      output: { path: "hooks" },
-    }),
-    pluginZod({
-      output: { path: "zod" },
-    }),
-    pluginFaker({
-      output: { path: "mocks" },
-    }),
-    pluginMsw({
-      output: { path: "msw" },
-    }),
-    pluginRedoc(),
-  ],
+	root: ".",
+	input: {
+		path: apiUrl + "/docs/openapi.json",
+	},
+	output: {
+		path: "./src/gen",
+		clean: true,
+		format: "auto",
+		lint: "auto",
+	},
+	plugins: [
+		pluginOas(),
+		pluginTs({
+			output: { path: "models" },
+			group: {
+				type: "tag",
+			},
+			enumType: "enum",
+		}),
+		pluginClient({
+			importPath: "@/lib/axiosInstance",
+			output: { path: "clients" },
+			group: {
+				type: "tag",
+			},
+		}),
+		pluginReactQuery({
+			output: { path: "hooks" },
+			client: {
+				importPath: "@/lib/axiosInstance",
+			},
+			group: {
+				type: "tag",
+			},
+			query: {
+				methods: ["get"],
+			},
+			mutation: {
+				methods: ["delete", "post", "patch", "put"],
+			},
+		}),
+		pluginSwr({
+			output: { path: "hooks" },
+			group: {
+				type: "tag",
+			},
+		}),
+		pluginZod({
+			output: { path: "zod" },
+			group: {
+				type: "tag",
+			},
+		}),
+		pluginFaker({
+			output: { path: "mocks" },
+			group: {
+				type: "tag",
+			},
+		}),
+		pluginMsw({
+			output: { path: "msw" },
+			group: {
+				type: "tag",
+			},
+		}),
+	],
 });

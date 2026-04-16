@@ -4,7 +4,7 @@ import {
   financialRecordResponseSchema,
   financialSummarySchema,
 } from "@src/modules/financial/presentation/dtos/financial.dto";
-import type { FastifyInstance } from "fastify";
+import { FastifyInstance } from "fastify";
 import z from "zod";
 
 export default async function financialRoutes(app: FastifyInstance) {
