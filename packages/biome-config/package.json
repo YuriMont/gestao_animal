@@ -1,0 +1,12 @@
+{
+  "name": "@gestao/biome-config",
+  "version": "1.0.0",
+  "private": true,
+  "main": "biome.json",
+  "exports": {
+    ".": "./biome.json"
+  },
+  "files": [
+    "biome.json"
+  ]
+}

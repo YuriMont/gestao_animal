@@ -1,11 +1,11 @@
-import type { FinancialRecord } from '@src/modules/financial/domain/entities/financial-record.entity';
+import type { FinancialRecord } from "@src/modules/financial/domain/entities/financial-record.entity";
 
 export interface IFinancialRepository {
-  create(record: FinancialRecord): Promise<FinancialRecord>;
-  listByOrganization(organizationId: string): Promise<FinancialRecord[]>;
-  getSummary(organizationId: string): Promise<{
-    totalCosts: number;
-    totalRevenue: number;
-    balance: number;
-  }>;
+	create(record: FinancialRecord): Promise<FinancialRecord>;
+	listByOrganization(organizationId: string): Promise<FinancialRecord[]>;
+	getSummary(organizationId: string): Promise<{
+		totalCosts: number;
+		totalRevenue: number;
+		balance: number;
+	}>;
 }

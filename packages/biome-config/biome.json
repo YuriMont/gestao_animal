@@ -8,13 +8,14 @@
   "files": {
     "includes": [
       "**",
-      "!!**/node_modules",
-      "!!**/*.config.*",
-      "!**/tsconfig.json",
-      "!!**/*.json",
-      "!!**/.turbo",
-      "!!**/*.css",
-      "!!**/*.gen.ts"
+      "!**/node_modules/**",
+      "!**/*.config.*",
+      "!**/.turbo/**",
+      "!**/*.css",
+      "!**/*.gen.ts",
+      "!**/dist/**",
+      "!**/build/**",
+      "!**/src/gen/**"
     ]
   },
   "formatter": {

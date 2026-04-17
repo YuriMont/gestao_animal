@@ -1,12 +1,13 @@
 {
-  "name": "gestao_animal",
+  "name": "@gestao/root",
   "version": "1.0.0",
   "private": true,
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "format": "turbo run format"
   },
   "workspaces": [
     "apps/*",
@@ -14,6 +15,5 @@
   ],
   "devDependencies": {
     "turbo": "^2.9.6"
-  },
-  "dependencies": {}
+  }
 }
