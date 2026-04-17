@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1UsersMutationRequest,
-	PostV1UsersMutationResponse,
-} from "../../models/usersController/PostV1Users.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1UsersMutationRequest,
+	PostV1UsersMutationResponse,
+} from "../../models/usersController/PostV1Users.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1Users } from "../../clients/usersController/postV1Users.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1Users } from "../../clients/usersController/postV1Users.ts";
 
 export const postV1UsersMutationKey = () => [{ url: "/v1/users" }] as const;
 
@@ -51,7 +51,7 @@ export function postV1UsersMutationOptions<TContext = unknown>(
 }
 
 /**
- * @description Create a new user record for the organization. Used to define user accounts with their roles and permissions. This endpoint is used to programmatically create users associated with a specific organization.
+ * @description Creates a user. Prefer POST /auth/register for user onboarding.
  * @summary Create a new user
  * {@link /v1/users}
  */

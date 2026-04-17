@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1OrganizationsMutationRequest,
-	PostV1OrganizationsMutationResponse,
-} from "../../models/organizationsController/PostV1Organizations.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1OrganizationsMutationRequest,
+	PostV1OrganizationsMutationResponse,
+} from "../../models/organizationsController/PostV1Organizations.ts";
 
 function getPostV1OrganizationsUrl() {
 	const res = { method: "POST", url: `/v1/organizations` as const };
@@ -20,7 +20,6 @@ function getPostV1OrganizationsUrl() {
 }
 
 /**
- * @description Create a new organization record for the system. Used to document the parent entity for animals, users, records, and other entities belonging to it. This endpoint allows programmatic addition of new organizations.
  * @summary Create a new organization
  * {@link /v1/organizations}
  */

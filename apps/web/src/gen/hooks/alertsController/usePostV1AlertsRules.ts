@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1AlertsRulesMutationRequest,
-	PostV1AlertsRulesMutationResponse,
-} from "../../models/alertsController/PostV1AlertsRules.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1AlertsRulesMutationRequest,
+	PostV1AlertsRulesMutationResponse,
+} from "../../models/alertsController/PostV1AlertsRules.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1AlertsRules } from "../../clients/alertsController/postV1AlertsRules.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1AlertsRules } from "../../clients/alertsController/postV1AlertsRules.ts";
 
 export const postV1AlertsRulesMutationKey = () =>
 	[{ url: "/v1/alerts/rules" }] as const;

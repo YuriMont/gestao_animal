@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1UsersMutationRequest,
-	PostV1UsersMutationResponse,
-} from "../../models/usersController/PostV1Users.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1UsersMutationRequest,
+	PostV1UsersMutationResponse,
+} from "../../models/usersController/PostV1Users.ts";
 
 function getPostV1UsersUrl() {
 	const res = { method: "POST", url: `/v1/users` as const };
@@ -20,7 +20,7 @@ function getPostV1UsersUrl() {
 }
 
 /**
- * @description Create a new user record for the organization. Used to define user accounts with their roles and permissions. This endpoint is used to programmatically create users associated with a specific organization.
+ * @description Creates a user. Prefer POST /auth/register for user onboarding.
  * @summary Create a new user
  * {@link /v1/users}
  */

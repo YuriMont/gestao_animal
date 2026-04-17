@@ -3,7 +3,6 @@
  * Do not edit manually.
  */
 
-import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import type {
 	Client,
 	RequestConfig,
@@ -15,8 +14,9 @@ import type {
 	UseSuspenseQueryOptions,
 	UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { getV1FinancialSummary } from "../../clients/financialController/getV1FinancialSummary.ts";
+import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { getV1FinancialSummary } from "../../clients/financialController/getV1FinancialSummary.ts";
 
 export const getV1FinancialSummarySuspenseQueryKey = () =>
 	[{ url: "/v1/financial/summary" }] as const;

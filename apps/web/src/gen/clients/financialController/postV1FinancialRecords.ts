@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1FinancialRecordsMutationRequest,
-	PostV1FinancialRecordsMutationResponse,
-} from "../../models/financialController/PostV1FinancialRecords.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1FinancialRecordsMutationRequest,
+	PostV1FinancialRecordsMutationResponse,
+} from "../../models/financialController/PostV1FinancialRecords.ts";
 
 function getPostV1FinancialRecordsUrl() {
 	const res = { method: "POST", url: `/v1/financial/records` as const };

@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	GetV1HealthHistoryAnimalidQueryResponse,
-	GetV1HealthHistoryAnimalidPathParams,
-} from "../../models/healthController/GetV1HealthHistoryAnimalid.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	GetV1HealthHistoryAnimalidQueryResponse,
+	GetV1HealthHistoryAnimalidPathParams,
+} from "../../models/healthController/GetV1HealthHistoryAnimalid.ts";
 
 function getGetV1HealthHistoryAnimalidUrl(
 	animalId: GetV1HealthHistoryAnimalidPathParams["animalId"],

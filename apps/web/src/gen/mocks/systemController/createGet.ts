@@ -14,7 +14,7 @@ import { faker } from "@faker-js/faker";
  */
 export function createGet200(data?: Partial<Get200>): Get200 {
 	return {
-		...{ message: faker.string.alpha() },
+		...{ message: faker.string.alpha(), timestamp: faker.string.alpha() },
 		...(data || {}),
 	};
 }

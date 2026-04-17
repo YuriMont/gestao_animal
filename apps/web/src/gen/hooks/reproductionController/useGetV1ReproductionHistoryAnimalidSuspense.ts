@@ -4,10 +4,6 @@
  */
 
 import type {
-	GetV1ReproductionHistoryAnimalidQueryResponse,
-	GetV1ReproductionHistoryAnimalidPathParams,
-} from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -18,8 +14,12 @@ import type {
 	UseSuspenseQueryOptions,
 	UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { getV1ReproductionHistoryAnimalid } from "../../clients/reproductionController/getV1ReproductionHistoryAnimalid.ts";
+import type {
+	GetV1ReproductionHistoryAnimalidQueryResponse,
+	GetV1ReproductionHistoryAnimalidPathParams,
+} from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { getV1ReproductionHistoryAnimalid } from "../../clients/reproductionController/getV1ReproductionHistoryAnimalid.ts";
 
 export const getV1ReproductionHistoryAnimalidSuspenseQueryKey = (
 	animalId: GetV1ReproductionHistoryAnimalidPathParams["animalId"],

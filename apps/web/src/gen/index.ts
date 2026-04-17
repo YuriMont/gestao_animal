@@ -1,7 +1,15 @@
 export type { GetV1AlertsRulesQueryKey } from "./hooks/alertsController/useGetV1AlertsRules.ts";
 export type { GetV1AlertsRulesSuspenseQueryKey } from "./hooks/alertsController/useGetV1AlertsRulesSuspense.ts";
 export type { PostV1AlertsRulesMutationKey } from "./hooks/alertsController/usePostV1AlertsRules.ts";
+export type { DeleteV1AnimalsIdMutationKey } from "./hooks/animalsController/useDeleteV1AnimalsId.ts";
+export type { GetV1AnimalsQueryKey } from "./hooks/animalsController/useGetV1Animals.ts";
+export type { GetV1AnimalsIdQueryKey } from "./hooks/animalsController/useGetV1AnimalsId.ts";
+export type { GetV1AnimalsIdSuspenseQueryKey } from "./hooks/animalsController/useGetV1AnimalsIdSuspense.ts";
+export type { GetV1AnimalsSuspenseQueryKey } from "./hooks/animalsController/useGetV1AnimalsSuspense.ts";
 export type { PostV1AnimalsMutationKey } from "./hooks/animalsController/usePostV1Animals.ts";
+export type { PutV1AnimalsIdMutationKey } from "./hooks/animalsController/usePutV1AnimalsId.ts";
+export type { PostAuthLoginMutationKey } from "./hooks/authController/usePostAuthLogin.ts";
+export type { PostAuthRegisterMutationKey } from "./hooks/authController/usePostAuthRegister.ts";
 export type { GetV1FinancialRecordsQueryKey } from "./hooks/financialController/useGetV1FinancialRecords.ts";
 export type { GetV1FinancialRecordsSuspenseQueryKey } from "./hooks/financialController/useGetV1FinancialRecordsSuspense.ts";
 export type { GetV1FinancialSummaryQueryKey } from "./hooks/financialController/useGetV1FinancialSummary.ts";
@@ -12,7 +20,13 @@ export type { GetV1HealthHistoryAnimalidSuspenseQueryKey } from "./hooks/healthC
 export type { PostV1HealthRecordsMutationKey } from "./hooks/healthController/usePostV1HealthRecords.ts";
 export type { PostV1HealthTreatmentsMutationKey } from "./hooks/healthController/usePostV1HealthTreatments.ts";
 export type { PostV1HealthVaccinesMutationKey } from "./hooks/healthController/usePostV1HealthVaccines.ts";
+export type { DeleteV1OrganizationsIdMutationKey } from "./hooks/organizationsController/useDeleteV1OrganizationsId.ts";
+export type { GetV1OrganizationsQueryKey } from "./hooks/organizationsController/useGetV1Organizations.ts";
+export type { GetV1OrganizationsIdQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsId.ts";
+export type { GetV1OrganizationsIdSuspenseQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsIdSuspense.ts";
+export type { GetV1OrganizationsSuspenseQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsSuspense.ts";
 export type { PostV1OrganizationsMutationKey } from "./hooks/organizationsController/usePostV1Organizations.ts";
+export type { PutV1OrganizationsIdMutationKey } from "./hooks/organizationsController/usePutV1OrganizationsId.ts";
 export type { GetV1ProductionMetricsAnimalidQueryKey } from "./hooks/productionController/useGetV1ProductionMetricsAnimalid.ts";
 export type { GetV1ProductionMetricsAnimalidSuspenseQueryKey } from "./hooks/productionController/useGetV1ProductionMetricsAnimalidSuspense.ts";
 export type { PostV1ProductionMilkMutationKey } from "./hooks/productionController/usePostV1ProductionMilk.ts";
@@ -26,7 +40,13 @@ export type { PostV1ReproductionEstrusMutationKey } from "./hooks/reproductionCo
 export type { PostV1ReproductionPregnanciesMutationKey } from "./hooks/reproductionController/usePostV1ReproductionPregnancies.ts";
 export type { GetQueryKey } from "./hooks/systemController/useGet.ts";
 export type { GetSuspenseQueryKey } from "./hooks/systemController/useGetSuspense.ts";
+export type { DeleteV1UsersIdMutationKey } from "./hooks/usersController/useDeleteV1UsersId.ts";
+export type { GetV1UsersQueryKey } from "./hooks/usersController/useGetV1Users.ts";
+export type { GetV1UsersIdQueryKey } from "./hooks/usersController/useGetV1UsersId.ts";
+export type { GetV1UsersIdSuspenseQueryKey } from "./hooks/usersController/useGetV1UsersIdSuspense.ts";
+export type { GetV1UsersSuspenseQueryKey } from "./hooks/usersController/useGetV1UsersSuspense.ts";
 export type { PostV1UsersMutationKey } from "./hooks/usersController/usePostV1Users.ts";
+export type { PutV1UsersIdMutationKey } from "./hooks/usersController/usePutV1UsersId.ts";
 export type {
 	GetV1AlertsRules200,
 	GetV1AlertsRulesQuery,
@@ -39,11 +59,48 @@ export type {
 	PostV1AlertsRulesMutationResponse,
 } from "./models/alertsController/PostV1AlertsRules.ts";
 export type {
+	DeleteV1AnimalsId204,
+	DeleteV1AnimalsIdMutation,
+	DeleteV1AnimalsIdMutationResponse,
+	DeleteV1AnimalsIdPathParams,
+} from "./models/animalsController/DeleteV1AnimalsId.ts";
+export type {
+	GetV1Animals200,
+	GetV1AnimalsQuery,
+	GetV1AnimalsQueryParams,
+	GetV1AnimalsQueryResponse,
+} from "./models/animalsController/GetV1Animals.ts";
+export type {
+	GetV1AnimalsId200,
+	GetV1AnimalsIdPathParams,
+	GetV1AnimalsIdQuery,
+	GetV1AnimalsIdQueryResponse,
+} from "./models/animalsController/GetV1AnimalsId.ts";
+export type {
 	PostV1Animals201,
 	PostV1AnimalsMutation,
 	PostV1AnimalsMutationRequest,
 	PostV1AnimalsMutationResponse,
 } from "./models/animalsController/PostV1Animals.ts";
+export type {
+	PutV1AnimalsId200,
+	PutV1AnimalsIdMutation,
+	PutV1AnimalsIdMutationRequest,
+	PutV1AnimalsIdMutationResponse,
+	PutV1AnimalsIdPathParams,
+} from "./models/animalsController/PutV1AnimalsId.ts";
+export type {
+	PostAuthLogin200,
+	PostAuthLoginMutation,
+	PostAuthLoginMutationRequest,
+	PostAuthLoginMutationResponse,
+} from "./models/authController/PostAuthLogin.ts";
+export type {
+	PostAuthRegister201,
+	PostAuthRegisterMutation,
+	PostAuthRegisterMutationRequest,
+	PostAuthRegisterMutationResponse,
+} from "./models/authController/PostAuthRegister.ts";
 export type {
 	GetV1FinancialRecords200,
 	GetV1FinancialRecordsQuery,
@@ -85,11 +142,35 @@ export type {
 	PostV1HealthVaccinesMutationResponse,
 } from "./models/healthController/PostV1HealthVaccines.ts";
 export type {
+	DeleteV1OrganizationsId204,
+	DeleteV1OrganizationsIdMutation,
+	DeleteV1OrganizationsIdMutationResponse,
+	DeleteV1OrganizationsIdPathParams,
+} from "./models/organizationsController/DeleteV1OrganizationsId.ts";
+export type {
+	GetV1Organizations200,
+	GetV1OrganizationsQuery,
+	GetV1OrganizationsQueryResponse,
+} from "./models/organizationsController/GetV1Organizations.ts";
+export type {
+	GetV1OrganizationsId200,
+	GetV1OrganizationsIdPathParams,
+	GetV1OrganizationsIdQuery,
+	GetV1OrganizationsIdQueryResponse,
+} from "./models/organizationsController/GetV1OrganizationsId.ts";
+export type {
 	PostV1Organizations201,
 	PostV1OrganizationsMutation,
 	PostV1OrganizationsMutationRequest,
 	PostV1OrganizationsMutationResponse,
 } from "./models/organizationsController/PostV1Organizations.ts";
+export type {
+	PutV1OrganizationsId200,
+	PutV1OrganizationsIdMutation,
+	PutV1OrganizationsIdMutationRequest,
+	PutV1OrganizationsIdMutationResponse,
+	PutV1OrganizationsIdPathParams,
+} from "./models/organizationsController/PutV1OrganizationsId.ts";
 export type {
 	GetV1ProductionMetricsAnimalid200,
 	GetV1ProductionMetricsAnimalidPathParams,
@@ -143,14 +224,45 @@ export type {
 	GetQueryResponse,
 } from "./models/systemController/Get.ts";
 export type {
+	DeleteV1UsersId204,
+	DeleteV1UsersIdMutation,
+	DeleteV1UsersIdMutationResponse,
+	DeleteV1UsersIdPathParams,
+} from "./models/usersController/DeleteV1UsersId.ts";
+export type {
+	GetV1Users200,
+	GetV1UsersQuery,
+	GetV1UsersQueryParams,
+	GetV1UsersQueryResponse,
+} from "./models/usersController/GetV1Users.ts";
+export type {
+	GetV1UsersId200,
+	GetV1UsersIdPathParams,
+	GetV1UsersIdQuery,
+	GetV1UsersIdQueryResponse,
+} from "./models/usersController/GetV1UsersId.ts";
+export type {
 	PostV1Users201,
 	PostV1UsersMutation,
 	PostV1UsersMutationRequest,
 	PostV1UsersMutationResponse,
 } from "./models/usersController/PostV1Users.ts";
+export type {
+	PutV1UsersId200,
+	PutV1UsersIdMutation,
+	PutV1UsersIdMutationRequest,
+	PutV1UsersIdMutationResponse,
+	PutV1UsersIdPathParams,
+} from "./models/usersController/PutV1UsersId.ts";
 export { getV1AlertsRules } from "./clients/alertsController/getV1AlertsRules.ts";
 export { postV1AlertsRules } from "./clients/alertsController/postV1AlertsRules.ts";
+export { deleteV1AnimalsId } from "./clients/animalsController/deleteV1AnimalsId.ts";
+export { getV1Animals } from "./clients/animalsController/getV1Animals.ts";
+export { getV1AnimalsId } from "./clients/animalsController/getV1AnimalsId.ts";
 export { postV1Animals } from "./clients/animalsController/postV1Animals.ts";
+export { putV1AnimalsId } from "./clients/animalsController/putV1AnimalsId.ts";
+export { postAuthLogin } from "./clients/authController/postAuthLogin.ts";
+export { postAuthRegister } from "./clients/authController/postAuthRegister.ts";
 export { getV1FinancialRecords } from "./clients/financialController/getV1FinancialRecords.ts";
 export { getV1FinancialSummary } from "./clients/financialController/getV1FinancialSummary.ts";
 export { postV1FinancialRecords } from "./clients/financialController/postV1FinancialRecords.ts";
@@ -158,7 +270,11 @@ export { getV1HealthHistoryAnimalid } from "./clients/healthController/getV1Heal
 export { postV1HealthRecords } from "./clients/healthController/postV1HealthRecords.ts";
 export { postV1HealthTreatments } from "./clients/healthController/postV1HealthTreatments.ts";
 export { postV1HealthVaccines } from "./clients/healthController/postV1HealthVaccines.ts";
+export { deleteV1OrganizationsId } from "./clients/organizationsController/deleteV1OrganizationsId.ts";
+export { getV1Organizations } from "./clients/organizationsController/getV1Organizations.ts";
+export { getV1OrganizationsId } from "./clients/organizationsController/getV1OrganizationsId.ts";
 export { postV1Organizations } from "./clients/organizationsController/postV1Organizations.ts";
+export { putV1OrganizationsId } from "./clients/organizationsController/putV1OrganizationsId.ts";
 export { getV1ProductionMetricsAnimalid } from "./clients/productionController/getV1ProductionMetricsAnimalid.ts";
 export { postV1ProductionMilk } from "./clients/productionController/postV1ProductionMilk.ts";
 export { postV1ProductionWeight } from "./clients/productionController/postV1ProductionWeight.ts";
@@ -168,7 +284,11 @@ export { postV1ReproductionBirth } from "./clients/reproductionController/postV1
 export { postV1ReproductionEstrus } from "./clients/reproductionController/postV1ReproductionEstrus.ts";
 export { postV1ReproductionPregnancies } from "./clients/reproductionController/postV1ReproductionPregnancies.ts";
 export { get } from "./clients/systemController/get.ts";
+export { deleteV1UsersId } from "./clients/usersController/deleteV1UsersId.ts";
+export { getV1Users } from "./clients/usersController/getV1Users.ts";
+export { getV1UsersId } from "./clients/usersController/getV1UsersId.ts";
 export { postV1Users } from "./clients/usersController/postV1Users.ts";
+export { putV1UsersId } from "./clients/usersController/putV1UsersId.ts";
 export { getV1AlertsRulesQueryKey } from "./hooks/alertsController/useGetV1AlertsRules.ts";
 export { getV1AlertsRulesQueryOptions } from "./hooks/alertsController/useGetV1AlertsRules.ts";
 export { useGetV1AlertsRules } from "./hooks/alertsController/useGetV1AlertsRules.ts";
@@ -178,9 +298,33 @@ export { useGetV1AlertsRulesSuspense } from "./hooks/alertsController/useGetV1Al
 export { postV1AlertsRulesMutationKey } from "./hooks/alertsController/usePostV1AlertsRules.ts";
 export { postV1AlertsRulesMutationOptions } from "./hooks/alertsController/usePostV1AlertsRules.ts";
 export { usePostV1AlertsRules } from "./hooks/alertsController/usePostV1AlertsRules.ts";
+export { deleteV1AnimalsIdMutationKey } from "./hooks/animalsController/useDeleteV1AnimalsId.ts";
+export { deleteV1AnimalsIdMutationOptions } from "./hooks/animalsController/useDeleteV1AnimalsId.ts";
+export { useDeleteV1AnimalsId } from "./hooks/animalsController/useDeleteV1AnimalsId.ts";
+export { getV1AnimalsQueryKey } from "./hooks/animalsController/useGetV1Animals.ts";
+export { getV1AnimalsQueryOptions } from "./hooks/animalsController/useGetV1Animals.ts";
+export { useGetV1Animals } from "./hooks/animalsController/useGetV1Animals.ts";
+export { getV1AnimalsIdQueryKey } from "./hooks/animalsController/useGetV1AnimalsId.ts";
+export { getV1AnimalsIdQueryOptions } from "./hooks/animalsController/useGetV1AnimalsId.ts";
+export { useGetV1AnimalsId } from "./hooks/animalsController/useGetV1AnimalsId.ts";
+export { getV1AnimalsIdSuspenseQueryKey } from "./hooks/animalsController/useGetV1AnimalsIdSuspense.ts";
+export { getV1AnimalsIdSuspenseQueryOptions } from "./hooks/animalsController/useGetV1AnimalsIdSuspense.ts";
+export { useGetV1AnimalsIdSuspense } from "./hooks/animalsController/useGetV1AnimalsIdSuspense.ts";
+export { getV1AnimalsSuspenseQueryKey } from "./hooks/animalsController/useGetV1AnimalsSuspense.ts";
+export { getV1AnimalsSuspenseQueryOptions } from "./hooks/animalsController/useGetV1AnimalsSuspense.ts";
+export { useGetV1AnimalsSuspense } from "./hooks/animalsController/useGetV1AnimalsSuspense.ts";
 export { postV1AnimalsMutationKey } from "./hooks/animalsController/usePostV1Animals.ts";
 export { postV1AnimalsMutationOptions } from "./hooks/animalsController/usePostV1Animals.ts";
 export { usePostV1Animals } from "./hooks/animalsController/usePostV1Animals.ts";
+export { putV1AnimalsIdMutationKey } from "./hooks/animalsController/usePutV1AnimalsId.ts";
+export { putV1AnimalsIdMutationOptions } from "./hooks/animalsController/usePutV1AnimalsId.ts";
+export { usePutV1AnimalsId } from "./hooks/animalsController/usePutV1AnimalsId.ts";
+export { postAuthLoginMutationKey } from "./hooks/authController/usePostAuthLogin.ts";
+export { postAuthLoginMutationOptions } from "./hooks/authController/usePostAuthLogin.ts";
+export { usePostAuthLogin } from "./hooks/authController/usePostAuthLogin.ts";
+export { postAuthRegisterMutationKey } from "./hooks/authController/usePostAuthRegister.ts";
+export { postAuthRegisterMutationOptions } from "./hooks/authController/usePostAuthRegister.ts";
+export { usePostAuthRegister } from "./hooks/authController/usePostAuthRegister.ts";
 export { getV1FinancialRecordsQueryKey } from "./hooks/financialController/useGetV1FinancialRecords.ts";
 export { getV1FinancialRecordsQueryOptions } from "./hooks/financialController/useGetV1FinancialRecords.ts";
 export { useGetV1FinancialRecords } from "./hooks/financialController/useGetV1FinancialRecords.ts";
@@ -211,9 +355,27 @@ export { usePostV1HealthTreatments } from "./hooks/healthController/usePostV1Hea
 export { postV1HealthVaccinesMutationKey } from "./hooks/healthController/usePostV1HealthVaccines.ts";
 export { postV1HealthVaccinesMutationOptions } from "./hooks/healthController/usePostV1HealthVaccines.ts";
 export { usePostV1HealthVaccines } from "./hooks/healthController/usePostV1HealthVaccines.ts";
+export { deleteV1OrganizationsIdMutationKey } from "./hooks/organizationsController/useDeleteV1OrganizationsId.ts";
+export { deleteV1OrganizationsIdMutationOptions } from "./hooks/organizationsController/useDeleteV1OrganizationsId.ts";
+export { useDeleteV1OrganizationsId } from "./hooks/organizationsController/useDeleteV1OrganizationsId.ts";
+export { getV1OrganizationsQueryKey } from "./hooks/organizationsController/useGetV1Organizations.ts";
+export { getV1OrganizationsQueryOptions } from "./hooks/organizationsController/useGetV1Organizations.ts";
+export { useGetV1Organizations } from "./hooks/organizationsController/useGetV1Organizations.ts";
+export { getV1OrganizationsIdQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsId.ts";
+export { getV1OrganizationsIdQueryOptions } from "./hooks/organizationsController/useGetV1OrganizationsId.ts";
+export { useGetV1OrganizationsId } from "./hooks/organizationsController/useGetV1OrganizationsId.ts";
+export { getV1OrganizationsIdSuspenseQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsIdSuspense.ts";
+export { getV1OrganizationsIdSuspenseQueryOptions } from "./hooks/organizationsController/useGetV1OrganizationsIdSuspense.ts";
+export { useGetV1OrganizationsIdSuspense } from "./hooks/organizationsController/useGetV1OrganizationsIdSuspense.ts";
+export { getV1OrganizationsSuspenseQueryKey } from "./hooks/organizationsController/useGetV1OrganizationsSuspense.ts";
+export { getV1OrganizationsSuspenseQueryOptions } from "./hooks/organizationsController/useGetV1OrganizationsSuspense.ts";
+export { useGetV1OrganizationsSuspense } from "./hooks/organizationsController/useGetV1OrganizationsSuspense.ts";
 export { postV1OrganizationsMutationKey } from "./hooks/organizationsController/usePostV1Organizations.ts";
 export { postV1OrganizationsMutationOptions } from "./hooks/organizationsController/usePostV1Organizations.ts";
 export { usePostV1Organizations } from "./hooks/organizationsController/usePostV1Organizations.ts";
+export { putV1OrganizationsIdMutationKey } from "./hooks/organizationsController/usePutV1OrganizationsId.ts";
+export { putV1OrganizationsIdMutationOptions } from "./hooks/organizationsController/usePutV1OrganizationsId.ts";
+export { usePutV1OrganizationsId } from "./hooks/organizationsController/usePutV1OrganizationsId.ts";
 export { getV1ProductionMetricsAnimalidQueryKey } from "./hooks/productionController/useGetV1ProductionMetricsAnimalid.ts";
 export { getV1ProductionMetricsAnimalidQueryOptions } from "./hooks/productionController/useGetV1ProductionMetricsAnimalid.ts";
 export { useGetV1ProductionMetricsAnimalid } from "./hooks/productionController/useGetV1ProductionMetricsAnimalid.ts";
@@ -253,9 +415,27 @@ export { useGet } from "./hooks/systemController/useGet.ts";
 export { getSuspenseQueryKey } from "./hooks/systemController/useGetSuspense.ts";
 export { getSuspenseQueryOptions } from "./hooks/systemController/useGetSuspense.ts";
 export { useGetSuspense } from "./hooks/systemController/useGetSuspense.ts";
+export { deleteV1UsersIdMutationKey } from "./hooks/usersController/useDeleteV1UsersId.ts";
+export { deleteV1UsersIdMutationOptions } from "./hooks/usersController/useDeleteV1UsersId.ts";
+export { useDeleteV1UsersId } from "./hooks/usersController/useDeleteV1UsersId.ts";
+export { getV1UsersQueryKey } from "./hooks/usersController/useGetV1Users.ts";
+export { getV1UsersQueryOptions } from "./hooks/usersController/useGetV1Users.ts";
+export { useGetV1Users } from "./hooks/usersController/useGetV1Users.ts";
+export { getV1UsersIdQueryKey } from "./hooks/usersController/useGetV1UsersId.ts";
+export { getV1UsersIdQueryOptions } from "./hooks/usersController/useGetV1UsersId.ts";
+export { useGetV1UsersId } from "./hooks/usersController/useGetV1UsersId.ts";
+export { getV1UsersIdSuspenseQueryKey } from "./hooks/usersController/useGetV1UsersIdSuspense.ts";
+export { getV1UsersIdSuspenseQueryOptions } from "./hooks/usersController/useGetV1UsersIdSuspense.ts";
+export { useGetV1UsersIdSuspense } from "./hooks/usersController/useGetV1UsersIdSuspense.ts";
+export { getV1UsersSuspenseQueryKey } from "./hooks/usersController/useGetV1UsersSuspense.ts";
+export { getV1UsersSuspenseQueryOptions } from "./hooks/usersController/useGetV1UsersSuspense.ts";
+export { useGetV1UsersSuspense } from "./hooks/usersController/useGetV1UsersSuspense.ts";
 export { postV1UsersMutationKey } from "./hooks/usersController/usePostV1Users.ts";
 export { postV1UsersMutationOptions } from "./hooks/usersController/usePostV1Users.ts";
 export { usePostV1Users } from "./hooks/usersController/usePostV1Users.ts";
+export { putV1UsersIdMutationKey } from "./hooks/usersController/usePutV1UsersId.ts";
+export { putV1UsersIdMutationOptions } from "./hooks/usersController/usePutV1UsersId.ts";
+export { usePutV1UsersId } from "./hooks/usersController/usePutV1UsersId.ts";
 export {
 	createGetV1AlertsRules200,
 	createGetV1AlertsRulesQueryResponse,
@@ -266,10 +446,41 @@ export {
 	createPostV1AlertsRulesMutationResponse,
 } from "./mocks/alertsController/createPostV1AlertsRules.ts";
 export {
+	createDeleteV1AnimalsId204,
+	createDeleteV1AnimalsIdMutationResponse,
+	createDeleteV1AnimalsIdPathParams,
+} from "./mocks/animalsController/createDeleteV1AnimalsId.ts";
+export {
+	createGetV1Animals200,
+	createGetV1AnimalsQueryParams,
+	createGetV1AnimalsQueryResponse,
+} from "./mocks/animalsController/createGetV1Animals.ts";
+export {
+	createGetV1AnimalsId200,
+	createGetV1AnimalsIdPathParams,
+	createGetV1AnimalsIdQueryResponse,
+} from "./mocks/animalsController/createGetV1AnimalsId.ts";
+export {
 	createPostV1Animals201,
 	createPostV1AnimalsMutationRequest,
 	createPostV1AnimalsMutationResponse,
 } from "./mocks/animalsController/createPostV1Animals.ts";
+export {
+	createPutV1AnimalsId200,
+	createPutV1AnimalsIdMutationRequest,
+	createPutV1AnimalsIdMutationResponse,
+	createPutV1AnimalsIdPathParams,
+} from "./mocks/animalsController/createPutV1AnimalsId.ts";
+export {
+	createPostAuthLogin200,
+	createPostAuthLoginMutationRequest,
+	createPostAuthLoginMutationResponse,
+} from "./mocks/authController/createPostAuthLogin.ts";
+export {
+	createPostAuthRegister201,
+	createPostAuthRegisterMutationRequest,
+	createPostAuthRegisterMutationResponse,
+} from "./mocks/authController/createPostAuthRegister.ts";
 export {
 	createGetV1FinancialRecords200,
 	createGetV1FinancialRecordsQueryResponse,
@@ -304,10 +515,30 @@ export {
 	createPostV1HealthVaccinesMutationResponse,
 } from "./mocks/healthController/createPostV1HealthVaccines.ts";
 export {
+	createDeleteV1OrganizationsId204,
+	createDeleteV1OrganizationsIdMutationResponse,
+	createDeleteV1OrganizationsIdPathParams,
+} from "./mocks/organizationsController/createDeleteV1OrganizationsId.ts";
+export {
+	createGetV1Organizations200,
+	createGetV1OrganizationsQueryResponse,
+} from "./mocks/organizationsController/createGetV1Organizations.ts";
+export {
+	createGetV1OrganizationsId200,
+	createGetV1OrganizationsIdPathParams,
+	createGetV1OrganizationsIdQueryResponse,
+} from "./mocks/organizationsController/createGetV1OrganizationsId.ts";
+export {
 	createPostV1Organizations201,
 	createPostV1OrganizationsMutationRequest,
 	createPostV1OrganizationsMutationResponse,
 } from "./mocks/organizationsController/createPostV1Organizations.ts";
+export {
+	createPutV1OrganizationsId200,
+	createPutV1OrganizationsIdMutationRequest,
+	createPutV1OrganizationsIdMutationResponse,
+	createPutV1OrganizationsIdPathParams,
+} from "./mocks/organizationsController/createPutV1OrganizationsId.ts";
 export {
 	createGetV1ProductionMetricsAnimalid200,
 	createGetV1ProductionMetricsAnimalidPathParams,
@@ -352,14 +583,46 @@ export {
 	createGetQueryResponse,
 } from "./mocks/systemController/createGet.ts";
 export {
+	createDeleteV1UsersId204,
+	createDeleteV1UsersIdMutationResponse,
+	createDeleteV1UsersIdPathParams,
+} from "./mocks/usersController/createDeleteV1UsersId.ts";
+export {
+	createGetV1Users200,
+	createGetV1UsersQueryParams,
+	createGetV1UsersQueryResponse,
+} from "./mocks/usersController/createGetV1Users.ts";
+export {
+	createGetV1UsersId200,
+	createGetV1UsersIdPathParams,
+	createGetV1UsersIdQueryResponse,
+} from "./mocks/usersController/createGetV1UsersId.ts";
+export {
 	createPostV1Users201,
 	createPostV1UsersMutationRequest,
 	createPostV1UsersMutationResponse,
 } from "./mocks/usersController/createPostV1Users.ts";
+export {
+	createPutV1UsersId200,
+	createPutV1UsersIdMutationRequest,
+	createPutV1UsersIdMutationResponse,
+	createPutV1UsersIdPathParams,
+} from "./mocks/usersController/createPutV1UsersId.ts";
+export { DeleteV1AnimalsId204Enum } from "./models/animalsController/DeleteV1AnimalsId.ts";
+export { GetV1AnimalsQueryParamsSexEnum } from "./models/animalsController/GetV1Animals.ts";
+export { GetV1AnimalsQueryParamsStatusEnum } from "./models/animalsController/GetV1Animals.ts";
+export { PostV1AnimalsMutationRequestSexEnum } from "./models/animalsController/PostV1Animals.ts";
+export { PostV1AnimalsMutationRequestStatusEnum } from "./models/animalsController/PostV1Animals.ts";
+export { PutV1AnimalsIdMutationRequestSexEnum } from "./models/animalsController/PutV1AnimalsId.ts";
+export { PutV1AnimalsIdMutationRequestStatusEnum } from "./models/animalsController/PutV1AnimalsId.ts";
+export { PostAuthRegisterMutationRequestRoleEnum } from "./models/authController/PostAuthRegister.ts";
 export { GetV1FinancialRecords200TypeEnum } from "./models/financialController/GetV1FinancialRecords.ts";
 export { PostV1FinancialRecordsMutationRequestTypeEnum } from "./models/financialController/PostV1FinancialRecords.ts";
 export { RecordTypeEnum } from "./models/financialController/PostV1FinancialRecords.ts";
+export { DeleteV1OrganizationsId204Enum } from "./models/organizationsController/DeleteV1OrganizationsId.ts";
+export { DeleteV1UsersId204Enum } from "./models/usersController/DeleteV1UsersId.ts";
 export { PostV1UsersMutationRequestRoleEnum } from "./models/usersController/PostV1Users.ts";
+export { PutV1UsersIdMutationRequestRoleEnum } from "./models/usersController/PutV1UsersId.ts";
 export {
 	getV1AlertsRulesHandler,
 	getV1AlertsRulesHandlerResponse200,
@@ -369,9 +632,33 @@ export {
 	postV1AlertsRulesHandlerResponse201,
 } from "./msw/alertsController/postV1AlertsRulesHandler.ts";
 export {
+	deleteV1AnimalsIdHandler,
+	deleteV1AnimalsIdHandlerResponse204,
+} from "./msw/animalsController/deleteV1AnimalsIdHandler.ts";
+export {
+	getV1AnimalsHandler,
+	getV1AnimalsHandlerResponse200,
+} from "./msw/animalsController/getV1AnimalsHandler.ts";
+export {
+	getV1AnimalsIdHandler,
+	getV1AnimalsIdHandlerResponse200,
+} from "./msw/animalsController/getV1AnimalsIdHandler.ts";
+export {
 	postV1AnimalsHandler,
 	postV1AnimalsHandlerResponse201,
 } from "./msw/animalsController/postV1AnimalsHandler.ts";
+export {
+	putV1AnimalsIdHandler,
+	putV1AnimalsIdHandlerResponse200,
+} from "./msw/animalsController/putV1AnimalsIdHandler.ts";
+export {
+	postAuthLoginHandler,
+	postAuthLoginHandlerResponse200,
+} from "./msw/authController/postAuthLoginHandler.ts";
+export {
+	postAuthRegisterHandler,
+	postAuthRegisterHandlerResponse201,
+} from "./msw/authController/postAuthRegisterHandler.ts";
 export {
 	getV1FinancialRecordsHandler,
 	getV1FinancialRecordsHandlerResponse200,
@@ -401,9 +688,25 @@ export {
 	postV1HealthVaccinesHandlerResponse201,
 } from "./msw/healthController/postV1HealthVaccinesHandler.ts";
 export {
+	deleteV1OrganizationsIdHandler,
+	deleteV1OrganizationsIdHandlerResponse204,
+} from "./msw/organizationsController/deleteV1OrganizationsIdHandler.ts";
+export {
+	getV1OrganizationsHandler,
+	getV1OrganizationsHandlerResponse200,
+} from "./msw/organizationsController/getV1OrganizationsHandler.ts";
+export {
+	getV1OrganizationsIdHandler,
+	getV1OrganizationsIdHandlerResponse200,
+} from "./msw/organizationsController/getV1OrganizationsIdHandler.ts";
+export {
 	postV1OrganizationsHandler,
 	postV1OrganizationsHandlerResponse201,
 } from "./msw/organizationsController/postV1OrganizationsHandler.ts";
+export {
+	putV1OrganizationsIdHandler,
+	putV1OrganizationsIdHandlerResponse200,
+} from "./msw/organizationsController/putV1OrganizationsIdHandler.ts";
 export {
 	getV1ProductionMetricsAnimalidHandler,
 	getV1ProductionMetricsAnimalidHandlerResponse200,
@@ -441,9 +744,25 @@ export {
 	getHandlerResponse200,
 } from "./msw/systemController/getHandler.ts";
 export {
+	deleteV1UsersIdHandler,
+	deleteV1UsersIdHandlerResponse204,
+} from "./msw/usersController/deleteV1UsersIdHandler.ts";
+export {
+	getV1UsersHandler,
+	getV1UsersHandlerResponse200,
+} from "./msw/usersController/getV1UsersHandler.ts";
+export {
+	getV1UsersIdHandler,
+	getV1UsersIdHandlerResponse200,
+} from "./msw/usersController/getV1UsersIdHandler.ts";
+export {
 	postV1UsersHandler,
 	postV1UsersHandlerResponse201,
 } from "./msw/usersController/postV1UsersHandler.ts";
+export {
+	putV1UsersIdHandler,
+	putV1UsersIdHandlerResponse200,
+} from "./msw/usersController/putV1UsersIdHandler.ts";
 export {
 	getV1AlertsRules200Schema,
 	getV1AlertsRulesQueryResponseSchema,
@@ -454,10 +773,41 @@ export {
 	postV1AlertsRulesMutationResponseSchema,
 } from "./zod/alertsController/postV1AlertsRulesSchema.ts";
 export {
+	deleteV1AnimalsId204Schema,
+	deleteV1AnimalsIdMutationResponseSchema,
+	deleteV1AnimalsIdPathParamsSchema,
+} from "./zod/animalsController/deleteV1AnimalsIdSchema.ts";
+export {
+	getV1AnimalsId200Schema,
+	getV1AnimalsIdPathParamsSchema,
+	getV1AnimalsIdQueryResponseSchema,
+} from "./zod/animalsController/getV1AnimalsIdSchema.ts";
+export {
+	getV1Animals200Schema,
+	getV1AnimalsQueryParamsSchema,
+	getV1AnimalsQueryResponseSchema,
+} from "./zod/animalsController/getV1AnimalsSchema.ts";
+export {
 	postV1Animals201Schema,
 	postV1AnimalsMutationRequestSchema,
 	postV1AnimalsMutationResponseSchema,
 } from "./zod/animalsController/postV1AnimalsSchema.ts";
+export {
+	putV1AnimalsId200Schema,
+	putV1AnimalsIdMutationRequestSchema,
+	putV1AnimalsIdMutationResponseSchema,
+	putV1AnimalsIdPathParamsSchema,
+} from "./zod/animalsController/putV1AnimalsIdSchema.ts";
+export {
+	postAuthLogin200Schema,
+	postAuthLoginMutationRequestSchema,
+	postAuthLoginMutationResponseSchema,
+} from "./zod/authController/postAuthLoginSchema.ts";
+export {
+	postAuthRegister201Schema,
+	postAuthRegisterMutationRequestSchema,
+	postAuthRegisterMutationResponseSchema,
+} from "./zod/authController/postAuthRegisterSchema.ts";
 export {
 	getV1FinancialRecords200Schema,
 	getV1FinancialRecordsQueryResponseSchema,
@@ -492,10 +842,30 @@ export {
 	postV1HealthVaccinesMutationResponseSchema,
 } from "./zod/healthController/postV1HealthVaccinesSchema.ts";
 export {
+	deleteV1OrganizationsId204Schema,
+	deleteV1OrganizationsIdMutationResponseSchema,
+	deleteV1OrganizationsIdPathParamsSchema,
+} from "./zod/organizationsController/deleteV1OrganizationsIdSchema.ts";
+export {
+	getV1OrganizationsId200Schema,
+	getV1OrganizationsIdPathParamsSchema,
+	getV1OrganizationsIdQueryResponseSchema,
+} from "./zod/organizationsController/getV1OrganizationsIdSchema.ts";
+export {
+	getV1Organizations200Schema,
+	getV1OrganizationsQueryResponseSchema,
+} from "./zod/organizationsController/getV1OrganizationsSchema.ts";
+export {
 	postV1Organizations201Schema,
 	postV1OrganizationsMutationRequestSchema,
 	postV1OrganizationsMutationResponseSchema,
 } from "./zod/organizationsController/postV1OrganizationsSchema.ts";
+export {
+	putV1OrganizationsId200Schema,
+	putV1OrganizationsIdMutationRequestSchema,
+	putV1OrganizationsIdMutationResponseSchema,
+	putV1OrganizationsIdPathParamsSchema,
+} from "./zod/organizationsController/putV1OrganizationsIdSchema.ts";
 export {
 	getV1ProductionMetricsAnimalid200Schema,
 	getV1ProductionMetricsAnimalidPathParamsSchema,
@@ -540,7 +910,28 @@ export {
 	getQueryResponseSchema,
 } from "./zod/systemController/getSchema.ts";
 export {
+	deleteV1UsersId204Schema,
+	deleteV1UsersIdMutationResponseSchema,
+	deleteV1UsersIdPathParamsSchema,
+} from "./zod/usersController/deleteV1UsersIdSchema.ts";
+export {
+	getV1UsersId200Schema,
+	getV1UsersIdPathParamsSchema,
+	getV1UsersIdQueryResponseSchema,
+} from "./zod/usersController/getV1UsersIdSchema.ts";
+export {
+	getV1Users200Schema,
+	getV1UsersQueryParamsSchema,
+	getV1UsersQueryResponseSchema,
+} from "./zod/usersController/getV1UsersSchema.ts";
+export {
 	postV1Users201Schema,
 	postV1UsersMutationRequestSchema,
 	postV1UsersMutationResponseSchema,
 } from "./zod/usersController/postV1UsersSchema.ts";
+export {
+	putV1UsersId200Schema,
+	putV1UsersIdMutationRequestSchema,
+	putV1UsersIdMutationResponseSchema,
+	putV1UsersIdPathParamsSchema,
+} from "./zod/usersController/putV1UsersIdSchema.ts";

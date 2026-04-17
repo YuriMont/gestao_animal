@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1OrganizationsMutationRequest,
-	PostV1OrganizationsMutationResponse,
-} from "../../models/organizationsController/PostV1Organizations.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1OrganizationsMutationRequest,
+	PostV1OrganizationsMutationResponse,
+} from "../../models/organizationsController/PostV1Organizations.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1Organizations } from "../../clients/organizationsController/postV1Organizations.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1Organizations } from "../../clients/organizationsController/postV1Organizations.ts";
 
 export const postV1OrganizationsMutationKey = () =>
 	[{ url: "/v1/organizations" }] as const;
@@ -54,7 +54,6 @@ export function postV1OrganizationsMutationOptions<TContext = unknown>(
 }
 
 /**
- * @description Create a new organization record for the system. Used to document the parent entity for animals, users, records, and other entities belonging to it. This endpoint allows programmatic addition of new organizations.
  * @summary Create a new organization
  * {@link /v1/organizations}
  */

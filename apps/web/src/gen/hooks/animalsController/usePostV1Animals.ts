@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1AnimalsMutationRequest,
-	PostV1AnimalsMutationResponse,
-} from "../../models/animalsController/PostV1Animals.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1AnimalsMutationRequest,
+	PostV1AnimalsMutationResponse,
+} from "../../models/animalsController/PostV1Animals.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1Animals } from "../../clients/animalsController/postV1Animals.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1Animals } from "../../clients/animalsController/postV1Animals.ts";
 
 export const postV1AnimalsMutationKey = () => [{ url: "/v1/animals" }] as const;
 
@@ -53,7 +53,7 @@ export function postV1AnimalsMutationOptions<TContext = unknown>(
 }
 
 /**
- * @description Create a new animal record for the organization. Used to document animal details including species, breed, sex, birth information, and current status. This endpoint allows programmatic addition of animals to the system.
+ * @description Creates a new animal for the authenticated organization.
  * @summary Create a new animal
  * {@link /v1/animals}
  */

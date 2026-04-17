@@ -18,7 +18,7 @@ export const postV1Users201Schema = z.object({
 
 export const postV1UsersMutationRequestSchema = z.object({
 	email: z.email(),
-	password: z.string().min(6),
+	password: z.string().min(8),
 	name: z.string().min(3),
 	role: z.optional(z.enum(["VET", "MANAGER", "OPERATOR"])),
 	organizationId: z.uuid(),

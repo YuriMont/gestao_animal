@@ -4,12 +4,12 @@
  */
 
 import fetch from "@/lib/axiosInstance";
-import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 
 function getGetV1FinancialSummaryUrl() {
 	const res = { method: "GET", url: `/v1/financial/summary` as const };

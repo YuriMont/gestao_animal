@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1AnimalsMutationRequest,
-	PostV1AnimalsMutationResponse,
-} from "../../models/animalsController/PostV1Animals.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1AnimalsMutationRequest,
+	PostV1AnimalsMutationResponse,
+} from "../../models/animalsController/PostV1Animals.ts";
 
 function getPostV1AnimalsUrl() {
 	const res = { method: "POST", url: `/v1/animals` as const };
@@ -20,7 +20,7 @@ function getPostV1AnimalsUrl() {
 }
 
 /**
- * @description Create a new animal record for the organization. Used to document animal details including species, breed, sex, birth information, and current status. This endpoint allows programmatic addition of animals to the system.
+ * @description Creates a new animal for the authenticated organization.
  * @summary Create a new animal
  * {@link /v1/animals}
  */

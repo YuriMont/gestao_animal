@@ -4,7 +4,6 @@
  */
 
 import useSWR from "swr";
-import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import type {
 	Client,
 	RequestConfig,
@@ -21,8 +20,9 @@ import type {
 	QueryObserverOptions,
 	UseQueryResult,
 } from "@tanstack/react-query";
-import { getV1FinancialSummary } from "../../clients/financialController/getV1FinancialSummary.ts";
+import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import { getV1FinancialSummary } from "../../clients/financialController/getV1FinancialSummary.ts";
 
 export const getV1FinancialSummaryQueryKey = () =>
 	[{ url: "/v1/financial/summary" }] as const;

@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	GetV1ProductionMetricsAnimalidQueryResponse,
-	GetV1ProductionMetricsAnimalidPathParams,
-} from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	GetV1ProductionMetricsAnimalidQueryResponse,
+	GetV1ProductionMetricsAnimalidPathParams,
+} from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
 
 function getGetV1ProductionMetricsAnimalidUrl(
 	animalId: GetV1ProductionMetricsAnimalidPathParams["animalId"],

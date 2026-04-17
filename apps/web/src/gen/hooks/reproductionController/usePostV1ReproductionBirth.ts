@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1ReproductionBirthMutationRequest,
-	PostV1ReproductionBirthMutationResponse,
-} from "../../models/reproductionController/PostV1ReproductionBirth.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1ReproductionBirthMutationRequest,
+	PostV1ReproductionBirthMutationResponse,
+} from "../../models/reproductionController/PostV1ReproductionBirth.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1ReproductionBirth } from "../../clients/reproductionController/postV1ReproductionBirth.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1ReproductionBirth } from "../../clients/reproductionController/postV1ReproductionBirth.ts";
 
 export const postV1ReproductionBirthMutationKey = () =>
 	[{ url: "/v1/reproduction/birth" }] as const;

@@ -4,7 +4,6 @@
  */
 
 import useSWR from "swr";
-import type { GetV1ReproductionPregnanciesQueryResponse } from "../../models/reproductionController/GetV1ReproductionPregnancies.ts";
 import type {
 	Client,
 	RequestConfig,
@@ -21,8 +20,9 @@ import type {
 	QueryObserverOptions,
 	UseQueryResult,
 } from "@tanstack/react-query";
-import { getV1ReproductionPregnancies } from "../../clients/reproductionController/getV1ReproductionPregnancies.ts";
+import type { GetV1ReproductionPregnanciesQueryResponse } from "../../models/reproductionController/GetV1ReproductionPregnancies.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import { getV1ReproductionPregnancies } from "../../clients/reproductionController/getV1ReproductionPregnancies.ts";
 
 export const getV1ReproductionPregnanciesQueryKey = () =>
 	[{ url: "/v1/reproduction/pregnancies" }] as const;

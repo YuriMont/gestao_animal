@@ -40,10 +40,14 @@ export function createPostV1AnimalsMutationRequest(
 			tag: faker.string.alpha({ length: 1 }),
 			species: faker.string.alpha({ length: 1 }),
 			breed: faker.string.alpha(),
-			sex: faker.string.alpha(),
+			sex: faker.helpers.arrayElement<
+				NonNullable<PostV1AnimalsMutationRequest>["sex"]
+			>(["Male", "Female"]),
 			birthDate: undefined,
 			origin: faker.string.alpha(),
-			status: faker.string.alpha(),
+			status: faker.helpers.arrayElement<
+				NonNullable<PostV1AnimalsMutationRequest>["status"]
+			>(["Active", "Sold", "Deceased", "Quarantine"]),
 		},
 		...(data || {}),
 	};

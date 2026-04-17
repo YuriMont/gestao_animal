@@ -34,7 +34,7 @@ export function createPostV1UsersMutationRequest(
 	return {
 		...{
 			email: faker.internet.email(),
-			password: faker.string.alpha({ length: 6 }),
+			password: faker.string.alpha({ length: 8 }),
 			name: faker.string.alpha({ length: 3 }),
 			role: faker.helpers.arrayElement<
 				NonNullable<PostV1UsersMutationRequest>["role"]

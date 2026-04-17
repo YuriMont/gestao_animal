@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1AlertsRulesMutationRequest,
-	PostV1AlertsRulesMutationResponse,
-} from "../../models/alertsController/PostV1AlertsRules.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1AlertsRulesMutationRequest,
+	PostV1AlertsRulesMutationResponse,
+} from "../../models/alertsController/PostV1AlertsRules.ts";
 
 function getPostV1AlertsRulesUrl() {
 	const res = { method: "POST", url: `/v1/alerts/rules` as const };

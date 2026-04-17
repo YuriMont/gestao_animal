@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1ReproductionEstrusMutationRequest,
-	PostV1ReproductionEstrusMutationResponse,
-} from "../../models/reproductionController/PostV1ReproductionEstrus.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1ReproductionEstrusMutationRequest,
+	PostV1ReproductionEstrusMutationResponse,
+} from "../../models/reproductionController/PostV1ReproductionEstrus.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1ReproductionEstrus } from "../../clients/reproductionController/postV1ReproductionEstrus.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1ReproductionEstrus } from "../../clients/reproductionController/postV1ReproductionEstrus.ts";
 
 export const postV1ReproductionEstrusMutationKey = () =>
 	[{ url: "/v1/reproduction/estrus" }] as const;

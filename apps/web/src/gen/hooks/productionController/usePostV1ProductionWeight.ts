@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1ProductionWeightMutationRequest,
-	PostV1ProductionWeightMutationResponse,
-} from "../../models/productionController/PostV1ProductionWeight.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1ProductionWeightMutationRequest,
+	PostV1ProductionWeightMutationResponse,
+} from "../../models/productionController/PostV1ProductionWeight.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1ProductionWeight } from "../../clients/productionController/postV1ProductionWeight.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1ProductionWeight } from "../../clients/productionController/postV1ProductionWeight.ts";
 
 export const postV1ProductionWeightMutationKey = () =>
 	[{ url: "/v1/production/weight" }] as const;

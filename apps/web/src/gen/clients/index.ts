@@ -1,6 +1,12 @@
 export { getV1AlertsRules } from "./alertsController/getV1AlertsRules.ts";
 export { postV1AlertsRules } from "./alertsController/postV1AlertsRules.ts";
+export { deleteV1AnimalsId } from "./animalsController/deleteV1AnimalsId.ts";
+export { getV1Animals } from "./animalsController/getV1Animals.ts";
+export { getV1AnimalsId } from "./animalsController/getV1AnimalsId.ts";
 export { postV1Animals } from "./animalsController/postV1Animals.ts";
+export { putV1AnimalsId } from "./animalsController/putV1AnimalsId.ts";
+export { postAuthLogin } from "./authController/postAuthLogin.ts";
+export { postAuthRegister } from "./authController/postAuthRegister.ts";
 export { getV1FinancialRecords } from "./financialController/getV1FinancialRecords.ts";
 export { getV1FinancialSummary } from "./financialController/getV1FinancialSummary.ts";
 export { postV1FinancialRecords } from "./financialController/postV1FinancialRecords.ts";
@@ -8,7 +14,11 @@ export { getV1HealthHistoryAnimalid } from "./healthController/getV1HealthHistor
 export { postV1HealthRecords } from "./healthController/postV1HealthRecords.ts";
 export { postV1HealthTreatments } from "./healthController/postV1HealthTreatments.ts";
 export { postV1HealthVaccines } from "./healthController/postV1HealthVaccines.ts";
+export { deleteV1OrganizationsId } from "./organizationsController/deleteV1OrganizationsId.ts";
+export { getV1Organizations } from "./organizationsController/getV1Organizations.ts";
+export { getV1OrganizationsId } from "./organizationsController/getV1OrganizationsId.ts";
 export { postV1Organizations } from "./organizationsController/postV1Organizations.ts";
+export { putV1OrganizationsId } from "./organizationsController/putV1OrganizationsId.ts";
 export { getV1ProductionMetricsAnimalid } from "./productionController/getV1ProductionMetricsAnimalid.ts";
 export { postV1ProductionMilk } from "./productionController/postV1ProductionMilk.ts";
 export { postV1ProductionWeight } from "./productionController/postV1ProductionWeight.ts";
@@ -18,4 +28,8 @@ export { postV1ReproductionBirth } from "./reproductionController/postV1Reproduc
 export { postV1ReproductionEstrus } from "./reproductionController/postV1ReproductionEstrus.ts";
 export { postV1ReproductionPregnancies } from "./reproductionController/postV1ReproductionPregnancies.ts";
 export { get } from "./systemController/get.ts";
+export { deleteV1UsersId } from "./usersController/deleteV1UsersId.ts";
+export { getV1Users } from "./usersController/getV1Users.ts";
+export { getV1UsersId } from "./usersController/getV1UsersId.ts";
 export { postV1Users } from "./usersController/postV1Users.ts";
+export { putV1UsersId } from "./usersController/putV1UsersId.ts";

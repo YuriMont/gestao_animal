@@ -3,7 +3,6 @@
  * Do not edit manually.
  */
 
-import type { GetQueryResponse } from "../../models/systemController/Get.ts";
 import type {
 	Client,
 	RequestConfig,
@@ -15,8 +14,9 @@ import type {
 	UseSuspenseQueryOptions,
 	UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { get } from "../../clients/systemController/get.ts";
+import type { GetQueryResponse } from "../../models/systemController/Get.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { get } from "../../clients/systemController/get.ts";
 
 export const getSuspenseQueryKey = () => [{ url: "/" }] as const;
 
@@ -40,8 +40,8 @@ export function getSuspenseQueryOptions(
 }
 
 /**
- * @description Health check endpoint. Returns server status and information. Useful for monitoring if the API is running and healthy.
- * @summary Health check endpoint
+ * @description Returns server status. Useful for monitoring and load balancer checks.
+ * @summary Health check
  * {@link /}
  */
 export function useGetSuspense<

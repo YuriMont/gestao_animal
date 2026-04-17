@@ -45,6 +45,18 @@ export type PostV1Animals201 = {
 	organizationId: string;
 };
 
+export enum PostV1AnimalsMutationRequestSexEnum {
+	Male = "Male",
+	Female = "Female",
+}
+
+export enum PostV1AnimalsMutationRequestStatusEnum {
+	Active = "Active",
+	Sold = "Sold",
+	Deceased = "Deceased",
+	Quarantine = "Quarantine",
+}
+
 export type PostV1AnimalsMutationRequest = {
 	/**
 	 * @minLength 1
@@ -63,16 +75,17 @@ export type PostV1AnimalsMutationRequest = {
 	/**
 	 * @type string
 	 */
-	sex: string;
+	sex: PostV1AnimalsMutationRequestSexEnum;
 	birthDate: any;
 	/**
 	 * @type string | undefined
 	 */
 	origin?: string;
 	/**
-	 * @type string
+	 * @default "Active"
+	 * @type string | undefined
 	 */
-	status: string;
+	status?: PostV1AnimalsMutationRequestStatusEnum;
 };
 
 export type PostV1AnimalsMutationResponse = PostV1Animals201;

@@ -10,6 +10,7 @@ import { z } from "zod/v4";
  */
 export const get200Schema = z.object({
 	message: z.string(),
+	timestamp: z.string(),
 });
 
 export const getQueryResponseSchema = z.lazy(() => get200Schema);

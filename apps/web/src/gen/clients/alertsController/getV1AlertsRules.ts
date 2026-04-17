@@ -4,12 +4,12 @@
  */
 
 import fetch from "@/lib/axiosInstance";
-import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
 import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
 
 function getGetV1AlertsRulesUrl() {
 	const res = { method: "GET", url: `/v1/alerts/rules` as const };

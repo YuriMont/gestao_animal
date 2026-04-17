@@ -4,10 +4,6 @@
  */
 
 import type {
-	GetV1ProductionMetricsAnimalidQueryResponse,
-	GetV1ProductionMetricsAnimalidPathParams,
-} from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -18,8 +14,12 @@ import type {
 	UseSuspenseQueryOptions,
 	UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { getV1ProductionMetricsAnimalid } from "../../clients/productionController/getV1ProductionMetricsAnimalid.ts";
+import type {
+	GetV1ProductionMetricsAnimalidQueryResponse,
+	GetV1ProductionMetricsAnimalidPathParams,
+} from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { getV1ProductionMetricsAnimalid } from "../../clients/productionController/getV1ProductionMetricsAnimalid.ts";
 
 export const getV1ProductionMetricsAnimalidSuspenseQueryKey = (
 	animalId: GetV1ProductionMetricsAnimalidPathParams["animalId"],

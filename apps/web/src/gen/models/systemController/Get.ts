@@ -11,6 +11,10 @@ export type Get200 = {
 	 * @type string
 	 */
 	message: string;
+	/**
+	 * @type string
+	 */
+	timestamp: string;
 };
 
 export type GetQueryResponse = Get200;

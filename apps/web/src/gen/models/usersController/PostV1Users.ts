@@ -41,7 +41,7 @@ export type PostV1UsersMutationRequest = {
 	 */
 	email: string;
 	/**
-	 * @minLength 6
+	 * @minLength 8
 	 * @type string
 	 */
 	password: string;

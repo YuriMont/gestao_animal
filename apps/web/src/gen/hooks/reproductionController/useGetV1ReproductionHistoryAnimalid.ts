@@ -5,10 +5,6 @@
 
 import useSWR from "swr";
 import type {
-	GetV1ReproductionHistoryAnimalidQueryResponse,
-	GetV1ReproductionHistoryAnimalidPathParams,
-} from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -24,8 +20,12 @@ import type {
 	QueryObserverOptions,
 	UseQueryResult,
 } from "@tanstack/react-query";
-import { getV1ReproductionHistoryAnimalid } from "../../clients/reproductionController/getV1ReproductionHistoryAnimalid.ts";
+import type {
+	GetV1ReproductionHistoryAnimalidQueryResponse,
+	GetV1ReproductionHistoryAnimalidPathParams,
+} from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import { getV1ReproductionHistoryAnimalid } from "../../clients/reproductionController/getV1ReproductionHistoryAnimalid.ts";
 
 export const getV1ReproductionHistoryAnimalidQueryKey = (
 	animalId: GetV1ReproductionHistoryAnimalidPathParams["animalId"],

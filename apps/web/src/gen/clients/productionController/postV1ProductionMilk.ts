@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1ProductionMilkMutationRequest,
-	PostV1ProductionMilkMutationResponse,
-} from "../../models/productionController/PostV1ProductionMilk.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1ProductionMilkMutationRequest,
+	PostV1ProductionMilkMutationResponse,
+} from "../../models/productionController/PostV1ProductionMilk.ts";
 
 function getPostV1ProductionMilkUrl() {
 	const res = { method: "POST", url: `/v1/production/milk` as const };

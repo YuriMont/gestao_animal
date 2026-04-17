@@ -3,7 +3,6 @@
  * Do not edit manually.
  */
 
-import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
 import type {
 	Client,
 	RequestConfig,
@@ -15,8 +14,9 @@ import type {
 	UseSuspenseQueryOptions,
 	UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { getV1AlertsRules } from "../../clients/alertsController/getV1AlertsRules.ts";
+import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { getV1AlertsRules } from "../../clients/alertsController/getV1AlertsRules.ts";
 
 export const getV1AlertsRulesSuspenseQueryKey = () =>
 	[{ url: "/v1/alerts/rules" }] as const;

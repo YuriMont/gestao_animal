@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1HealthTreatmentsMutationRequest,
-	PostV1HealthTreatmentsMutationResponse,
-} from "../../models/healthController/PostV1HealthTreatments.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1HealthTreatmentsMutationRequest,
+	PostV1HealthTreatmentsMutationResponse,
+} from "../../models/healthController/PostV1HealthTreatments.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1HealthTreatments } from "../../clients/healthController/postV1HealthTreatments.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1HealthTreatments } from "../../clients/healthController/postV1HealthTreatments.ts";
 
 export const postV1HealthTreatmentsMutationKey = () =>
 	[{ url: "/v1/health/treatments" }] as const;

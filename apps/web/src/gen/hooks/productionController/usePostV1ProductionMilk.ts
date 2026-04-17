@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1ProductionMilkMutationRequest,
-	PostV1ProductionMilkMutationResponse,
-} from "../../models/productionController/PostV1ProductionMilk.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1ProductionMilkMutationRequest,
+	PostV1ProductionMilkMutationResponse,
+} from "../../models/productionController/PostV1ProductionMilk.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1ProductionMilk } from "../../clients/productionController/postV1ProductionMilk.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1ProductionMilk } from "../../clients/productionController/postV1ProductionMilk.ts";
 
 export const postV1ProductionMilkMutationKey = () =>
 	[{ url: "/v1/production/milk" }] as const;

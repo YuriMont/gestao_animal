@@ -5,10 +5,6 @@
 
 import useSWRMutation from "swr/mutation";
 import type {
-	PostV1FinancialRecordsMutationRequest,
-	PostV1FinancialRecordsMutationResponse,
-} from "../../models/financialController/PostV1FinancialRecords.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
@@ -23,9 +19,13 @@ import type {
 	UseMutationResult,
 	QueryClient,
 } from "@tanstack/react-query";
+import type {
+	PostV1FinancialRecordsMutationRequest,
+	PostV1FinancialRecordsMutationResponse,
+} from "../../models/financialController/PostV1FinancialRecords.ts";
 import type { SWRMutationConfiguration } from "swr/mutation";
-import { postV1FinancialRecords } from "../../clients/financialController/postV1FinancialRecords.ts";
 import { mutationOptions, useMutation } from "@tanstack/react-query";
+import { postV1FinancialRecords } from "../../clients/financialController/postV1FinancialRecords.ts";
 
 export const postV1FinancialRecordsMutationKey = () =>
 	[{ url: "/v1/financial/records" }] as const;

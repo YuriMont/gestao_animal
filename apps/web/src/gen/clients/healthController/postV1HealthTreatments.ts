@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1HealthTreatmentsMutationRequest,
-	PostV1HealthTreatmentsMutationResponse,
-} from "../../models/healthController/PostV1HealthTreatments.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1HealthTreatmentsMutationRequest,
+	PostV1HealthTreatmentsMutationResponse,
+} from "../../models/healthController/PostV1HealthTreatments.ts";
 
 function getPostV1HealthTreatmentsUrl() {
 	const res = { method: "POST", url: `/v1/health/treatments` as const };

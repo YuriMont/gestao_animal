@@ -5,14 +5,14 @@
 
 import fetch from "@/lib/axiosInstance";
 import type {
-	PostV1ProductionWeightMutationRequest,
-	PostV1ProductionWeightMutationResponse,
-} from "../../models/productionController/PostV1ProductionWeight.ts";
-import type {
 	Client,
 	RequestConfig,
 	ResponseErrorConfig,
 } from "@/lib/axiosInstance";
+import type {
+	PostV1ProductionWeightMutationRequest,
+	PostV1ProductionWeightMutationResponse,
+} from "../../models/productionController/PostV1ProductionWeight.ts";
 
 function getPostV1ProductionWeightUrl() {
 	const res = { method: "POST", url: `/v1/production/weight` as const };
