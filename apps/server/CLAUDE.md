@@ -1,486 +1,230 @@
-# Animal Management API
+# Animal Management API — CLAUDE.md
 
-Backend server for the Animal Management system, built with **Fastify**, **TypeScript**, and **Zod**.
+Guia de referência rápida para Claude Code e outros agentes de IA trabalhando neste projeto.
 
-## 🛠️ Tech Stack
+---
 
-- **Framework**: [Fastify](https://www.fastify.io/) (v5.8.4)
-- **Language**: [TypeScript](https://www.typescriptlang.org/) (6.0.2)
-- **Validation**: [Zod](https://zod.dev/) (v4.3.6)
-- **API Documentation**: [Swagger](https://swapi.dev/) & Scalar
-- **Linting/Formatting**: [Biome](https://biomejs.app/) (v2.4.11)
-- **Database**: [PostgreSQL](https://postgresql.org/) with Prisma (v7.7.0)
+## Stack
 
-## 📁 Project Structure
+| Camada | Tecnologia |
+|---|---|
+| Framework | Fastify v5 + TypeScript 6 |
+| Validação | Zod v4 + `fastify-type-provider-zod` |
+| ORM | Prisma v7 com adapter `@prisma/adapter-pg` |
+| Banco | PostgreSQL |
+| Auth | JWT via `jsonwebtoken` + `bcrypt` (12 rounds) |
+| Docs | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
+| Linting | Biome v2 |
+
+---
+
+## Comandos essenciais
+
+```bash
+npm run dev          # servidor com hot reload (tsx --watch)
+npm run build        # compila para dist/
+npm run lint         # Biome check + auto-fix
+npm run format       # Biome format
+
+npx prisma generate  # regenera o Prisma Client após mudar o schema
+npx prisma migrate dev --name <nome>  # cria e aplica migration
+npx prisma db push   # aplica schema sem migration (dev only)
+npx prisma studio    # GUI para inspecionar o banco
+```
+
+---
+
+## Estrutura de pastas
 
 ```
 src/
-├── app.ts                    # App factory and global plugin registration
-├── server.ts                 # Server entry point and listener
+├── app.ts                        # Factory: plugins, rate limit, rotas, auth
+├── server.ts                     # Ponto de entrada — escuta na porta 3333
 ├── plugins/
-│   ├── cors.ts              # CORS configuration
-│   ├── errorHandler.ts      # Global error handling
-│   ├── swagger.ts           # Swagger/OpenAPI configuration
-│   └── auth.ts              # Authentication plugin (optional)
-├── modules/
-│   ├── core/
-│   │   ├── domain/
-│   │   │   ├── entities/
-│   │   │   │   ├── animal.entity.ts
-│   │   │   │   ├── organization.entity.ts
-│   │   │   │   ├── user.entity.ts
-│   │   │   │   └── ...
-│   │   │   └── repositories/
-│   │   │       ├── ...
-│   │   │       └── ...
-│   │   ├── infrastructure/
-│   │   │   └── persistence/
-│   │   │       ├── animal.repository.ts
-│   │   │       ├── organization.repository.ts
-│   │   │       └── user.repository.ts
-│   │   ├── presentation/
-│   │   │   ├── controllers/
-│   │   │   │   ├── animal.controller.ts
-│   │   │   │   ├── organization.controller.ts
-│   │   │   │   ├── user.controller.ts
-│   │   │   │   └── ...
-│   │   │   └── dtos/
-│   │   │       ├── ...
-│   │   │       └── ...
-│   │   └── routes.ts
-│   ├── health/
-│   │   ├── domain/
-│   │   │   └── ...
-│   │   ├── infrastructure/
-│   │   │   └── persistence/
-│   │   │       └── health.repository.ts
-│   │   └── presentation/
-│   │       ├── routes.ts
-│   │       └── controllers/
-│   │           └── ...
-│   ├── reproduction/
-│   │   ├── domain/
-│   │   │   ├── entities/
-│   │   │   │   ├── birth.entity.ts
-│   │   │   │   ├── estrus.entity.ts
-│   │   │   │   ├── pregnancy.entity.ts
-│   │   │   │   └── ...
-│   │   │   └── repositories/
-│   │   │       └── reproduction.repository.ts
-│   │   ├── infrastructure/
-│   │   │   └── persistence/
-│   │   │       └── reproduction.repository.ts
-│   │   └── presentation/
-│   │       ├── routes.ts
-│   │       └── controllers/
-│   │           └── ...
-│   ├── production/
-│   │   ├── domain/
-│   │   │   ├── entities/
-│   │   │   ├── repositories/
-│   │   │   └── ...
-│   │   └── presentation/
-│   │       ├── routes.ts
-│   │       └── controllers/
-│   │           └── ...
-│   ├── financial/
-│   │   ├── domain/
-│   │   ├── infrastructure/
-│   │   │   └── persistence/
-│   │   └── presentation/
-│   │       ├── routes.ts
-│   │       └── controllers/
-│   │           └── ...
-│   └── alerts/
-│       ├── domain/
-│       ├── infrastructure/
-│       └── presentation/
-│           ├── routes.ts
-│           └── controllers/
-│               └── ...
+│   ├── auth.ts                   # authPlugin (preHandler JWT) + authorize()
+│   ├── cors.ts                   # CORS restrito por ALLOWED_ORIGINS
+│   ├── errorHandler.ts           # Trata AppError, validação Zod, erros genéricos
+│   └── swagger.ts                # OpenAPI + Scalar UI
 ├── common/
+│   ├── errors/
+│   │   └── app-error.ts          # AppError, NotFoundError, ConflictError, etc.
 │   └── middleware/
-│       └── tenant-context.ts    # Tenant context middleware
+│       └── tenant-context.ts     # Extrai x-tenant-id (fallback dev; JWT é primário)
+├── infrastructure/
+│   └── persistence/
+│       └── prisma.service.ts     # Singleton do PrismaClient
 ├── types/
-│   └── fastify.d.ts
-└── scripts/
-    └── ...
+│   └── fastify.d.ts              # Augmentação: request.tenantId, request.user
+└── modules/
+    ├── auth/                     # POST /auth/login, POST /auth/register
+    ├── core/                     # Animals, Organizations, Users (CRUD completo)
+    ├── health/                   # HealthRecords, Vaccines, Treatments
+    ├── reproduction/             # Estrus, Pregnancies, Births
+    ├── production/               # WeightRecords, MilkProduction
+    ├── financial/                # FinancialRecords
+    └── alerts/                   # AlertRules, Notifications
 ```
 
-## 🏗️ Architecture Principles
+Cada módulo segue a estrutura:
+```
+modules/<domínio>/
+├── domain/
+│   ├── entities/           # Classes de domínio (imutáveis, sem Prisma)
+│   └── repositories/       # Interfaces IXxxRepository
+├── infrastructure/
+│   └── persistence/        # PrismaXxxRepository — implementação das interfaces
+├── application/
+│   └── use-cases/          # Um arquivo por caso de uso
+└── presentation/
+    ├── dtos/               # Schemas Zod para input/output
+    ├── controllers/        # Handlers Fastify (orquestram use cases)
+    └── routes.ts           # Registra rotas com schemas e controllers
+```
 
-### Modular Design
-- Each domain has its own directory structure following Bounded Context patterns
-- **presentation/**: Routes, controllers, DTOs (request/response contracts)
-- **domain/**: Entities, repositories (business logic)
-- **infrastructure/**: Database persistence layer
+---
 
-### Type Safety
-- **Zod** for all input validation (request bodies, query params, response schemas)
-- End-to-end type safety through type providers
+## Arquitetura de autenticação
 
-### Request-Response Pattern
+```
+POST /auth/login → retorna Bearer token (JWT 24h)
+
+Todas as rotas /v1/* exigem:
+  Authorization: Bearer <token>
+
+O JWT payload contém: { id, email, role, organizationId }
+authPlugin extrai e popula request.user e request.tenantId
+
+Rotas públicas: GET /, POST /auth/login, POST /auth/register
+```
+
+### Adicionar autenticação a uma rota
+
 ```typescript
-// Routes define schemas and controllers
-app.post('/animals', schema, controller)
+// Já protegida automaticamente — toda rota em /v1/* usa authPlugin via preHandler no escopo
 
-// Controllers handle request/response flow
-app.post('/animals', animalController.create)
+// Para proteger por role:
+import { authorize } from '@src/plugins/auth';
 
-// Service handles business logic (if using layered architecture)
+app.delete('/something/:id', {
+  preHandler: [authorize('MANAGER', 'VET')],
+  schema: { ... },
+}, controller.delete);
 ```
 
-## 🛠️ Getting Started
+---
 
-### Prerequisites
-- Node.js (LTS recommended)
-- PostgreSQL
-- npm (v10+)
+## Padrão de resposta
 
-### Installation
-
-#### 1. Clone the repository
-```bash
-cd /home/yuri-monteiro/Documentos/projetos/gestao_animal
+### Sucesso — recurso único
+```json
+{ "id": "uuid", ...campos }
 ```
 
-#### 2. Install dependencies
-```bash
-npm install
-```
-
-#### 3. Configure database
-```bash
-npx prisma generate
-npx prisma migrate dev --name init
-```
-
-#### 4. Set environment variables
-```bash
-cp server/.env.example server/.env
-# Edit server/.env with your database credentials and configuration
-```
-
-### Development
-
-**Start the development server with watch mode:**
-```bash
-npm run dev
-```
-
-The server will listen on `http://localhost:3333`
-
-**Access API documentation:**
-- Live Swagger UI: http://localhost:3333/docs
-- Swagger UI: http://localhost:3333/docs (manual)
-
-**Build for production:**
-```bash
-npm run build
-npm start
-```
-
-**Code quality tools:**
-- **Lint**: `npm run lint` (enables Biome)
-- **Format**: `npm run format`
-- **Build**: `npm run build`
-
-## 🌐 API Documentation
-
-### Base URL
-`http://localhost:3333`
-
-### OpenAPI/Swagger Spec
-`http://localhost:3333/docs`
-
-### Core API Endpoints
-
-#### Create User
-```http
-POST /users
-Content-Type: application/json
-{x-tenant-id: string}
-
-{
-  "name": "string",
-  "email": "string",
-  "age": number?
-}
-```
-
-**Response (201 Created):**
+### Sucesso — lista paginada
 ```json
 {
-  "id": "string",
-  "email": "string",
-  "name": "string",
-  "role": "OPERATOR",
-  "organizationId": "string"
+  "data": [ { "id": "uuid", ...campos } ],
+  "meta": { "total": 100, "page": 1, "limit": 20, "totalPages": 5 }
 }
 ```
 
-#### Create Animal
-```http
-POST /animals
-Content-Type: application/json
-{x-tenant-id: string}
-
-{
-  "tag": "string",
-  "species": "string",
-  "breed": "string?",
-  "sex": "string",
-  "birthDate": "string",
-  "origin": "string?",
-  "status": "Active",
-  "organizationId": "string"
-}
-```
-
-**Response (201 Created):**
+### Erro (AppError)
 ```json
-{
-  "id": "string",
-  "tag": "string",
-  "species": "string",
-  "breed": "string?",
-  "sex": "string",
-  "birthDate": "string",
-  "status": "Active",
-  "organizationId": "string"
-}
+{ "error": "NOT_FOUND", "message": "Animal not found" }
 ```
 
-#### Create Organization
-```http
-POST /organizations
-Content-Type: application/json
-{x-tenant-id: string}
-
-{
-  "name": "string"
-}
-```
-
-**Response (201 Created):**
+### Erro de validação (Zod)
 ```json
-{
-  "id": "string",
-  "name": "string"
-}
+{ "error": "Validation Error", "message": "Invalid request data", "details": [...] }
 ```
 
-#### List Animals
-```http
-GET /animals
-x-tenant-id: string
-```
+---
 
-**Response:**
-```json
-{
-  "animals": [
-    {
-      "id": "string",
-      "tag": "string",
-      "species": "string",
-      "breed": "string?",
-      "status": "Active",
-      ...
-    }
-  ]
-}
-```
-
-### Health Check
-```http
-GET /
-```
-
-**Response:**
-```json
-{
-  "message": "Server is running!"
-}
-```
-
-### Production Mode
-Use `npm start` for production server deployment.
-
-## 🔒 Security & Authentication
-
-### Tenant Context
-The server implements a tenant-based architecture where each organization is a separate "tenant".
-
-- **Default Role**: `OPERATOR` (can be changed in schema)
-- **Roles**: `VET`, `MANAGER`, `OPERATOR`
-- **Organization ID**: Required in request headers (`x-tenant-id`) for API calls
-- **Authentication**: Not implemented in this version (optional auth plugin exists)
-
-### Role-Based Access Control
-- Default role: `OPERATOR`
-- Role hierarchy: `VET` < `MANAGER` < `OPERATOR` (for CRUD permissions)
-
-## 📊 Database Schema (PostgreSQL)
-
-### Core Entities
-
-**Organization**
-```prisma
-model Organization {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  users         User[]
-  animals       Animal[]
-  paddocks      Paddock[]
-  healthRecords HealthRecord[]
-  vaccines      Vaccine[]
-  treatments    Treatment[]
-  estrusCycles  Estrus[]
-  pregnancies   Pregnancy[]
-  births        Birth[]
-  weightRecords WeightRecord[]
-  milkProduction MilkProduction[]
-  financials    FinancialRecord[]
-  alertRules    AlertRule[]
-  notifications Notification[]
-}
-```
-
-**User**
-```prisma
-model User {
-  id             String   @id @default(uuid())
-  email          String   @unique
-  password       String
-  name           String
-  role           Role     @default(OPERATOR)
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@map("users")
-}
-```
-
-**Animal**
-```prisma
-model Animal {
-  id             String   @id @default(uuid())
-  tag            String   @unique
-  species        String   // e.g., Cattle, Sheep
-  breed          String?
-  sex            String
-  birthDate      DateTime
-  origin         String?
-  status         String   // e.g., Active, Sold, Deceased
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  healthRecords  HealthRecord[]
-  vaccines       Vaccine[]
-  treatments     Treatment[]
-  estrusCycles   Estrus[]
-  pregnancies    Pregnancy[]
-  birthsAsMother Birth[] @relation("MotherToBirth")
-  birthsAsFather Birth[] @relation("FatherToBirth")
-
-  weightRecords  WeightRecord[]
-  milkProduction MilkProduction[]
-}
-```
-
-### Business Use Cases
-
-1. **Create Organization**: `createOrganization.useCase()`
-2. **Create User**: `createUser.useCase()`
-3. **Create Animal**: `createAnimal.useCase()`
-4. **Get Animals**: `getAnimals.useCase()`
-5. **Get Organization**: `getOrganization.useCase()`
-
-## ⚙️ Scripts Reference
-
-| Script | Command | Description |
-|--------|---------|-------------|
-| dev | `npm run dev` | Start development server with watch mode |
-| build | `npm run build` | Compile TypeScript to JavaScript |
-| start | `npm start` | Production server (no watch) |
-| lint | `npm run lint` | Check and fix code style with Biome |
-| format | `npm run format` | Format code style with Biome |
-| db:generate | `npx prisma generate` | Regenerate Prisma client |
-| db:migrate | `npx prisma migrate dev` | Run database migration |
-| db:push | `npx prisma db push` | Push schema changes |
-
-## 🔧 Configuration
-
-### Environment Variables
-Place `.env` in `server/` for configuration:
+## Variáveis de ambiente necessárias
 
 ```bash
-# Database
 DATABASE_URL="postgresql://user:password@localhost:5432/animal_db"
-
-# Server
+JWT_SECRET="string-longa-e-aleatoria-minimo-32-chars"
 PORT=3333
 NODE_ENV=development
-
-# JWT (if auth is enabled)
-JWT_SECRET=your_secret_key
-JWT_EXPIRE=86400000
+ALLOWED_ORIGINS="http://localhost:3000,http://localhost:5173"
 ```
 
-### Biome Configuration
-The project uses [Biome](https://biomejs.app/) for code quality. Run:
-- `npm run lint` - Check code style
-- `npm run format` - Reformat code
+> **`JWT_SECRET` é obrigatório.** O servidor lança erro em runtime se não estiver definido.
 
-## 🚦 Common Use Cases
+---
 
-### Development Workflow
-1. Start server: `npm run dev`
-2. Make changes
-3. Lint and format: `npm run lint && npm run format`
-4. Run tests: `npm test`
-5. Build for production: `npm run build`
+## Como adicionar um novo módulo
 
-### Testing
-The project uses **Jest** for unit testing.
+1. **Crie a estrutura de pastas** seguindo o padrão `modules/<nome>/domain|infrastructure|application|presentation`
+2. **Defina a entity** em `domain/entities/<nome>.entity.ts` — classe simples, sem Prisma
+3. **Defina a interface** em `domain/repositories/<nome>.repository.ts`
+4. **Implemente o repositório** em `infrastructure/persistence/prisma-<nome>.repository.ts`
+5. **Crie use cases** em `application/use-cases/` — um arquivo por operação
+6. **Crie DTOs** (schemas Zod) em `presentation/dtos/<nome>.dto.ts`
+7. **Crie o controller** em `presentation/controllers/<nome>.controller.ts`
+8. **Registre as rotas** em `presentation/routes.ts`
+9. **Importe em `app.ts`** dentro do bloco `v1` (ou no bloco público se não precisar de auth)
 
-```bash
-npm test
+---
+
+## Como adicionar uma rota
+
+```typescript
+// presentation/routes.ts
+app.get('/meu-recurso/:id', {
+  schema: {
+    tags: ['MinhaTag'],
+    summary: 'Descrição curta',
+    security: [{ bearerAuth: [] }],           // sempre para rotas /v1
+    params: z.object({ id: z.string().uuid() }),
+    response: { 200: minhaResponseSchema },
+  },
+}, meuController.getById);
 ```
 
-Tests can be run with flags:
-- `-c`: Specific file
-- `-x <pattern>`: Only specific test functions
-- `--watch`: Run with watch mode (re-run on changes)
+---
 
-## 📦 Dependencies
+## Convenções de código
 
-### Production
-- `fastify`: Web framework
-- `pg`: Database client
-- `zod`: Validation library
-- `@scalar/fastify-api-reference`: API documentation
-- `@fastify/swagger`: OpenAPI 3.0 support
-- `@fastify/cors`: CORS configuration
+- **Entities** são imutáveis — nunca mute `props` diretamente; use `Entity.create()`
+- **Repositórios** sempre recebem `organizationId` para isolar dados por tenant
+- **Use cases** lançam `AppError` (ou subclasses) — nunca `new Error()` diretamente
+- **Controllers** não têm `try/catch` — o `errorHandler` global captura tudo
+- **DTOs** definem o contrato público da API; entities definem o modelo de domínio
+- **Senhas** nunca são retornadas em respostas — `safeUser()` nos controllers de usuário
 
-### Development
-- `tsx`: TypeScript compiler
-- `typescript`: Type checker
-- `prisma`: Database schema & client
-- `dotenv`: Environment variables
-- `@types/node`: Node.js type definitions
+---
 
-## 📝 Notes
+## Rate limiting
 
-- **Tenant-based architecture**: Every API call requires `x-tenant-id` header
-- **Role-based access**: Default role is OPERATOR, can be VET or MANAGER
-- **Validation-first**: Use Zod schemas for strict data validation
-- **Modular design**: Follow presentation/domain/infrastructure separation
-- **Type safety**: Full TypeScript coverage with Zod types
+- **Global**: 100 req/min por IP
+- Para rotas críticas (ex: login), adicione um preHandler com limite menor:
+
+```typescript
+import rateLimit from '@fastify/rate-limit';
+// registre na rota específica com max menor
+```
+
+---
+
+## Erros comuns
+
+| Problema | Causa provável | Solução |
+|---|---|---|
+| `JWT_SECRET is not configured` | `.env` não carregado | Verificar `dotenv` e caminho do `.env` |
+| `PrismaClient` não encontrado | Client não gerado | `npx prisma generate` |
+| `x-tenant-id` obrigatório | JWT não enviado / middleware legado ativo | Enviar `Authorization: Bearer <token>` |
+| `Animal with this tag already exists` | Tag duplicada no org | Use tag única por organização |
+| CORS error | Origem não permitida | Adicionar em `ALLOWED_ORIGINS` |
+
+---
+
+## Segurança — checklist ao adicionar código
+
+- [ ] Senhas sempre hasheadas com `bcrypt.hash(senha, 12)`
+- [ ] Respostas de usuário nunca incluem `password`
+- [ ] Toda query filtra por `organizationId` (isolamento de tenant)
+- [ ] Schemas Zod definidos para body, params e querystring
+- [ ] Rotas novas têm `security: [{ bearerAuth: [] }]` no schema
+- [ ] Não usar `JSON.stringify` em inputs do usuário sem sanitizar
