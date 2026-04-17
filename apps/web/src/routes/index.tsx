@@ -5,7 +5,8 @@ import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals"
 import { useGetV1FinancialSummary } from "@/gen/hooks/financialController/useGetV1FinancialSummary"
 import { AppLayout } from "@/components/layout/app-layout"
 import { PageHeader } from "@/components/layout/page-header"
-import { useAuth } from "@/contexts/auth-context"
+import { useAtomValue } from "jotai"
+import { userAtom } from "@/atoms/auth"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -69,7 +70,7 @@ function statusLabel(status: string) {
 }
 
 function Dashboard() {
-  const { user } = useAuth()
+  const user = useAtomValue(userAtom)
   const animalsQuery = useGetV1Animals({ limit: 10, page: 1 })
   const activeAnimalsQuery = useGetV1Animals({ status: "Active" as any, limit: 1 })
   const financialSummary = useGetV1FinancialSummary()

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { Leaf } from "lucide-react"
 import { usePostAuthLogin } from "@/gen/hooks/authController/usePostAuthLogin"
 import { usePostAuthRegister } from "@/gen/hooks/authController/usePostAuthRegister"
-import { useAuth } from "@/contexts/auth-context"
+import { useAtomValue, useSetAtom } from "jotai"
+import { isAuthenticatedAtom, loginAtom } from "@/atoms/auth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,7 +17,8 @@ export const Route = createFileRoute("/login")({
 })
 
 function LoginPage() {
-  const { isAuthenticated, login } = useAuth()
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom)
+  const login = useSetAtom(loginAtom)
   const navigate = useNavigate()
 
   const [loginEmail, setLoginEmail] = useState("")
@@ -37,7 +39,7 @@ function LoginPage() {
   const loginMutation = usePostAuthLogin({
     mutation: {
       onSuccess: (res) => {
-        login(res.data.token, res.data.user)
+        login({ token: res.data.token, user: res.data.user })
         navigate({ to: "/" })
       },
       onError: () => setLoginError("E-mail ou senha inválidos."),

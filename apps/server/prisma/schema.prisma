@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
 }
 
 enum Role {
@@ -13,58 +13,58 @@ enum Role {
 }
 
 model Organization {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users         User[]
-  animals       Animal[]
-  paddocks      Paddock[]
-  healthRecords HealthRecord[]
-  vaccines      Vaccine[]
-  treatments    Treatment[]
-  estrusCycles  Estrus[]
-  pregnancies   Pregnancy[]
-  births        Birth[]
-  weightRecords WeightRecord[]
+  users          User[]
+  animals        Animal[]
+  paddocks       Paddock[]
+  healthRecords  HealthRecord[]
+  vaccines       Vaccine[]
+  treatments     Treatment[]
+  estrusCycles   Estrus[]
+  pregnancies    Pregnancy[]
+  births         Birth[]
+  weightRecords  WeightRecord[]
   milkProduction MilkProduction[]
-  financials    FinancialRecord[]
-  alertRules    AlertRule[]
-  notifications Notification[]
+  financials     FinancialRecord[]
+  alertRules     AlertRule[]
+  notifications  Notification[]
 
   @@map("organizations")
 }
 
 model User {
-  id             String       @id @default(uuid())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   email          String       @unique
   password       String
   name           String
   role           Role         @default(OPERATOR)
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
 
 model Animal {
-  id             String       @id @default(uuid())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   tag            String       @unique
-  species        String       // e.g., Cattle, Sheep
+  species        String
   breed          String?
   sex            String
   birthDate      DateTime
   origin         String?
-  status         String       // e.g., Active, Sold, Deceased
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  status         String
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   healthRecords  HealthRecord[]
   vaccines       Vaccine[]
@@ -82,190 +82,190 @@ model Animal {
 }
 
 model Paddock {
-  id             String       @id @default(uuid())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   name           String
-  area           Float?       // In hectares or m2
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  area           Float?
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("paddocks")
 }
 
 model HealthRecord {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
-  date           DateTime @default(now())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
+  date           DateTime     @default(now())
   description    String
   observation    String?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("health_records")
 }
 
 model Vaccine {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
-  vaccineName    String
-  doseNumber     Int      @default(1)
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId         String       @db.ObjectId
+  animal           Animal       @relation(fields: [animalId], references: [id])
+  vaccineName      String
+  doseNumber       Int          @default(1)
   dateAdministered DateTime
-  nextDueDate    DateTime?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  nextDueDate      DateTime?
+  organizationId   String       @db.ObjectId
+  organization     Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("vaccines")
 }
 
 model Treatment {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
   diagnosis      String
   medication     String
   dosage         String?
   startDate      DateTime
   endDate        DateTime?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("treatments")
 }
 
 model Estrus {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
   startDate      DateTime
   endDate        DateTime?
   observation    String?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("estrus")
 }
 
 model Pregnancy {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
-  detectedDate    DateTime
-  expectedDate    DateTime?
-  status          String   // e.g., Confirmed, Lost, Born
-  organizationId  String
-  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
+  detectedDate   DateTime
+  expectedDate   DateTime?
+  status         String
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("pregnancies")
 }
 
 model Birth {
-  id             String   @id @default(uuid())
-  motherId       String
-  mother         Animal   @relation("MotherToBirth", fields: [motherId], references: [id], onDelete: Cascade)
-  fatherId       String?
-  father         Animal?  @relation("FatherToBirth", fields: [fatherId], references: [id])
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  motherId       String       @db.ObjectId
+  mother         Animal       @relation("MotherToBirth", fields: [motherId], references: [id])
+  fatherId       String?      @db.ObjectId
+  father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])
   birthDate      DateTime
   offspringTag   String?
   status         String
-  organizationId  String
-  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("births")
 }
 
 model WeightRecord {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
   weight         Float
-  date           DateTime @default(now())
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  date           DateTime     @default(now())
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("weight_records")
 }
 
 model MilkProduction {
-  id             String   @id @default(uuid())
-  animalId       String
-  animal         Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String       @db.ObjectId
+  animal         Animal       @relation(fields: [animalId], references: [id])
   quantity       Float
   unit           String
-  date           DateTime @default(now())
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  date           DateTime     @default(now())
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("milk_production")
 }
 
 model FinancialRecord {
-  id             String   @id @default(uuid())
-  type           String   // e.g., COST, REVENUE
-  category       String   // e.g., Feed, Medicine, Sale, Service
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  type           String
+  category       String
   amount         Float
-  date           DateTime @default(now())
+  date           DateTime     @default(now())
   description    String?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("financial_records")
 }
 
 model AlertRule {
-  id             String   @id @default(uuid())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   name           String
-  condition      String   // e.g., "vaccine_overdue", "production_drop"
-  value          String?   // Threshold value
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  condition      String
+  value          String?
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("alert_rules")
 }
 
 model Notification {
-  id             String   @id @default(uuid())
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   ruleId         String?
   message        String
-  isRead         Boolean  @default(false)
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  isRead         Boolean      @default(false)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("notifications")
 }

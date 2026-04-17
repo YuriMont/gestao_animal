@@ -1,12 +1,7 @@
-import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
 export class PrismaService {
 	private static instance: PrismaClient;
-
-	private static adapter = new PrismaPg({
-		connectionString: process.env.DATABASE_URL!,
-	});
 
 	private constructor() {}
 
@@ -17,7 +12,6 @@ export class PrismaService {
 					process.env.NODE_ENV === "development"
 						? ["query", "error", "warn"]
 						: ["error"],
-				adapter: PrismaService.adapter,
 			});
 		}
 		return PrismaService.instance;

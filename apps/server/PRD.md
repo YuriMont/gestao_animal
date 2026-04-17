@@ -70,7 +70,7 @@ Cada **Organização** é um tenant isolado. Todos os dados são particionados p
 | Linguagem      | TypeScript           | 6.0.2     |
 | Validação      | Zod                  | 4.3.6     |
 | ORM            | Prisma               | 7.7.0     |
-| Banco de dados | PostgreSQL           | 15+       |
+| Banco de dados | MongoDB              | 15+       |
 | Autenticação   | JWT (`jsonwebtoken`) | —         |
 | Hash de senha  | bcrypt               | 12 rounds |
 | Docs           | Swagger + Scalar     | —         |

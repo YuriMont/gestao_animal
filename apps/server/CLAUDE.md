@@ -10,8 +10,8 @@ Guia de referência rápida para Claude Code e outros agentes de IA trabalhando 
 | --------- | --------------------------------------------------- |
 | Framework | Fastify v5 + TypeScript 6                           |
 | Validação | Zod v4 + `fastify-type-provider-zod`                |
-| ORM       | Prisma v7 com adapter `@prisma/adapter-pg`          |
-| Banco     | PostgreSQL                                          |
+| ORM       | Prisma v7                                           |
+| Banco     | MongoDB                                             |
 | Auth      | JWT via `jsonwebtoken` + `bcrypt` (12 rounds)       |
 | Docs      | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
 | Linting   | Biome v2                                            |
@@ -27,8 +27,7 @@ yarn run lint         # Biome check + auto-fix
 yarn run format       # Biome format
 
 yarn prisma generate  # regenera o Prisma Client após mudar o schema
-yarn prisma migrate dev --name <nome>  # cria e aplica migration
-yarn prisma db push   # aplica schema sem migration (dev only)
+yarn prisma db push   # aplica schema no MongoDB (sem migrations)
 yarn prisma studio    # GUI para inspecionar o banco
 ```
 
@@ -148,7 +147,7 @@ app.delete('/something/:id', {
 ## Variáveis de ambiente necessárias
 
 ```bash
-DATABASE_URL="postgresql://user:password@localhost:5432/animal_db"
+DATABASE_URL="mongodb+srv://user:password@cluster.mongodb.net/animal_db"
 JWT_SECRET="string-longa-e-aleatoria-minimo-32-chars"
 PORT=3333
 NODE_ENV=development

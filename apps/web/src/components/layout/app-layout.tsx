@@ -1,11 +1,12 @@
 import { useEffect } from "react"
 import { useNavigate } from "@tanstack/react-router"
 import type * as React from "react"
-import { useAuth } from "@/contexts/auth-context"
+import { useAtomValue } from "jotai"
+import { isAuthenticatedAtom } from "@/atoms/auth"
 import { AppSidebar } from "./app-sidebar"
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth()
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom)
   const navigate = useNavigate()
 
   useEffect(() => {
