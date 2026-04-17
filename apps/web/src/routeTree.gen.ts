@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReproductionRouteImport } from './routes/reproduction'
+import { Route as ProductionRouteImport } from './routes/production'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as FinancialRouteImport } from './routes/financial'
+import { Route as AnimalsRouteImport } from './routes/animals'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ReproductionRoute = ReproductionRouteImport.update({
+  id: '/reproduction',
+  path: '/reproduction',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductionRoute = ProductionRouteImport.update({
+  id: '/production',
+  path: '/production',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancialRoute = FinancialRouteImport.update({
+  id: '/financial',
+  path: '/financial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnimalsRoute = AnimalsRouteImport.update({
+  id: '/animals',
+  path: '/animals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/animals': typeof AnimalsRoute
+  '/financial': typeof FinancialRoute
+  '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/production': typeof ProductionRoute
+  '/reproduction': typeof ReproductionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/animals': typeof AnimalsRoute
+  '/financial': typeof FinancialRoute
+  '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/production': typeof ProductionRoute
+  '/reproduction': typeof ReproductionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/animals': typeof AnimalsRoute
+  '/financial': typeof FinancialRoute
+  '/health': typeof HealthRoute
+  '/login': typeof LoginRoute
+  '/production': typeof ProductionRoute
+  '/reproduction': typeof ReproductionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/animals'
+    | '/financial'
+    | '/health'
+    | '/login'
+    | '/production'
+    | '/reproduction'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/animals'
+    | '/financial'
+    | '/health'
+    | '/login'
+    | '/production'
+    | '/reproduction'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/animals'
+    | '/financial'
+    | '/health'
+    | '/login'
+    | '/production'
+    | '/reproduction'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  AnimalsRoute: typeof AnimalsRoute
+  FinancialRoute: typeof FinancialRoute
+  HealthRoute: typeof HealthRoute
+  LoginRoute: typeof LoginRoute
+  ProductionRoute: typeof ProductionRoute
+  ReproductionRoute: typeof ReproductionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reproduction': {
+      id: '/reproduction'
+      path: '/reproduction'
+      fullPath: '/reproduction'
+      preLoaderRoute: typeof ReproductionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/production': {
+      id: '/production'
+      path: '/production'
+      fullPath: '/production'
+      preLoaderRoute: typeof ProductionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financial': {
+      id: '/financial'
+      path: '/financial'
+      fullPath: '/financial'
+      preLoaderRoute: typeof FinancialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/animals': {
+      id: '/animals'
+      path: '/animals'
+      fullPath: '/animals'
+      preLoaderRoute: typeof AnimalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +197,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  AnimalsRoute: AnimalsRoute,
+  FinancialRoute: FinancialRoute,
+  HealthRoute: HealthRoute,
+  LoginRoute: LoginRoute,
+  ProductionRoute: ProductionRoute,
+  ReproductionRoute: ReproductionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

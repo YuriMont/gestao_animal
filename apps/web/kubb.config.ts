@@ -4,7 +4,6 @@ import { pluginFaker } from "@kubb/plugin-faker";
 import { pluginMsw } from "@kubb/plugin-msw";
 import { pluginOas } from "@kubb/plugin-oas";
 import { pluginReactQuery } from "@kubb/plugin-react-query";
-import { pluginSwr } from "@kubb/plugin-swr";
 import { pluginTs } from "@kubb/plugin-ts";
 import { pluginZod } from "@kubb/plugin-zod";
 import "dotenv/config";
@@ -54,13 +53,7 @@ export default defineConfig({
         methods: ["delete", "post", "patch", "put"],
       },
     }),
-    pluginSwr({
-      output: { path: "hooks" },
-      group: {
-        type: "tag",
-      },
-    }),
-    pluginZod({
+pluginZod({
       output: { path: "zod" },
       group: {
         type: "tag",

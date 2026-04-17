@@ -1,10 +1,10 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router"
+import { AuthProvider } from "@/contexts/auth-context"
 
 export const Route = createRootRoute({
-	component: () => (
-		<>
-			<h1>App</h1>
-			<Outlet />
-		</>
-	),
-});
+  component: () => (
+    <AuthProvider>
+      <Outlet />
+    </AuthProvider>
+  ),
+})

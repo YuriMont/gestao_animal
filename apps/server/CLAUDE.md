@@ -6,30 +6,30 @@ Guia de referência rápida para Claude Code e outros agentes de IA trabalhando 
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Framework | Fastify v5 + TypeScript 6 |
-| Validação | Zod v4 + `fastify-type-provider-zod` |
-| ORM | Prisma v7 com adapter `@prisma/adapter-pg` |
-| Banco | PostgreSQL |
-| Auth | JWT via `jsonwebtoken` + `bcrypt` (12 rounds) |
-| Docs | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
-| Linting | Biome v2 |
+| Camada    | Tecnologia                                          |
+| --------- | --------------------------------------------------- |
+| Framework | Fastify v5 + TypeScript 6                           |
+| Validação | Zod v4 + `fastify-type-provider-zod`                |
+| ORM       | Prisma v7 com adapter `@prisma/adapter-pg`          |
+| Banco     | PostgreSQL                                          |
+| Auth      | JWT via `jsonwebtoken` + `bcrypt` (12 rounds)       |
+| Docs      | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
+| Linting   | Biome v2                                            |
 
 ---
 
 ## Comandos essenciais
 
 ```bash
-npm run dev          # servidor com hot reload (tsx --watch)
-npm run build        # compila para dist/
-npm run lint         # Biome check + auto-fix
-npm run format       # Biome format
+yarn run dev          # servidor com hot reload (tsx --watch)
+yarn run build        # compila para dist/
+yarn run lint         # Biome check + auto-fix
+yarn run format       # Biome format
 
-npx prisma generate  # regenera o Prisma Client após mudar o schema
-npx prisma migrate dev --name <nome>  # cria e aplica migration
-npx prisma db push   # aplica schema sem migration (dev only)
-npx prisma studio    # GUI para inspecionar o banco
+yarn prisma generate  # regenera o Prisma Client após mudar o schema
+yarn prisma migrate dev --name <nome>  # cria e aplica migration
+yarn prisma db push   # aplica schema sem migration (dev only)
+yarn prisma studio    # GUI para inspecionar o banco
 ```
 
 ---
@@ -66,6 +66,7 @@ src/
 ```
 
 Cada módulo segue a estrutura:
+
 ```
 modules/<domínio>/
 ├── domain/
@@ -116,11 +117,13 @@ app.delete('/something/:id', {
 ## Padrão de resposta
 
 ### Sucesso — recurso único
+
 ```json
 { "id": "uuid", ...campos }
 ```
 
 ### Sucesso — lista paginada
+
 ```json
 {
   "data": [ { "id": "uuid", ...campos } ],
@@ -129,11 +132,13 @@ app.delete('/something/:id', {
 ```
 
 ### Erro (AppError)
+
 ```json
 { "error": "NOT_FOUND", "message": "Animal not found" }
 ```
 
 ### Erro de validação (Zod)
+
 ```json
 { "error": "Validation Error", "message": "Invalid request data", "details": [...] }
 ```
@@ -172,15 +177,19 @@ ALLOWED_ORIGINS="http://localhost:3000,http://localhost:5173"
 
 ```typescript
 // presentation/routes.ts
-app.get('/meu-recurso/:id', {
-  schema: {
-    tags: ['MinhaTag'],
-    summary: 'Descrição curta',
-    security: [{ bearerAuth: [] }],           // sempre para rotas /v1
-    params: z.object({ id: z.string().uuid() }),
-    response: { 200: minhaResponseSchema },
+app.get(
+  "/meu-recurso/:id",
+  {
+    schema: {
+      tags: ["MinhaTag"],
+      summary: "Descrição curta",
+      security: [{ bearerAuth: [] }], // sempre para rotas /v1
+      params: z.object({ id: z.string().uuid() }),
+      response: { 200: minhaResponseSchema },
+    },
   },
-}, meuController.getById);
+  meuController.getById,
+);
 ```
 
 ---
@@ -202,7 +211,7 @@ app.get('/meu-recurso/:id', {
 - Para rotas críticas (ex: login), adicione um preHandler com limite menor:
 
 ```typescript
-import rateLimit from '@fastify/rate-limit';
+import rateLimit from "@fastify/rate-limit";
 // registre na rota específica com max menor
 ```
 
@@ -210,13 +219,13 @@ import rateLimit from '@fastify/rate-limit';
 
 ## Erros comuns
 
-| Problema | Causa provável | Solução |
-|---|---|---|
-| `JWT_SECRET is not configured` | `.env` não carregado | Verificar `dotenv` e caminho do `.env` |
-| `PrismaClient` não encontrado | Client não gerado | `npx prisma generate` |
-| `x-tenant-id` obrigatório | JWT não enviado / middleware legado ativo | Enviar `Authorization: Bearer <token>` |
-| `Animal with this tag already exists` | Tag duplicada no org | Use tag única por organização |
-| CORS error | Origem não permitida | Adicionar em `ALLOWED_ORIGINS` |
+| Problema                              | Causa provável                            | Solução                                |
+| ------------------------------------- | ----------------------------------------- | -------------------------------------- |
+| `JWT_SECRET is not configured`        | `.env` não carregado                      | Verificar `dotenv` e caminho do `.env` |
+| `PrismaClient` não encontrado         | Client não gerado                         | `yarn prisma generate`                 |
+| `x-tenant-id` obrigatório             | JWT não enviado / middleware legado ativo | Enviar `Authorization: Bearer <token>` |
+| `Animal with this tag already exists` | Tag duplicada no org                      | Use tag única por organização          |
+| CORS error                            | Origem não permitida                      | Adicionar em `ALLOWED_ORIGINS`         |
 
 ---
 
