@@ -10,11 +10,11 @@ import { router } from "./router";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <TanStackRouterDevtools router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  </StrictMode>,
+	<StrictMode>
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />
+			<TanStackRouterDevtools router={router} />
+			<ReactQueryDevtools initialIsOpen={false} />
+		</QueryClientProvider>
+	</StrictMode>,
 );

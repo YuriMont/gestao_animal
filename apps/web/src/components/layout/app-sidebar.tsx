@@ -1,6 +1,8 @@
-import { Link, useRouterState } from "@tanstack/react-router"
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useAtomValue, useSetAtom } from "jotai";
 import {
 	BarChart3,
+	Beef,
 	Bell,
 	DollarSign,
 	Heart,
@@ -8,11 +10,9 @@ import {
 	Leaf,
 	LogOut,
 	Stethoscope,
-	Beef,
-} from "lucide-react"
-import { useAtomValue, useSetAtom } from "jotai"
-import { userAtom, logoutAtom } from "@/atoms/auth"
-import { cn } from "@/lib/utils"
+} from "lucide-react";
+import { logoutAtom, userAtom } from "@/atoms/auth";
+import { cn } from "@/lib/utils";
 
 const navItems = [
 	{ label: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -22,13 +22,13 @@ const navItems = [
 	{ label: "Produção", href: "/production", icon: BarChart3 },
 	{ label: "Financeiro", href: "/financial", icon: DollarSign },
 	{ label: "Alertas", href: "/alerts", icon: Bell },
-] as const
+] as const;
 
 export function AppSidebar() {
-	const user = useAtomValue(userAtom)
-	const logout = useSetAtom(logoutAtom)
-	const routerState = useRouterState()
-	const currentPath = routerState.location.pathname
+	const user = useAtomValue(userAtom);
+	const logout = useSetAtom(logoutAtom);
+	const routerState = useRouterState();
+	const currentPath = routerState.location.pathname;
 
 	return (
 		<aside className="flex h-screen w-60 flex-col bg-sidebar text-sidebar-foreground">
@@ -36,13 +36,16 @@ export function AppSidebar() {
 				<div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
 					<Leaf className="size-4 text-sidebar-primary-foreground" />
 				</div>
-				<span className="text-lg font-bold text-sidebar-foreground">AgroGestão</span>
+				<span className="text-lg font-bold text-sidebar-foreground">
+					AgroGestão
+				</span>
 			</div>
 
 			<nav className="flex-1 overflow-y-auto px-3 py-4">
 				<ul className="flex flex-col gap-1">
 					{navItems.map(({ label, href, icon: Icon }) => {
-						const isActive = href === "/" ? currentPath === "/" : currentPath.startsWith(href)
+						const isActive =
+							href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 						return (
 							<li key={href}>
 								<Link
@@ -58,15 +61,19 @@ export function AppSidebar() {
 									{label}
 								</Link>
 							</li>
-						)
+						);
 					})}
 				</ul>
 			</nav>
 
 			<div className="border-t border-sidebar-border p-4">
 				<div className="mb-3 px-1">
-					<p className="text-sm font-medium text-sidebar-foreground truncate">{user?.name ?? "Usuário"}</p>
-					<p className="text-xs text-sidebar-foreground/50 truncate">{user?.email ?? ""}</p>
+					<p className="text-sm font-medium text-sidebar-foreground truncate">
+						{user?.name ?? "Usuário"}
+					</p>
+					<p className="text-xs text-sidebar-foreground/50 truncate">
+						{user?.email ?? ""}
+					</p>
 				</div>
 				<button
 					type="button"
@@ -78,5 +85,5 @@ export function AppSidebar() {
 				</button>
 			</div>
 		</aside>
-	)
+	);
 }
