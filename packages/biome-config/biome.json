@@ -13,14 +13,14 @@
   "files": {
     "includes": [
       "**",
-      "!**/node_modules",
+      "!**/node_modules/**",
       "!**/*.config.*",
-      "!**/.turbo",
+      "!**/.turbo/**",
       "!**/*.css",
       "!**/*.gen.ts",
-      "!**/dist",
-      "!**/build",
-      "!**/src/gen"
+      "!**/dist/**",
+      "!**/build/**",
+      "!**/src/gen/**"
     ]
   },
   "formatter": {
@@ -36,11 +36,6 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "double"
-    }
-  },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
     }
   },
   "assist": {
