@@ -29,7 +29,7 @@ export default defineConfig({
       group: {
         type: "tag",
       },
-      enumType: "enum",
+      enumType: "asConst",
     }),
     pluginClient({
       importPath: "@/lib/axiosInstance",
@@ -53,7 +53,7 @@ export default defineConfig({
         methods: ["delete", "post", "patch", "put"],
       },
     }),
-pluginZod({
+    pluginZod({
       output: { path: "zod" },
       group: {
         type: "tag",

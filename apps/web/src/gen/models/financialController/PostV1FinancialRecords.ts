@@ -4,10 +4,12 @@
 */
 
 
-export enum RecordTypeEnum {
-    COST = "COST",
-    REVENUE = "REVENUE"
-}
+export const recordTypeEnum = {
+    COST: "COST",
+    REVENUE: "REVENUE"
+} as const;
+
+export type RecordTypeEnumKey = (typeof recordTypeEnum)[keyof typeof recordTypeEnum];
 
 /**
  * @description Default Response
@@ -28,7 +30,7 @@ export type PostV1FinancialRecords201 = {
         /**
          * @type string
         */
-        type: RecordTypeEnum;
+        type: RecordTypeEnumKey;
         /**
          * @type string
         */
@@ -52,16 +54,18 @@ export type PostV1FinancialRecords201 = {
     };
 };
 
-export enum PostV1FinancialRecordsMutationRequestTypeEnum {
-    COST = "COST",
-    REVENUE = "REVENUE"
-}
+export const postV1FinancialRecordsMutationRequestTypeEnum = {
+    COST: "COST",
+    REVENUE: "REVENUE"
+} as const;
+
+export type PostV1FinancialRecordsMutationRequestTypeEnumKey = (typeof postV1FinancialRecordsMutationRequestTypeEnum)[keyof typeof postV1FinancialRecordsMutationRequestTypeEnum];
 
 export type PostV1FinancialRecordsMutationRequest = {
     /**
      * @type string
     */
-    type: PostV1FinancialRecordsMutationRequestTypeEnum;
+    type: PostV1FinancialRecordsMutationRequestTypeEnumKey;
     /**
      * @minLength 1
      * @type string

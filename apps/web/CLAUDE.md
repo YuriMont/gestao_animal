@@ -6,18 +6,18 @@ Guia de referência rápida para Claude Code e outros agentes de IA trabalhando 
 
 ## Stack
 
-| Camada          | Tecnologia                                              |
-| --------------- | ------------------------------------------------------- |
-| Framework       | React 19 + TypeScript 6 (strict mode)                   |
-| Roteamento      | TanStack Router v1 (file-based, auto code-split)        |
-| Estado servidor | TanStack React Query v5                                 |
-| Estado cliente  | Jotai v2 (`atomWithStorage` para auth)                  |
-| HTTP            | Axios 1.15 com instância customizada + interceptores    |
-| Geração de API  | Kubb 4 — clientes/hooks/tipos gerados do OpenAPI        |
-| Estilo          | Tailwind CSS 4 + shadcn/ui (estilo Radix Luma)          |
-| Ícones          | Lucide React                                            |
-| Linting         | Biome v2 (estende `@gestao/biome-config`)               |
-| Build           | Vite 8                                                  |
+| Camada          | Tecnologia                                           |
+| --------------- | ---------------------------------------------------- |
+| Framework       | React 19 + TypeScript 6 (strict mode)                |
+| Roteamento      | TanStack Router v1 (file-based, auto code-split)     |
+| Estado servidor | TanStack React Query v5                              |
+| Estado cliente  | Jotai v2 (`atomWithStorage` para auth)               |
+| HTTP            | Axios 1.15 com instância customizada + interceptores |
+| Geração de API  | Kubb 4 — clientes/hooks/tipos gerados do OpenAPI     |
+| Estilo          | Tailwind CSS 4 + shadcn/ui (estilo Radix Luma)       |
+| Ícones          | Lucide React                                         |
+| Linting         | Biome v2 (estende `@gestao/biome-config`)            |
+| Build           | Vite 8                                               |
 
 ---
 
@@ -89,17 +89,17 @@ src/
 
 TanStack Router com file-based routing. Cada arquivo em `src/routes/` vira uma rota.
 
-| Arquivo           | URL             | Propósito                     |
-| ----------------- | --------------- | ----------------------------- |
-| `__root.tsx`      | (layout global) | Renderiza `<Outlet />` (sem Provider — Jotai usa store global) |
-| `index.tsx`       | `/`             | Dashboard com KPIs e resumos  |
-| `login.tsx`       | `/login`        | Login + cadastro (tabs)       |
-| `animals.tsx`     | `/animals`      | CRUD de animais               |
-| `health.tsx`      | `/health`       | Registros de saúde            |
-| `reproduction.tsx`| `/reproduction` | Ciclos reprodutivos           |
-| `production.tsx`  | `/production`   | Métricas de produção          |
-| `financial.tsx`   | `/financial`    | Registros financeiros         |
-| `alerts.tsx`      | `/alerts`       | Regras de alerta              |
+| Arquivo            | URL             | Propósito                                                      |
+| ------------------ | --------------- | -------------------------------------------------------------- |
+| `__root.tsx`       | (layout global) | Renderiza `<Outlet />` (sem Provider — Jotai usa store global) |
+| `index.tsx`        | `/`             | Dashboard com KPIs e resumos                                   |
+| `login.tsx`        | `/login`        | Login + cadastro (tabs)                                        |
+| `animals.tsx`      | `/animals`      | CRUD de animais                                                |
+| `health.tsx`       | `/health`       | Registros de saúde                                             |
+| `reproduction.tsx` | `/reproduction` | Ciclos reprodutivos                                            |
+| `production.tsx`   | `/production`   | Métricas de produção                                           |
+| `financial.tsx`    | `/financial`    | Registros financeiros                                          |
+| `alerts.tsx`       | `/alerts`       | Regras de alerta                                               |
 
 `routeTree.gen.ts` é gerado automaticamente pelo plugin Vite do TanStack Router — nunca editar à mão.
 
@@ -126,13 +126,18 @@ TanStack Router com file-based routing. Cada arquivo em `src/routes/` vira uma r
 **Uso nos componentes:**
 
 ```tsx
-import { useAtomValue, useSetAtom } from 'jotai'
-import { userAtom, isAuthenticatedAtom, loginAtom, logoutAtom } from '@/atoms/auth'
+import { useAtomValue, useSetAtom } from "jotai";
+import {
+  userAtom,
+  isAuthenticatedAtom,
+  loginAtom,
+  logoutAtom,
+} from "@/atoms/auth";
 
-const user = useAtomValue(userAtom)
-const isAuthenticated = useAtomValue(isAuthenticatedAtom)
-const login = useSetAtom(loginAtom)   // login({ token, user })
-const logout = useSetAtom(logoutAtom) // logout()
+const user = useAtomValue(userAtom);
+const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+const login = useSetAtom(loginAtom); // login({ token, user })
+const logout = useSetAtom(logoutAtom); // logout()
 ```
 
 **Guard:** `AppLayout` (`src/components/layout/app-layout.tsx`) redireciona para `/login` se `isAuthenticatedAtom` for `false`.
@@ -140,6 +145,7 @@ const logout = useSetAtom(logoutAtom) // logout()
 **Sem `<Provider>`:** Jotai usa store global por padrão em SPAs — não é necessário envolver a app com nenhum Provider de auth.
 
 **Axios interceptors** (`src/lib/axiosInstance.ts`):
+
 - Request → lê `localStorage["token"]` diretamente e adiciona `Authorization: Bearer`
 - Response 401 → limpa `localStorage` e redireciona para `/login`
 
@@ -152,23 +158,23 @@ Todo acesso à API usa os hooks gerados pelo Kubb em `src/gen/hooks/`.
 ### Query (GET)
 
 ```tsx
-import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals';
+import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
 
 const query = useGetV1Animals({ limit: 10, page: 1 });
 
 if (query.isLoading) return <Skeleton />;
 if (query.isError) return <p>Erro ao carregar</p>;
 
-const animals = query.data?.data;   // array de animais
-const meta = query.data?.meta;      // { total, page, limit, totalPages }
+const animals = query.data?.data; // array de animais
+const meta = query.data?.meta; // { total, page, limit, totalPages }
 ```
 
 ### Mutation (POST / PUT / DELETE)
 
 ```tsx
-import { usePostV1Animals } from '@/gen/hooks/animalsController/usePostV1Animals';
-import { getV1AnimalsQueryKey } from '@/gen/hooks/animalsController/useGetV1Animals';
-import { useQueryClient } from '@tanstack/react-query';
+import { usePostV1Animals } from "@/gen/hooks/animalsController/usePostV1Animals";
+import { getV1AnimalsQueryKey } from "@/gen/hooks/animalsController/useGetV1Animals";
+import { useQueryClient } from "@tanstack/react-query";
 
 const qc = useQueryClient();
 const mutation = usePostV1Animals({
@@ -182,12 +188,12 @@ mutation.mutate({ data: formData });
 
 ### Nomenclatura dos hooks gerados
 
-| Método HTTP | Prefixo hook         | Exemplo                      |
-| ----------- | -------------------- | ---------------------------- |
-| GET         | `useGet`             | `useGetV1Animals`            |
-| POST        | `usePost`            | `usePostV1Animals`           |
-| PUT         | `usePut`             | `usePutV1AnimalsId`          |
-| DELETE      | `useDelete`          | `useDeleteV1AnimalsId`       |
+| Método HTTP | Prefixo hook | Exemplo                |
+| ----------- | ------------ | ---------------------- |
+| GET         | `useGet`     | `useGetV1Animals`      |
+| POST        | `usePost`    | `usePostV1Animals`     |
+| PUT         | `usePut`     | `usePutV1AnimalsId`    |
+| DELETE      | `useDelete`  | `useDeleteV1AnimalsId` |
 
 Os hooks vivem em `src/gen/hooks/<tag>Controller/`.
 
@@ -196,11 +202,11 @@ Os hooks vivem em `src/gen/hooks/<tag>Controller/`.
 ## Estrutura de uma página
 
 ```tsx
-import { createFileRoute } from '@tanstack/react-router';
-import { AppLayout } from '@/components/layout/app-layout';
-import { PageHeader } from '@/components/layout/page-header';
+import { createFileRoute } from "@tanstack/react-router";
+import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/layout/page-header";
 
-export const Route = createFileRoute('/minha-rota')({
+export const Route = createFileRoute("/minha-rota")({
   component: MinhaRota,
 });
 
@@ -232,7 +238,7 @@ Todos em `src/components/ui/` (shadcn/ui). Importe via alias `@/components/ui/<n
 - **Estado global:** React Query para estado de servidor; Jotai para estado cliente (auth). Prefira estado local para tudo mais
 - **Novos átomos** vão em `src/atoms/` — use `atomWithStorage` se precisar persistir no localStorage
 - **Linting:** `yarn lint` (Biome) antes de commitar. CI vai rejeitar se falhar
-- **Sem comentários óbvios** — só comente o *porquê* quando não for evidente
+- **Sem comentários óbvios** — só comente o _porquê_ quando não for evidente
 
 ---
 
@@ -248,11 +254,11 @@ Todos em `src/components/ui/` (shadcn/ui). Importe via alias `@/components/ui/<n
 
 ## Erros comuns
 
-| Problema                              | Causa provável                              | Solução                                          |
-| ------------------------------------- | ------------------------------------------- | ------------------------------------------------ |
-| `routeTree.gen.ts` desatualizado      | Plugin Vite não rodou                       | `yarn dev` (gera automaticamente) ou `yarn build`|
-| Hook não encontrado em `src/gen/`     | Kubb não rodou após mudança na API          | `yarn generate`                                  |
-| 401 em todas as requisições           | Token expirado ou não salvo                 | Logout + login novamente                         |
-| CORS no browser                       | Backend com ALLOWED_ORIGINS incorreto       | Adicionar `http://localhost:5173` no backend     |
-| Tipo `undefined` em `query.data`      | API respondeu mas shape mudou               | Rode `yarn generate` para atualizar os tipos     |
-| Vite não encontra `VITE_API_URL`      | `.env` ausente                              | Criar `apps/web/.env` com a variável             |
+| Problema                          | Causa provável                        | Solução                                           |
+| --------------------------------- | ------------------------------------- | ------------------------------------------------- |
+| `routeTree.gen.ts` desatualizado  | Plugin Vite não rodou                 | `yarn dev` (gera automaticamente) ou `yarn build` |
+| Hook não encontrado em `src/gen/` | Kubb não rodou após mudança na API    | `yarn generate`                                   |
+| 401 em todas as requisições       | Token expirado ou não salvo           | Logout + login novamente                          |
+| CORS no browser                   | Backend com ALLOWED_ORIGINS incorreto | Adicionar `http://localhost:5173` no backend      |
+| Tipo `undefined` em `query.data`  | API respondeu mas shape mudou         | Rode `yarn generate` para atualizar os tipos      |
+| Vite não encontra `VITE_API_URL`  | `.env` ausente                        | Criar `apps/web/.env` com a variável              |

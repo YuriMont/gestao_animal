@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PutV1UsersIdMutationRequest, PutV1UsersIdMutationResponse, PutV1UsersIdPathParams } from "../../models/usersController/PutV1UsersId.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PutV1UsersIdMutationRequest, PutV1UsersIdMutationResponse, PutV1UsersIdPathParams } from "../../models/usersController/PutV1UsersId.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { putV1UsersId } from "../../clients/usersController/putV1UsersId.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const putV1UsersIdMutationKey = () => [{ url: '/v1/users/:id' }] as const
 

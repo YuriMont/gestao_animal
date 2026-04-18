@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { GetQueryResponse } from "../../models/systemController/Get.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getGetUrl() {
   const res = { method: 'GET', url: `/` as const }

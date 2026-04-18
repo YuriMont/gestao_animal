@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { GetV1AnimalsQueryResponse, GetV1AnimalsQueryParams } from "../../models/animalsController/GetV1Animals.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getGetV1AnimalsUrl() {
   const res = { method: 'GET', url: `/v1/animals` as const }

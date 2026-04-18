@@ -46,17 +46,21 @@ export type PostV1Animals201 = {
     organizationId: string;
 };
 
-export enum PostV1AnimalsMutationRequestSexEnum {
-    Male = "Male",
-    Female = "Female"
-}
+export const postV1AnimalsMutationRequestSexEnum = {
+    Male: "Male",
+    Female: "Female"
+} as const;
 
-export enum PostV1AnimalsMutationRequestStatusEnum {
-    Active = "Active",
-    Sold = "Sold",
-    Deceased = "Deceased",
-    Quarantine = "Quarantine"
-}
+export type PostV1AnimalsMutationRequestSexEnumKey = (typeof postV1AnimalsMutationRequestSexEnum)[keyof typeof postV1AnimalsMutationRequestSexEnum];
+
+export const postV1AnimalsMutationRequestStatusEnum = {
+    Active: "Active",
+    Sold: "Sold",
+    Deceased: "Deceased",
+    Quarantine: "Quarantine"
+} as const;
+
+export type PostV1AnimalsMutationRequestStatusEnumKey = (typeof postV1AnimalsMutationRequestStatusEnum)[keyof typeof postV1AnimalsMutationRequestStatusEnum];
 
 export type PostV1AnimalsMutationRequest = {
     /**
@@ -76,7 +80,7 @@ export type PostV1AnimalsMutationRequest = {
     /**
      * @type string
     */
-    sex: PostV1AnimalsMutationRequestSexEnum;
+    sex: PostV1AnimalsMutationRequestSexEnumKey;
     birthDate: any;
     /**
      * @type string | undefined
@@ -86,7 +90,7 @@ export type PostV1AnimalsMutationRequest = {
      * @default "Active"
      * @type string | undefined
     */
-    status?: PostV1AnimalsMutationRequestStatusEnum;
+    status?: PostV1AnimalsMutationRequestStatusEnumKey;
 };
 
 export type PostV1AnimalsMutationResponse = PostV1Animals201;

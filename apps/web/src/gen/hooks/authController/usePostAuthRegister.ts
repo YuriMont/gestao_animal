@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostAuthRegisterMutationRequest, PostAuthRegisterMutationResponse } from "../../models/authController/PostAuthRegister.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostAuthRegisterMutationRequest, PostAuthRegisterMutationResponse } from "../../models/authController/PostAuthRegister.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postAuthRegister } from "../../clients/authController/postAuthRegister.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postAuthRegisterMutationKey = () => [{ url: '/auth/register' }] as const
 

@@ -53,17 +53,21 @@ export type PutV1AnimalsId200 = {
     organizationId: string;
 };
 
-export enum PutV1AnimalsIdMutationRequestSexEnum {
-    Male = "Male",
-    Female = "Female"
-}
+export const putV1AnimalsIdMutationRequestSexEnum = {
+    Male: "Male",
+    Female: "Female"
+} as const;
 
-export enum PutV1AnimalsIdMutationRequestStatusEnum {
-    Active = "Active",
-    Sold = "Sold",
-    Deceased = "Deceased",
-    Quarantine = "Quarantine"
-}
+export type PutV1AnimalsIdMutationRequestSexEnumKey = (typeof putV1AnimalsIdMutationRequestSexEnum)[keyof typeof putV1AnimalsIdMutationRequestSexEnum];
+
+export const putV1AnimalsIdMutationRequestStatusEnum = {
+    Active: "Active",
+    Sold: "Sold",
+    Deceased: "Deceased",
+    Quarantine: "Quarantine"
+} as const;
+
+export type PutV1AnimalsIdMutationRequestStatusEnumKey = (typeof putV1AnimalsIdMutationRequestStatusEnum)[keyof typeof putV1AnimalsIdMutationRequestStatusEnum];
 
 export type PutV1AnimalsIdMutationRequest = {
     /**
@@ -83,7 +87,7 @@ export type PutV1AnimalsIdMutationRequest = {
     /**
      * @type string | undefined
     */
-    sex?: PutV1AnimalsIdMutationRequestSexEnum;
+    sex?: PutV1AnimalsIdMutationRequestSexEnumKey;
     birthDate?: any;
     /**
      * @type string | undefined
@@ -92,7 +96,7 @@ export type PutV1AnimalsIdMutationRequest = {
     /**
      * @type string | undefined
     */
-    status?: PutV1AnimalsIdMutationRequestStatusEnum;
+    status?: PutV1AnimalsIdMutationRequestStatusEnumKey;
 };
 
 export type PutV1AnimalsIdMutationResponse = PutV1AnimalsId200;

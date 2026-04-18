@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostV1ProductionMilkMutationRequest, PostV1ProductionMilkMutationResponse } from "../../models/productionController/PostV1ProductionMilk.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostV1ProductionMilkMutationRequest, PostV1ProductionMilkMutationResponse } from "../../models/productionController/PostV1ProductionMilk.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postV1ProductionMilk } from "../../clients/productionController/postV1ProductionMilk.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postV1ProductionMilkMutationKey = () => [{ url: '/v1/production/milk' }] as const
 

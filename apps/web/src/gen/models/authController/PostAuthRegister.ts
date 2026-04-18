@@ -39,11 +39,13 @@ export type PostAuthRegister201 = {
     };
 };
 
-export enum PostAuthRegisterMutationRequestRoleEnum {
-    VET = "VET",
-    MANAGER = "MANAGER",
-    OPERATOR = "OPERATOR"
-}
+export const postAuthRegisterMutationRequestRoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type PostAuthRegisterMutationRequestRoleEnumKey = (typeof postAuthRegisterMutationRequestRoleEnum)[keyof typeof postAuthRegisterMutationRequestRoleEnum];
 
 export type PostAuthRegisterMutationRequest = {
     /**
@@ -63,7 +65,7 @@ export type PostAuthRegisterMutationRequest = {
     /**
      * @type string | undefined
     */
-    role?: PostAuthRegisterMutationRequestRoleEnum;
+    role?: PostAuthRegisterMutationRequestRoleEnumKey;
     /**
      * @type string, uuid
     */

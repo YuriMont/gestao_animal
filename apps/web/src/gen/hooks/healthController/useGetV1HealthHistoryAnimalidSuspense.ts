@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1HealthHistoryAnimalidQueryResponse, GetV1HealthHistoryAnimalidPathParams } from "../../models/healthController/GetV1HealthHistoryAnimalid.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1HealthHistoryAnimalidQueryResponse, GetV1HealthHistoryAnimalidPathParams } from "../../models/healthController/GetV1HealthHistoryAnimalid.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1HealthHistoryAnimalid } from "../../clients/healthController/getV1HealthHistoryAnimalid.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1HealthHistoryAnimalidSuspenseQueryKey = (animalId: GetV1HealthHistoryAnimalidPathParams["animalId"]) => [{ url: '/v1/health/history/:animalId', params: {animalId:animalId} }] as const
 

@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { GetV1ReproductionHistoryAnimalidQueryResponse, GetV1ReproductionHistoryAnimalidPathParams } from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getGetV1ReproductionHistoryAnimalidUrl(animalId: GetV1ReproductionHistoryAnimalidPathParams["animalId"]) {
   const res = { method: 'GET', url: `/v1/reproduction/history/${animalId}` as const }

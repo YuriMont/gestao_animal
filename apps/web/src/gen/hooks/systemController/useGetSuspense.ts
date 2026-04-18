@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetQueryResponse } from "../../models/systemController/Get.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetQueryResponse } from "../../models/systemController/Get.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { get } from "../../clients/systemController/get.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getSuspenseQueryKey = () => [{ url: '/' }] as const
 

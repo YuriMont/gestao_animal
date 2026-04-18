@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1AnimalsIdQueryResponse, GetV1AnimalsIdPathParams } from "../../models/animalsController/GetV1AnimalsId.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1AnimalsIdQueryResponse, GetV1AnimalsIdPathParams } from "../../models/animalsController/GetV1AnimalsId.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1AnimalsId } from "../../clients/animalsController/getV1AnimalsId.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1AnimalsIdSuspenseQueryKey = (id: GetV1AnimalsIdPathParams["id"]) => [{ url: '/v1/animals/:id', params: {id:id} }] as const
 

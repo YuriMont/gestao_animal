@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetV1FinancialSummaryQueryResponse } from "../../models/financialController/GetV1FinancialSummary.ts";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getV1FinancialSummary } from "../../clients/financialController/getV1FinancialSummary.ts";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getV1FinancialSummaryQueryKey = () => [{ url: '/v1/financial/summary' }] as const
 

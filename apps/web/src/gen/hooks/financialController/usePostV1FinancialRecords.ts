@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostV1FinancialRecordsMutationRequest, PostV1FinancialRecordsMutationResponse } from "../../models/financialController/PostV1FinancialRecords.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostV1FinancialRecordsMutationRequest, PostV1FinancialRecordsMutationResponse } from "../../models/financialController/PostV1FinancialRecords.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postV1FinancialRecords } from "../../clients/financialController/postV1FinancialRecords.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postV1FinancialRecordsMutationKey = () => [{ url: '/v1/financial/records' }] as const
 

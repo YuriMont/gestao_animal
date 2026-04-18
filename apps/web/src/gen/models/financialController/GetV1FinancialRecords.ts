@@ -4,44 +4,17 @@
 */
 
 
-export enum GetV1FinancialRecords200TypeEnum {
-    COST = "COST",
-    REVENUE = "REVENUE"
-}
+export const getV1FinancialRecords200TypeEnum = {
+    COST: "COST",
+    REVENUE: "REVENUE"
+} as const;
+
+export type GetV1FinancialRecords200TypeEnumKey = (typeof getV1FinancialRecords200TypeEnum)[keyof typeof getV1FinancialRecords200TypeEnum];
 
 /**
  * @description Default Response
 */
-export type GetV1FinancialRecords200 = {
-    /**
-     * @type string
-    */
-    id: string;
-    /**
-     * @type string
-    */
-    type: GetV1FinancialRecords200TypeEnum;
-    /**
-     * @type string
-    */
-    category: string;
-    /**
-     * @type number
-    */
-    amount: number;
-    /**
-     * @type string, date-time
-    */
-    date: string;
-    /**
-     * @type string | undefined
-    */
-    description?: string;
-    /**
-     * @type string
-    */
-    organizationId: string;
-}[];
+export type GetV1FinancialRecords200 = GetV1FinancialRecords200TypeEnumKey[];
 
 export type GetV1FinancialRecordsQueryResponse = GetV1FinancialRecords200;
 

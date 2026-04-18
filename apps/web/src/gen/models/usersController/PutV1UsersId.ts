@@ -37,11 +37,13 @@ export type PutV1UsersId200 = {
     organizationId: string;
 };
 
-export enum PutV1UsersIdMutationRequestRoleEnum {
-    VET = "VET",
-    MANAGER = "MANAGER",
-    OPERATOR = "OPERATOR"
-}
+export const putV1UsersIdMutationRequestRoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type PutV1UsersIdMutationRequestRoleEnumKey = (typeof putV1UsersIdMutationRequestRoleEnum)[keyof typeof putV1UsersIdMutationRequestRoleEnum];
 
 export type PutV1UsersIdMutationRequest = {
     /**
@@ -52,7 +54,7 @@ export type PutV1UsersIdMutationRequest = {
     /**
      * @type string | undefined
     */
-    role?: PutV1UsersIdMutationRequestRoleEnum;
+    role?: PutV1UsersIdMutationRequestRoleEnumKey;
 };
 
 export type PutV1UsersIdMutationResponse = PutV1UsersId200;

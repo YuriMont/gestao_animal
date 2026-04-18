@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1AnimalsQueryResponse, GetV1AnimalsQueryParams } from "../../models/animalsController/GetV1Animals.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1AnimalsQueryResponse, GetV1AnimalsQueryParams } from "../../models/animalsController/GetV1Animals.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1Animals } from "../../clients/animalsController/getV1Animals.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1AnimalsSuspenseQueryKey = (params?: GetV1AnimalsQueryParams) => [{ url: '/v1/animals' }, ...(params ? [params] : [])] as const
 

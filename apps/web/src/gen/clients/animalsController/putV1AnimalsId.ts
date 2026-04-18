@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { PutV1AnimalsIdMutationRequest, PutV1AnimalsIdMutationResponse, PutV1AnimalsIdPathParams } from "../../models/animalsController/PutV1AnimalsId.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getPutV1AnimalsIdUrl(id: PutV1AnimalsIdPathParams["id"]) {
   const res = { method: 'PUT', url: `/v1/animals/${id}` as const }

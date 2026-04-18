@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1ReproductionHistoryAnimalidQueryResponse, GetV1ReproductionHistoryAnimalidPathParams } from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1ReproductionHistoryAnimalidQueryResponse, GetV1ReproductionHistoryAnimalidPathParams } from "../../models/reproductionController/GetV1ReproductionHistoryAnimalid.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1ReproductionHistoryAnimalid } from "../../clients/reproductionController/getV1ReproductionHistoryAnimalid.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1ReproductionHistoryAnimalidSuspenseQueryKey = (animalId: GetV1ReproductionHistoryAnimalidPathParams["animalId"]) => [{ url: '/v1/reproduction/history/:animalId', params: {animalId:animalId} }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1ReproductionPregnanciesQueryResponse } from "../../models/reproductionController/GetV1ReproductionPregnancies.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetV1ReproductionPregnanciesQueryResponse } from "../../models/reproductionController/GetV1ReproductionPregnancies.ts";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getV1ReproductionPregnancies } from "../../clients/reproductionController/getV1ReproductionPregnancies.ts";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getV1ReproductionPregnanciesQueryKey = () => [{ url: '/v1/reproduction/pregnancies' }] as const
 

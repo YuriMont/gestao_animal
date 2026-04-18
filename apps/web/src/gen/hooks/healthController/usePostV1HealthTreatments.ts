@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostV1HealthTreatmentsMutationRequest, PostV1HealthTreatmentsMutationResponse } from "../../models/healthController/PostV1HealthTreatments.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostV1HealthTreatmentsMutationRequest, PostV1HealthTreatmentsMutationResponse } from "../../models/healthController/PostV1HealthTreatments.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postV1HealthTreatments } from "../../clients/healthController/postV1HealthTreatments.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postV1HealthTreatmentsMutationKey = () => [{ url: '/v1/health/treatments' }] as const
 

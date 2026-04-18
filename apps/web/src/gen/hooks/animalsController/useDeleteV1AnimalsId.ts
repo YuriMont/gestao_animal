@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { DeleteV1AnimalsIdMutationResponse, DeleteV1AnimalsIdPathParams } from "../../models/animalsController/DeleteV1AnimalsId.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { DeleteV1AnimalsIdMutationResponse, DeleteV1AnimalsIdPathParams } from "../../models/animalsController/DeleteV1AnimalsId.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { deleteV1AnimalsId } from "../../clients/animalsController/deleteV1AnimalsId.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const deleteV1AnimalsIdMutationKey = () => [{ url: '/v1/animals/:id' }] as const
 

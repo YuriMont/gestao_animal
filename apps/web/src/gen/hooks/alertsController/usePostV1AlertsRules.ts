@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostV1AlertsRulesMutationRequest, PostV1AlertsRulesMutationResponse } from "../../models/alertsController/PostV1AlertsRules.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostV1AlertsRulesMutationRequest, PostV1AlertsRulesMutationResponse } from "../../models/alertsController/PostV1AlertsRules.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postV1AlertsRules } from "../../clients/alertsController/postV1AlertsRules.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postV1AlertsRulesMutationKey = () => [{ url: '/v1/alerts/rules' }] as const
 

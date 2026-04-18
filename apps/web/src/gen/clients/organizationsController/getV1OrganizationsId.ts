@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { GetV1OrganizationsIdQueryResponse, GetV1OrganizationsIdPathParams } from "../../models/organizationsController/GetV1OrganizationsId.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getGetV1OrganizationsIdUrl(id: GetV1OrganizationsIdPathParams["id"]) {
   const res = { method: 'GET', url: `/v1/organizations/${id}` as const }

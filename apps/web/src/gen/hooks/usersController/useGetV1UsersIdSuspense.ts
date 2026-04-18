@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1UsersIdQueryResponse, GetV1UsersIdPathParams } from "../../models/usersController/GetV1UsersId.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1UsersIdQueryResponse, GetV1UsersIdPathParams } from "../../models/usersController/GetV1UsersId.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1UsersId } from "../../clients/usersController/getV1UsersId.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1UsersIdSuspenseQueryKey = (id: GetV1UsersIdPathParams["id"]) => [{ url: '/v1/users/:id', params: {id:id} }] as const
 

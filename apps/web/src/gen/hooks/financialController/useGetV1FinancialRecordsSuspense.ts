@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1FinancialRecordsQueryResponse } from "../../models/financialController/GetV1FinancialRecords.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1FinancialRecordsQueryResponse } from "../../models/financialController/GetV1FinancialRecords.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1FinancialRecords } from "../../clients/financialController/getV1FinancialRecords.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1FinancialRecordsSuspenseQueryKey = () => [{ url: '/v1/financial/records' }] as const
 

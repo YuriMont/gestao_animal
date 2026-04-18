@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1AlertsRulesQueryResponse } from "../../models/alertsController/GetV1AlertsRules.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1AlertsRules } from "../../clients/alertsController/getV1AlertsRules.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1AlertsRulesSuspenseQueryKey = () => [{ url: '/v1/alerts/rules' }] as const
 

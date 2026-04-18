@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { PostV1ReproductionBirthMutationRequest, PostV1ReproductionBirthMutationResponse } from "../../models/reproductionController/PostV1ReproductionBirth.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { UseMutationOptions, UseMutationResult, QueryClient } from "@tanstack/react-query";
-import type { PostV1ReproductionBirthMutationRequest, PostV1ReproductionBirthMutationResponse } from "../../models/reproductionController/PostV1ReproductionBirth.ts";
-import { mutationOptions, useMutation } from "@tanstack/react-query";
 import { postV1ReproductionBirth } from "../../clients/reproductionController/postV1ReproductionBirth.ts";
+import { mutationOptions, useMutation } from "@tanstack/react-query";
 
 export const postV1ReproductionBirthMutationKey = () => [{ url: '/v1/reproduction/birth' }] as const
 

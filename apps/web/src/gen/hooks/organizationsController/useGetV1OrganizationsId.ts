@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1OrganizationsIdQueryResponse, GetV1OrganizationsIdPathParams } from "../../models/organizationsController/GetV1OrganizationsId.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetV1OrganizationsIdQueryResponse, GetV1OrganizationsIdPathParams } from "../../models/organizationsController/GetV1OrganizationsId.ts";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getV1OrganizationsId } from "../../clients/organizationsController/getV1OrganizationsId.ts";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getV1OrganizationsIdQueryKey = (id: GetV1OrganizationsIdPathParams["id"]) => [{ url: '/v1/organizations/:id', params: {id:id} }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1ProductionMetricsAnimalidQueryResponse, GetV1ProductionMetricsAnimalidPathParams } from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
-import type { GetV1ProductionMetricsAnimalidQueryResponse, GetV1ProductionMetricsAnimalidPathParams } from "../../models/productionController/GetV1ProductionMetricsAnimalid.ts";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getV1ProductionMetricsAnimalid } from "../../clients/productionController/getV1ProductionMetricsAnimalid.ts";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export const getV1ProductionMetricsAnimalidSuspenseQueryKey = (animalId: GetV1ProductionMetricsAnimalidPathParams["animalId"]) => [{ url: '/v1/production/metrics/:animalId', params: {animalId:animalId} }] as const
 

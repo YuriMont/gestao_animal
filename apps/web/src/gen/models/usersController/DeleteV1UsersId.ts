@@ -11,13 +11,12 @@ export type DeleteV1UsersIdPathParams = {
     id: string;
 };
 
-export enum DeleteV1UsersId204Enum {
-}
+export type DeleteV1UsersId204EnumKey = never;
 
 /**
  * @description Default Response
 */
-export type DeleteV1UsersId204 = DeleteV1UsersId204Enum | null;
+export type DeleteV1UsersId204 = DeleteV1UsersId204EnumKey | null;
 
 export type DeleteV1UsersIdMutationResponse = DeleteV1UsersId204;
 

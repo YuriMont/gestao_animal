@@ -30,11 +30,13 @@ export type PostV1Users201 = {
     organizationId: string;
 };
 
-export enum PostV1UsersMutationRequestRoleEnum {
-    VET = "VET",
-    MANAGER = "MANAGER",
-    OPERATOR = "OPERATOR"
-}
+export const postV1UsersMutationRequestRoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type PostV1UsersMutationRequestRoleEnumKey = (typeof postV1UsersMutationRequestRoleEnum)[keyof typeof postV1UsersMutationRequestRoleEnum];
 
 export type PostV1UsersMutationRequest = {
     /**
@@ -54,7 +56,7 @@ export type PostV1UsersMutationRequest = {
     /**
      * @type string | undefined
     */
-    role?: PostV1UsersMutationRequestRoleEnum;
+    role?: PostV1UsersMutationRequestRoleEnumKey;
     /**
      * @type string, uuid
     */

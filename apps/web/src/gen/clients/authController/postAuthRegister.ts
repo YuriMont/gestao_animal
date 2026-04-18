@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { PostAuthRegisterMutationRequest, PostAuthRegisterMutationResponse } from "../../models/authController/PostAuthRegister.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getPostAuthRegisterUrl() {
   const res = { method: 'POST', url: `/auth/register` as const }

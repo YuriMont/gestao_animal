@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1UsersQueryResponse, GetV1UsersQueryParams } from "../../models/usersController/GetV1Users.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetV1UsersQueryResponse, GetV1UsersQueryParams } from "../../models/usersController/GetV1Users.ts";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getV1Users } from "../../clients/usersController/getV1Users.ts";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getV1UsersQueryKey = (params?: GetV1UsersQueryParams) => [{ url: '/v1/users' }, ...(params ? [params] : [])] as const
 

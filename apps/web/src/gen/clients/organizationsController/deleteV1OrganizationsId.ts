@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { DeleteV1OrganizationsIdMutationResponse, DeleteV1OrganizationsIdPathParams } from "../../models/organizationsController/DeleteV1OrganizationsId.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getDeleteV1OrganizationsIdUrl(id: DeleteV1OrganizationsIdPathParams["id"]) {
   const res = { method: 'DELETE', url: `/v1/organizations/${id}` as const }

@@ -4,23 +4,27 @@
 */
 
 
-export enum GetV1AnimalsQueryParamsStatusEnum {
-    Active = "Active",
-    Sold = "Sold",
-    Deceased = "Deceased",
-    Quarantine = "Quarantine"
-}
+export const getV1AnimalsQueryParamsStatusEnum = {
+    Active: "Active",
+    Sold: "Sold",
+    Deceased: "Deceased",
+    Quarantine: "Quarantine"
+} as const;
 
-export enum GetV1AnimalsQueryParamsSexEnum {
-    Male = "Male",
-    Female = "Female"
-}
+export type GetV1AnimalsQueryParamsStatusEnumKey = (typeof getV1AnimalsQueryParamsStatusEnum)[keyof typeof getV1AnimalsQueryParamsStatusEnum];
+
+export const getV1AnimalsQueryParamsSexEnum = {
+    Male: "Male",
+    Female: "Female"
+} as const;
+
+export type GetV1AnimalsQueryParamsSexEnumKey = (typeof getV1AnimalsQueryParamsSexEnum)[keyof typeof getV1AnimalsQueryParamsSexEnum];
 
 export type GetV1AnimalsQueryParams = {
     /**
      * @type string | undefined
     */
-    status?: GetV1AnimalsQueryParamsStatusEnum;
+    status?: GetV1AnimalsQueryParamsStatusEnumKey;
     /**
      * @type string | undefined
     */
@@ -28,7 +32,7 @@ export type GetV1AnimalsQueryParams = {
     /**
      * @type string | undefined
     */
-    sex?: GetV1AnimalsQueryParamsSexEnum;
+    sex?: GetV1AnimalsQueryParamsSexEnumKey;
     /**
      * @minLength 1
      * @maxLength 9007199254740991

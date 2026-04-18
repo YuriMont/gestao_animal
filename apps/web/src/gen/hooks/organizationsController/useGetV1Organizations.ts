@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { GetV1OrganizationsQueryResponse } from "../../models/organizationsController/GetV1Organizations.ts";
 import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
-import type { GetV1OrganizationsQueryResponse } from "../../models/organizationsController/GetV1Organizations.ts";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getV1Organizations } from "../../clients/organizationsController/getV1Organizations.ts";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 export const getV1OrganizationsQueryKey = () => [{ url: '/v1/organizations' }] as const
 

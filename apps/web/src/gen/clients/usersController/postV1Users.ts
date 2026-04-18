@@ -4,8 +4,8 @@
 */
 
 import fetch from "@/lib/axiosInstance";
-import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 import type { PostV1UsersMutationRequest, PostV1UsersMutationResponse } from "../../models/usersController/PostV1Users.ts";
+import type { Client, RequestConfig, ResponseErrorConfig } from "@/lib/axiosInstance";
 
 function getPostV1UsersUrl() {
   const res = { method: 'POST', url: `/v1/users` as const }
