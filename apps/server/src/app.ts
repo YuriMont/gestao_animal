@@ -24,12 +24,12 @@ export async function createApp() {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
-  // 1. Swagger must be registered before routes
-  await registerSwagger(app);
-
-  // 2. Global plugins
+  // 1. Global plugins
   await app.register(corsPlugin);
   await app.register(errorHandlerPlugin);
+
+  // 2. Swagger must be registered before routes
+  await registerSwagger(app);
 
   // 3. Rate limiting — 100 req/min per IP globally, stricter on auth
   await app.register(rateLimit, {

@@ -477,7 +477,7 @@ Limites: `page >= 1`, `1 <= limit <= 100`.
 ### Variáveis obrigatórias
 
 ```bash
-DATABASE_URL="postgresql://user:password@localhost:5432/animal_db"
+DATABASE_URL="mongodb://user:password@localhost:27017/gestao_animal?authSource=admin&retryWrites=true&w=majority"
 JWT_SECRET="string-aleatória-longa-mínimo-32-caracteres"
 ```
 
@@ -549,10 +549,6 @@ yarn run dev
 
 Fastify tem performance significativamente superior, suporte nativo a schemas JSON para validação e serialização, e um ecossistema de plugins bem mantido. O `fastify-type-provider-zod` integra Zod diretamente ao ciclo de vida das rotas.
 
-### Por que Prisma com adapter PG e não Prisma padrão?
-
-Prisma v7 move para o modelo de drivers. O `@prisma/adapter-pg` permite usar `pg` diretamente como driver, com melhor controle de pool de conexões em produção.
-
 ### Por que bcrypt e não argon2?
 
 bcrypt é amplamente suportado sem dependências nativas problemáticas no Windows (onde o projeto é desenvolvido). 12 rounds é o padrão recomendado para servidores de produção (equilíbrio entre segurança e tempo de resposta).
@@ -571,6 +567,6 @@ Simplicidade intencional para MVP. Em produção, implementar uma blacklist em R
 
 1. **Branch**: `feat/<modulo>-<descricao>` ou `fix/<descricao>`
 2. **Lint antes de abrir**: `yarn run lint`
-3. **Schema changes**: sempre acompanhar com `yarn prisma migrate dev --name <desc>`
+3. **Schema changes**: sempre acompanhar com `yarn prisma db push`
 4. **Checklist de segurança**: ver seção no CLAUDE.md
 5. **Documentação**: atualizar este PRD se mudar o contrato da API

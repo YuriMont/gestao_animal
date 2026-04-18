@@ -1,9 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -66,11 +68,11 @@ model Animal {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  healthRecords  HealthRecord[]
-  vaccines       Vaccine[]
-  treatments     Treatment[]
-  estrusCycles   Estrus[]
-  pregnancies    Pregnancy[]
+  healthRecords HealthRecord[]
+  vaccines      Vaccine[]
+  treatments    Treatment[]
+  estrusCycles  Estrus[]
+  pregnancies   Pregnancy[]
 
   birthsAsMother Birth[] @relation("MotherToBirth")
   birthsAsFather Birth[] @relation("FatherToBirth")

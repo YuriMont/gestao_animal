@@ -10,7 +10,7 @@ Guia de referência rápida para Claude Code e outros agentes de IA trabalhando 
 | --------- | --------------------------------------------------- |
 | Framework | Fastify v5 + TypeScript 6                           |
 | Validação | Zod v4 + `fastify-type-provider-zod`                |
-| ORM       | Prisma v7                                           |
+| ORM       | Prisma v6                                           |
 | Banco     | MongoDB                                             |
 | Auth      | JWT via `jsonwebtoken` + `bcrypt` (12 rounds)       |
 | Docs      | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
@@ -72,7 +72,7 @@ modules/<domínio>/
 │   ├── entities/           # Classes de domínio (imutáveis, sem Prisma)
 │   └── repositories/       # Interfaces IXxxRepository
 ├── infrastructure/
-│   └── persistence/        # PrismaXxxRepository — implementação das interfaces
+│   └── persistence/        # risma@6.19 @prisma/client@6.19XxxRepository — implementação das interfaces
 ├── application/
 │   └── use-cases/          # Um arquivo por caso de uso
 └── presentation/

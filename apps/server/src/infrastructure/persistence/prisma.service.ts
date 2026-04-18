@@ -1,19 +1,19 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../../generated/prisma/client";
 
 export class PrismaService {
-	private static instance: PrismaClient;
+  private static instance: PrismaClient;
 
-	private constructor() {}
+  private constructor() {}
 
-	static getInstance(): PrismaClient {
-		if (!PrismaService.instance) {
-			PrismaService.instance = new PrismaClient({
-				log:
-					process.env.NODE_ENV === "development"
-						? ["query", "error", "warn"]
-						: ["error"],
-			});
-		}
-		return PrismaService.instance;
-	}
+  static getInstance(): PrismaClient {
+    if (!PrismaService.instance) {
+      PrismaService.instance = new PrismaClient({
+        log:
+          process.env.NODE_ENV === "development"
+            ? ["query", "error", "warn"]
+            : ["error"],
+      });
+    }
+    return PrismaService.instance;
+  }
 }
