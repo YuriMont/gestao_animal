@@ -21,6 +21,7 @@ import {
 } from "@src/modules/core/presentation/dtos/user.dto";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import { enumResponseSchema } from "./dtos/enums.dto";
 
 const paginationMeta = z.object({
   total: z.number(),
@@ -154,75 +155,99 @@ export default async function coreRoutes(app: FastifyInstance) {
   );
 
   // ── Enums ──────────────────────────────────────────────────────────────
-
-  // Legacy flat endpoint (backward compatible)
+  // Animals
   app.get(
-    "/enums",
+    "/enums/animals/status",
     {
       schema: {
         tags: ["Enums"],
-        summary: "Get all enum values",
-        description:
-          "Returns all static enum values used across the API for reference.",
+        summary: "Get animal statuses",
         security: [{ bearerAuth: [] }],
-        response: {
-          200: z.object({
-            data: z.array(
-              z.object({
-                key: z.string(),
-                label: z.string(),
-              }),
-            ),
-          }),
-        },
+        response: { 200: enumResponseSchema },
       },
     },
-    enumsController.show,
+    enumsController.getAnimalStatus,
   );
 
-  // Hierarchical endpoint: /enums/:domain/:enumName
   app.get(
-    "/enums/:domain/:enumName",
+    "/enums/animals/sex",
     {
       schema: {
         tags: ["Enums"],
-        summary: "Get specific enum values by domain and name",
-        description:
-          "Returns enum values for a specific domain (e.g., 'animals') and enum name (e.g., 'animalStatus').",
+        summary: "Get animal sexes",
         security: [{ bearerAuth: [] }],
-        params: z.object({
-          domain: z.enum([
-            "animals",
-            "users",
-            "organizations",
-            "reproduction",
-            "production",
-            "financial",
-            "alerts",
-          ]),
-          enumName: z.enum([
-            "role",
-            "animalStatus",
-            "animalSex",
-            "pregnancyStatus",
-            "birthStatus",
-            "financialType",
-            "financialCategory",
-            "treatmentStatus",
-            "vaccineStatus",
-          ]),
-        }),
-        response: {
-          200: z.array(
-            z.object({
-              key: z.string(),
-              label: z.string(),
-            }),
-          ),
-        },
+        response: { 200: enumResponseSchema },
       },
     },
-    enumsController.hierarchical,
+    enumsController.getAnimalSex,
+  );
+
+  // Users
+  app.get(
+    "/enums/users/roles",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get user roles",
+        security: [{ bearerAuth: [] }],
+        response: { 200: enumResponseSchema },
+      },
+    },
+    enumsController.getUserRoles,
+  );
+
+  // Reproduction
+  app.get(
+    "/enums/reproduction/pregnancy-status",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get pregnancy statuses",
+        security: [{ bearerAuth: [] }],
+        response: { 200: enumResponseSchema },
+      },
+    },
+    enumsController.getPregnancyStatus,
+  );
+
+  app.get(
+    "/enums/reproduction/birth-status",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get birth statuses",
+        security: [{ bearerAuth: [] }],
+        response: { 200: enumResponseSchema },
+      },
+    },
+    enumsController.getBirthStatus,
+  );
+
+  // Financial
+  app.get(
+    "/enums/financial/types",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get financial types",
+        security: [{ bearerAuth: [] }],
+        response: { 200: enumResponseSchema },
+      },
+    },
+    enumsController.getFinancialTypes,
+  );
+
+  app.get(
+    "/enums/financial/categories",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get financial categories",
+        security: [{ bearerAuth: [] }],
+        response: { 200: enumResponseSchema },
+      },
+    },
+    enumsController.getFinancialCategories,
   );
 
   // ── Users ────────────────────────────────────────────────────────────────

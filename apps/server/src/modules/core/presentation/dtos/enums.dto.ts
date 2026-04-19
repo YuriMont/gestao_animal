@@ -1,3 +1,5 @@
+import z from "zod";
+
 // Translation service - centralized
 const TRANSLATIONS = {
   en: {
@@ -164,30 +166,9 @@ export const getEnumValues = (
   }));
 };
 
-export const validateEnumDomain = (domain: string): domain is EnumDomain => {
-  const validDomains: EnumDomain[] = [
-    "animals",
-    "users",
-    "organizations",
-    "reproduction",
-    "production",
-    "financial",
-    "alerts",
-  ];
-  return validDomains.includes(domain as EnumDomain);
-};
-
-export const validateEnumName = (enumName: string): enumName is EnumName => {
-  const validEnums: EnumName[] = [
-    "role",
-    "animalStatus",
-    "animalSex",
-    "pregnancyStatus",
-    "birthStatus",
-    "financialType",
-    "financialCategory",
-    "treatmentStatus",
-    "vaccineStatus",
-  ];
-  return validEnums.includes(enumName as EnumName);
-};
+export const enumResponseSchema = z.array(
+  z.object({
+    key: z.string(),
+    label: z.string(),
+  }),
+);
