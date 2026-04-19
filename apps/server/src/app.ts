@@ -17,6 +17,8 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { z } from "zod";
+import { organizationController } from "./modules/core/presentation/controllers/organization.controller";
+import { organizationResponseSchema } from "./modules/core/presentation/dtos/organization.dto";
 
 export async function createApp() {
   const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
@@ -47,6 +49,38 @@ export async function createApp() {
       await pub.register(authRoutes);
     },
     { prefix: "/auth" },
+  );
+
+  app.register(
+    async (pub) => {
+      await pub.get(
+        "/organizations",
+        {
+          schema: {
+            tags: ["Organizations"],
+            summary: "List all organizations",
+            response: {
+              200: z.object({ data: z.array(organizationResponseSchema) }),
+            },
+          },
+        },
+        organizationController.list,
+      );
+
+      await pub.get(
+        "/organizations/:id",
+        {
+          schema: {
+            tags: ["Organizations"],
+            summary: "Get organization by ID",
+            params: z.object({ id: z.string().uuid() }),
+            response: { 200: organizationResponseSchema },
+          },
+        },
+        organizationController.getById,
+      );
+    },
+    { prefix: "/" },
   );
 
   // 5. Protected API routes — JWT required on all /v1/* endpoints
