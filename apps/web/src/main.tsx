@@ -12,13 +12,13 @@ import { router } from "./router";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <TanStackRouterDevtools router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </Provider>
-  </StrictMode>,
+	<StrictMode>
+		<Provider store={store}>
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider router={router} />
+				<TanStackRouterDevtools router={router} />
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
+		</Provider>
+	</StrictMode>,
 );

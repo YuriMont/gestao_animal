@@ -48,10 +48,10 @@ function AlertsPage() {
 	const [open, setOpen] = useState(false);
 	const [form, setForm] = useState({ name: "", type: "", threshold: "" });
 
-const rulesQuery = useGetV1AlertsRules();
-const rules = Array.isArray(rulesQuery.data)
-	? (rulesQuery.data as any).data
-	: [];
+	const rulesQuery = useGetV1AlertsRules();
+	const rules = Array.isArray(rulesQuery.data)
+		? (rulesQuery.data as any).data
+		: [];
 
 	const createMutation = usePostV1AlertsRules({
 		mutation: {
