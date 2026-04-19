@@ -20,7 +20,7 @@ export function createPutV1UsersIdPathParams(data?: Partial<PutV1UsersIdPathPara
 export function createPutV1UsersId200(data?: Partial<PutV1UsersId200>): PutV1UsersId200 {
 
   return {
-    ...{"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.string.alpha(),"organizationId": faker.string.alpha()},
+    ...{"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.helpers.arrayElement<NonNullable<PutV1UsersId200>["role"]>(["VET", "MANAGER", "OPERATOR"]),"organizationId": faker.string.alpha()},
     ...data || {}
   }
 }

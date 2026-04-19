@@ -49,6 +49,22 @@ export type GetV1AnimalsQueryParams = {
     limit?: number;
 };
 
+export const dataSexEnum = {
+    FEMALE: "FEMALE",
+    MALE: "MALE"
+} as const;
+
+export type DataSexEnumKey = (typeof dataSexEnum)[keyof typeof dataSexEnum];
+
+export const dataStatusEnum = {
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
+} as const;
+
+export type DataStatusEnumKey = (typeof dataStatusEnum)[keyof typeof dataStatusEnum];
+
 /**
  * @description Default Response
 */
@@ -76,7 +92,7 @@ export type GetV1Animals200 = {
         /**
          * @type string
         */
-        sex: string;
+        sex: DataSexEnumKey;
         /**
          * @type string, date-time
         */
@@ -88,7 +104,7 @@ export type GetV1Animals200 = {
         /**
          * @type string
         */
-        status: string;
+        status: DataStatusEnumKey;
         /**
          * @type string
         */

@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createPostV1Animals201(data?: Partial<PostV1Animals201>): PostV1Animals201 {
 
   return {
-    ...{"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.string.alpha(),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.string.alpha(),"organizationId": faker.string.alpha()},
+    ...{"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PostV1Animals201>["sex"]>(["FEMALE", "MALE"]),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PostV1Animals201>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]),"organizationId": faker.string.alpha()},
     ...data || {}
   }
 }

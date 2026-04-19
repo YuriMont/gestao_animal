@@ -21,6 +21,14 @@ export type GetV1UsersQueryParams = {
     limit?: number;
 };
 
+export const dataRoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type DataRoleEnumKey = (typeof dataRoleEnum)[keyof typeof dataRoleEnum];
+
 /**
  * @description Default Response
 */
@@ -44,7 +52,7 @@ export type GetV1Users200 = {
         /**
          * @type string
         */
-        role: string;
+        role: DataRoleEnumKey;
         /**
          * @type string
         */

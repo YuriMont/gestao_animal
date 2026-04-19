@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createPostAuthRegister201(data?: Partial<PostAuthRegister201>): PostAuthRegister201 {
 
   return {
-    ...{"message": faker.string.alpha(),"user": {"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.string.alpha(),"organizationId": faker.string.alpha()}},
+    ...{"message": faker.string.alpha(),"user": {"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.helpers.arrayElement<NonNullable<NonNullable<PostAuthRegister201>["user"]>["role"]>(["VET", "MANAGER", "OPERATOR"]),"organizationId": faker.string.alpha()}},
     ...data || {}
   }
 }

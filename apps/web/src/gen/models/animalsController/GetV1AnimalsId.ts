@@ -11,6 +11,22 @@ export type GetV1AnimalsIdPathParams = {
     id: string;
 };
 
+export const getV1AnimalsId200SexEnum = {
+    FEMALE: "FEMALE",
+    MALE: "MALE"
+} as const;
+
+export type GetV1AnimalsId200SexEnumKey = (typeof getV1AnimalsId200SexEnum)[keyof typeof getV1AnimalsId200SexEnum];
+
+export const getV1AnimalsId200StatusEnum = {
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
+} as const;
+
+export type GetV1AnimalsId200StatusEnumKey = (typeof getV1AnimalsId200StatusEnum)[keyof typeof getV1AnimalsId200StatusEnum];
+
 /**
  * @description Default Response
 */
@@ -34,7 +50,7 @@ export type GetV1AnimalsId200 = {
     /**
      * @type string
     */
-    sex: string;
+    sex: GetV1AnimalsId200SexEnumKey;
     /**
      * @type string, date-time
     */
@@ -46,7 +62,7 @@ export type GetV1AnimalsId200 = {
     /**
      * @type string
     */
-    status: string;
+    status: GetV1AnimalsId200StatusEnumKey;
     /**
      * @type string
     */

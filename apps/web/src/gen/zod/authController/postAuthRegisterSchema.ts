@@ -14,7 +14,7 @@ export const postAuthRegister201Schema = z.object({
     "id": z.string(),
 "email": z.string(),
 "name": z.string(),
-"role": z.string(),
+"role": z.enum(["VET", "MANAGER", "OPERATOR"]),
 "organizationId": z.string()
     })
     })

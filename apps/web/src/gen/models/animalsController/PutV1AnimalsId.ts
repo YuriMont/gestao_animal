@@ -11,6 +11,22 @@ export type PutV1AnimalsIdPathParams = {
     id: string;
 };
 
+export const putV1AnimalsId200SexEnum = {
+    FEMALE: "FEMALE",
+    MALE: "MALE"
+} as const;
+
+export type PutV1AnimalsId200SexEnumKey = (typeof putV1AnimalsId200SexEnum)[keyof typeof putV1AnimalsId200SexEnum];
+
+export const putV1AnimalsId200StatusEnum = {
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
+} as const;
+
+export type PutV1AnimalsId200StatusEnumKey = (typeof putV1AnimalsId200StatusEnum)[keyof typeof putV1AnimalsId200StatusEnum];
+
 /**
  * @description Default Response
 */
@@ -34,7 +50,7 @@ export type PutV1AnimalsId200 = {
     /**
      * @type string
     */
-    sex: string;
+    sex: PutV1AnimalsId200SexEnumKey;
     /**
      * @type string, date-time
     */
@@ -46,7 +62,7 @@ export type PutV1AnimalsId200 = {
     /**
      * @type string
     */
-    status: string;
+    status: PutV1AnimalsId200StatusEnumKey;
     /**
      * @type string
     */

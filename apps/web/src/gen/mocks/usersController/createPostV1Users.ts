@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createPostV1Users201(data?: Partial<PostV1Users201>): PostV1Users201 {
 
   return {
-    ...{"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.string.alpha(),"organizationId": faker.string.alpha()},
+    ...{"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.helpers.arrayElement<NonNullable<PostV1Users201>["role"]>(["VET", "MANAGER", "OPERATOR"]),"organizationId": faker.string.alpha()},
     ...data || {}
   }
 }

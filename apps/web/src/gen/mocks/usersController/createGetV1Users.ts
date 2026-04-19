@@ -20,7 +20,7 @@ export function createGetV1UsersQueryParams(data?: Partial<GetV1UsersQueryParams
 export function createGetV1Users200(data?: Partial<GetV1Users200>): GetV1Users200 {
 
   return {
-    ...{"data": faker.helpers.multiple(() => ({"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.string.alpha(),"organizationId": faker.string.alpha()})),"meta": {"total": faker.number.float(),"page": faker.number.float(),"limit": faker.number.float(),"totalPages": faker.number.float()}},
+    ...{"data": faker.helpers.multiple(() => ({"id": faker.string.alpha(),"email": faker.string.alpha(),"name": faker.string.alpha(),"role": faker.helpers.arrayElement<NonNullable<NonNullable<NonNullable<GetV1Users200>["data"]>[number]>["role"]>(["VET", "MANAGER", "OPERATOR"]),"organizationId": faker.string.alpha()})),"meta": {"total": faker.number.float(),"page": faker.number.float(),"limit": faker.number.float(),"totalPages": faker.number.float()}},
     ...data || {}
   }
 }

@@ -20,7 +20,7 @@ export function createGetV1AnimalsQueryParams(data?: Partial<GetV1AnimalsQueryPa
 export function createGetV1Animals200(data?: Partial<GetV1Animals200>): GetV1Animals200 {
 
   return {
-    ...{"data": faker.helpers.multiple(() => ({"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.string.alpha(),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.string.alpha(),"organizationId": faker.string.alpha()})),"meta": {"total": faker.number.float(),"page": faker.number.float(),"limit": faker.number.float(),"totalPages": faker.number.float()}},
+    ...{"data": faker.helpers.multiple(() => ({"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<NonNullable<NonNullable<GetV1Animals200>["data"]>[number]>["sex"]>(["FEMALE", "MALE"]),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<NonNullable<NonNullable<GetV1Animals200>["data"]>[number]>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]),"organizationId": faker.string.alpha()})),"meta": {"total": faker.number.float(),"page": faker.number.float(),"limit": faker.number.float(),"totalPages": faker.number.float()}},
     ...data || {}
   }
 }

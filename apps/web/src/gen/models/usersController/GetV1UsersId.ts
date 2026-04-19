@@ -11,6 +11,14 @@ export type GetV1UsersIdPathParams = {
     id: string;
 };
 
+export const getV1UsersId200RoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type GetV1UsersId200RoleEnumKey = (typeof getV1UsersId200RoleEnum)[keyof typeof getV1UsersId200RoleEnum];
+
 /**
  * @description Default Response
 */
@@ -30,7 +38,7 @@ export type GetV1UsersId200 = {
     /**
      * @type string
     */
-    role: string;
+    role: GetV1UsersId200RoleEnumKey;
     /**
      * @type string
     */

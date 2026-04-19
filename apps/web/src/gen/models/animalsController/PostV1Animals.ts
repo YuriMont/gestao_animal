@@ -4,6 +4,22 @@
 */
 
 
+export const postV1Animals201SexEnum = {
+    FEMALE: "FEMALE",
+    MALE: "MALE"
+} as const;
+
+export type PostV1Animals201SexEnumKey = (typeof postV1Animals201SexEnum)[keyof typeof postV1Animals201SexEnum];
+
+export const postV1Animals201StatusEnum = {
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
+} as const;
+
+export type PostV1Animals201StatusEnumKey = (typeof postV1Animals201StatusEnum)[keyof typeof postV1Animals201StatusEnum];
+
 /**
  * @description Default Response
 */
@@ -27,7 +43,7 @@ export type PostV1Animals201 = {
     /**
      * @type string
     */
-    sex: string;
+    sex: PostV1Animals201SexEnumKey;
     /**
      * @type string, date-time
     */
@@ -39,7 +55,7 @@ export type PostV1Animals201 = {
     /**
      * @type string
     */
-    status: string;
+    status: PostV1Animals201StatusEnumKey;
     /**
      * @type string
     */

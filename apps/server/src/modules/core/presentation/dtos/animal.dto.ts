@@ -40,10 +40,10 @@ export const animalResponseSchema = z.object({
   tag: z.string(),
   species: z.string(),
   breed: z.string().optional(),
-  sex: z.string(),
+  sex: z.enum(AnimalSex),
   birthDate: z.date(),
   origin: z.string().optional(),
-  status: z.string(),
+  status: z.enum(AnimalStatus),
   organizationId: z.string(),
 });
 

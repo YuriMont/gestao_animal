@@ -13,10 +13,10 @@ export const postV1Animals201Schema = z.object({
 "tag": z.string(),
 "species": z.string(),
 "breed": z.optional(z.string()),
-"sex": z.string(),
+"sex": z.enum(["FEMALE", "MALE"]),
 "birthDate": z.iso.datetime(),
 "origin": z.optional(z.string()),
-"status": z.string(),
+"status": z.enum(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]),
 "organizationId": z.string()
     })
 

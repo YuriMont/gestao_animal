@@ -4,6 +4,14 @@
 */
 
 
+export const postV1Users201RoleEnum = {
+    VET: "VET",
+    MANAGER: "MANAGER",
+    OPERATOR: "OPERATOR"
+} as const;
+
+export type PostV1Users201RoleEnumKey = (typeof postV1Users201RoleEnum)[keyof typeof postV1Users201RoleEnum];
+
 /**
  * @description Default Response
 */
@@ -23,7 +31,7 @@ export type PostV1Users201 = {
     /**
      * @type string
     */
-    role: string;
+    role: PostV1Users201RoleEnumKey;
     /**
      * @type string
     */

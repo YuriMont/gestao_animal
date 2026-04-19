@@ -20,7 +20,7 @@ export function createPutV1AnimalsIdPathParams(data?: Partial<PutV1AnimalsIdPath
 export function createPutV1AnimalsId200(data?: Partial<PutV1AnimalsId200>): PutV1AnimalsId200 {
 
   return {
-    ...{"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.string.alpha(),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.string.alpha(),"organizationId": faker.string.alpha()},
+    ...{"id": faker.string.alpha(),"tag": faker.string.alpha(),"species": faker.string.alpha(),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PutV1AnimalsId200>["sex"]>(["FEMALE", "MALE"]),"birthDate": faker.date.anytime().toISOString(),"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PutV1AnimalsId200>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]),"organizationId": faker.string.alpha()},
     ...data || {}
   }
 }
