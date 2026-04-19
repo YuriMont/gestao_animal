@@ -7,8 +7,13 @@ export { postV1Animals201Schema, postV1AnimalsMutationRequestSchema, postV1Anima
 export { putV1AnimalsId200Schema, putV1AnimalsIdMutationRequestSchema, putV1AnimalsIdMutationResponseSchema, putV1AnimalsIdPathParamsSchema } from "./animalsController/putV1AnimalsIdSchema.ts";
 export { postAuthLogin200Schema, postAuthLoginMutationRequestSchema, postAuthLoginMutationResponseSchema } from "./authController/postAuthLoginSchema.ts";
 export { postAuthRegister201Schema, postAuthRegisterMutationRequestSchema, postAuthRegisterMutationResponseSchema } from "./authController/postAuthRegisterSchema.ts";
-export { getV1EnumsDomainEnumname200Schema, getV1EnumsDomainEnumnamePathParamsSchema, getV1EnumsDomainEnumnameQueryResponseSchema } from "./enumsController/getV1EnumsDomainEnumnameSchema.ts";
-export { getV1Enums200Schema, getV1EnumsQueryResponseSchema } from "./enumsController/getV1EnumsSchema.ts";
+export { getV1EnumsAnimalsSex200Schema, getV1EnumsAnimalsSexQueryResponseSchema } from "./enumsController/getV1EnumsAnimalsSexSchema.ts";
+export { getV1EnumsAnimalsStatus200Schema, getV1EnumsAnimalsStatusQueryResponseSchema } from "./enumsController/getV1EnumsAnimalsStatusSchema.ts";
+export { getV1EnumsFinancialCategories200Schema, getV1EnumsFinancialCategoriesQueryResponseSchema } from "./enumsController/getV1EnumsFinancialCategoriesSchema.ts";
+export { getV1EnumsFinancialTypes200Schema, getV1EnumsFinancialTypesQueryResponseSchema } from "./enumsController/getV1EnumsFinancialTypesSchema.ts";
+export { getV1EnumsReproductionBirthStatus200Schema, getV1EnumsReproductionBirthStatusQueryResponseSchema } from "./enumsController/getV1EnumsReproductionBirthStatusSchema.ts";
+export { getV1EnumsReproductionPregnancyStatus200Schema, getV1EnumsReproductionPregnancyStatusQueryResponseSchema } from "./enumsController/getV1EnumsReproductionPregnancyStatusSchema.ts";
+export { getV1EnumsUsersRoles200Schema, getV1EnumsUsersRolesQueryResponseSchema } from "./enumsController/getV1EnumsUsersRolesSchema.ts";
 export { getV1FinancialRecords200Schema, getV1FinancialRecordsQueryResponseSchema } from "./financialController/getV1FinancialRecordsSchema.ts";
 export { getV1FinancialSummary200Schema, getV1FinancialSummaryQueryResponseSchema } from "./financialController/getV1FinancialSummarySchema.ts";
 export { postV1FinancialRecords201Schema, postV1FinancialRecordsMutationRequestSchema, postV1FinancialRecordsMutationResponseSchema } from "./financialController/postV1FinancialRecordsSchema.ts";

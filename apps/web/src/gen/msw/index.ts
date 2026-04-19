@@ -7,8 +7,13 @@ export { postV1AnimalsHandler, postV1AnimalsHandlerResponse201 } from "./animals
 export { putV1AnimalsIdHandler, putV1AnimalsIdHandlerResponse200 } from "./animalsController/putV1AnimalsIdHandler.ts";
 export { postAuthLoginHandler, postAuthLoginHandlerResponse200 } from "./authController/postAuthLoginHandler.ts";
 export { postAuthRegisterHandler, postAuthRegisterHandlerResponse201 } from "./authController/postAuthRegisterHandler.ts";
-export { getV1EnumsDomainEnumnameHandler, getV1EnumsDomainEnumnameHandlerResponse200 } from "./enumsController/getV1EnumsDomainEnumnameHandler.ts";
-export { getV1EnumsHandler, getV1EnumsHandlerResponse200 } from "./enumsController/getV1EnumsHandler.ts";
+export { getV1EnumsAnimalsSexHandler, getV1EnumsAnimalsSexHandlerResponse200 } from "./enumsController/getV1EnumsAnimalsSexHandler.ts";
+export { getV1EnumsAnimalsStatusHandler, getV1EnumsAnimalsStatusHandlerResponse200 } from "./enumsController/getV1EnumsAnimalsStatusHandler.ts";
+export { getV1EnumsFinancialCategoriesHandler, getV1EnumsFinancialCategoriesHandlerResponse200 } from "./enumsController/getV1EnumsFinancialCategoriesHandler.ts";
+export { getV1EnumsFinancialTypesHandler, getV1EnumsFinancialTypesHandlerResponse200 } from "./enumsController/getV1EnumsFinancialTypesHandler.ts";
+export { getV1EnumsReproductionBirthStatusHandler, getV1EnumsReproductionBirthStatusHandlerResponse200 } from "./enumsController/getV1EnumsReproductionBirthStatusHandler.ts";
+export { getV1EnumsReproductionPregnancyStatusHandler, getV1EnumsReproductionPregnancyStatusHandlerResponse200 } from "./enumsController/getV1EnumsReproductionPregnancyStatusHandler.ts";
+export { getV1EnumsUsersRolesHandler, getV1EnumsUsersRolesHandlerResponse200 } from "./enumsController/getV1EnumsUsersRolesHandler.ts";
 export { getV1FinancialRecordsHandler, getV1FinancialRecordsHandlerResponse200 } from "./financialController/getV1FinancialRecordsHandler.ts";
 export { getV1FinancialSummaryHandler, getV1FinancialSummaryHandlerResponse200 } from "./financialController/getV1FinancialSummaryHandler.ts";
 export { postV1FinancialRecordsHandler, postV1FinancialRecordsHandlerResponse201 } from "./financialController/postV1FinancialRecordsHandler.ts";

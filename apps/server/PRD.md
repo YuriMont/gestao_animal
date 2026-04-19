@@ -386,6 +386,20 @@ Authorization: Bearer <token>
 
 ---
 
+### 7.11 Enums (`/v1/enums`)
+
+| Método | Rota                                | Descrição                                |
+| ------ | ----------------------------------- | ---------------------------------------- |
+| `GET`  | `/v1/enums/animals/status`           | Status dos animais (Saneado, Vendida, etc) |
+| `GET`  | `/v1/enums/animals/sex`            | Sexo dos animais (Macho, Fêmea)           |
+| `GET`  | `/v1/enums/users/roles`            | Papéis de usuário (VET, MANAGER, OPERATOR) |
+| `GET`  | `/v1/enums/reproduction/pregnancy-status` | Status de prenhez (Confirmada, etc)   |
+| `GET`  | `/v1/enums/reproduction/birth-status` | Status de parto (Vivo, Morto nascido, etc) |
+| `GET`  | `/v1/enums/financial/types`        | Tipos financeiros (Receita, Despesa)      |
+| `GET`  | `/v1/enums/financial/categories`   | Categorias financeiras (Ração, etc)       |
+
+---
+
 ## 8. Fluxos principais
 
 ### 8.1 Onboarding de uma nova fazenda

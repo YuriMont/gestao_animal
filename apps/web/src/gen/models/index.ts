@@ -7,8 +7,13 @@ export type { PostV1Animals201, PostV1AnimalsMutation, PostV1AnimalsMutationRequ
 export type { PutV1AnimalsId200, PutV1AnimalsIdMutation, PutV1AnimalsIdMutationRequest, PutV1AnimalsIdMutationRequestSexEnumKey, PutV1AnimalsIdMutationRequestStatusEnumKey, PutV1AnimalsIdMutationResponse, PutV1AnimalsIdPathParams } from "./animalsController/PutV1AnimalsId.ts";
 export type { PostAuthLogin200, PostAuthLoginMutation, PostAuthLoginMutationRequest, PostAuthLoginMutationResponse } from "./authController/PostAuthLogin.ts";
 export type { PostAuthRegister201, PostAuthRegisterMutation, PostAuthRegisterMutationRequest, PostAuthRegisterMutationRequestRoleEnumKey, PostAuthRegisterMutationResponse } from "./authController/PostAuthRegister.ts";
-export type { GetV1Enums200, GetV1EnumsQuery, GetV1EnumsQueryResponse } from "./enumsController/GetV1Enums.ts";
-export type { GetV1EnumsDomainEnumname200, GetV1EnumsDomainEnumnamePathParams, GetV1EnumsDomainEnumnamePathParamsDomainEnumKey, GetV1EnumsDomainEnumnamePathParamsEnumNameEnumKey, GetV1EnumsDomainEnumnameQuery, GetV1EnumsDomainEnumnameQueryResponse } from "./enumsController/GetV1EnumsDomainEnumname.ts";
+export type { GetV1EnumsAnimalsSex200, GetV1EnumsAnimalsSexQuery, GetV1EnumsAnimalsSexQueryResponse } from "./enumsController/GetV1EnumsAnimalsSex.ts";
+export type { GetV1EnumsAnimalsStatus200, GetV1EnumsAnimalsStatusQuery, GetV1EnumsAnimalsStatusQueryResponse } from "./enumsController/GetV1EnumsAnimalsStatus.ts";
+export type { GetV1EnumsFinancialCategories200, GetV1EnumsFinancialCategoriesQuery, GetV1EnumsFinancialCategoriesQueryResponse } from "./enumsController/GetV1EnumsFinancialCategories.ts";
+export type { GetV1EnumsFinancialTypes200, GetV1EnumsFinancialTypesQuery, GetV1EnumsFinancialTypesQueryResponse } from "./enumsController/GetV1EnumsFinancialTypes.ts";
+export type { GetV1EnumsReproductionBirthStatus200, GetV1EnumsReproductionBirthStatusQuery, GetV1EnumsReproductionBirthStatusQueryResponse } from "./enumsController/GetV1EnumsReproductionBirthStatus.ts";
+export type { GetV1EnumsReproductionPregnancyStatus200, GetV1EnumsReproductionPregnancyStatusQuery, GetV1EnumsReproductionPregnancyStatusQueryResponse } from "./enumsController/GetV1EnumsReproductionPregnancyStatus.ts";
+export type { GetV1EnumsUsersRoles200, GetV1EnumsUsersRolesQuery, GetV1EnumsUsersRolesQueryResponse } from "./enumsController/GetV1EnumsUsersRoles.ts";
 export type { GetV1FinancialRecords200, GetV1FinancialRecords200CategoryEnumKey, GetV1FinancialRecords200TypeEnumKey, GetV1FinancialRecordsQuery, GetV1FinancialRecordsQueryResponse } from "./financialController/GetV1FinancialRecords.ts";
 export type { GetV1FinancialSummary200, GetV1FinancialSummaryQuery, GetV1FinancialSummaryQueryResponse } from "./financialController/GetV1FinancialSummary.ts";
 export type { PostV1FinancialRecords201, PostV1FinancialRecordsMutation, PostV1FinancialRecordsMutationRequest, PostV1FinancialRecordsMutationRequestTypeEnumKey, PostV1FinancialRecordsMutationResponse, RecordCategoryEnumKey, RecordTypeEnumKey } from "./financialController/PostV1FinancialRecords.ts";
@@ -42,8 +47,6 @@ export { postV1AnimalsMutationRequestStatusEnum } from "./animalsController/Post
 export { putV1AnimalsIdMutationRequestSexEnum } from "./animalsController/PutV1AnimalsId.ts";
 export { putV1AnimalsIdMutationRequestStatusEnum } from "./animalsController/PutV1AnimalsId.ts";
 export { postAuthRegisterMutationRequestRoleEnum } from "./authController/PostAuthRegister.ts";
-export { getV1EnumsDomainEnumnamePathParamsDomainEnum } from "./enumsController/GetV1EnumsDomainEnumname.ts";
-export { getV1EnumsDomainEnumnamePathParamsEnumNameEnum } from "./enumsController/GetV1EnumsDomainEnumname.ts";
 export { getV1FinancialRecords200CategoryEnum } from "./financialController/GetV1FinancialRecords.ts";
 export { getV1FinancialRecords200TypeEnum } from "./financialController/GetV1FinancialRecords.ts";
 export { postV1FinancialRecordsMutationRequestTypeEnum } from "./financialController/PostV1FinancialRecords.ts";

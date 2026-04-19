@@ -7,8 +7,13 @@ export { createPostV1Animals201, createPostV1AnimalsMutationRequest, createPostV
 export { createPutV1AnimalsId200, createPutV1AnimalsIdMutationRequest, createPutV1AnimalsIdMutationResponse, createPutV1AnimalsIdPathParams } from "./animalsController/createPutV1AnimalsId.ts";
 export { createPostAuthLogin200, createPostAuthLoginMutationRequest, createPostAuthLoginMutationResponse } from "./authController/createPostAuthLogin.ts";
 export { createPostAuthRegister201, createPostAuthRegisterMutationRequest, createPostAuthRegisterMutationResponse } from "./authController/createPostAuthRegister.ts";
-export { createGetV1Enums200, createGetV1EnumsQueryResponse } from "./enumsController/createGetV1Enums.ts";
-export { createGetV1EnumsDomainEnumname200, createGetV1EnumsDomainEnumnamePathParams, createGetV1EnumsDomainEnumnameQueryResponse } from "./enumsController/createGetV1EnumsDomainEnumname.ts";
+export { createGetV1EnumsAnimalsSex200, createGetV1EnumsAnimalsSexQueryResponse } from "./enumsController/createGetV1EnumsAnimalsSex.ts";
+export { createGetV1EnumsAnimalsStatus200, createGetV1EnumsAnimalsStatusQueryResponse } from "./enumsController/createGetV1EnumsAnimalsStatus.ts";
+export { createGetV1EnumsFinancialCategories200, createGetV1EnumsFinancialCategoriesQueryResponse } from "./enumsController/createGetV1EnumsFinancialCategories.ts";
+export { createGetV1EnumsFinancialTypes200, createGetV1EnumsFinancialTypesQueryResponse } from "./enumsController/createGetV1EnumsFinancialTypes.ts";
+export { createGetV1EnumsReproductionBirthStatus200, createGetV1EnumsReproductionBirthStatusQueryResponse } from "./enumsController/createGetV1EnumsReproductionBirthStatus.ts";
+export { createGetV1EnumsReproductionPregnancyStatus200, createGetV1EnumsReproductionPregnancyStatusQueryResponse } from "./enumsController/createGetV1EnumsReproductionPregnancyStatus.ts";
+export { createGetV1EnumsUsersRoles200, createGetV1EnumsUsersRolesQueryResponse } from "./enumsController/createGetV1EnumsUsersRoles.ts";
 export { createGetV1FinancialRecords200, createGetV1FinancialRecordsQueryResponse } from "./financialController/createGetV1FinancialRecords.ts";
 export { createGetV1FinancialSummary200, createGetV1FinancialSummaryQueryResponse } from "./financialController/createGetV1FinancialSummary.ts";
 export { createPostV1FinancialRecords201, createPostV1FinancialRecordsMutationRequest, createPostV1FinancialRecordsMutationResponse } from "./financialController/createPostV1FinancialRecords.ts";
