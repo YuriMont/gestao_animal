@@ -47,17 +47,17 @@ export type PostV1Animals201 = {
 };
 
 export const postV1AnimalsMutationRequestSexEnum = {
-    Male: "Male",
-    Female: "Female"
+    FEMALE: "FEMALE",
+    MALE: "MALE"
 } as const;
 
 export type PostV1AnimalsMutationRequestSexEnumKey = (typeof postV1AnimalsMutationRequestSexEnum)[keyof typeof postV1AnimalsMutationRequestSexEnum];
 
 export const postV1AnimalsMutationRequestStatusEnum = {
-    Active: "Active",
-    Sold: "Sold",
-    Deceased: "Deceased",
-    Quarantine: "Quarantine"
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
 } as const;
 
 export type PostV1AnimalsMutationRequestStatusEnumKey = (typeof postV1AnimalsMutationRequestStatusEnum)[keyof typeof postV1AnimalsMutationRequestStatusEnum];
@@ -87,7 +87,7 @@ export type PostV1AnimalsMutationRequest = {
     */
     origin?: string;
     /**
-     * @default "Active"
+     * @default "ACTIVE"
      * @type string | undefined
     */
     status?: PostV1AnimalsMutationRequestStatusEnumKey;

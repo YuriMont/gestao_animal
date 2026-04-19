@@ -101,11 +101,91 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const AnimalStatus: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SOLD: 'SOLD',
+  DECEASED: 'DECEASED'
+};
+
+export type AnimalStatus = (typeof AnimalStatus)[keyof typeof AnimalStatus]
+
+
+export const AnimalSex: {
+  FEMALE: 'FEMALE',
+  MALE: 'MALE'
+};
+
+export type AnimalSex = (typeof AnimalSex)[keyof typeof AnimalSex]
+
+
+export const PregnancyStatus: {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type PregnancyStatus = (typeof PregnancyStatus)[keyof typeof PregnancyStatus]
+
+
+export const BirthStatus: {
+  ALIVE: 'ALIVE',
+  STILLBORN: 'STILLBORN',
+  ABORTED: 'ABORTED'
+};
+
+export type BirthStatus = (typeof BirthStatus)[keyof typeof BirthStatus]
+
+
+export const FinancialType: {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE'
+};
+
+export type FinancialType = (typeof FinancialType)[keyof typeof FinancialType]
+
+
+export const FinancialCategory: {
+  FEED: 'FEED',
+  MEDICATION: 'MEDICATION',
+  LABOR: 'LABOR',
+  MAINTENANCE: 'MAINTENANCE',
+  OTHER: 'OTHER'
+};
+
+export type FinancialCategory = (typeof FinancialCategory)[keyof typeof FinancialCategory]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type AnimalStatus = $Enums.AnimalStatus
+
+export const AnimalStatus: typeof $Enums.AnimalStatus
+
+export type AnimalSex = $Enums.AnimalSex
+
+export const AnimalSex: typeof $Enums.AnimalSex
+
+export type PregnancyStatus = $Enums.PregnancyStatus
+
+export const PregnancyStatus: typeof $Enums.PregnancyStatus
+
+export type BirthStatus = $Enums.BirthStatus
+
+export const BirthStatus: typeof $Enums.BirthStatus
+
+export type FinancialType = $Enums.FinancialType
+
+export const FinancialType: typeof $Enums.FinancialType
+
+export type FinancialCategory = $Enums.FinancialCategory
+
+export const FinancialCategory: typeof $Enums.FinancialCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -4741,7 +4821,7 @@ export namespace Prisma {
     sex: string | null
     birthDate: Date | null
     origin: string | null
-    status: string | null
+    status: $Enums.AnimalStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4755,7 +4835,7 @@ export namespace Prisma {
     sex: string | null
     birthDate: Date | null
     origin: string | null
-    status: string | null
+    status: $Enums.AnimalStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4900,7 +4980,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date
     origin: string | null
-    status: string
+    status: $Enums.AnimalStatus
     organizationId: string
     createdAt: Date
     updatedAt: Date
@@ -5001,7 +5081,7 @@ export namespace Prisma {
       sex: string
       birthDate: Date
       origin: string | null
-      status: string
+      status: $Enums.AnimalStatus
       organizationId: string
       createdAt: Date
       updatedAt: Date
@@ -5414,7 +5494,7 @@ export namespace Prisma {
     readonly sex: FieldRef<"Animal", 'String'>
     readonly birthDate: FieldRef<"Animal", 'DateTime'>
     readonly origin: FieldRef<"Animal", 'String'>
-    readonly status: FieldRef<"Animal", 'String'>
+    readonly status: FieldRef<"Animal", 'AnimalStatus'>
     readonly organizationId: FieldRef<"Animal", 'String'>
     readonly createdAt: FieldRef<"Animal", 'DateTime'>
     readonly updatedAt: FieldRef<"Animal", 'DateTime'>
@@ -11192,7 +11272,7 @@ export namespace Prisma {
     animalId: string | null
     detectedDate: Date | null
     expectedDate: Date | null
-    status: string | null
+    status: $Enums.PregnancyStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11203,7 +11283,7 @@ export namespace Prisma {
     animalId: string | null
     detectedDate: Date | null
     expectedDate: Date | null
-    status: string | null
+    status: $Enums.PregnancyStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11333,7 +11413,7 @@ export namespace Prisma {
     animalId: string
     detectedDate: Date
     expectedDate: Date | null
-    status: string
+    status: $Enums.PregnancyStatus
     organizationId: string
     createdAt: Date
     updatedAt: Date
@@ -11399,7 +11479,7 @@ export namespace Prisma {
       animalId: string
       detectedDate: Date
       expectedDate: Date | null
-      status: string
+      status: $Enums.PregnancyStatus
       organizationId: string
       createdAt: Date
       updatedAt: Date
@@ -11801,7 +11881,7 @@ export namespace Prisma {
     readonly animalId: FieldRef<"Pregnancy", 'String'>
     readonly detectedDate: FieldRef<"Pregnancy", 'DateTime'>
     readonly expectedDate: FieldRef<"Pregnancy", 'DateTime'>
-    readonly status: FieldRef<"Pregnancy", 'String'>
+    readonly status: FieldRef<"Pregnancy", 'PregnancyStatus'>
     readonly organizationId: FieldRef<"Pregnancy", 'String'>
     readonly createdAt: FieldRef<"Pregnancy", 'DateTime'>
     readonly updatedAt: FieldRef<"Pregnancy", 'DateTime'>
@@ -12209,7 +12289,7 @@ export namespace Prisma {
     fatherId: string | null
     birthDate: Date | null
     offspringTag: string | null
-    status: string | null
+    status: $Enums.BirthStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12221,7 +12301,7 @@ export namespace Prisma {
     fatherId: string | null
     birthDate: Date | null
     offspringTag: string | null
-    status: string | null
+    status: $Enums.BirthStatus | null
     organizationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12356,7 +12436,7 @@ export namespace Prisma {
     fatherId: string | null
     birthDate: Date
     offspringTag: string | null
-    status: string
+    status: $Enums.BirthStatus
     organizationId: string
     createdAt: Date
     updatedAt: Date
@@ -12428,7 +12508,7 @@ export namespace Prisma {
       fatherId: string | null
       birthDate: Date
       offspringTag: string | null
-      status: string
+      status: $Enums.BirthStatus
       organizationId: string
       createdAt: Date
       updatedAt: Date
@@ -12832,7 +12912,7 @@ export namespace Prisma {
     readonly fatherId: FieldRef<"Birth", 'String'>
     readonly birthDate: FieldRef<"Birth", 'DateTime'>
     readonly offspringTag: FieldRef<"Birth", 'String'>
-    readonly status: FieldRef<"Birth", 'String'>
+    readonly status: FieldRef<"Birth", 'BirthStatus'>
     readonly organizationId: FieldRef<"Birth", 'String'>
     readonly createdAt: FieldRef<"Birth", 'DateTime'>
     readonly updatedAt: FieldRef<"Birth", 'DateTime'>
@@ -15354,8 +15434,8 @@ export namespace Prisma {
 
   export type FinancialRecordMinAggregateOutputType = {
     id: string | null
-    type: string | null
-    category: string | null
+    type: $Enums.FinancialType | null
+    category: $Enums.FinancialCategory | null
     amount: number | null
     date: Date | null
     description: string | null
@@ -15366,8 +15446,8 @@ export namespace Prisma {
 
   export type FinancialRecordMaxAggregateOutputType = {
     id: string | null
-    type: string | null
-    category: string | null
+    type: $Enums.FinancialType | null
+    category: $Enums.FinancialCategory | null
     amount: number | null
     date: Date | null
     description: string | null
@@ -15523,8 +15603,8 @@ export namespace Prisma {
 
   export type FinancialRecordGroupByOutputType = {
     id: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date: Date
     description: string | null
@@ -15591,8 +15671,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      type: string
-      category: string
+      type: $Enums.FinancialType
+      category: $Enums.FinancialCategory
       amount: number
       date: Date
       description: string | null
@@ -15993,8 +16073,8 @@ export namespace Prisma {
    */
   interface FinancialRecordFieldRefs {
     readonly id: FieldRef<"FinancialRecord", 'String'>
-    readonly type: FieldRef<"FinancialRecord", 'String'>
-    readonly category: FieldRef<"FinancialRecord", 'String'>
+    readonly type: FieldRef<"FinancialRecord", 'FinancialType'>
+    readonly category: FieldRef<"FinancialRecord", 'FinancialCategory'>
     readonly amount: FieldRef<"FinancialRecord", 'Float'>
     readonly date: FieldRef<"FinancialRecord", 'DateTime'>
     readonly description: FieldRef<"FinancialRecord", 'String'>
@@ -18668,6 +18748,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AnimalStatus'
+   */
+  export type EnumAnimalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnimalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AnimalStatus[]'
+   */
+  export type ListEnumAnimalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnimalStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -18692,6 +18786,62 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PregnancyStatus'
+   */
+  export type EnumPregnancyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PregnancyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PregnancyStatus[]'
+   */
+  export type ListEnumPregnancyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PregnancyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthStatus'
+   */
+  export type EnumBirthStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'BirthStatus[]'
+   */
+  export type ListEnumBirthStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BirthStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialType'
+   */
+  export type EnumFinancialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialType'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialType[]'
+   */
+  export type ListEnumFinancialTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialCategory'
+   */
+  export type EnumFinancialCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialCategory[]'
+   */
+  export type ListEnumFinancialCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialCategory[]'>
     
 
 
@@ -18875,7 +19025,7 @@ export namespace Prisma {
     sex?: StringFilter<"Animal"> | string
     birthDate?: DateTimeFilter<"Animal"> | Date | string
     origin?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
     organizationId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
@@ -18926,7 +19076,7 @@ export namespace Prisma {
     sex?: StringFilter<"Animal"> | string
     birthDate?: DateTimeFilter<"Animal"> | Date | string
     origin?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
     organizationId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
@@ -18970,7 +19120,7 @@ export namespace Prisma {
     sex?: StringWithAggregatesFilter<"Animal"> | string
     birthDate?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     origin?: StringNullableWithAggregatesFilter<"Animal"> | string | null
-    status?: StringWithAggregatesFilter<"Animal"> | string
+    status?: EnumAnimalStatusWithAggregatesFilter<"Animal"> | $Enums.AnimalStatus
     organizationId?: StringWithAggregatesFilter<"Animal"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Animal"> | Date | string
@@ -19355,7 +19505,7 @@ export namespace Prisma {
     animalId?: StringFilter<"Pregnancy"> | string
     detectedDate?: DateTimeFilter<"Pregnancy"> | Date | string
     expectedDate?: DateTimeNullableFilter<"Pregnancy"> | Date | string | null
-    status?: StringFilter<"Pregnancy"> | string
+    status?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
     organizationId?: StringFilter<"Pregnancy"> | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
@@ -19384,7 +19534,7 @@ export namespace Prisma {
     animalId?: StringFilter<"Pregnancy"> | string
     detectedDate?: DateTimeFilter<"Pregnancy"> | Date | string
     expectedDate?: DateTimeNullableFilter<"Pregnancy"> | Date | string | null
-    status?: StringFilter<"Pregnancy"> | string
+    status?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
     organizationId?: StringFilter<"Pregnancy"> | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
@@ -19414,7 +19564,7 @@ export namespace Prisma {
     animalId?: StringWithAggregatesFilter<"Pregnancy"> | string
     detectedDate?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     expectedDate?: DateTimeNullableWithAggregatesFilter<"Pregnancy"> | Date | string | null
-    status?: StringWithAggregatesFilter<"Pregnancy"> | string
+    status?: EnumPregnancyStatusWithAggregatesFilter<"Pregnancy"> | $Enums.PregnancyStatus
     organizationId?: StringWithAggregatesFilter<"Pregnancy"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Pregnancy"> | Date | string
@@ -19429,7 +19579,7 @@ export namespace Prisma {
     fatherId?: StringNullableFilter<"Birth"> | string | null
     birthDate?: DateTimeFilter<"Birth"> | Date | string
     offspringTag?: StringNullableFilter<"Birth"> | string | null
-    status?: StringFilter<"Birth"> | string
+    status?: EnumBirthStatusFilter<"Birth"> | $Enums.BirthStatus
     organizationId?: StringFilter<"Birth"> | string
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
@@ -19462,7 +19612,7 @@ export namespace Prisma {
     fatherId?: StringNullableFilter<"Birth"> | string | null
     birthDate?: DateTimeFilter<"Birth"> | Date | string
     offspringTag?: StringNullableFilter<"Birth"> | string | null
-    status?: StringFilter<"Birth"> | string
+    status?: EnumBirthStatusFilter<"Birth"> | $Enums.BirthStatus
     organizationId?: StringFilter<"Birth"> | string
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
@@ -19495,7 +19645,7 @@ export namespace Prisma {
     fatherId?: StringNullableWithAggregatesFilter<"Birth"> | string | null
     birthDate?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     offspringTag?: StringNullableWithAggregatesFilter<"Birth"> | string | null
-    status?: StringWithAggregatesFilter<"Birth"> | string
+    status?: EnumBirthStatusWithAggregatesFilter<"Birth"> | $Enums.BirthStatus
     organizationId?: StringWithAggregatesFilter<"Birth"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Birth"> | Date | string
@@ -19651,8 +19801,8 @@ export namespace Prisma {
     OR?: FinancialRecordWhereInput[]
     NOT?: FinancialRecordWhereInput | FinancialRecordWhereInput[]
     id?: StringFilter<"FinancialRecord"> | string
-    type?: StringFilter<"FinancialRecord"> | string
-    category?: StringFilter<"FinancialRecord"> | string
+    type?: EnumFinancialTypeFilter<"FinancialRecord"> | $Enums.FinancialType
+    category?: EnumFinancialCategoryFilter<"FinancialRecord"> | $Enums.FinancialCategory
     amount?: FloatFilter<"FinancialRecord"> | number
     date?: DateTimeFilter<"FinancialRecord"> | Date | string
     description?: StringNullableFilter<"FinancialRecord"> | string | null
@@ -19680,8 +19830,8 @@ export namespace Prisma {
     AND?: FinancialRecordWhereInput | FinancialRecordWhereInput[]
     OR?: FinancialRecordWhereInput[]
     NOT?: FinancialRecordWhereInput | FinancialRecordWhereInput[]
-    type?: StringFilter<"FinancialRecord"> | string
-    category?: StringFilter<"FinancialRecord"> | string
+    type?: EnumFinancialTypeFilter<"FinancialRecord"> | $Enums.FinancialType
+    category?: EnumFinancialCategoryFilter<"FinancialRecord"> | $Enums.FinancialCategory
     amount?: FloatFilter<"FinancialRecord"> | number
     date?: DateTimeFilter<"FinancialRecord"> | Date | string
     description?: StringNullableFilter<"FinancialRecord"> | string | null
@@ -19713,8 +19863,8 @@ export namespace Prisma {
     OR?: FinancialRecordScalarWhereWithAggregatesInput[]
     NOT?: FinancialRecordScalarWhereWithAggregatesInput | FinancialRecordScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FinancialRecord"> | string
-    type?: StringWithAggregatesFilter<"FinancialRecord"> | string
-    category?: StringWithAggregatesFilter<"FinancialRecord"> | string
+    type?: EnumFinancialTypeWithAggregatesFilter<"FinancialRecord"> | $Enums.FinancialType
+    category?: EnumFinancialCategoryWithAggregatesFilter<"FinancialRecord"> | $Enums.FinancialCategory
     amount?: FloatWithAggregatesFilter<"FinancialRecord"> | number
     date?: DateTimeWithAggregatesFilter<"FinancialRecord"> | Date | string
     description?: StringNullableWithAggregatesFilter<"FinancialRecord"> | string | null
@@ -20034,7 +20184,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -20057,7 +20207,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20079,7 +20229,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -20101,7 +20251,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20124,7 +20274,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20137,7 +20287,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20149,7 +20299,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20522,7 +20672,7 @@ export namespace Prisma {
     id?: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     animal: AnimalCreateNestedOneWithoutPregnanciesInput
@@ -20534,7 +20684,7 @@ export namespace Prisma {
     animalId: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20543,7 +20693,7 @@ export namespace Prisma {
   export type PregnancyUpdateInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     animal?: AnimalUpdateOneRequiredWithoutPregnanciesNestedInput
@@ -20554,7 +20704,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20565,7 +20715,7 @@ export namespace Prisma {
     animalId: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20574,7 +20724,7 @@ export namespace Prisma {
   export type PregnancyUpdateManyMutationInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20583,7 +20733,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20593,7 +20743,7 @@ export namespace Prisma {
     id?: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     mother: AnimalCreateNestedOneWithoutBirthsAsMotherInput
@@ -20607,7 +20757,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20616,7 +20766,7 @@ export namespace Prisma {
   export type BirthUpdateInput = {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mother?: AnimalUpdateOneRequiredWithoutBirthsAsMotherNestedInput
@@ -20629,7 +20779,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20641,7 +20791,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20650,7 +20800,7 @@ export namespace Prisma {
   export type BirthUpdateManyMutationInput = {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20660,7 +20810,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20803,8 +20953,8 @@ export namespace Prisma {
 
   export type FinancialRecordCreateInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -20815,8 +20965,8 @@ export namespace Prisma {
 
   export type FinancialRecordUncheckedCreateInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -20826,8 +20976,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUpdateInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20837,8 +20987,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUncheckedUpdateInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20849,8 +20999,8 @@ export namespace Prisma {
 
   export type FinancialRecordCreateManyInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -20860,8 +21010,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUpdateManyMutationInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20870,8 +21020,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUncheckedUpdateManyInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21300,6 +21450,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type EnumAnimalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusFilter<$PrismaModel> | $Enums.AnimalStatus
+  }
+
   export type AnimalCountOrderByAggregateInput = {
     id?: SortOrder
     tag?: SortOrder
@@ -21359,6 +21516,16 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type EnumAnimalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel> | $Enums.AnimalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnimalStatusFilter<$PrismaModel>
+    _max?: NestedEnumAnimalStatusFilter<$PrismaModel>
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -21633,6 +21800,13 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumPregnancyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusFilter<$PrismaModel> | $Enums.PregnancyStatus
+  }
+
   export type PregnancyCountOrderByAggregateInput = {
     id?: SortOrder
     animalId?: SortOrder
@@ -21664,6 +21838,23 @@ export namespace Prisma {
     organizationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumPregnancyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel> | $Enums.PregnancyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+    _max?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+  }
+
+  export type EnumBirthStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthStatus | EnumBirthStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthStatusFilter<$PrismaModel> | $Enums.BirthStatus
   }
 
   export type AnimalNullableScalarRelationFilter = {
@@ -21705,6 +21896,16 @@ export namespace Prisma {
     organizationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumBirthStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthStatus | EnumBirthStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthStatusWithAggregatesFilter<$PrismaModel> | $Enums.BirthStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthStatusFilter<$PrismaModel>
+    _max?: NestedEnumBirthStatusFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -21813,6 +22014,20 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
+  export type EnumFinancialTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialType | EnumFinancialTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialTypeFilter<$PrismaModel> | $Enums.FinancialType
+  }
+
+  export type EnumFinancialCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialCategory | EnumFinancialCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialCategoryFilter<$PrismaModel> | $Enums.FinancialCategory
+  }
+
   export type FinancialRecordCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -21855,6 +22070,26 @@ export namespace Prisma {
 
   export type FinancialRecordSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type EnumFinancialTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialType | EnumFinancialTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialTypeWithAggregatesFilter<$PrismaModel> | $Enums.FinancialType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialTypeFilter<$PrismaModel>
+    _max?: NestedEnumFinancialTypeFilter<$PrismaModel>
+  }
+
+  export type EnumFinancialCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialCategory | EnumFinancialCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FinancialCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialCategoryFilter<$PrismaModel>
+    _max?: NestedEnumFinancialCategoryFilter<$PrismaModel>
   }
 
   export type AlertRuleCountOrderByAggregateInput = {
@@ -22681,6 +22916,10 @@ export namespace Prisma {
     unset?: boolean
   }
 
+  export type EnumAnimalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AnimalStatus
+  }
+
   export type OrganizationUpdateOneRequiredWithoutAnimalsNestedInput = {
     create?: XOR<OrganizationCreateWithoutAnimalsInput, OrganizationUncheckedCreateWithoutAnimalsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutAnimalsInput
@@ -23101,6 +23340,10 @@ export namespace Prisma {
     connect?: OrganizationWhereUniqueInput
   }
 
+  export type EnumPregnancyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PregnancyStatus
+  }
+
   export type AnimalUpdateOneRequiredWithoutPregnanciesNestedInput = {
     create?: XOR<AnimalCreateWithoutPregnanciesInput, AnimalUncheckedCreateWithoutPregnanciesInput>
     connectOrCreate?: AnimalCreateOrConnectWithoutPregnanciesInput
@@ -23133,6 +23376,10 @@ export namespace Prisma {
     create?: XOR<OrganizationCreateWithoutBirthsInput, OrganizationUncheckedCreateWithoutBirthsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutBirthsInput
     connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumBirthStatusFieldUpdateOperationsInput = {
+    set?: $Enums.BirthStatus
   }
 
   export type AnimalUpdateOneRequiredWithoutBirthsAsMotherNestedInput = {
@@ -23229,6 +23476,14 @@ export namespace Prisma {
     create?: XOR<OrganizationCreateWithoutFinancialsInput, OrganizationUncheckedCreateWithoutFinancialsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutFinancialsInput
     connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumFinancialTypeFieldUpdateOperationsInput = {
+    set?: $Enums.FinancialType
+  }
+
+  export type EnumFinancialCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.FinancialCategory
   }
 
   export type OrganizationUpdateOneRequiredWithoutFinancialsNestedInput = {
@@ -23370,6 +23625,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumAnimalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusFilter<$PrismaModel> | $Enums.AnimalStatus
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -23398,6 +23660,16 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
+  }
+
+  export type NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnimalStatus | EnumAnimalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnimalStatus[] | ListEnumAnimalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnimalStatusWithAggregatesFilter<$PrismaModel> | $Enums.AnimalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnimalStatusFilter<$PrismaModel>
+    _max?: NestedEnumAnimalStatusFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -23483,6 +23755,40 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumPregnancyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusFilter<$PrismaModel> | $Enums.PregnancyStatus
+  }
+
+  export type NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PregnancyStatus | EnumPregnancyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PregnancyStatus[] | ListEnumPregnancyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPregnancyStatusWithAggregatesFilter<$PrismaModel> | $Enums.PregnancyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+    _max?: NestedEnumPregnancyStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBirthStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthStatus | EnumBirthStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthStatusFilter<$PrismaModel> | $Enums.BirthStatus
+  }
+
+  export type NestedEnumBirthStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BirthStatus | EnumBirthStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BirthStatus[] | ListEnumBirthStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBirthStatusWithAggregatesFilter<$PrismaModel> | $Enums.BirthStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBirthStatusFilter<$PrismaModel>
+    _max?: NestedEnumBirthStatusFilter<$PrismaModel>
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -23497,6 +23803,40 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFinancialTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialType | EnumFinancialTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialTypeFilter<$PrismaModel> | $Enums.FinancialType
+  }
+
+  export type NestedEnumFinancialCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialCategory | EnumFinancialCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialCategoryFilter<$PrismaModel> | $Enums.FinancialCategory
+  }
+
+  export type NestedEnumFinancialTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialType | EnumFinancialTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialType[] | ListEnumFinancialTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialTypeWithAggregatesFilter<$PrismaModel> | $Enums.FinancialType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialTypeFilter<$PrismaModel>
+    _max?: NestedEnumFinancialTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFinancialCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialCategory | EnumFinancialCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialCategory[] | ListEnumFinancialCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FinancialCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialCategoryFilter<$PrismaModel>
+    _max?: NestedEnumFinancialCategoryFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -23549,7 +23889,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     healthRecords?: HealthRecordCreateNestedManyWithoutAnimalInput
@@ -23571,7 +23911,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     healthRecords?: HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
@@ -23745,7 +24085,7 @@ export namespace Prisma {
     id?: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     animal: AnimalCreateNestedOneWithoutPregnanciesInput
@@ -23756,7 +24096,7 @@ export namespace Prisma {
     animalId: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23774,7 +24114,7 @@ export namespace Prisma {
     id?: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     mother: AnimalCreateNestedOneWithoutBirthsAsMotherInput
@@ -23787,7 +24127,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23859,8 +24199,8 @@ export namespace Prisma {
 
   export type FinancialRecordCreateWithoutOrganizationInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -23870,8 +24210,8 @@ export namespace Prisma {
 
   export type FinancialRecordUncheckedCreateWithoutOrganizationInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -23999,7 +24339,7 @@ export namespace Prisma {
     sex?: StringFilter<"Animal"> | string
     birthDate?: DateTimeFilter<"Animal"> | Date | string
     origin?: StringNullableFilter<"Animal"> | string | null
-    status?: StringFilter<"Animal"> | string
+    status?: EnumAnimalStatusFilter<"Animal"> | $Enums.AnimalStatus
     organizationId?: StringFilter<"Animal"> | string
     createdAt?: DateTimeFilter<"Animal"> | Date | string
     updatedAt?: DateTimeFilter<"Animal"> | Date | string
@@ -24180,7 +24520,7 @@ export namespace Prisma {
     animalId?: StringFilter<"Pregnancy"> | string
     detectedDate?: DateTimeFilter<"Pregnancy"> | Date | string
     expectedDate?: DateTimeNullableFilter<"Pregnancy"> | Date | string | null
-    status?: StringFilter<"Pregnancy"> | string
+    status?: EnumPregnancyStatusFilter<"Pregnancy"> | $Enums.PregnancyStatus
     organizationId?: StringFilter<"Pregnancy"> | string
     createdAt?: DateTimeFilter<"Pregnancy"> | Date | string
     updatedAt?: DateTimeFilter<"Pregnancy"> | Date | string
@@ -24211,7 +24551,7 @@ export namespace Prisma {
     fatherId?: StringNullableFilter<"Birth"> | string | null
     birthDate?: DateTimeFilter<"Birth"> | Date | string
     offspringTag?: StringNullableFilter<"Birth"> | string | null
-    status?: StringFilter<"Birth"> | string
+    status?: EnumBirthStatusFilter<"Birth"> | $Enums.BirthStatus
     organizationId?: StringFilter<"Birth"> | string
     createdAt?: DateTimeFilter<"Birth"> | Date | string
     updatedAt?: DateTimeFilter<"Birth"> | Date | string
@@ -24297,8 +24637,8 @@ export namespace Prisma {
     OR?: FinancialRecordScalarWhereInput[]
     NOT?: FinancialRecordScalarWhereInput | FinancialRecordScalarWhereInput[]
     id?: StringFilter<"FinancialRecord"> | string
-    type?: StringFilter<"FinancialRecord"> | string
-    category?: StringFilter<"FinancialRecord"> | string
+    type?: EnumFinancialTypeFilter<"FinancialRecord"> | $Enums.FinancialType
+    category?: EnumFinancialCategoryFilter<"FinancialRecord"> | $Enums.FinancialCategory
     amount?: FloatFilter<"FinancialRecord"> | number
     date?: DateTimeFilter<"FinancialRecord"> | Date | string
     description?: StringNullableFilter<"FinancialRecord"> | string | null
@@ -24630,7 +24970,7 @@ export namespace Prisma {
     id?: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutPregnanciesInput
@@ -24640,7 +24980,7 @@ export namespace Prisma {
     id?: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24659,7 +24999,7 @@ export namespace Prisma {
     id?: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     father?: AnimalCreateNestedOneWithoutBirthsAsFatherInput
@@ -24671,7 +25011,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24690,7 +25030,7 @@ export namespace Prisma {
     id?: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     mother: AnimalCreateNestedOneWithoutBirthsAsMotherInput
@@ -24702,7 +25042,7 @@ export namespace Prisma {
     motherId: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25068,7 +25408,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -25090,7 +25430,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25172,7 +25512,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -25193,7 +25533,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25264,7 +25604,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -25286,7 +25626,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25368,7 +25708,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -25389,7 +25729,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25460,7 +25800,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -25482,7 +25822,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25564,7 +25904,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -25585,7 +25925,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25656,7 +25996,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -25678,7 +26018,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25760,7 +26100,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -25781,7 +26121,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25852,7 +26192,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -25874,7 +26214,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25956,7 +26296,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -25977,7 +26317,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26048,7 +26388,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -26070,7 +26410,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26097,7 +26437,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -26119,7 +26459,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26201,7 +26541,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -26222,7 +26562,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26254,7 +26594,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -26275,7 +26615,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26346,7 +26686,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -26368,7 +26708,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26450,7 +26790,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -26471,7 +26811,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26542,7 +26882,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutAnimalsInput
@@ -26564,7 +26904,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26646,7 +26986,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutAnimalsNestedInput
@@ -26667,7 +27007,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27030,7 +27370,7 @@ export namespace Prisma {
     sex: string
     birthDate: Date | string
     origin?: string | null
-    status: string
+    status?: $Enums.AnimalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27091,7 +27431,7 @@ export namespace Prisma {
     animalId: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27102,7 +27442,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27128,8 +27468,8 @@ export namespace Prisma {
 
   export type FinancialRecordCreateManyOrganizationInput = {
     id?: string
-    type: string
-    category: string
+    type: $Enums.FinancialType
+    category: $Enums.FinancialCategory
     amount: number
     date?: Date | string
     description?: string | null
@@ -27189,7 +27529,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthRecords?: HealthRecordUpdateManyWithoutAnimalNestedInput
@@ -27210,7 +27550,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthRecords?: HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
@@ -27231,7 +27571,7 @@ export namespace Prisma {
     sex?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     origin?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumAnimalStatusFieldUpdateOperationsInput | $Enums.AnimalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27377,7 +27717,7 @@ export namespace Prisma {
   export type PregnancyUpdateWithoutOrganizationInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     animal?: AnimalUpdateOneRequiredWithoutPregnanciesNestedInput
@@ -27387,7 +27727,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27396,7 +27736,7 @@ export namespace Prisma {
     animalId?: StringFieldUpdateOperationsInput | string
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27404,7 +27744,7 @@ export namespace Prisma {
   export type BirthUpdateWithoutOrganizationInput = {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mother?: AnimalUpdateOneRequiredWithoutBirthsAsMotherNestedInput
@@ -27416,7 +27756,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27426,7 +27766,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27483,8 +27823,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUpdateWithoutOrganizationInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27493,8 +27833,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUncheckedUpdateWithoutOrganizationInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27503,8 +27843,8 @@ export namespace Prisma {
   }
 
   export type FinancialRecordUncheckedUpdateManyWithoutOrganizationInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    type?: EnumFinancialTypeFieldUpdateOperationsInput | $Enums.FinancialType
+    category?: EnumFinancialCategoryFieldUpdateOperationsInput | $Enums.FinancialCategory
     amount?: FloatFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27607,7 +27947,7 @@ export namespace Prisma {
     id?: string
     detectedDate: Date | string
     expectedDate?: Date | string | null
-    status: string
+    status?: $Enums.PregnancyStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27618,7 +27958,7 @@ export namespace Prisma {
     fatherId?: string | null
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27629,7 +27969,7 @@ export namespace Prisma {
     motherId: string
     birthDate: Date | string
     offspringTag?: string | null
-    status: string
+    status?: $Enums.BirthStatus
     organizationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27774,7 +28114,7 @@ export namespace Prisma {
   export type PregnancyUpdateWithoutAnimalInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPregnanciesNestedInput
@@ -27783,7 +28123,7 @@ export namespace Prisma {
   export type PregnancyUncheckedUpdateWithoutAnimalInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27792,7 +28132,7 @@ export namespace Prisma {
   export type PregnancyUncheckedUpdateManyWithoutAnimalInput = {
     detectedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     expectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumPregnancyStatusFieldUpdateOperationsInput | $Enums.PregnancyStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27801,7 +28141,7 @@ export namespace Prisma {
   export type BirthUpdateWithoutMotherInput = {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     father?: AnimalUpdateOneWithoutBirthsAsFatherNestedInput
@@ -27812,7 +28152,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27822,7 +28162,7 @@ export namespace Prisma {
     fatherId?: NullableStringFieldUpdateOperationsInput | string | null
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27831,7 +28171,7 @@ export namespace Prisma {
   export type BirthUpdateWithoutFatherInput = {
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mother?: AnimalUpdateOneRequiredWithoutBirthsAsMotherNestedInput
@@ -27842,7 +28182,7 @@ export namespace Prisma {
     motherId?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27852,7 +28192,7 @@ export namespace Prisma {
     motherId?: StringFieldUpdateOperationsInput | string
     birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
     offspringTag?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
+    status?: EnumBirthStatusFieldUpdateOperationsInput | $Enums.BirthStatus
     organizationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

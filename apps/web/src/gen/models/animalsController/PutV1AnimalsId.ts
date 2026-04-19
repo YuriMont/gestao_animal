@@ -54,17 +54,17 @@ export type PutV1AnimalsId200 = {
 };
 
 export const putV1AnimalsIdMutationRequestSexEnum = {
-    Male: "Male",
-    Female: "Female"
+    FEMALE: "FEMALE",
+    MALE: "MALE"
 } as const;
 
 export type PutV1AnimalsIdMutationRequestSexEnumKey = (typeof putV1AnimalsIdMutationRequestSexEnum)[keyof typeof putV1AnimalsIdMutationRequestSexEnum];
 
 export const putV1AnimalsIdMutationRequestStatusEnum = {
-    Active: "Active",
-    Sold: "Sold",
-    Deceased: "Deceased",
-    Quarantine: "Quarantine"
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
 } as const;
 
 export type PutV1AnimalsIdMutationRequestStatusEnumKey = (typeof putV1AnimalsIdMutationRequestStatusEnum)[keyof typeof putV1AnimalsIdMutationRequestStatusEnum];

@@ -9,7 +9,7 @@ import { faker } from "@faker-js/faker";
 export function createGetV1AnimalsQueryParams(data?: Partial<GetV1AnimalsQueryParams>): GetV1AnimalsQueryParams {
 
   return {
-    ...{"status": faker.helpers.arrayElement<NonNullable<GetV1AnimalsQueryParams>["status"]>(["Active", "Sold", "Deceased", "Quarantine"]),"species": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<GetV1AnimalsQueryParams>["sex"]>(["Male", "Female"]),"page": faker.number.int({ min: 1, max: 9007199254740991 }),"limit": faker.number.int({ min: 1, max: 100 })},
+    ...{"status": faker.helpers.arrayElement<NonNullable<GetV1AnimalsQueryParams>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]),"species": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<GetV1AnimalsQueryParams>["sex"]>(["FEMALE", "MALE"]),"page": faker.number.int({ min: 1, max: 9007199254740991 }),"limit": faker.number.int({ min: 1, max: 100 })},
     ...data || {}
   }
 }

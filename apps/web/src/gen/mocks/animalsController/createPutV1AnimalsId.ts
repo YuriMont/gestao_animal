@@ -28,7 +28,7 @@ export function createPutV1AnimalsId200(data?: Partial<PutV1AnimalsId200>): PutV
 export function createPutV1AnimalsIdMutationRequest(data?: Partial<PutV1AnimalsIdMutationRequest>): PutV1AnimalsIdMutationRequest {
 
   return {
-    ...{"tag": faker.string.alpha({ length: 1 }),"species": faker.string.alpha({ length: 1 }),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PutV1AnimalsIdMutationRequest>["sex"]>(["Male", "Female"]),"birthDate": undefined,"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PutV1AnimalsIdMutationRequest>["status"]>(["Active", "Sold", "Deceased", "Quarantine"])},
+    ...{"tag": faker.string.alpha({ length: 1 }),"species": faker.string.alpha({ length: 1 }),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PutV1AnimalsIdMutationRequest>["sex"]>(["FEMALE", "MALE"]),"birthDate": undefined,"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PutV1AnimalsIdMutationRequest>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"])},
     ...data || {}
   }
 }

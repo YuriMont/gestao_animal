@@ -12,8 +12,8 @@ export const postV1FinancialRecords201Schema = z.object({
     "message": z.string(),
 "record": z.object({
     "id": z.string(),
-"type": z.enum(["COST", "REVENUE"]),
-"category": z.string(),
+"type": z.enum(["INCOME", "EXPENSE"]),
+"category": z.enum(["FEED", "MEDICATION", "LABOR", "MAINTENANCE", "OTHER"]),
 "amount": z.number(),
 "date": z.iso.datetime(),
 "description": z.optional(z.string()),
@@ -22,7 +22,7 @@ export const postV1FinancialRecords201Schema = z.object({
     })
 
 export const postV1FinancialRecordsMutationRequestSchema = z.object({
-    "type": z.enum(["COST", "REVENUE"]),
+    "type": z.enum(["INCOME", "EXPENSE"]),
 "category": z.string().min(1),
 "amount": z.number().gt(0),
 "date": z.optional(z.any()),

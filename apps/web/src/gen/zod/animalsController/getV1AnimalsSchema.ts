@@ -6,9 +6,9 @@
 import { z } from "zod/v4";
 
 export const getV1AnimalsQueryParamsSchema = z.object({
-    "status": z.optional(z.enum(["Active", "Sold", "Deceased", "Quarantine"])),
+    "status": z.optional(z.enum(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"])),
 "species": z.optional(z.string()),
-"sex": z.optional(z.enum(["Male", "Female"])),
+"sex": z.optional(z.enum(["FEMALE", "MALE"])),
 "page": z.coerce.number().int().min(1).max(9007199254740991).default(1),
 "limit": z.coerce.number().int().min(1).max(100).default(20)
     })

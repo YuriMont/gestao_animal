@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createGetV1FinancialSummary200(data?: Partial<GetV1FinancialSummary200>): GetV1FinancialSummary200 {
 
   return {
-    ...{"totalRevenue": faker.number.float(),"totalCost": faker.number.float(),"netProfit": faker.number.float()},
+    ...{"totalRevenue": faker.number.float(),"totalCost": faker.number.float(),"balance": faker.number.float()},
     ...data || {}
   }
 }

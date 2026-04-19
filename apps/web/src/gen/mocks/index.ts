@@ -7,6 +7,8 @@ export { createPostV1Animals201, createPostV1AnimalsMutationRequest, createPostV
 export { createPutV1AnimalsId200, createPutV1AnimalsIdMutationRequest, createPutV1AnimalsIdMutationResponse, createPutV1AnimalsIdPathParams } from "./animalsController/createPutV1AnimalsId.ts";
 export { createPostAuthLogin200, createPostAuthLoginMutationRequest, createPostAuthLoginMutationResponse } from "./authController/createPostAuthLogin.ts";
 export { createPostAuthRegister201, createPostAuthRegisterMutationRequest, createPostAuthRegisterMutationResponse } from "./authController/createPostAuthRegister.ts";
+export { createGetV1Enums200, createGetV1EnumsQueryResponse } from "./enumsController/createGetV1Enums.ts";
+export { createGetV1EnumsDomainEnumname200, createGetV1EnumsDomainEnumnamePathParams, createGetV1EnumsDomainEnumnameQueryResponse } from "./enumsController/createGetV1EnumsDomainEnumname.ts";
 export { createGetV1FinancialRecords200, createGetV1FinancialRecordsQueryResponse } from "./financialController/createGetV1FinancialRecords.ts";
 export { createGetV1FinancialSummary200, createGetV1FinancialSummaryQueryResponse } from "./financialController/createGetV1FinancialSummary.ts";
 export { createPostV1FinancialRecords201, createPostV1FinancialRecordsMutationRequest, createPostV1FinancialRecordsMutationResponse } from "./financialController/createPostV1FinancialRecords.ts";
@@ -15,8 +17,8 @@ export { createPostV1HealthRecords201, createPostV1HealthRecordsMutationRequest,
 export { createPostV1HealthTreatments201, createPostV1HealthTreatmentsMutationRequest, createPostV1HealthTreatmentsMutationResponse } from "./healthController/createPostV1HealthTreatments.ts";
 export { createPostV1HealthVaccines201, createPostV1HealthVaccinesMutationRequest, createPostV1HealthVaccinesMutationResponse } from "./healthController/createPostV1HealthVaccines.ts";
 export { createDeleteV1OrganizationsId204, createDeleteV1OrganizationsIdMutationResponse, createDeleteV1OrganizationsIdPathParams } from "./organizationsController/createDeleteV1OrganizationsId.ts";
-export { createGetV1Organizations200, createGetV1OrganizationsQueryResponse } from "./organizationsController/createGetV1Organizations.ts";
-export { createGetV1OrganizationsId200, createGetV1OrganizationsIdPathParams, createGetV1OrganizationsIdQueryResponse } from "./organizationsController/createGetV1OrganizationsId.ts";
+export { createGetOrganizations200, createGetOrganizationsQueryResponse } from "./organizationsController/createGetOrganizations.ts";
+export { createGetOrganizationsId200, createGetOrganizationsIdPathParams, createGetOrganizationsIdQueryResponse } from "./organizationsController/createGetOrganizationsId.ts";
 export { createPostV1Organizations201, createPostV1OrganizationsMutationRequest, createPostV1OrganizationsMutationResponse } from "./organizationsController/createPostV1Organizations.ts";
 export { createPutV1OrganizationsId200, createPutV1OrganizationsIdMutationRequest, createPutV1OrganizationsIdMutationResponse, createPutV1OrganizationsIdPathParams } from "./organizationsController/createPutV1OrganizationsId.ts";
 export { createGetV1ProductionMetricsAnimalid200, createGetV1ProductionMetricsAnimalidPathParams, createGetV1ProductionMetricsAnimalidQueryResponse } from "./productionController/createGetV1ProductionMetricsAnimalid.ts";

@@ -5,11 +5,21 @@
 
 
 export const getV1FinancialRecords200TypeEnum = {
-    COST: "COST",
-    REVENUE: "REVENUE"
+    INCOME: "INCOME",
+    EXPENSE: "EXPENSE"
 } as const;
 
 export type GetV1FinancialRecords200TypeEnumKey = (typeof getV1FinancialRecords200TypeEnum)[keyof typeof getV1FinancialRecords200TypeEnum];
+
+export const getV1FinancialRecords200CategoryEnum = {
+    FEED: "FEED",
+    MEDICATION: "MEDICATION",
+    LABOR: "LABOR",
+    MAINTENANCE: "MAINTENANCE",
+    OTHER: "OTHER"
+} as const;
+
+export type GetV1FinancialRecords200CategoryEnumKey = (typeof getV1FinancialRecords200CategoryEnum)[keyof typeof getV1FinancialRecords200CategoryEnum];
 
 /**
  * @description Default Response

@@ -1,4 +1,5 @@
 import { animalController } from "@src/modules/core/presentation/controllers/animal.controller";
+import { enumsController } from "@src/modules/core/presentation/controllers/enums.controller";
 import { organizationController } from "@src/modules/core/presentation/controllers/organization.controller";
 import { userController } from "@src/modules/core/presentation/controllers/user.controller";
 import {
@@ -150,6 +151,78 @@ export default async function coreRoutes(app: FastifyInstance) {
       },
     },
     organizationController.delete,
+  );
+
+  // ── Enums ──────────────────────────────────────────────────────────────
+
+  // Legacy flat endpoint (backward compatible)
+  app.get(
+    "/enums",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get all enum values",
+        description:
+          "Returns all static enum values used across the API for reference.",
+        security: [{ bearerAuth: [] }],
+        response: {
+          200: z.object({
+            data: z.array(
+              z.object({
+                key: z.string(),
+                label: z.string(),
+              }),
+            ),
+          }),
+        },
+      },
+    },
+    enumsController.show,
+  );
+
+  // Hierarchical endpoint: /enums/:domain/:enumName
+  app.get(
+    "/enums/:domain/:enumName",
+    {
+      schema: {
+        tags: ["Enums"],
+        summary: "Get specific enum values by domain and name",
+        description:
+          "Returns enum values for a specific domain (e.g., 'animals') and enum name (e.g., 'animalStatus').",
+        security: [{ bearerAuth: [] }],
+        params: z.object({
+          domain: z.enum([
+            "animals",
+            "users",
+            "organizations",
+            "reproduction",
+            "production",
+            "financial",
+            "alerts",
+          ]),
+          enumName: z.enum([
+            "role",
+            "animalStatus",
+            "animalSex",
+            "pregnancyStatus",
+            "birthStatus",
+            "financialType",
+            "financialCategory",
+            "treatmentStatus",
+            "vaccineStatus",
+          ]),
+        }),
+        response: {
+          200: z.array(
+            z.object({
+              key: z.string(),
+              label: z.string(),
+            }),
+          ),
+        },
+      },
+    },
+    enumsController.hierarchical,
   );
 
   // ── Users ────────────────────────────────────────────────────────────────

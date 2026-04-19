@@ -4,7 +4,7 @@ export interface IFinancialRepository {
 	create(record: FinancialRecord): Promise<FinancialRecord>;
 	listByOrganization(organizationId: string): Promise<FinancialRecord[]>;
 	getSummary(organizationId: string): Promise<{
-		totalCosts: number;
+		totalCost: number;
 		totalRevenue: number;
 		balance: number;
 	}>;

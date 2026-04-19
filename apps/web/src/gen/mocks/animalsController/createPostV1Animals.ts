@@ -20,7 +20,7 @@ export function createPostV1Animals201(data?: Partial<PostV1Animals201>): PostV1
 export function createPostV1AnimalsMutationRequest(data?: Partial<PostV1AnimalsMutationRequest>): PostV1AnimalsMutationRequest {
 
   return {
-    ...{"tag": faker.string.alpha({ length: 1 }),"species": faker.string.alpha({ length: 1 }),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PostV1AnimalsMutationRequest>["sex"]>(["Male", "Female"]),"birthDate": undefined,"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PostV1AnimalsMutationRequest>["status"]>(["Active", "Sold", "Deceased", "Quarantine"])},
+    ...{"tag": faker.string.alpha({ length: 1 }),"species": faker.string.alpha({ length: 1 }),"breed": faker.string.alpha(),"sex": faker.helpers.arrayElement<NonNullable<PostV1AnimalsMutationRequest>["sex"]>(["FEMALE", "MALE"]),"birthDate": undefined,"origin": faker.string.alpha(),"status": faker.helpers.arrayElement<NonNullable<PostV1AnimalsMutationRequest>["status"]>(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"])},
     ...data || {}
   }
 }

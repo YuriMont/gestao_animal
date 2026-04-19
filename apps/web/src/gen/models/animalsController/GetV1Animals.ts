@@ -5,17 +5,17 @@
 
 
 export const getV1AnimalsQueryParamsStatusEnum = {
-    Active: "Active",
-    Sold: "Sold",
-    Deceased: "Deceased",
-    Quarantine: "Quarantine"
+    ACTIVE: "ACTIVE",
+    INACTIVE: "INACTIVE",
+    SOLD: "SOLD",
+    DECEASED: "DECEASED"
 } as const;
 
 export type GetV1AnimalsQueryParamsStatusEnumKey = (typeof getV1AnimalsQueryParamsStatusEnum)[keyof typeof getV1AnimalsQueryParamsStatusEnum];
 
 export const getV1AnimalsQueryParamsSexEnum = {
-    Male: "Male",
-    Female: "Female"
+    FEMALE: "FEMALE",
+    MALE: "MALE"
 } as const;
 
 export type GetV1AnimalsQueryParamsSexEnumKey = (typeof getV1AnimalsQueryParamsSexEnum)[keyof typeof getV1AnimalsQueryParamsSexEnum];

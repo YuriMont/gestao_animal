@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createGetV1FinancialRecords200(data?: GetV1FinancialRecords200): GetV1FinancialRecords200 {
 
   return [
-        ...faker.helpers.multiple(() => ({"id": faker.string.alpha(),"type": faker.helpers.arrayElement<NonNullable<NonNullable<GetV1FinancialRecords200>[number]>["type"]>(["COST", "REVENUE"]),"category": faker.string.alpha(),"amount": faker.number.float(),"date": faker.date.anytime().toISOString(),"description": faker.string.alpha(),"organizationId": faker.string.alpha()})),
+        ...faker.helpers.multiple(() => ({"id": faker.string.alpha(),"type": faker.helpers.arrayElement<NonNullable<NonNullable<GetV1FinancialRecords200>[number]>["type"]>(["INCOME", "EXPENSE"]),"category": faker.helpers.arrayElement<NonNullable<NonNullable<GetV1FinancialRecords200>[number]>["category"]>(["FEED", "MEDICATION", "LABOR", "MAINTENANCE", "OTHER"]),"amount": faker.number.float(),"date": faker.date.anytime().toISOString(),"description": faker.string.alpha(),"organizationId": faker.string.alpha()})),
         ...data || []
       ]
 }

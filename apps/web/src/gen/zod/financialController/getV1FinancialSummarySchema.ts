@@ -11,7 +11,7 @@ import { z } from "zod/v4";
 export const getV1FinancialSummary200Schema = z.object({
     "totalRevenue": z.number(),
 "totalCost": z.number(),
-"netProfit": z.number()
+"balance": z.number()
     })
 
 export const getV1FinancialSummaryQueryResponseSchema = z.lazy(() => getV1FinancialSummary200Schema)

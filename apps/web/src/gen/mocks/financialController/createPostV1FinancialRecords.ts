@@ -12,7 +12,7 @@ import { faker } from "@faker-js/faker";
 export function createPostV1FinancialRecords201(data?: Partial<PostV1FinancialRecords201>): PostV1FinancialRecords201 {
 
   return {
-    ...{"message": faker.string.alpha(),"record": {"id": faker.string.alpha(),"type": faker.helpers.arrayElement<NonNullable<NonNullable<PostV1FinancialRecords201>["record"]>["type"]>(["COST", "REVENUE"]),"category": faker.string.alpha(),"amount": faker.number.float(),"date": faker.date.anytime().toISOString(),"description": faker.string.alpha(),"organizationId": faker.string.alpha()}},
+    ...{"message": faker.string.alpha(),"record": {"id": faker.string.alpha(),"type": faker.helpers.arrayElement<NonNullable<NonNullable<PostV1FinancialRecords201>["record"]>["type"]>(["INCOME", "EXPENSE"]),"category": faker.helpers.arrayElement<NonNullable<NonNullable<PostV1FinancialRecords201>["record"]>["category"]>(["FEED", "MEDICATION", "LABOR", "MAINTENANCE", "OTHER"]),"amount": faker.number.float(),"date": faker.date.anytime().toISOString(),"description": faker.string.alpha(),"organizationId": faker.string.alpha()}},
     ...data || {}
   }
 }
@@ -20,7 +20,7 @@ export function createPostV1FinancialRecords201(data?: Partial<PostV1FinancialRe
 export function createPostV1FinancialRecordsMutationRequest(data?: Partial<PostV1FinancialRecordsMutationRequest>): PostV1FinancialRecordsMutationRequest {
 
   return {
-    ...{"type": faker.helpers.arrayElement<NonNullable<PostV1FinancialRecordsMutationRequest>["type"]>(["COST", "REVENUE"]),"category": faker.string.alpha({ length: 1 }),"amount": faker.number.float(),"date": undefined,"description": faker.string.alpha()},
+    ...{"type": faker.helpers.arrayElement<NonNullable<PostV1FinancialRecordsMutationRequest>["type"]>(["INCOME", "EXPENSE"]),"category": faker.string.alpha({ length: 1 }),"amount": faker.number.float(),"date": undefined,"description": faker.string.alpha()},
     ...data || {}
   }
 }

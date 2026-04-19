@@ -19,7 +19,7 @@ export type GetV1FinancialSummary200 = {
     /**
      * @type number
     */
-    netProfit: number;
+    balance: number;
 };
 
 export type GetV1FinancialSummaryQueryResponse = GetV1FinancialSummary200;

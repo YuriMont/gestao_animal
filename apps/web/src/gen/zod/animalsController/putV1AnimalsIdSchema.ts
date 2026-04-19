@@ -28,10 +28,10 @@ export const putV1AnimalsIdMutationRequestSchema = z.object({
     "tag": z.optional(z.string().min(1)),
 "species": z.optional(z.string().min(1)),
 "breed": z.optional(z.string()),
-"sex": z.optional(z.enum(["Male", "Female"])),
+"sex": z.optional(z.enum(["FEMALE", "MALE"])),
 "birthDate": z.optional(z.any()),
 "origin": z.optional(z.string()),
-"status": z.optional(z.enum(["Active", "Sold", "Deceased", "Quarantine"]))
+"status": z.optional(z.enum(["ACTIVE", "INACTIVE", "SOLD", "DECEASED"]))
     })
 
 export const putV1AnimalsIdMutationResponseSchema = z.lazy(() => putV1AnimalsId200Schema)

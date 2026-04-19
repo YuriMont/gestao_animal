@@ -10,8 +10,8 @@ import { z } from "zod/v4";
  */
 export const getV1FinancialRecords200Schema = z.array(z.object({
     "id": z.string(),
-"type": z.enum(["COST", "REVENUE"]),
-"category": z.string(),
+"type": z.enum(["INCOME", "EXPENSE"]),
+"category": z.enum(["FEED", "MEDICATION", "LABOR", "MAINTENANCE", "OTHER"]),
 "amount": z.number(),
 "date": z.iso.datetime(),
 "description": z.optional(z.string()),

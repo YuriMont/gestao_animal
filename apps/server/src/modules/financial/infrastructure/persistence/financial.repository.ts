@@ -44,18 +44,18 @@ export class PrismaFinancialRepository implements IFinancialRepository {
 			where: { organizationId },
 		});
 
-		let totalCosts = 0;
+		let totalCost = 0;
 		let totalRevenue = 0;
 
 		records.forEach((r) => {
-			if (r.type === "COST") totalCosts += r.amount;
+			if (r.type === "COST") totalCost += r.amount;
 			if (r.type === "REVENUE") totalRevenue += r.amount;
 		});
 
 		return {
-			totalCosts,
+			totalCost,
 			totalRevenue,
-			balance: totalRevenue - totalCosts,
+			balance: totalRevenue - totalCost,
 		};
 	}
 }

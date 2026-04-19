@@ -7,6 +7,8 @@ export { postV1Animals201Schema, postV1AnimalsMutationRequestSchema, postV1Anima
 export { putV1AnimalsId200Schema, putV1AnimalsIdMutationRequestSchema, putV1AnimalsIdMutationResponseSchema, putV1AnimalsIdPathParamsSchema } from "./animalsController/putV1AnimalsIdSchema.ts";
 export { postAuthLogin200Schema, postAuthLoginMutationRequestSchema, postAuthLoginMutationResponseSchema } from "./authController/postAuthLoginSchema.ts";
 export { postAuthRegister201Schema, postAuthRegisterMutationRequestSchema, postAuthRegisterMutationResponseSchema } from "./authController/postAuthRegisterSchema.ts";
+export { getV1EnumsDomainEnumname200Schema, getV1EnumsDomainEnumnamePathParamsSchema, getV1EnumsDomainEnumnameQueryResponseSchema } from "./enumsController/getV1EnumsDomainEnumnameSchema.ts";
+export { getV1Enums200Schema, getV1EnumsQueryResponseSchema } from "./enumsController/getV1EnumsSchema.ts";
 export { getV1FinancialRecords200Schema, getV1FinancialRecordsQueryResponseSchema } from "./financialController/getV1FinancialRecordsSchema.ts";
 export { getV1FinancialSummary200Schema, getV1FinancialSummaryQueryResponseSchema } from "./financialController/getV1FinancialSummarySchema.ts";
 export { postV1FinancialRecords201Schema, postV1FinancialRecordsMutationRequestSchema, postV1FinancialRecordsMutationResponseSchema } from "./financialController/postV1FinancialRecordsSchema.ts";
@@ -15,8 +17,8 @@ export { postV1HealthRecords201Schema, postV1HealthRecordsMutationRequestSchema,
 export { postV1HealthTreatments201Schema, postV1HealthTreatmentsMutationRequestSchema, postV1HealthTreatmentsMutationResponseSchema } from "./healthController/postV1HealthTreatmentsSchema.ts";
 export { postV1HealthVaccines201Schema, postV1HealthVaccinesMutationRequestSchema, postV1HealthVaccinesMutationResponseSchema } from "./healthController/postV1HealthVaccinesSchema.ts";
 export { deleteV1OrganizationsId204Schema, deleteV1OrganizationsIdMutationResponseSchema, deleteV1OrganizationsIdPathParamsSchema } from "./organizationsController/deleteV1OrganizationsIdSchema.ts";
-export { getV1OrganizationsId200Schema, getV1OrganizationsIdPathParamsSchema, getV1OrganizationsIdQueryResponseSchema } from "./organizationsController/getV1OrganizationsIdSchema.ts";
-export { getV1Organizations200Schema, getV1OrganizationsQueryResponseSchema } from "./organizationsController/getV1OrganizationsSchema.ts";
+export { getOrganizationsId200Schema, getOrganizationsIdPathParamsSchema, getOrganizationsIdQueryResponseSchema } from "./organizationsController/getOrganizationsIdSchema.ts";
+export { getOrganizations200Schema, getOrganizationsQueryResponseSchema } from "./organizationsController/getOrganizationsSchema.ts";
 export { postV1Organizations201Schema, postV1OrganizationsMutationRequestSchema, postV1OrganizationsMutationResponseSchema } from "./organizationsController/postV1OrganizationsSchema.ts";
 export { putV1OrganizationsId200Schema, putV1OrganizationsIdMutationRequestSchema, putV1OrganizationsIdMutationResponseSchema, putV1OrganizationsIdPathParamsSchema } from "./organizationsController/putV1OrganizationsIdSchema.ts";
 export { getV1ProductionMetricsAnimalid200Schema, getV1ProductionMetricsAnimalidPathParamsSchema, getV1ProductionMetricsAnimalidQueryResponseSchema } from "./productionController/getV1ProductionMetricsAnimalidSchema.ts";

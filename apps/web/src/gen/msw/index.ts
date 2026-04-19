@@ -7,6 +7,8 @@ export { postV1AnimalsHandler, postV1AnimalsHandlerResponse201 } from "./animals
 export { putV1AnimalsIdHandler, putV1AnimalsIdHandlerResponse200 } from "./animalsController/putV1AnimalsIdHandler.ts";
 export { postAuthLoginHandler, postAuthLoginHandlerResponse200 } from "./authController/postAuthLoginHandler.ts";
 export { postAuthRegisterHandler, postAuthRegisterHandlerResponse201 } from "./authController/postAuthRegisterHandler.ts";
+export { getV1EnumsDomainEnumnameHandler, getV1EnumsDomainEnumnameHandlerResponse200 } from "./enumsController/getV1EnumsDomainEnumnameHandler.ts";
+export { getV1EnumsHandler, getV1EnumsHandlerResponse200 } from "./enumsController/getV1EnumsHandler.ts";
 export { getV1FinancialRecordsHandler, getV1FinancialRecordsHandlerResponse200 } from "./financialController/getV1FinancialRecordsHandler.ts";
 export { getV1FinancialSummaryHandler, getV1FinancialSummaryHandlerResponse200 } from "./financialController/getV1FinancialSummaryHandler.ts";
 export { postV1FinancialRecordsHandler, postV1FinancialRecordsHandlerResponse201 } from "./financialController/postV1FinancialRecordsHandler.ts";
@@ -15,8 +17,8 @@ export { postV1HealthRecordsHandler, postV1HealthRecordsHandlerResponse201 } fro
 export { postV1HealthTreatmentsHandler, postV1HealthTreatmentsHandlerResponse201 } from "./healthController/postV1HealthTreatmentsHandler.ts";
 export { postV1HealthVaccinesHandler, postV1HealthVaccinesHandlerResponse201 } from "./healthController/postV1HealthVaccinesHandler.ts";
 export { deleteV1OrganizationsIdHandler, deleteV1OrganizationsIdHandlerResponse204 } from "./organizationsController/deleteV1OrganizationsIdHandler.ts";
-export { getV1OrganizationsHandler, getV1OrganizationsHandlerResponse200 } from "./organizationsController/getV1OrganizationsHandler.ts";
-export { getV1OrganizationsIdHandler, getV1OrganizationsIdHandlerResponse200 } from "./organizationsController/getV1OrganizationsIdHandler.ts";
+export { getOrganizationsHandler, getOrganizationsHandlerResponse200 } from "./organizationsController/getOrganizationsHandler.ts";
+export { getOrganizationsIdHandler, getOrganizationsIdHandlerResponse200 } from "./organizationsController/getOrganizationsIdHandler.ts";
 export { postV1OrganizationsHandler, postV1OrganizationsHandlerResponse201 } from "./organizationsController/postV1OrganizationsHandler.ts";
 export { putV1OrganizationsIdHandler, putV1OrganizationsIdHandlerResponse200 } from "./organizationsController/putV1OrganizationsIdHandler.ts";
 export { getV1ProductionMetricsAnimalidHandler, getV1ProductionMetricsAnimalidHandlerResponse200 } from "./productionController/getV1ProductionMetricsAnimalidHandler.ts";

@@ -5,11 +5,21 @@
 
 
 export const recordTypeEnum = {
-    COST: "COST",
-    REVENUE: "REVENUE"
+    INCOME: "INCOME",
+    EXPENSE: "EXPENSE"
 } as const;
 
 export type RecordTypeEnumKey = (typeof recordTypeEnum)[keyof typeof recordTypeEnum];
+
+export const recordCategoryEnum = {
+    FEED: "FEED",
+    MEDICATION: "MEDICATION",
+    LABOR: "LABOR",
+    MAINTENANCE: "MAINTENANCE",
+    OTHER: "OTHER"
+} as const;
+
+export type RecordCategoryEnumKey = (typeof recordCategoryEnum)[keyof typeof recordCategoryEnum];
 
 /**
  * @description Default Response
@@ -34,7 +44,7 @@ export type PostV1FinancialRecords201 = {
         /**
          * @type string
         */
-        category: string;
+        category: RecordCategoryEnumKey;
         /**
          * @type number
         */
@@ -55,8 +65,8 @@ export type PostV1FinancialRecords201 = {
 };
 
 export const postV1FinancialRecordsMutationRequestTypeEnum = {
-    COST: "COST",
-    REVENUE: "REVENUE"
+    INCOME: "INCOME",
+    EXPENSE: "EXPENSE"
 } as const;
 
 export type PostV1FinancialRecordsMutationRequestTypeEnumKey = (typeof postV1FinancialRecordsMutationRequestTypeEnum)[keyof typeof postV1FinancialRecordsMutationRequestTypeEnum];

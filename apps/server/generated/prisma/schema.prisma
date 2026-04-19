@@ -14,6 +14,44 @@ enum Role {
   OPERATOR
 }
 
+enum AnimalStatus {
+  ACTIVE
+  INACTIVE
+  SOLD
+  DECEASED
+}
+
+enum AnimalSex {
+  FEMALE
+  MALE
+}
+
+enum PregnancyStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum BirthStatus {
+  ALIVE
+  STILLBORN
+  ABORTED
+}
+
+enum FinancialType {
+  INCOME
+  EXPENSE
+}
+
+enum FinancialCategory {
+  FEED
+  MEDICATION
+  LABOR
+  MAINTENANCE
+  OTHER
+}
+
 model Organization {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
@@ -61,7 +99,7 @@ model Animal {
   sex            String
   birthDate      DateTime
   origin         String?
-  status         String
+  status         AnimalStatus @default(ACTIVE)
   organizationId String       @db.ObjectId
   organization   Organization @relation(fields: [organizationId], references: [id])
 
@@ -164,14 +202,14 @@ model Estrus {
 }
 
 model Pregnancy {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
-  animal         Animal       @relation(fields: [animalId], references: [id])
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String          @db.ObjectId
+  animal         Animal          @relation(fields: [animalId], references: [id])
   detectedDate   DateTime
   expectedDate   DateTime?
-  status         String
-  organizationId String       @db.ObjectId
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  status         PregnancyStatus @default(PENDING)
+  organizationId String          @db.ObjectId
+  organization   Organization    @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -187,7 +225,7 @@ model Birth {
   father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])
   birthDate      DateTime
   offspringTag   String?
-  status         String
+  status         BirthStatus  @default(ALIVE)
   organizationId String       @db.ObjectId
   organization   Organization @relation(fields: [organizationId], references: [id])
 
@@ -229,14 +267,14 @@ model MilkProduction {
 }
 
 model FinancialRecord {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  type           String
-  category       String
+  id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  type           FinancialType
+  category       FinancialCategory
   amount         Float
-  date           DateTime     @default(now())
+  date           DateTime          @default(now())
   description    String?
-  organizationId String       @db.ObjectId
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String            @db.ObjectId
+  organization   Organization      @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

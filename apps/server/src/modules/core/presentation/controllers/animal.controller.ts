@@ -1,4 +1,3 @@
-import { AppError } from "@src/common/errors/app-error";
 import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
 import { CreateAnimalUseCase } from "@src/modules/core/application/use-cases/create-animal.use-case";
 import { DeleteAnimalUseCase } from "@src/modules/core/application/use-cases/delete-animal.use-case";
@@ -33,6 +32,7 @@ export const animalController = {
 	) {
 		const useCase = new GetAnimalsUseCase(getRepo());
 		const result = await useCase.execute(request.tenantId!, request.query);
+
 		return reply.send({
 			data: result.animals.map((a) => ({ ...a.props, id: a.id })),
 			meta: {

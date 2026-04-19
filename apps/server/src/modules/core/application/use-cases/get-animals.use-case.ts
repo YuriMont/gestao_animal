@@ -25,10 +25,16 @@ export class GetAnimalsUseCase {
 		filters: GetAnimalsFilters = {},
 	): Promise<PaginatedAnimals> {
 		const { page = 1, limit = 20, ...rest } = filters;
-		return this.animalRepository.listByOrganization(organizationId, {
-			...rest,
-			page,
-			limit,
-		});
+
+		const result = await this.animalRepository.listByOrganization(
+			organizationId,
+			{
+				...rest,
+				page,
+				limit,
+			},
+		);
+
+		return result;
 	}
 }

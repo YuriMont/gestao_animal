@@ -293,6 +293,39 @@ exports.Role = exports.$Enums.Role = {
   OPERATOR: 'OPERATOR'
 };
 
+exports.AnimalStatus = exports.$Enums.AnimalStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SOLD: 'SOLD',
+  DECEASED: 'DECEASED'
+};
+
+exports.PregnancyStatus = exports.$Enums.PregnancyStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.BirthStatus = exports.$Enums.BirthStatus = {
+  ALIVE: 'ALIVE',
+  STILLBORN: 'STILLBORN',
+  ABORTED: 'ABORTED'
+};
+
+exports.FinancialType = exports.$Enums.FinancialType = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE'
+};
+
+exports.FinancialCategory = exports.$Enums.FinancialCategory = {
+  FEED: 'FEED',
+  MEDICATION: 'MEDICATION',
+  LABOR: 'LABOR',
+  MAINTENANCE: 'MAINTENANCE',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   Organization: 'Organization',
   User: 'User',
