@@ -31,7 +31,7 @@ export function AppSidebar() {
 	const currentPath = routerState.location.pathname;
 
 	return (
-		<aside className="flex h-screen w-60 flex-col bg-sidebar text-sidebar-foreground">
+		<aside className="hidden lg:flex h-screen w-60 flex-col bg-sidebar text-sidebar-foreground">
 			<div className="flex items-center gap-2 px-6 py-5 border-b border-sidebar-border">
 				<div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
 					<Leaf className="size-4 text-sidebar-primary-foreground" />
@@ -40,7 +40,6 @@ export function AppSidebar() {
 					AgroGestão
 				</span>
 			</div>
-
 			<nav className="flex-1 overflow-y-auto px-3 py-4">
 				<ul className="flex flex-col gap-1">
 					{navItems.map(({ label, href, icon: Icon }) => {
@@ -65,7 +64,6 @@ export function AppSidebar() {
 					})}
 				</ul>
 			</nav>
-
 			<div className="border-t border-sidebar-border p-4">
 				<div className="mb-3 px-1">
 					<p className="text-sm font-medium text-sidebar-foreground truncate">
