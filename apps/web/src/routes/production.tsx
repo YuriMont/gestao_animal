@@ -1,104 +1,104 @@
-import { AppLayout } from "@/components/layout/app-layout";
-import { PageHeader } from "@/components/layout/page-header";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { createFileRoute } from '@tanstack/react-router'
+import { Plus } from 'lucide-react'
+import { useState } from 'react'
+import { AppLayout } from '@/components/layout/app-layout'
+import { PageHeader } from '@/components/layout/page-header'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
-import { usePostV1ProductionMilk } from "@/gen/hooks/productionController/usePostV1ProductionMilk";
-import { usePostV1ProductionWeight } from "@/gen/hooks/productionController/usePostV1ProductionWeight";
-import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
-import { useState } from "react";
+} from '@/components/ui/select'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
+import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
+import { usePostV1ProductionMilk } from '@/gen/hooks/productionController/usePostV1ProductionMilk'
+import { usePostV1ProductionWeight } from '@/gen/hooks/productionController/usePostV1ProductionWeight'
 
-export const Route = createFileRoute("/production")({
+export const Route = createFileRoute('/production')({
   component: ProductionPage,
-});
+})
 
 function AnimalSelect({
   value,
   onChange,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  value: string
+  onChange: (v: string) => void
 }) {
-  const animalsQuery = useGetV1Animals({ limit: 100 });
-  const animals = animalsQuery.data?.data ?? [];
+  const animalsQuery = useGetV1Animals({ limit: 100 })
+  const animals = animalsQuery.data?.data ?? []
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger>
         <SelectValue placeholder="Selecione o animal" />
       </SelectTrigger>
       <SelectContent>
-        {animals.map((a) => (
+        {animals.map(a => (
           <SelectItem key={a.id} value={a.id}>
             {a.tag} — {a.species}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }
 
 function ProductionPage() {
   const [weightForm, setWeightForm] = useState({
-    animalId: "",
-    weight: "",
-    date: "",
-    notes: "",
-  });
+    animalId: '',
+    weight: '',
+    date: '',
+    notes: '',
+  })
   const [milkForm, setMilkForm] = useState({
-    animalId: "",
-    liters: "",
-    date: "",
-    session: "",
-    notes: "",
-  });
+    animalId: '',
+    liters: '',
+    date: '',
+    session: '',
+    notes: '',
+  })
   const [feedback, setFeedback] = useState<{
-    tab: string;
-    msg: string;
-    ok: boolean;
-  } | null>(null);
+    tab: string
+    msg: string
+    ok: boolean
+  } | null>(null)
 
   function showFeedback(tab: string, ok: boolean, msg: string) {
-    setFeedback({ tab, ok, msg });
-    setTimeout(() => setFeedback(null), 3000);
+    setFeedback({ tab, ok, msg })
+    setTimeout(() => setFeedback(null), 3000)
   }
 
   const weightMutation = usePostV1ProductionWeight({
     mutation: {
       onSuccess: () => {
-        setWeightForm({ animalId: "", weight: "", date: "", notes: "" });
-        showFeedback("weight", true, "Peso registrado!");
+        setWeightForm({ animalId: '', weight: '', date: '', notes: '' })
+        showFeedback('weight', true, 'Peso registrado!')
       },
-      onError: () => showFeedback("weight", false, "Erro ao registrar peso."),
+      onError: () => showFeedback('weight', false, 'Erro ao registrar peso.'),
     },
-  });
+  })
 
   const milkMutation = usePostV1ProductionMilk({
     mutation: {
       onSuccess: () => {
         setMilkForm({
-          animalId: "",
-          liters: "",
-          date: "",
-          session: "",
-          notes: "",
-        });
-        showFeedback("milk", true, "Produção registrada!");
+          animalId: '',
+          liters: '',
+          date: '',
+          session: '',
+          notes: '',
+        })
+        showFeedback('milk', true, 'Produção registrada!')
       },
-      onError: () => showFeedback("milk", false, "Erro ao registrar produção."),
+      onError: () => showFeedback('milk', false, 'Erro ao registrar produção.'),
     },
-  });
+  })
 
   return (
     <AppLayout>
@@ -127,7 +127,7 @@ function ProductionPage() {
                     <Label>Animal *</Label>
                     <AnimalSelect
                       value={weightForm.animalId}
-                      onChange={(v) =>
+                      onChange={v =>
                         setWeightForm({ ...weightForm, animalId: v })
                       }
                     />
@@ -140,7 +140,7 @@ function ProductionPage() {
                         step="0.1"
                         placeholder="Ex: 450.5"
                         value={weightForm.weight}
-                        onChange={(e) =>
+                        onChange={e =>
                           setWeightForm({
                             ...weightForm,
                             weight: e.target.value,
@@ -153,7 +153,7 @@ function ProductionPage() {
                       <Input
                         type="date"
                         value={weightForm.date}
-                        onChange={(e) =>
+                        onChange={e =>
                           setWeightForm({ ...weightForm, date: e.target.value })
                         }
                       />
@@ -164,14 +164,14 @@ function ProductionPage() {
                     <Textarea
                       placeholder="Notas..."
                       value={weightForm.notes}
-                      onChange={(e) =>
+                      onChange={e =>
                         setWeightForm({ ...weightForm, notes: e.target.value })
                       }
                     />
                   </div>
-                  {feedback?.tab === "weight" && (
+                  {feedback?.tab === 'weight' && (
                     <p
-                      className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
                     >
                       {feedback.msg}
                     </p>
@@ -196,8 +196,8 @@ function ProductionPage() {
                     }
                   >
                     {weightMutation.isPending
-                      ? "Salvando..."
-                      : "Registrar Pesagem"}
+                      ? 'Salvando...'
+                      : 'Registrar Pesagem'}
                   </Button>
                 </CardContent>
               </Card>
@@ -216,9 +216,7 @@ function ProductionPage() {
                     <Label>Animal (Fêmea) *</Label>
                     <AnimalSelect
                       value={milkForm.animalId}
-                      onChange={(v) =>
-                        setMilkForm({ ...milkForm, animalId: v })
-                      }
+                      onChange={v => setMilkForm({ ...milkForm, animalId: v })}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -229,7 +227,7 @@ function ProductionPage() {
                         step="0.1"
                         placeholder="Ex: 20.5"
                         value={milkForm.liters}
-                        onChange={(e) =>
+                        onChange={e =>
                           setMilkForm({ ...milkForm, liters: e.target.value })
                         }
                       />
@@ -239,7 +237,7 @@ function ProductionPage() {
                       <Input
                         type="date"
                         value={milkForm.date}
-                        onChange={(e) =>
+                        onChange={e =>
                           setMilkForm({ ...milkForm, date: e.target.value })
                         }
                       />
@@ -249,7 +247,7 @@ function ProductionPage() {
                     <Label>Turno</Label>
                     <Select
                       value={milkForm.session}
-                      onValueChange={(v) =>
+                      onValueChange={v =>
                         setMilkForm({ ...milkForm, session: v })
                       }
                     >
@@ -268,14 +266,14 @@ function ProductionPage() {
                     <Textarea
                       placeholder="Notas..."
                       value={milkForm.notes}
-                      onChange={(e) =>
+                      onChange={e =>
                         setMilkForm({ ...milkForm, notes: e.target.value })
                       }
                     />
                   </div>
-                  {feedback?.tab === "milk" && (
+                  {feedback?.tab === 'milk' && (
                     <p
-                      className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
                     >
                       {feedback.msg}
                     </p>
@@ -301,8 +299,8 @@ function ProductionPage() {
                     }
                   >
                     {milkMutation.isPending
-                      ? "Salvando..."
-                      : "Registrar Produção"}
+                      ? 'Salvando...'
+                      : 'Registrar Produção'}
                   </Button>
                 </CardContent>
               </Card>
@@ -311,5 +309,5 @@ function ProductionPage() {
         </div>
       </div>
     </AppLayout>
-  );
+  )
 }

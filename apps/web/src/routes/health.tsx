@@ -1,139 +1,139 @@
-import { AppLayout } from "@/components/layout/app-layout";
-import { PageHeader } from "@/components/layout/page-header";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { createFileRoute } from '@tanstack/react-router'
+import { Plus } from 'lucide-react'
+import { useState } from 'react'
+import { AppLayout } from '@/components/layout/app-layout'
+import { PageHeader } from '@/components/layout/page-header'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
-import { usePostV1HealthRecords } from "@/gen/hooks/healthController/usePostV1HealthRecords";
-import { usePostV1HealthTreatments } from "@/gen/hooks/healthController/usePostV1HealthTreatments";
-import { usePostV1HealthVaccines } from "@/gen/hooks/healthController/usePostV1HealthVaccines";
-import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
-import { useState } from "react";
+} from '@/components/ui/select'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
+import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
+import { usePostV1HealthRecords } from '@/gen/hooks/healthController/usePostV1HealthRecords'
+import { usePostV1HealthTreatments } from '@/gen/hooks/healthController/usePostV1HealthTreatments'
+import { usePostV1HealthVaccines } from '@/gen/hooks/healthController/usePostV1HealthVaccines'
 
-export const Route = createFileRoute("/health")({
+export const Route = createFileRoute('/health')({
   component: HealthPage,
-});
+})
 
 function AnimalSelect({
   value,
   onChange,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  value: string
+  onChange: (v: string) => void
 }) {
-  const animalsQuery = useGetV1Animals({ limit: 100 });
-  const animals = animalsQuery.data?.data ?? [];
+  const animalsQuery = useGetV1Animals({ limit: 100 })
+  const animals = animalsQuery.data?.data ?? []
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger>
         <SelectValue placeholder="Selecione o animal" />
       </SelectTrigger>
       <SelectContent>
-        {animals.map((a) => (
+        {animals.map(a => (
           <SelectItem key={a.id} value={a.id}>
             {a.tag} — {a.species}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }
 
 function HealthPage() {
   const [vaccineForm, setVaccineForm] = useState({
-    animalId: "",
-    vaccineName: "",
-    doseNumber: "1",
-    dateAdministered: "",
-    nextDueDate: "",
-  });
+    animalId: '',
+    vaccineName: '',
+    doseNumber: '1',
+    dateAdministered: '',
+    nextDueDate: '',
+  })
   const [treatmentForm, setTreatmentForm] = useState({
-    animalId: "",
-    treatmentType: "",
-    medication: "",
-    dosage: "",
-    startDate: "",
-    endDate: "",
-    notes: "",
-  });
+    animalId: '',
+    treatmentType: '',
+    medication: '',
+    dosage: '',
+    startDate: '',
+    endDate: '',
+    notes: '',
+  })
   const [recordForm, setRecordForm] = useState({
-    animalId: "",
-    recordType: "",
-    description: "",
-    date: "",
-  });
+    animalId: '',
+    recordType: '',
+    description: '',
+    date: '',
+  })
   const [feedback, setFeedback] = useState<{
-    tab: string;
-    msg: string;
-    ok: boolean;
-  } | null>(null);
+    tab: string
+    msg: string
+    ok: boolean
+  } | null>(null)
 
   function showFeedback(tab: string, ok: boolean, msg: string) {
-    setFeedback({ tab, ok, msg });
-    setTimeout(() => setFeedback(null), 3000);
+    setFeedback({ tab, ok, msg })
+    setTimeout(() => setFeedback(null), 3000)
   }
 
   const vaccineMutation = usePostV1HealthVaccines({
     mutation: {
       onSuccess: () => {
         setVaccineForm({
-          animalId: "",
-          vaccineName: "",
-          doseNumber: "1",
-          dateAdministered: "",
-          nextDueDate: "",
-        });
-        showFeedback("vaccines", true, "Vacina registrada com sucesso!");
+          animalId: '',
+          vaccineName: '',
+          doseNumber: '1',
+          dateAdministered: '',
+          nextDueDate: '',
+        })
+        showFeedback('vaccines', true, 'Vacina registrada com sucesso!')
       },
       onError: () =>
-        showFeedback("vaccines", false, "Erro ao registrar vacina."),
+        showFeedback('vaccines', false, 'Erro ao registrar vacina.'),
     },
-  });
+  })
 
   const treatmentMutation = usePostV1HealthTreatments({
     mutation: {
       onSuccess: () => {
         setTreatmentForm({
-          animalId: "",
-          treatmentType: "",
-          medication: "",
-          dosage: "",
-          startDate: "",
-          endDate: "",
-          notes: "",
-        });
-        showFeedback("treatments", true, "Tratamento registrado!");
+          animalId: '',
+          treatmentType: '',
+          medication: '',
+          dosage: '',
+          startDate: '',
+          endDate: '',
+          notes: '',
+        })
+        showFeedback('treatments', true, 'Tratamento registrado!')
       },
       onError: () =>
-        showFeedback("treatments", false, "Erro ao registrar tratamento."),
+        showFeedback('treatments', false, 'Erro ao registrar tratamento.'),
     },
-  });
+  })
 
   const recordMutation = usePostV1HealthRecords({
     mutation: {
       onSuccess: () => {
         setRecordForm({
-          animalId: "",
-          recordType: "",
-          description: "",
-          date: "",
-        });
-        showFeedback("records", true, "Registro criado!");
+          animalId: '',
+          recordType: '',
+          description: '',
+          date: '',
+        })
+        showFeedback('records', true, 'Registro criado!')
       },
-      onError: () => showFeedback("records", false, "Erro ao criar registro."),
+      onError: () => showFeedback('records', false, 'Erro ao criar registro.'),
     },
-  });
+  })
 
   return (
     <AppLayout>
@@ -163,7 +163,7 @@ function HealthPage() {
                     <Label>Animal *</Label>
                     <AnimalSelect
                       value={vaccineForm.animalId}
-                      onChange={(v) =>
+                      onChange={v =>
                         setVaccineForm({ ...vaccineForm, animalId: v })
                       }
                     />
@@ -173,7 +173,7 @@ function HealthPage() {
                     <Input
                       placeholder="Ex: Febre Aftosa"
                       value={vaccineForm.vaccineName}
-                      onChange={(e) =>
+                      onChange={e =>
                         setVaccineForm({
                           ...vaccineForm,
                           vaccineName: e.target.value,
@@ -188,7 +188,7 @@ function HealthPage() {
                         type="number"
                         min="1"
                         value={vaccineForm.doseNumber}
-                        onChange={(e) =>
+                        onChange={e =>
                           setVaccineForm({
                             ...vaccineForm,
                             doseNumber: e.target.value,
@@ -201,7 +201,7 @@ function HealthPage() {
                       <Input
                         type="date"
                         value={vaccineForm.dateAdministered}
-                        onChange={(e) =>
+                        onChange={e =>
                           setVaccineForm({
                             ...vaccineForm,
                             dateAdministered: e.target.value,
@@ -215,7 +215,7 @@ function HealthPage() {
                     <Input
                       type="date"
                       value={vaccineForm.nextDueDate}
-                      onChange={(e) =>
+                      onChange={e =>
                         setVaccineForm({
                           ...vaccineForm,
                           nextDueDate: e.target.value,
@@ -223,9 +223,9 @@ function HealthPage() {
                       }
                     />
                   </div>
-                  {feedback?.tab === "vaccines" && (
+                  {feedback?.tab === 'vaccines' && (
                     <p
-                      className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
                     >
                       {feedback.msg}
                     </p>
@@ -251,8 +251,8 @@ function HealthPage() {
                     }
                   >
                     {vaccineMutation.isPending
-                      ? "Salvando..."
-                      : "Registrar Vacina"}
+                      ? 'Salvando...'
+                      : 'Registrar Vacina'}
                   </Button>
                 </CardContent>
               </Card>
@@ -271,7 +271,7 @@ function HealthPage() {
                     <Label>Animal *</Label>
                     <AnimalSelect
                       value={treatmentForm.animalId}
-                      onChange={(v) =>
+                      onChange={v =>
                         setTreatmentForm({ ...treatmentForm, animalId: v })
                       }
                     />
@@ -281,7 +281,7 @@ function HealthPage() {
                     <Input
                       placeholder="Ex: Vermifugação"
                       value={treatmentForm.treatmentType}
-                      onChange={(e) =>
+                      onChange={e =>
                         setTreatmentForm({
                           ...treatmentForm,
                           treatmentType: e.target.value,
@@ -295,7 +295,7 @@ function HealthPage() {
                       <Input
                         placeholder="Nome do medicamento"
                         value={treatmentForm.medication}
-                        onChange={(e) =>
+                        onChange={e =>
                           setTreatmentForm({
                             ...treatmentForm,
                             medication: e.target.value,
@@ -308,7 +308,7 @@ function HealthPage() {
                       <Input
                         placeholder="Ex: 10ml"
                         value={treatmentForm.dosage}
-                        onChange={(e) =>
+                        onChange={e =>
                           setTreatmentForm({
                             ...treatmentForm,
                             dosage: e.target.value,
@@ -323,7 +323,7 @@ function HealthPage() {
                       <Input
                         type="date"
                         value={treatmentForm.startDate}
-                        onChange={(e) =>
+                        onChange={e =>
                           setTreatmentForm({
                             ...treatmentForm,
                             startDate: e.target.value,
@@ -336,7 +336,7 @@ function HealthPage() {
                       <Input
                         type="date"
                         value={treatmentForm.endDate}
-                        onChange={(e) =>
+                        onChange={e =>
                           setTreatmentForm({
                             ...treatmentForm,
                             endDate: e.target.value,
@@ -350,7 +350,7 @@ function HealthPage() {
                     <Textarea
                       placeholder="Notas adicionais..."
                       value={treatmentForm.notes}
-                      onChange={(e) =>
+                      onChange={e =>
                         setTreatmentForm({
                           ...treatmentForm,
                           notes: e.target.value,
@@ -358,9 +358,9 @@ function HealthPage() {
                       }
                     />
                   </div>
-                  {feedback?.tab === "treatments" && (
+                  {feedback?.tab === 'treatments' && (
                     <p
-                      className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
                     >
                       {feedback.msg}
                     </p>
@@ -388,8 +388,8 @@ function HealthPage() {
                     }
                   >
                     {treatmentMutation.isPending
-                      ? "Salvando..."
-                      : "Registrar Tratamento"}
+                      ? 'Salvando...'
+                      : 'Registrar Tratamento'}
                   </Button>
                 </CardContent>
               </Card>
@@ -408,7 +408,7 @@ function HealthPage() {
                     <Label>Animal *</Label>
                     <AnimalSelect
                       value={recordForm.animalId}
-                      onChange={(v) =>
+                      onChange={v =>
                         setRecordForm({ ...recordForm, animalId: v })
                       }
                     />
@@ -419,7 +419,7 @@ function HealthPage() {
                       <Input
                         placeholder="Ex: Exame"
                         value={recordForm.recordType}
-                        onChange={(e) =>
+                        onChange={e =>
                           setRecordForm({
                             ...recordForm,
                             recordType: e.target.value,
@@ -432,7 +432,7 @@ function HealthPage() {
                       <Input
                         type="date"
                         value={recordForm.date}
-                        onChange={(e) =>
+                        onChange={e =>
                           setRecordForm({ ...recordForm, date: e.target.value })
                         }
                       />
@@ -443,7 +443,7 @@ function HealthPage() {
                     <Textarea
                       placeholder="Descreva o registro..."
                       value={recordForm.description}
-                      onChange={(e) =>
+                      onChange={e =>
                         setRecordForm({
                           ...recordForm,
                           description: e.target.value,
@@ -451,9 +451,9 @@ function HealthPage() {
                       }
                     />
                   </div>
-                  {feedback?.tab === "records" && (
+                  {feedback?.tab === 'records' && (
                     <p
-                      className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
                     >
                       {feedback.msg}
                     </p>
@@ -479,8 +479,8 @@ function HealthPage() {
                     }
                   >
                     {recordMutation.isPending
-                      ? "Salvando..."
-                      : "Salvar Registro"}
+                      ? 'Salvando...'
+                      : 'Salvar Registro'}
                   </Button>
                 </CardContent>
               </Card>
@@ -489,5 +489,5 @@ function HealthPage() {
         </div>
       </div>
     </AppLayout>
-  );
+  )
 }

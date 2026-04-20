@@ -1,24 +1,24 @@
-import { isAuthenticatedAtom } from "@/atoms/auth";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useNavigate } from "@tanstack/react-router";
-import { useAtomValue } from "jotai";
-import { Leaf, Menu } from "lucide-react";
-import type * as React from "react";
-import { useEffect } from "react";
-import { AppSidebar } from "./app-sidebar";
+import { useNavigate } from '@tanstack/react-router'
+import { useAtomValue } from 'jotai'
+import { Leaf, Menu } from 'lucide-react'
+import type * as React from 'react'
+import { useEffect } from 'react'
+import { isAuthenticatedAtom } from '@/atoms/auth'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { AppSidebar } from './app-sidebar'
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
-  const navigate = useNavigate();
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate({ to: "/login" });
+      navigate({ to: '/login' })
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate])
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) return null
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -48,5 +48,5 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto lg:pt-0 pt-16">{children}</main>
     </div>
-  );
+  )
 }

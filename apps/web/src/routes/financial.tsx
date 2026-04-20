@@ -1,8 +1,13 @@
-import { AppLayout } from "@/components/layout/app-layout";
-import { PageHeader } from "@/components/layout/page-header";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQueryClient } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
+import { DollarSign, Plus, TrendingDown, TrendingUp } from 'lucide-react'
+import { useState } from 'react'
+import type { z } from 'zod/v4'
+import { AppLayout } from '@/components/layout/app-layout'
+import { PageHeader } from '@/components/layout/page-header'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -10,17 +15,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
+} from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -28,73 +33,68 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/table'
+import { Textarea } from '@/components/ui/textarea'
 import type {
   postV1FinancialRecordsMutationRequestSchema,
   RecordTypeEnumKey,
-} from "@/gen";
-import { useGetV1EnumsFinancialTypes } from "@/gen/hooks/enumsController/useGetV1EnumsFinancialTypes";
+} from '@/gen'
+import { useGetV1EnumsFinancialTypes } from '@/gen/hooks/enumsController/useGetV1EnumsFinancialTypes'
 import {
   getV1FinancialRecordsQueryKey,
   useGetV1FinancialRecords,
-} from "@/gen/hooks/financialController/useGetV1FinancialRecords";
+} from '@/gen/hooks/financialController/useGetV1FinancialRecords'
 import {
   getV1FinancialSummaryQueryKey,
   useGetV1FinancialSummary,
-} from "@/gen/hooks/financialController/useGetV1FinancialSummary";
-import { usePostV1FinancialRecords } from "@/gen/hooks/financialController/usePostV1FinancialRecords";
-import { useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { DollarSign, Plus, TrendingDown, TrendingUp } from "lucide-react";
-import { useState } from "react";
-import type { z } from "zod/v4";
+} from '@/gen/hooks/financialController/useGetV1FinancialSummary'
+import { usePostV1FinancialRecords } from '@/gen/hooks/financialController/usePostV1FinancialRecords'
 
-export const Route = createFileRoute("/financial")({
+export const Route = createFileRoute('/financial')({
   component: FinancialPage,
-});
+})
 
 type FinancialFormData = z.infer<
   typeof postV1FinancialRecordsMutationRequestSchema
->;
+>
 
 function FinancialPage() {
-  const qc = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const { data: financialTypes } = useGetV1EnumsFinancialTypes();
+  const qc = useQueryClient()
+  const [open, setOpen] = useState(false)
+  const { data: financialTypes } = useGetV1EnumsFinancialTypes()
   const [form, setForm] = useState<FinancialFormData>({
-    type: "EXPENSE",
-    category: "",
+    type: 'EXPENSE',
+    category: '',
     amount: 0,
-    date: "",
-    description: "",
-  });
-  const [typeFilter, setTypeFilter] = useState("all");
+    date: '',
+    description: '',
+  })
+  const [typeFilter, setTypeFilter] = useState('all')
 
-  const recordsQuery = useGetV1FinancialRecords();
+  const recordsQuery = useGetV1FinancialRecords()
   const { data: summary, isLoading: summaryIsLoading } =
-    useGetV1FinancialSummary();
-  const records = recordsQuery.data?.data ?? [];
+    useGetV1FinancialSummary()
+  const records = recordsQuery.data?.data ?? []
 
   const createMutation = usePostV1FinancialRecords({
     mutation: {
       onSuccess: () => {
-        qc.invalidateQueries({ queryKey: getV1FinancialRecordsQueryKey() });
-        qc.invalidateQueries({ queryKey: getV1FinancialSummaryQueryKey() });
-        setOpen(false);
+        qc.invalidateQueries({ queryKey: getV1FinancialRecordsQueryKey() })
+        qc.invalidateQueries({ queryKey: getV1FinancialSummaryQueryKey() })
+        setOpen(false)
         setForm({
-          type: "EXPENSE",
-          category: "",
+          type: 'EXPENSE',
+          category: '',
           amount: 0,
-          date: "",
-          description: "",
-        });
+          date: '',
+          description: '',
+        })
       },
     },
-  });
+  })
 
   function fmt(n: number) {
-    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   }
 
   return (
@@ -121,7 +121,7 @@ function FinancialPage() {
                     <Label>Tipo *</Label>
                     <Select
                       value={form.type}
-                      onValueChange={(v) =>
+                      onValueChange={v =>
                         setForm({ ...form, type: v as RecordTypeEnumKey })
                       }
                     >
@@ -129,7 +129,7 @@ function FinancialPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {financialTypes?.map((item) => (
+                        {financialTypes?.map(item => (
                           <SelectItem key={item.key} value={item.key}>
                             {item.label}
                           </SelectItem>
@@ -142,7 +142,7 @@ function FinancialPage() {
                     <Input
                       placeholder="Ex: Venda de gado"
                       value={form.category}
-                      onChange={(e) =>
+                      onChange={e =>
                         setForm({ ...form, category: e.target.value })
                       }
                     />
@@ -156,7 +156,7 @@ function FinancialPage() {
                       step="0.01"
                       placeholder="0,00"
                       value={form.amount}
-                      onChange={(e) =>
+                      onChange={e =>
                         setForm({ ...form, amount: Number(e.target.value) })
                       }
                     />
@@ -166,9 +166,7 @@ function FinancialPage() {
                     <Input
                       type="date"
                       value={form.date}
-                      onChange={(e) =>
-                        setForm({ ...form, date: e.target.value })
-                      }
+                      onChange={e => setForm({ ...form, date: e.target.value })}
                     />
                   </div>
                 </div>
@@ -177,7 +175,7 @@ function FinancialPage() {
                   <Textarea
                     placeholder="Detalhes..."
                     value={form.description}
-                    onChange={(e) =>
+                    onChange={e =>
                       setForm({ ...form, description: e.target.value })
                     }
                   />
@@ -206,7 +204,7 @@ function FinancialPage() {
                     })
                   }
                 >
-                  {createMutation.isPending ? "Salvando..." : "Salvar"}
+                  {createMutation.isPending ? 'Salvando...' : 'Salvar'}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -229,7 +227,7 @@ function FinancialPage() {
                   <Skeleton className="h-7 w-32" />
                 ) : (
                   <p className="text-2xl font-bold text-primary">
-                    {summary ? fmt(summary.totalRevenue) : "—"}
+                    {summary ? fmt(summary.totalRevenue) : '—'}
                   </p>
                 )}
               </CardContent>
@@ -248,7 +246,7 @@ function FinancialPage() {
                   <Skeleton className="h-7 w-32" />
                 ) : (
                   <p className="text-2xl font-bold text-destructive">
-                    {summary ? fmt(summary.totalCost) : "—"}
+                    {summary ? fmt(summary.totalCost) : '—'}
                   </p>
                 )}
               </CardContent>
@@ -267,9 +265,9 @@ function FinancialPage() {
                   <Skeleton className="h-7 w-32" />
                 ) : (
                   <p
-                    className={`text-2xl font-bold ${summary && summary.balance >= 0 ? "text-primary" : "text-destructive"}`}
+                    className={`text-2xl font-bold ${summary && summary.balance >= 0 ? 'text-primary' : 'text-destructive'}`}
                   >
-                    {summary ? fmt(summary.balance) : "—"}
+                    {summary ? fmt(summary.balance) : '—'}
                   </p>
                 )}
               </CardContent>
@@ -283,7 +281,7 @@ function FinancialPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todos</SelectItem>
-                {financialTypes?.map((item) => (
+                {financialTypes?.map(item => (
                   <SelectItem key={item.key} value={item.key}>
                     {item.label}
                   </SelectItem>
@@ -317,26 +315,26 @@ function FinancialPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {records.map((r) => (
+                    {records.map(r => (
                       <TableRow key={r.id}>
                         <TableCell>
                           <Badge
                             variant={
-                              r.type === "EXPENSE" ? "success" : "destructive"
+                              r.type === 'EXPENSE' ? 'success' : 'destructive'
                             }
                           >
-                            {r.type === "EXPENSE" ? "Receita" : "Custo"}
+                            {r.type === 'EXPENSE' ? 'Receita' : 'Custo'}
                           </Badge>
                         </TableCell>
                         <TableCell>{r.category}</TableCell>
                         <TableCell className="text-muted-foreground">
-                          {r.description ?? "—"}
+                          {r.description ?? '—'}
                         </TableCell>
                         <TableCell>
-                          {new Date(r.date).toLocaleDateString("pt-BR")}
+                          {new Date(r.date).toLocaleDateString('pt-BR')}
                         </TableCell>
                         <TableCell
-                          className={`text-right font-medium ${r.type === "EXPENSE" ? "text-primary" : "text-destructive"}`}
+                          className={`text-right font-medium ${r.type === 'EXPENSE' ? 'text-primary' : 'text-destructive'}`}
                         >
                           {fmt(r.amount)}
                         </TableCell>
@@ -350,5 +348,5 @@ function FinancialPage() {
         </div>
       </div>
     </AppLayout>
-  );
+  )
 }

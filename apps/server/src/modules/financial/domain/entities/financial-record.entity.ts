@@ -1,25 +1,25 @@
-import type { FinancialCategory, FinancialType } from "generated/prisma";
+import type { FinancialCategory, FinancialType } from 'generated/prisma'
 
 export interface FinancialRecordProps {
-	type: FinancialType;
-	category: FinancialCategory;
-	amount: number;
-	date: Date;
-	description?: string;
-	organizationId: string;
+  type: FinancialType
+  category: FinancialCategory
+  amount: number
+  date: Date
+  description?: string
+  organizationId: string
 }
 
 export class FinancialRecord {
-	constructor(
-		public readonly props: FinancialRecordProps,
-		public readonly id?: string,
-	) {}
+  constructor(
+    public readonly props: FinancialRecordProps,
+    public readonly id?: string
+  ) {}
 
-	public static create(
-		props: FinancialRecordProps,
-		id?: string,
-	): FinancialRecord {
-		if (props.amount < 0) throw new Error("Amount cannot be negative");
-		return new FinancialRecord(props, id);
-	}
+  public static create(
+    props: FinancialRecordProps,
+    id?: string
+  ): FinancialRecord {
+    if (props.amount < 0) throw new Error('Amount cannot be negative')
+    return new FinancialRecord(props, id)
+  }
 }

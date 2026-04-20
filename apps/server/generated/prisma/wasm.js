@@ -2,410 +2,410 @@
 /* eslint-disable */
 // biome-ignore-all lint: generated file
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true })
 
 const {
-	PrismaClientKnownRequestError,
-	PrismaClientUnknownRequestError,
-	PrismaClientRustPanicError,
-	PrismaClientInitializationError,
-	PrismaClientValidationError,
-	getPrismaClient,
-	sqltag,
-	empty,
-	join,
-	raw,
-	skip,
-	Decimal,
-	Debug,
-	objectEnumValues,
-	makeStrictEnum,
-	Extensions,
-	warnOnce,
-	defineDmmfProperty,
-	Public,
-	getRuntime,
-	createParam,
-} = require("./runtime/wasm-engine-edge.js");
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientInitializationError,
+  PrismaClientValidationError,
+  getPrismaClient,
+  sqltag,
+  empty,
+  join,
+  raw,
+  skip,
+  Decimal,
+  Debug,
+  objectEnumValues,
+  makeStrictEnum,
+  Extensions,
+  warnOnce,
+  defineDmmfProperty,
+  Public,
+  getRuntime,
+  createParam,
+} = require('./runtime/wasm-engine-edge.js')
 
-const Prisma = {};
+const Prisma = {}
 
-exports.Prisma = Prisma;
-exports.$Enums = {};
+exports.Prisma = Prisma
+exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 6.19.3
  * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-	client: "6.19.3",
-	engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
-};
+  client: '6.19.3',
+  engine: 'c2990dca591cba766e3b7ef5d9e8a84796e47ab7',
+}
 
-Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
-Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError;
-Prisma.PrismaClientRustPanicError = PrismaClientRustPanicError;
-Prisma.PrismaClientInitializationError = PrismaClientInitializationError;
-Prisma.PrismaClientValidationError = PrismaClientValidationError;
-Prisma.Decimal = Decimal;
+Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError
+Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError
+Prisma.PrismaClientRustPanicError = PrismaClientRustPanicError
+Prisma.PrismaClientInitializationError = PrismaClientInitializationError
+Prisma.PrismaClientValidationError = PrismaClientValidationError
+Prisma.Decimal = Decimal
 
 /**
  * Re-export of sql-template-tag
  */
-Prisma.sql = sqltag;
-Prisma.empty = empty;
-Prisma.join = join;
-Prisma.raw = raw;
-Prisma.validator = Public.validator;
+Prisma.sql = sqltag
+Prisma.empty = empty
+Prisma.join = join
+Prisma.raw = raw
+Prisma.validator = Public.validator
 
 /**
  * Extensions
  */
-Prisma.getExtensionContext = Extensions.getExtensionContext;
-Prisma.defineExtension = Extensions.defineExtension;
+Prisma.getExtensionContext = Extensions.getExtensionContext
+Prisma.defineExtension = Extensions.defineExtension
 
 /**
  * Shorthand utilities for JSON filtering
  */
-Prisma.DbNull = objectEnumValues.instances.DbNull;
-Prisma.JsonNull = objectEnumValues.instances.JsonNull;
-Prisma.AnyNull = objectEnumValues.instances.AnyNull;
+Prisma.DbNull = objectEnumValues.instances.DbNull
+Prisma.JsonNull = objectEnumValues.instances.JsonNull
+Prisma.AnyNull = objectEnumValues.instances.AnyNull
 
 Prisma.NullTypes = {
-	DbNull: objectEnumValues.classes.DbNull,
-	JsonNull: objectEnumValues.classes.JsonNull,
-	AnyNull: objectEnumValues.classes.AnyNull,
-};
+  DbNull: objectEnumValues.classes.DbNull,
+  JsonNull: objectEnumValues.classes.JsonNull,
+  AnyNull: objectEnumValues.classes.AnyNull,
+}
 
 /**
  * Enums
  */
 exports.Prisma.OrganizationScalarFieldEnum = {
-	id: "id",
-	name: "name",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.UserScalarFieldEnum = {
-	id: "id",
-	email: "email",
-	password: "password",
-	name: "name",
-	role: "role",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  name: 'name',
+  role: 'role',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.AnimalScalarFieldEnum = {
-	id: "id",
-	tag: "tag",
-	species: "species",
-	breed: "breed",
-	sex: "sex",
-	birthDate: "birthDate",
-	origin: "origin",
-	status: "status",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  tag: 'tag',
+  species: 'species',
+  breed: 'breed',
+  sex: 'sex',
+  birthDate: 'birthDate',
+  origin: 'origin',
+  status: 'status',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.PaddockScalarFieldEnum = {
-	id: "id",
-	name: "name",
-	area: "area",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  name: 'name',
+  area: 'area',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.HealthRecordScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	date: "date",
-	description: "description",
-	observation: "observation",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  date: 'date',
+  description: 'description',
+  observation: 'observation',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.VaccineScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	vaccineName: "vaccineName",
-	doseNumber: "doseNumber",
-	dateAdministered: "dateAdministered",
-	nextDueDate: "nextDueDate",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  vaccineName: 'vaccineName',
+  doseNumber: 'doseNumber',
+  dateAdministered: 'dateAdministered',
+  nextDueDate: 'nextDueDate',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.TreatmentScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	diagnosis: "diagnosis",
-	medication: "medication",
-	dosage: "dosage",
-	startDate: "startDate",
-	endDate: "endDate",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  diagnosis: 'diagnosis',
+  medication: 'medication',
+  dosage: 'dosage',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.EstrusScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	startDate: "startDate",
-	endDate: "endDate",
-	observation: "observation",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  observation: 'observation',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.PregnancyScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	detectedDate: "detectedDate",
-	expectedDate: "expectedDate",
-	status: "status",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  detectedDate: 'detectedDate',
+  expectedDate: 'expectedDate',
+  status: 'status',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.BirthScalarFieldEnum = {
-	id: "id",
-	motherId: "motherId",
-	fatherId: "fatherId",
-	birthDate: "birthDate",
-	offspringTag: "offspringTag",
-	status: "status",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  motherId: 'motherId',
+  fatherId: 'fatherId',
+  birthDate: 'birthDate',
+  offspringTag: 'offspringTag',
+  status: 'status',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.WeightRecordScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	weight: "weight",
-	date: "date",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  weight: 'weight',
+  date: 'date',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.MilkProductionScalarFieldEnum = {
-	id: "id",
-	animalId: "animalId",
-	quantity: "quantity",
-	unit: "unit",
-	date: "date",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  animalId: 'animalId',
+  quantity: 'quantity',
+  unit: 'unit',
+  date: 'date',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.FinancialRecordScalarFieldEnum = {
-	id: "id",
-	type: "type",
-	category: "category",
-	amount: "amount",
-	date: "date",
-	description: "description",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  type: 'type',
+  category: 'category',
+  amount: 'amount',
+  date: 'date',
+  description: 'description',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.AlertRuleScalarFieldEnum = {
-	id: "id",
-	name: "name",
-	condition: "condition",
-	value: "value",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  name: 'name',
+  condition: 'condition',
+  value: 'value',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.NotificationScalarFieldEnum = {
-	id: "id",
-	ruleId: "ruleId",
-	message: "message",
-	isRead: "isRead",
-	organizationId: "organizationId",
-	createdAt: "createdAt",
-	updatedAt: "updatedAt",
-};
+  id: 'id',
+  ruleId: 'ruleId',
+  message: 'message',
+  isRead: 'isRead',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+}
 
 exports.Prisma.SortOrder = {
-	asc: "asc",
-	desc: "desc",
-};
+  asc: 'asc',
+  desc: 'desc',
+}
 
 exports.Prisma.QueryMode = {
-	default: "default",
-	insensitive: "insensitive",
-};
+  default: 'default',
+  insensitive: 'insensitive',
+}
 exports.Role = exports.$Enums.Role = {
-	VET: "VET",
-	MANAGER: "MANAGER",
-	OPERATOR: "OPERATOR",
-};
+  VET: 'VET',
+  MANAGER: 'MANAGER',
+  OPERATOR: 'OPERATOR',
+}
 
 exports.AnimalStatus = exports.$Enums.AnimalStatus = {
-	ACTIVE: "ACTIVE",
-	INACTIVE: "INACTIVE",
-	SOLD: "SOLD",
-	DECEASED: "DECEASED",
-};
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SOLD: 'SOLD',
+  DECEASED: 'DECEASED',
+}
 
 exports.AnimalSex = exports.$Enums.AnimalSex = {
-	FEMALE: "FEMALE",
-	MALE: "MALE",
-};
+  FEMALE: 'FEMALE',
+  MALE: 'MALE',
+}
 
 exports.PregnancyStatus = exports.$Enums.PregnancyStatus = {
-	PENDING: "PENDING",
-	CONFIRMED: "CONFIRMED",
-	COMPLETED: "COMPLETED",
-	CANCELLED: "CANCELLED",
-};
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+}
 
 exports.BirthStatus = exports.$Enums.BirthStatus = {
-	ALIVE: "ALIVE",
-	STILLBORN: "STILLBORN",
-	ABORTED: "ABORTED",
-};
+  ALIVE: 'ALIVE',
+  STILLBORN: 'STILLBORN',
+  ABORTED: 'ABORTED',
+}
 
 exports.FinancialType = exports.$Enums.FinancialType = {
-	INCOME: "INCOME",
-	EXPENSE: "EXPENSE",
-};
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+}
 
 exports.FinancialCategory = exports.$Enums.FinancialCategory = {
-	FEED: "FEED",
-	MEDICATION: "MEDICATION",
-	LABOR: "LABOR",
-	MAINTENANCE: "MAINTENANCE",
-	OTHER: "OTHER",
-};
+  FEED: 'FEED',
+  MEDICATION: 'MEDICATION',
+  LABOR: 'LABOR',
+  MAINTENANCE: 'MAINTENANCE',
+  OTHER: 'OTHER',
+}
 
 exports.Prisma.ModelName = {
-	Organization: "Organization",
-	User: "User",
-	Animal: "Animal",
-	Paddock: "Paddock",
-	HealthRecord: "HealthRecord",
-	Vaccine: "Vaccine",
-	Treatment: "Treatment",
-	Estrus: "Estrus",
-	Pregnancy: "Pregnancy",
-	Birth: "Birth",
-	WeightRecord: "WeightRecord",
-	MilkProduction: "MilkProduction",
-	FinancialRecord: "FinancialRecord",
-	AlertRule: "AlertRule",
-	Notification: "Notification",
-};
+  Organization: 'Organization',
+  User: 'User',
+  Animal: 'Animal',
+  Paddock: 'Paddock',
+  HealthRecord: 'HealthRecord',
+  Vaccine: 'Vaccine',
+  Treatment: 'Treatment',
+  Estrus: 'Estrus',
+  Pregnancy: 'Pregnancy',
+  Birth: 'Birth',
+  WeightRecord: 'WeightRecord',
+  MilkProduction: 'MilkProduction',
+  FinancialRecord: 'FinancialRecord',
+  AlertRule: 'AlertRule',
+  Notification: 'Notification',
+}
 /**
  * Create the Client
  */
 const config = {
-	generator: {
-		name: "client",
-		provider: {
-			fromEnvVar: null,
-			value: "prisma-client-js",
-		},
-		output: {
-			value:
-				"/home/yuri-monteiro/Documentos/projetos/gestao_animal/apps/server/generated/prisma",
-			fromEnvVar: null,
-		},
-		config: {
-			engineType: "library",
-		},
-		binaryTargets: [
-			{
-				fromEnvVar: null,
-				value: "debian-openssl-3.0.x",
-				native: true,
-			},
-		],
-		previewFeatures: [],
-		sourceFilePath:
-			"/home/yuri-monteiro/Documentos/projetos/gestao_animal/apps/server/prisma/schema.prisma",
-		isCustomOutput: true,
-	},
-	relativeEnvPaths: {
-		rootEnvPath: null,
-		schemaEnvPath: "../../.env",
-	},
-	relativePath: "../../prisma",
-	clientVersion: "6.19.3",
-	engineVersion: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
-	datasourceNames: ["db"],
-	activeProvider: "mongodb",
-	inlineDatasources: {
-		db: {
-			url: {
-				fromEnvVar: "DATABASE_URL",
-				value: null,
-			},
-		},
-	},
-	inlineSchema:
-		'generator client {\n  provider = "prisma-client-js"\n  output   = "../generated/prisma"\n}\n\ndatasource db {\n  provider = "mongodb"\n  url      = env("DATABASE_URL")\n}\n\nenum Role {\n  VET\n  MANAGER\n  OPERATOR\n}\n\nenum AnimalStatus {\n  ACTIVE\n  INACTIVE\n  SOLD\n  DECEASED\n}\n\nenum AnimalSex {\n  FEMALE\n  MALE\n}\n\nenum PregnancyStatus {\n  PENDING\n  CONFIRMED\n  COMPLETED\n  CANCELLED\n}\n\nenum BirthStatus {\n  ALIVE\n  STILLBORN\n  ABORTED\n}\n\nenum FinancialType {\n  INCOME\n  EXPENSE\n}\n\nenum FinancialCategory {\n  FEED\n  MEDICATION\n  LABOR\n  MAINTENANCE\n  OTHER\n}\n\nmodel Organization {\n  id        String   @id @default(auto()) @map("_id") @db.ObjectId\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  users          User[]\n  animals        Animal[]\n  paddocks       Paddock[]\n  healthRecords  HealthRecord[]\n  vaccines       Vaccine[]\n  treatments     Treatment[]\n  estrusCycles   Estrus[]\n  pregnancies    Pregnancy[]\n  births         Birth[]\n  weightRecords  WeightRecord[]\n  milkProduction MilkProduction[]\n  financials     FinancialRecord[]\n  alertRules     AlertRule[]\n  notifications  Notification[]\n\n  @@map("organizations")\n}\n\nmodel User {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  email          String       @unique\n  password       String\n  name           String\n  role           Role         @default(OPERATOR)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("users")\n}\n\nmodel Animal {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  tag            String       @unique\n  species        String\n  breed          String?\n  sex            String\n  birthDate      DateTime\n  origin         String?\n  status         AnimalStatus @default(ACTIVE)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  healthRecords HealthRecord[]\n  vaccines      Vaccine[]\n  treatments    Treatment[]\n  estrusCycles  Estrus[]\n  pregnancies   Pregnancy[]\n\n  birthsAsMother Birth[] @relation("MotherToBirth")\n  birthsAsFather Birth[] @relation("FatherToBirth")\n\n  weightRecords  WeightRecord[]\n  milkProduction MilkProduction[]\n\n  @@map("animals")\n}\n\nmodel Paddock {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  name           String\n  area           Float?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("paddocks")\n}\n\nmodel HealthRecord {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  date           DateTime     @default(now())\n  description    String\n  observation    String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("health_records")\n}\n\nmodel Vaccine {\n  id               String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId         String       @db.ObjectId\n  animal           Animal       @relation(fields: [animalId], references: [id])\n  vaccineName      String\n  doseNumber       Int          @default(1)\n  dateAdministered DateTime\n  nextDueDate      DateTime?\n  organizationId   String       @db.ObjectId\n  organization     Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("vaccines")\n}\n\nmodel Treatment {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  diagnosis      String\n  medication     String\n  dosage         String?\n  startDate      DateTime\n  endDate        DateTime?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("treatments")\n}\n\nmodel Estrus {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  startDate      DateTime\n  endDate        DateTime?\n  observation    String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("estrus")\n}\n\nmodel Pregnancy {\n  id             String          @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String          @db.ObjectId\n  animal         Animal          @relation(fields: [animalId], references: [id])\n  detectedDate   DateTime\n  expectedDate   DateTime?\n  status         PregnancyStatus @default(PENDING)\n  organizationId String          @db.ObjectId\n  organization   Organization    @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("pregnancies")\n}\n\nmodel Birth {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  motherId       String       @db.ObjectId\n  mother         Animal       @relation("MotherToBirth", fields: [motherId], references: [id])\n  fatherId       String?      @db.ObjectId\n  father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])\n  birthDate      DateTime\n  offspringTag   String?\n  status         BirthStatus  @default(ALIVE)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("births")\n}\n\nmodel WeightRecord {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  weight         Float\n  date           DateTime     @default(now())\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("weight_records")\n}\n\nmodel MilkProduction {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  quantity       Float\n  unit           String\n  date           DateTime     @default(now())\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("milk_production")\n}\n\nmodel FinancialRecord {\n  id             String            @id @default(auto()) @map("_id") @db.ObjectId\n  type           FinancialType\n  category       FinancialCategory\n  amount         Float\n  date           DateTime          @default(now())\n  description    String?\n  organizationId String            @db.ObjectId\n  organization   Organization      @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("financial_records")\n}\n\nmodel AlertRule {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  name           String\n  condition      String\n  value          String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("alert_rules")\n}\n\nmodel Notification {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  ruleId         String?\n  message        String\n  isRead         Boolean      @default(false)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("notifications")\n}\n',
-	inlineSchemaHash:
-		"3ba90a394c2f1253ea89a6b9d471271e565e718a159cf8106075d622de5177d8",
-	copyEngine: true,
-};
-config.dirname = "/";
+  generator: {
+    name: 'client',
+    provider: {
+      fromEnvVar: null,
+      value: 'prisma-client-js',
+    },
+    output: {
+      value:
+        '/home/yuri-monteiro/Documentos/projetos/gestao_animal/apps/server/generated/prisma',
+      fromEnvVar: null,
+    },
+    config: {
+      engineType: 'library',
+    },
+    binaryTargets: [
+      {
+        fromEnvVar: null,
+        value: 'debian-openssl-3.0.x',
+        native: true,
+      },
+    ],
+    previewFeatures: [],
+    sourceFilePath:
+      '/home/yuri-monteiro/Documentos/projetos/gestao_animal/apps/server/prisma/schema.prisma',
+    isCustomOutput: true,
+  },
+  relativeEnvPaths: {
+    rootEnvPath: null,
+    schemaEnvPath: '../../.env',
+  },
+  relativePath: '../../prisma',
+  clientVersion: '6.19.3',
+  engineVersion: 'c2990dca591cba766e3b7ef5d9e8a84796e47ab7',
+  datasourceNames: ['db'],
+  activeProvider: 'mongodb',
+  inlineDatasources: {
+    db: {
+      url: {
+        fromEnvVar: 'DATABASE_URL',
+        value: null,
+      },
+    },
+  },
+  inlineSchema:
+    'generator client {\n  provider = "prisma-client-js"\n  output   = "../generated/prisma"\n}\n\ndatasource db {\n  provider = "mongodb"\n  url      = env("DATABASE_URL")\n}\n\nenum Role {\n  VET\n  MANAGER\n  OPERATOR\n}\n\nenum AnimalStatus {\n  ACTIVE\n  INACTIVE\n  SOLD\n  DECEASED\n}\n\nenum AnimalSex {\n  FEMALE\n  MALE\n}\n\nenum PregnancyStatus {\n  PENDING\n  CONFIRMED\n  COMPLETED\n  CANCELLED\n}\n\nenum BirthStatus {\n  ALIVE\n  STILLBORN\n  ABORTED\n}\n\nenum FinancialType {\n  INCOME\n  EXPENSE\n}\n\nenum FinancialCategory {\n  FEED\n  MEDICATION\n  LABOR\n  MAINTENANCE\n  OTHER\n}\n\nmodel Organization {\n  id        String   @id @default(auto()) @map("_id") @db.ObjectId\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  users          User[]\n  animals        Animal[]\n  paddocks       Paddock[]\n  healthRecords  HealthRecord[]\n  vaccines       Vaccine[]\n  treatments     Treatment[]\n  estrusCycles   Estrus[]\n  pregnancies    Pregnancy[]\n  births         Birth[]\n  weightRecords  WeightRecord[]\n  milkProduction MilkProduction[]\n  financials     FinancialRecord[]\n  alertRules     AlertRule[]\n  notifications  Notification[]\n\n  @@map("organizations")\n}\n\nmodel User {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  email          String       @unique\n  password       String\n  name           String\n  role           Role         @default(OPERATOR)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("users")\n}\n\nmodel Animal {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  tag            String       @unique\n  species        String\n  breed          String?\n  sex            String\n  birthDate      DateTime\n  origin         String?\n  status         AnimalStatus @default(ACTIVE)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  healthRecords HealthRecord[]\n  vaccines      Vaccine[]\n  treatments    Treatment[]\n  estrusCycles  Estrus[]\n  pregnancies   Pregnancy[]\n\n  birthsAsMother Birth[] @relation("MotherToBirth")\n  birthsAsFather Birth[] @relation("FatherToBirth")\n\n  weightRecords  WeightRecord[]\n  milkProduction MilkProduction[]\n\n  @@map("animals")\n}\n\nmodel Paddock {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  name           String\n  area           Float?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("paddocks")\n}\n\nmodel HealthRecord {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  date           DateTime     @default(now())\n  description    String\n  observation    String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("health_records")\n}\n\nmodel Vaccine {\n  id               String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId         String       @db.ObjectId\n  animal           Animal       @relation(fields: [animalId], references: [id])\n  vaccineName      String\n  doseNumber       Int          @default(1)\n  dateAdministered DateTime\n  nextDueDate      DateTime?\n  organizationId   String       @db.ObjectId\n  organization     Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("vaccines")\n}\n\nmodel Treatment {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  diagnosis      String\n  medication     String\n  dosage         String?\n  startDate      DateTime\n  endDate        DateTime?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("treatments")\n}\n\nmodel Estrus {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  startDate      DateTime\n  endDate        DateTime?\n  observation    String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("estrus")\n}\n\nmodel Pregnancy {\n  id             String          @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String          @db.ObjectId\n  animal         Animal          @relation(fields: [animalId], references: [id])\n  detectedDate   DateTime\n  expectedDate   DateTime?\n  status         PregnancyStatus @default(PENDING)\n  organizationId String          @db.ObjectId\n  organization   Organization    @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("pregnancies")\n}\n\nmodel Birth {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  motherId       String       @db.ObjectId\n  mother         Animal       @relation("MotherToBirth", fields: [motherId], references: [id])\n  fatherId       String?      @db.ObjectId\n  father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])\n  birthDate      DateTime\n  offspringTag   String?\n  status         BirthStatus  @default(ALIVE)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("births")\n}\n\nmodel WeightRecord {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  weight         Float\n  date           DateTime     @default(now())\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("weight_records")\n}\n\nmodel MilkProduction {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  animalId       String       @db.ObjectId\n  animal         Animal       @relation(fields: [animalId], references: [id])\n  quantity       Float\n  unit           String\n  date           DateTime     @default(now())\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("milk_production")\n}\n\nmodel FinancialRecord {\n  id             String            @id @default(auto()) @map("_id") @db.ObjectId\n  type           FinancialType\n  category       FinancialCategory\n  amount         Float\n  date           DateTime          @default(now())\n  description    String?\n  organizationId String            @db.ObjectId\n  organization   Organization      @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("financial_records")\n}\n\nmodel AlertRule {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  name           String\n  condition      String\n  value          String?\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("alert_rules")\n}\n\nmodel Notification {\n  id             String       @id @default(auto()) @map("_id") @db.ObjectId\n  ruleId         String?\n  message        String\n  isRead         Boolean      @default(false)\n  organizationId String       @db.ObjectId\n  organization   Organization @relation(fields: [organizationId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map("notifications")\n}\n',
+  inlineSchemaHash:
+    '3ba90a394c2f1253ea89a6b9d471271e565e718a159cf8106075d622de5177d8',
+  copyEngine: true,
+}
+config.dirname = '/'
 
 config.runtimeDataModel = JSON.parse(
-	'{"models":{"Organization":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"users","kind":"object","type":"User","relationName":"OrganizationToUser"},{"name":"animals","kind":"object","type":"Animal","relationName":"AnimalToOrganization"},{"name":"paddocks","kind":"object","type":"Paddock","relationName":"OrganizationToPaddock"},{"name":"healthRecords","kind":"object","type":"HealthRecord","relationName":"HealthRecordToOrganization"},{"name":"vaccines","kind":"object","type":"Vaccine","relationName":"OrganizationToVaccine"},{"name":"treatments","kind":"object","type":"Treatment","relationName":"OrganizationToTreatment"},{"name":"estrusCycles","kind":"object","type":"Estrus","relationName":"EstrusToOrganization"},{"name":"pregnancies","kind":"object","type":"Pregnancy","relationName":"OrganizationToPregnancy"},{"name":"births","kind":"object","type":"Birth","relationName":"BirthToOrganization"},{"name":"weightRecords","kind":"object","type":"WeightRecord","relationName":"OrganizationToWeightRecord"},{"name":"milkProduction","kind":"object","type":"MilkProduction","relationName":"MilkProductionToOrganization"},{"name":"financials","kind":"object","type":"FinancialRecord","relationName":"FinancialRecordToOrganization"},{"name":"alertRules","kind":"object","type":"AlertRule","relationName":"AlertRuleToOrganization"},{"name":"notifications","kind":"object","type":"Notification","relationName":"NotificationToOrganization"}],"dbName":"organizations"},"User":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"email","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"role","kind":"enum","type":"Role"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToUser"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"users"},"Animal":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"tag","kind":"scalar","type":"String"},{"name":"species","kind":"scalar","type":"String"},{"name":"breed","kind":"scalar","type":"String"},{"name":"sex","kind":"scalar","type":"String"},{"name":"birthDate","kind":"scalar","type":"DateTime"},{"name":"origin","kind":"scalar","type":"String"},{"name":"status","kind":"enum","type":"AnimalStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"AnimalToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"healthRecords","kind":"object","type":"HealthRecord","relationName":"AnimalToHealthRecord"},{"name":"vaccines","kind":"object","type":"Vaccine","relationName":"AnimalToVaccine"},{"name":"treatments","kind":"object","type":"Treatment","relationName":"AnimalToTreatment"},{"name":"estrusCycles","kind":"object","type":"Estrus","relationName":"AnimalToEstrus"},{"name":"pregnancies","kind":"object","type":"Pregnancy","relationName":"AnimalToPregnancy"},{"name":"birthsAsMother","kind":"object","type":"Birth","relationName":"MotherToBirth"},{"name":"birthsAsFather","kind":"object","type":"Birth","relationName":"FatherToBirth"},{"name":"weightRecords","kind":"object","type":"WeightRecord","relationName":"AnimalToWeightRecord"},{"name":"milkProduction","kind":"object","type":"MilkProduction","relationName":"AnimalToMilkProduction"}],"dbName":"animals"},"Paddock":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"area","kind":"scalar","type":"Float"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToPaddock"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"paddocks"},"HealthRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToHealthRecord"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"description","kind":"scalar","type":"String"},{"name":"observation","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"HealthRecordToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"health_records"},"Vaccine":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToVaccine"},{"name":"vaccineName","kind":"scalar","type":"String"},{"name":"doseNumber","kind":"scalar","type":"Int"},{"name":"dateAdministered","kind":"scalar","type":"DateTime"},{"name":"nextDueDate","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToVaccine"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"vaccines"},"Treatment":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToTreatment"},{"name":"diagnosis","kind":"scalar","type":"String"},{"name":"medication","kind":"scalar","type":"String"},{"name":"dosage","kind":"scalar","type":"String"},{"name":"startDate","kind":"scalar","type":"DateTime"},{"name":"endDate","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToTreatment"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"treatments"},"Estrus":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToEstrus"},{"name":"startDate","kind":"scalar","type":"DateTime"},{"name":"endDate","kind":"scalar","type":"DateTime"},{"name":"observation","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"EstrusToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"estrus"},"Pregnancy":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToPregnancy"},{"name":"detectedDate","kind":"scalar","type":"DateTime"},{"name":"expectedDate","kind":"scalar","type":"DateTime"},{"name":"status","kind":"enum","type":"PregnancyStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToPregnancy"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"pregnancies"},"Birth":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"motherId","kind":"scalar","type":"String"},{"name":"mother","kind":"object","type":"Animal","relationName":"MotherToBirth"},{"name":"fatherId","kind":"scalar","type":"String"},{"name":"father","kind":"object","type":"Animal","relationName":"FatherToBirth"},{"name":"birthDate","kind":"scalar","type":"DateTime"},{"name":"offspringTag","kind":"scalar","type":"String"},{"name":"status","kind":"enum","type":"BirthStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"BirthToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"births"},"WeightRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToWeightRecord"},{"name":"weight","kind":"scalar","type":"Float"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToWeightRecord"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"weight_records"},"MilkProduction":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToMilkProduction"},{"name":"quantity","kind":"scalar","type":"Float"},{"name":"unit","kind":"scalar","type":"String"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"MilkProductionToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"milk_production"},"FinancialRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"type","kind":"enum","type":"FinancialType"},{"name":"category","kind":"enum","type":"FinancialCategory"},{"name":"amount","kind":"scalar","type":"Float"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"description","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"FinancialRecordToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"financial_records"},"AlertRule":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"condition","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"AlertRuleToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"alert_rules"},"Notification":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"ruleId","kind":"scalar","type":"String"},{"name":"message","kind":"scalar","type":"String"},{"name":"isRead","kind":"scalar","type":"Boolean"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"NotificationToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"notifications"}},"enums":{},"types":{}}',
-);
-defineDmmfProperty(exports.Prisma, config.runtimeDataModel);
+  '{"models":{"Organization":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"users","kind":"object","type":"User","relationName":"OrganizationToUser"},{"name":"animals","kind":"object","type":"Animal","relationName":"AnimalToOrganization"},{"name":"paddocks","kind":"object","type":"Paddock","relationName":"OrganizationToPaddock"},{"name":"healthRecords","kind":"object","type":"HealthRecord","relationName":"HealthRecordToOrganization"},{"name":"vaccines","kind":"object","type":"Vaccine","relationName":"OrganizationToVaccine"},{"name":"treatments","kind":"object","type":"Treatment","relationName":"OrganizationToTreatment"},{"name":"estrusCycles","kind":"object","type":"Estrus","relationName":"EstrusToOrganization"},{"name":"pregnancies","kind":"object","type":"Pregnancy","relationName":"OrganizationToPregnancy"},{"name":"births","kind":"object","type":"Birth","relationName":"BirthToOrganization"},{"name":"weightRecords","kind":"object","type":"WeightRecord","relationName":"OrganizationToWeightRecord"},{"name":"milkProduction","kind":"object","type":"MilkProduction","relationName":"MilkProductionToOrganization"},{"name":"financials","kind":"object","type":"FinancialRecord","relationName":"FinancialRecordToOrganization"},{"name":"alertRules","kind":"object","type":"AlertRule","relationName":"AlertRuleToOrganization"},{"name":"notifications","kind":"object","type":"Notification","relationName":"NotificationToOrganization"}],"dbName":"organizations"},"User":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"email","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"role","kind":"enum","type":"Role"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToUser"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"users"},"Animal":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"tag","kind":"scalar","type":"String"},{"name":"species","kind":"scalar","type":"String"},{"name":"breed","kind":"scalar","type":"String"},{"name":"sex","kind":"scalar","type":"String"},{"name":"birthDate","kind":"scalar","type":"DateTime"},{"name":"origin","kind":"scalar","type":"String"},{"name":"status","kind":"enum","type":"AnimalStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"AnimalToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"healthRecords","kind":"object","type":"HealthRecord","relationName":"AnimalToHealthRecord"},{"name":"vaccines","kind":"object","type":"Vaccine","relationName":"AnimalToVaccine"},{"name":"treatments","kind":"object","type":"Treatment","relationName":"AnimalToTreatment"},{"name":"estrusCycles","kind":"object","type":"Estrus","relationName":"AnimalToEstrus"},{"name":"pregnancies","kind":"object","type":"Pregnancy","relationName":"AnimalToPregnancy"},{"name":"birthsAsMother","kind":"object","type":"Birth","relationName":"MotherToBirth"},{"name":"birthsAsFather","kind":"object","type":"Birth","relationName":"FatherToBirth"},{"name":"weightRecords","kind":"object","type":"WeightRecord","relationName":"AnimalToWeightRecord"},{"name":"milkProduction","kind":"object","type":"MilkProduction","relationName":"AnimalToMilkProduction"}],"dbName":"animals"},"Paddock":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"area","kind":"scalar","type":"Float"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToPaddock"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"paddocks"},"HealthRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToHealthRecord"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"description","kind":"scalar","type":"String"},{"name":"observation","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"HealthRecordToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"health_records"},"Vaccine":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToVaccine"},{"name":"vaccineName","kind":"scalar","type":"String"},{"name":"doseNumber","kind":"scalar","type":"Int"},{"name":"dateAdministered","kind":"scalar","type":"DateTime"},{"name":"nextDueDate","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToVaccine"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"vaccines"},"Treatment":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToTreatment"},{"name":"diagnosis","kind":"scalar","type":"String"},{"name":"medication","kind":"scalar","type":"String"},{"name":"dosage","kind":"scalar","type":"String"},{"name":"startDate","kind":"scalar","type":"DateTime"},{"name":"endDate","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToTreatment"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"treatments"},"Estrus":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToEstrus"},{"name":"startDate","kind":"scalar","type":"DateTime"},{"name":"endDate","kind":"scalar","type":"DateTime"},{"name":"observation","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"EstrusToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"estrus"},"Pregnancy":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToPregnancy"},{"name":"detectedDate","kind":"scalar","type":"DateTime"},{"name":"expectedDate","kind":"scalar","type":"DateTime"},{"name":"status","kind":"enum","type":"PregnancyStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToPregnancy"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"pregnancies"},"Birth":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"motherId","kind":"scalar","type":"String"},{"name":"mother","kind":"object","type":"Animal","relationName":"MotherToBirth"},{"name":"fatherId","kind":"scalar","type":"String"},{"name":"father","kind":"object","type":"Animal","relationName":"FatherToBirth"},{"name":"birthDate","kind":"scalar","type":"DateTime"},{"name":"offspringTag","kind":"scalar","type":"String"},{"name":"status","kind":"enum","type":"BirthStatus"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"BirthToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"births"},"WeightRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToWeightRecord"},{"name":"weight","kind":"scalar","type":"Float"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"OrganizationToWeightRecord"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"weight_records"},"MilkProduction":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"animalId","kind":"scalar","type":"String"},{"name":"animal","kind":"object","type":"Animal","relationName":"AnimalToMilkProduction"},{"name":"quantity","kind":"scalar","type":"Float"},{"name":"unit","kind":"scalar","type":"String"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"MilkProductionToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"milk_production"},"FinancialRecord":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"type","kind":"enum","type":"FinancialType"},{"name":"category","kind":"enum","type":"FinancialCategory"},{"name":"amount","kind":"scalar","type":"Float"},{"name":"date","kind":"scalar","type":"DateTime"},{"name":"description","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"FinancialRecordToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"financial_records"},"AlertRule":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"name","kind":"scalar","type":"String"},{"name":"condition","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"AlertRuleToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"alert_rules"},"Notification":{"fields":[{"name":"id","kind":"scalar","type":"String","dbName":"_id"},{"name":"ruleId","kind":"scalar","type":"String"},{"name":"message","kind":"scalar","type":"String"},{"name":"isRead","kind":"scalar","type":"Boolean"},{"name":"organizationId","kind":"scalar","type":"String"},{"name":"organization","kind":"object","type":"Organization","relationName":"NotificationToOrganization"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"notifications"}},"enums":{},"types":{}}'
+)
+defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
-	getRuntime: async () => require("./query_engine_bg.js"),
-	getQueryEngineWasmModule: async () => {
-		const loader = (await import("#wasm-engine-loader")).default;
-		const engine = (await loader).default;
-		return engine;
-	},
-};
-config.compilerWasm = undefined;
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
+  },
+}
+config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
-	parsed: {
-		DATABASE_URL:
-			(typeof globalThis !== "undefined" && globalThis["DATABASE_URL"]) ||
-			(typeof process !== "undefined" &&
-				process.env &&
-				process.env.DATABASE_URL) ||
-			undefined,
-	},
-});
+  parsed: {
+    DATABASE_URL:
+      (typeof globalThis !== 'undefined' && globalThis['DATABASE_URL']) ||
+      (typeof process !== 'undefined' &&
+        process.env &&
+        process.env.DATABASE_URL) ||
+      undefined,
+  },
+})
 
 if (
-	(typeof globalThis !== "undefined" && globalThis["DEBUG"]) ||
-	(typeof process !== "undefined" && process.env && process.env.DEBUG) ||
-	undefined
+  (typeof globalThis !== 'undefined' && globalThis['DEBUG']) ||
+  (typeof process !== 'undefined' && process.env && process.env.DEBUG) ||
+  undefined
 ) {
-	Debug.enable(
-		(typeof globalThis !== "undefined" && globalThis["DEBUG"]) ||
-			(typeof process !== "undefined" && process.env && process.env.DEBUG) ||
-			undefined,
-	);
+  Debug.enable(
+    (typeof globalThis !== 'undefined' && globalThis['DEBUG']) ||
+      (typeof process !== 'undefined' && process.env && process.env.DEBUG) ||
+      undefined
+  )
 }
 
-const PrismaClient = getPrismaClient(config);
-exports.PrismaClient = PrismaClient;
-Object.assign(exports, Prisma);
+const PrismaClient = getPrismaClient(config)
+exports.PrismaClient = PrismaClient
+Object.assign(exports, Prisma)
