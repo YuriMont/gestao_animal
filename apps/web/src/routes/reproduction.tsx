@@ -138,7 +138,7 @@ function ReproductionPage() {
           title="Reprodução"
           description="Controle de ciclos reprodutivos, gestações e partos"
         />
-        <div className="p-6">
+        <div className="p-6 mx-auto min-w-4xl">
           <Tabs defaultValue="estrus">
             <TabsList>
               <TabsTrigger value="estrus">Estro / Cio</TabsTrigger>
