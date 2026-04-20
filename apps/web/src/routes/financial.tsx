@@ -1,5 +1,6 @@
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -23,6 +24,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -72,7 +74,7 @@ function FinancialPage() {
   const recordsQuery = useGetV1FinancialRecords();
   const { data: summary, isLoading: summaryIsLoading } =
     useGetV1FinancialSummary();
-  const records = recordsQuery.data ?? [];
+  const records = recordsQuery.data?.data ?? [];
 
   const createMutation = usePostV1FinancialRecords({
     mutation: {
@@ -319,9 +321,11 @@ function FinancialPage() {
                       <TableRow key={r.id}>
                         <TableCell>
                           <Badge
-                            variant={r.type === "" ? "success" : "destructive"}
+                            variant={
+                              r.type === "EXPENSE" ? "success" : "destructive"
+                            }
                           >
-                            {r.type === "REVENUE" ? "Receita" : "Custo"}
+                            {r.type === "EXPENSE" ? "Receita" : "Custo"}
                           </Badge>
                         </TableCell>
                         <TableCell>{r.category}</TableCell>
@@ -332,7 +336,7 @@ function FinancialPage() {
                           {new Date(r.date).toLocaleDateString("pt-BR")}
                         </TableCell>
                         <TableCell
-                          className={`text-right font-medium ${r.type === "REVENUE" ? "text-primary" : "text-destructive"}`}
+                          className={`text-right font-medium ${r.type === "EXPENSE" ? "text-primary" : "text-destructive"}`}
                         >
                           {fmt(r.amount)}
                         </TableCell>

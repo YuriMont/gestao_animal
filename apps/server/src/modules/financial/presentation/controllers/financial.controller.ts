@@ -46,6 +46,8 @@ export const financialController = {
     );
     const records = await repository.listByOrganization(tenantId!);
 
-    return reply.send(records.map((item) => ({ id: item.id, ...item.props })));
+    return reply.send({
+      data: records.map((item) => ({ id: item.id, ...item.props })),
+    });
   },
 };
