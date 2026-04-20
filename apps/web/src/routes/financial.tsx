@@ -1,8 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { DollarSign, Plus, TrendingDown, TrendingUp } from "lucide-react";
-import { useState } from "react";
-import type { z } from "zod/v4";
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -47,6 +42,11 @@ import {
   useGetV1FinancialSummary,
 } from "@/gen/hooks/financialController/useGetV1FinancialSummary";
 import { usePostV1FinancialRecords } from "@/gen/hooks/financialController/usePostV1FinancialRecords";
+import { useQueryClient } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { DollarSign, Plus, TrendingDown, TrendingUp } from "lucide-react";
+import { useState } from "react";
+import type { z } from "zod/v4";
 
 export const Route = createFileRoute("/financial")({
   component: FinancialPage,
@@ -315,7 +315,7 @@ function FinancialPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {records.map((r: ) => (
+                    {records.map((r) => (
                       <TableRow key={r.id}>
                         <TableCell>
                           <Badge
