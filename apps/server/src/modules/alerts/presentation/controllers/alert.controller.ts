@@ -4,29 +4,45 @@ import { PrismaAlertRepository } from "@src/modules/alerts/infrastructure/persis
 import type { FastifyReply, FastifyRequest } from "fastify";
 
 export const alertController = {
-	async createRule(request: FastifyRequest, reply: FastifyReply) {
-		const tenantId = request.tenantId;
-		const repository = new PrismaAlertRepository(PrismaService.getInstance());
+  async createRule(request: FastifyRequest, reply: FastifyReply) {
+    const tenantId = request.tenantId;
+    const repository = new PrismaAlertRepository(PrismaService.getInstance());
 
-		try {
-			const rule = await repository.createRule(
-				AlertRule.create({
-					...(request.body as any),
-					organizationId: tenantId!,
-				}),
-			);
-			return reply.status(201).send({ message: "Alert rule created", rule });
-		} catch (error: any) {
-			return reply
-				.status(400)
-				.send({ error: "Bad Request", message: error.message });
-		}
-	},
+    try {
+      const rule = await repository.createRule(
+        AlertRule.create({
+          ...(request.body as any),
+          organizationId: tenantId!,
+        }),
+      );
+      return reply.status(201).send({ message: "Alert rule created", rule });
+    } catch (error: any) {
+      return reply
+        .status(400)
+        .send({ error: "Bad Request", message: error.message });
+    }
+  },
 
-	async listRules(request: FastifyRequest, reply: FastifyReply) {
-		const tenantId = request.tenantId;
-		const repository = new PrismaAlertRepository(PrismaService.getInstance());
-		const rules = await repository.findRulesByOrganization(tenantId!);
-		return reply.send(rules);
-	},
+  async listRules(
+    request: FastifyRequest<{ Querystring: { page: number; limit: number } }>,
+    reply: FastifyReply,
+  ) {
+    const tenantId = request.tenantId;
+    const { page, limit } = request.query;
+    const repository = new PrismaAlertRepository(PrismaService.getInstance());
+    const { rules, total } = await repository.findRulesByOrganization(
+      tenantId!,
+      page,
+      limit,
+    );
+    return reply.send({
+      data: rules.map((item) => ({ id: item.id, ...item.props })),
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  },
 };

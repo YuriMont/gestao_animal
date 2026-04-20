@@ -1,4 +1,5 @@
 import { alertController } from "@src/modules/alerts/presentation/controllers/alert.controller";
+import { paginationMetaSchema } from "@src/common/dtos/pagination.dto";
 import type { FastifyInstance } from "fastify";
 import z from "zod";
 import {
@@ -35,8 +36,15 @@ export default async function alertRoutes(app: FastifyInstance) {
 				summary: "Retrieve alert rules",
 				description:
 					"Retrieve alert rule configurations for an organization. Used to list and inspect existing alert rules that define when and what actions should be taken when specific alert conditions occur. This endpoint allows programmatic access to alert rules that can be triggered based on animal health or behavior conditions.",
+				querystring: z.object({
+					page: z.coerce.number().int().min(1).default(1),
+					limit: z.coerce.number().int().min(1).max(100).default(20),
+				}),
 				response: {
-					200: z.array(alertRuleResponseSchema),
+					200: z.object({
+						data: z.array(alertRuleResponseSchema),
+						meta: paginationMetaSchema,
+					}),
 				},
 			},
 		},
