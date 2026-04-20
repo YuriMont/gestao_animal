@@ -68,14 +68,27 @@ export const healthController = {
 	},
 
 	async getAnimalHistory(
-		request: FastifyRequest<{ Params: { animalId: string } }>,
+		request: FastifyRequest<{
+			Params: { animalId: string };
+			Querystring: { page: number; limit: number };
+		}>,
 		reply: FastifyReply,
 	) {
 		const { animalId } = request.params;
+		const { page, limit } = request.query;
 		const tenantId = request.tenantId;
 		const repository = new PrismaHealthRepository(PrismaService.getInstance());
 
 		const history = await repository.findByAnimal(animalId, tenantId!);
-		return reply.send(history);
+
+		return reply.send({
+			data: history,
+			meta: {
+				total: 0,
+				page: page || 1,
+				limit: limit || 20,
+				totalPages: 1,
+			},
+		});
 	},
 };

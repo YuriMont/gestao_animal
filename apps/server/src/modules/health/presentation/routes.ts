@@ -1,3 +1,4 @@
+import { paginationMetaSchema } from "@src/common/dtos/pagination.dto";
 import { healthController } from "@src/modules/health/presentation/controllers/health.controller";
 import type { FastifyInstance } from "fastify";
 import z from "zod";
@@ -79,8 +80,15 @@ export default async function healthRoutes(app: FastifyInstance) {
 				tags: ["Health"],
 				description:
 					"Get the complete history of health records for a specific animal. Returns all available health records including treatments, vaccinations, and clinical observations.",
+				querystring: z.object({
+					page: z.coerce.number().int().min(1).default(1),
+					limit: z.coerce.number().int().min(1).max(100).default(20),
+				}),
 				response: {
-					200: z.array(z.any()),
+					200: z.object({
+						data: z.array(z.any()),
+						meta: paginationMetaSchema,
+					}),
 				},
 			},
 		},

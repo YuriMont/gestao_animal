@@ -49,22 +49,33 @@ export class PrismaReproductionRepository implements IReproductionRepository {
 
 	async findPregnanciesByOrganization(
 		organizationId: string,
-	): Promise<Pregnancy[]> {
+		page: number = 1,
+		limit: number = 20,
+	): Promise<{ pregnancies: Pregnancy[]; total: number }> {
+		const skip = (page - 1) * limit;
 		const results = await this.prisma.pregnancy.findMany({
 			where: { organizationId },
+			skip,
+			take: limit,
 		});
-		return results.map((p) =>
-			Pregnancy.create(
-				{
-					animalId: p.animalId,
-					detectedDate: p.detectedDate,
-					expectedDate: p.expectedDate ?? undefined,
-					status: p.status,
-					organizationId: p.organizationId,
-				},
-				p.id,
+		const total = await this.prisma.pregnancy.count({
+			where: { organizationId },
+		});
+		return {
+			pregnancies: results.map((p) =>
+				Pregnancy.create(
+					{
+						animalId: p.animalId,
+						detectedDate: p.detectedDate,
+						expectedDate: p.expectedDate ?? undefined,
+						status: p.status,
+						organizationId: p.organizationId,
+					},
+					p.id,
+				),
 			),
-		);
+			total,
+		};
 	}
 
 	async findReproductionHistoryByAnimal(

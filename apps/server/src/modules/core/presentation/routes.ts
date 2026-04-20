@@ -1,3 +1,4 @@
+import { paginationMetaSchema } from "@src/common/dtos/pagination.dto";
 import { animalController } from "@src/modules/core/presentation/controllers/animal.controller";
 import { enumsController } from "@src/modules/core/presentation/controllers/enums.controller";
 import { organizationController } from "@src/modules/core/presentation/controllers/organization.controller";
@@ -22,13 +23,6 @@ import {
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { enumResponseSchema } from "./dtos/enums.dto";
-
-const paginationMeta = z.object({
-	total: z.number(),
-	page: z.number(),
-	limit: z.number(),
-	totalPages: z.number(),
-});
 
 export default async function coreRoutes(app: FastifyInstance) {
 	// ── Animals ──────────────────────────────────────────────────────────────
@@ -60,7 +54,7 @@ export default async function coreRoutes(app: FastifyInstance) {
 				response: {
 					200: z.object({
 						data: z.array(animalResponseSchema),
-						meta: paginationMeta,
+						meta: paginationMetaSchema,
 					}),
 				},
 			},
@@ -278,7 +272,7 @@ export default async function coreRoutes(app: FastifyInstance) {
 				response: {
 					200: z.object({
 						data: z.array(userResponseSchema),
-						meta: paginationMeta,
+						meta: paginationMetaSchema,
 					}),
 				},
 			},

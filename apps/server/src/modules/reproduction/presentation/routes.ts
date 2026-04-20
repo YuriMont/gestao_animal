@@ -1,3 +1,4 @@
+import { paginationMetaSchema } from "@src/common/dtos/pagination.dto";
 import { reproductionController } from "@src/modules/reproduction/presentation/controllers/reproduction.controller";
 import type { FastifyInstance } from "fastify";
 import z from "zod";
@@ -73,10 +74,15 @@ export default async function reproductionRoutes(app: FastifyInstance) {
 				summary: "Get pregnancy records",
 				description:
 					"Retrieve a list of pregnancy records for an animal. Returns all pregnancy records associated with the specified animal. Useful for accessing all historical pregnancy information.",
-				schema: {
-					response: {
-						200: z.array(pregnancyResponseSchema),
-					},
+				querystring: z.object({
+					page: z.coerce.number().int().min(1).default(1),
+					limit: z.coerce.number().int().min(1).max(100).default(20),
+				}),
+				response: {
+					200: z.object({
+						data: z.array(pregnancyResponseSchema),
+						meta: paginationMetaSchema,
+					}),
 				},
 			},
 		},
@@ -91,8 +97,15 @@ export default async function reproductionRoutes(app: FastifyInstance) {
 				summary: "Get reproduction history",
 				description:
 					"Get the complete history of reproduction records for a specific animal. Returns all estrus, pregnancy, and birth records linked to the animal. Useful for accessing full reproduction timeline.",
+				querystring: z.object({
+					page: z.coerce.number().int().min(1).default(1),
+					limit: z.coerce.number().int().min(1).max(100).default(20),
+				}),
 				response: {
-					200: z.array(pregnancyResponseSchema),
+					200: z.object({
+						data: z.array(pregnancyResponseSchema),
+						meta: paginationMetaSchema,
+					}),
 				},
 			},
 		},

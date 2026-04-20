@@ -83,9 +83,7 @@ function ReproductionPage() {
   } | null>(null);
 
   const pregnanciesQuery = useGetV1ReproductionPregnancies();
-  const pregnancies = Array.isArray(pregnanciesQuery.data.data)
-    ? pregnanciesQuery.data
-    : [];
+  const pregnancies = pregnanciesQuery.data?.data ?? [];
 
   function showFeedback(tab: string, ok: boolean, msg: string) {
     setFeedback({ tab, ok, msg });
