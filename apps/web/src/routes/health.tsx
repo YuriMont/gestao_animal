@@ -50,34 +50,41 @@ function AnimalSelect({
   )
 }
 
+const INITIAL_VACCINE_FORM = {
+  animalId: '',
+  vaccineName: '',
+  doseNumber: '1',
+  dateAdministered: '',
+  nextDueDate: '',
+}
+
+const INITIAL_TREATMENT_FORM = {
+  animalId: '',
+  treatmentType: '',
+  medication: '',
+  dosage: '',
+  startDate: '',
+  endDate: '',
+  notes: '',
+}
+
+const INITIAL_RECORD_FORM = {
+  animalId: '',
+  recordType: '',
+  description: '',
+  date: '',
+}
+
 function HealthPage() {
-  const [vaccineForm, setVaccineForm] = useState({
-    animalId: '',
-    vaccineName: '',
-    doseNumber: '1',
-    dateAdministered: '',
-    nextDueDate: '',
-  })
-  const [treatmentForm, setTreatmentForm] = useState({
-    animalId: '',
-    treatmentType: '',
-    medication: '',
-    dosage: '',
-    startDate: '',
-    endDate: '',
-    notes: '',
-  })
-  const [recordForm, setRecordForm] = useState({
-    animalId: '',
-    recordType: '',
-    description: '',
-    date: '',
-  })
+  const [vaccineForm, setVaccineForm] = useState(INITIAL_VACCINE_FORM)
+  const [treatmentForm, setTreatmentForm] = useState(INITIAL_TREATMENT_FORM)
+  const [recordForm, setRecordForm] = useState(INITIAL_RECORD_FORM)
   const [feedback, setFeedback] = useState<{
     tab: string
     msg: string
     ok: boolean
   } | null>(null)
+
 
   function showFeedback(tab: string, ok: boolean, msg: string) {
     setFeedback({ tab, ok, msg })
@@ -87,13 +94,7 @@ function HealthPage() {
   const vaccineMutation = usePostV1HealthVaccines({
     mutation: {
       onSuccess: () => {
-        setVaccineForm({
-          animalId: '',
-          vaccineName: '',
-          doseNumber: '1',
-          dateAdministered: '',
-          nextDueDate: '',
-        })
+        setVaccineForm(INITIAL_VACCINE_FORM)
         showFeedback('vaccines', true, 'Vacina registrada com sucesso!')
       },
       onError: () =>
@@ -104,15 +105,7 @@ function HealthPage() {
   const treatmentMutation = usePostV1HealthTreatments({
     mutation: {
       onSuccess: () => {
-        setTreatmentForm({
-          animalId: '',
-          treatmentType: '',
-          medication: '',
-          dosage: '',
-          startDate: '',
-          endDate: '',
-          notes: '',
-        })
+        setTreatmentForm(INITIAL_TREATMENT_FORM)
         showFeedback('treatments', true, 'Tratamento registrado!')
       },
       onError: () =>
@@ -123,12 +116,7 @@ function HealthPage() {
   const recordMutation = usePostV1HealthRecords({
     mutation: {
       onSuccess: () => {
-        setRecordForm({
-          animalId: '',
-          recordType: '',
-          description: '',
-          date: '',
-        })
+        setRecordForm(INITIAL_RECORD_FORM)
         showFeedback('records', true, 'Registro criado!')
       },
       onError: () => showFeedback('records', false, 'Erro ao criar registro.'),

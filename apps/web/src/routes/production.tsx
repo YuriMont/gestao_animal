@@ -49,25 +49,30 @@ function AnimalSelect({
   )
 }
 
+const INITIAL_WEIGHT_FORM = {
+  animalId: '',
+  weight: '',
+  date: '',
+  notes: '',
+}
+
+const INITIAL_MILK_FORM = {
+  animalId: '',
+  liters: '',
+  date: '',
+  session: '',
+  notes: '',
+}
+
 function ProductionPage() {
-  const [weightForm, setWeightForm] = useState({
-    animalId: '',
-    weight: '',
-    date: '',
-    notes: '',
-  })
-  const [milkForm, setMilkForm] = useState({
-    animalId: '',
-    liters: '',
-    date: '',
-    session: '',
-    notes: '',
-  })
+  const [weightForm, setWeightForm] = useState(INITIAL_WEIGHT_FORM)
+  const [milkForm, setMilkForm] = useState(INITIAL_MILK_FORM)
   const [feedback, setFeedback] = useState<{
     tab: string
     msg: string
     ok: boolean
   } | null>(null)
+
 
   function showFeedback(tab: string, ok: boolean, msg: string) {
     setFeedback({ tab, ok, msg })
@@ -77,7 +82,7 @@ function ProductionPage() {
   const weightMutation = usePostV1ProductionWeight({
     mutation: {
       onSuccess: () => {
-        setWeightForm({ animalId: '', weight: '', date: '', notes: '' })
+        setWeightForm(INITIAL_WEIGHT_FORM)
         showFeedback('weight', true, 'Peso registrado!')
       },
       onError: () => showFeedback('weight', false, 'Erro ao registrar peso.'),
@@ -87,13 +92,7 @@ function ProductionPage() {
   const milkMutation = usePostV1ProductionMilk({
     mutation: {
       onSuccess: () => {
-        setMilkForm({
-          animalId: '',
-          liters: '',
-          date: '',
-          session: '',
-          notes: '',
-        })
+        setMilkForm(INITIAL_MILK_FORM)
         showFeedback('milk', true, 'Produção registrada!')
       },
       onError: () => showFeedback('milk', false, 'Erro ao registrar produção.'),

@@ -88,18 +88,13 @@ function StatCard({
 function statusBadgeVariant(
   status: string
 ): 'default' | 'secondary' | 'destructive' | 'success' | 'warning' | 'outline' {
-  switch (status) {
-    case 'Active':
-      return 'success'
-    case 'Quarantine':
-      return 'warning'
-    case 'Sold':
-      return 'secondary'
-    case 'Deceased':
-      return 'destructive'
-    default:
-      return 'outline'
+  const variants: Record<string, 'default' | 'secondary' | 'destructive' | 'success' | 'warning' | 'outline'> = {
+    Active: 'success',
+    Quarantine: 'warning',
+    Sold: 'secondary',
+    Deceased: 'destructive',
   }
+  return variants[status] ?? 'outline'
 }
 
 function statusLabel(status: string) {

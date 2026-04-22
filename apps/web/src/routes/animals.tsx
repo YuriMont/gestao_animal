@@ -1,6 +1,8 @@
+import { AnimalForm } from "@/components/animals/animal-form";
+import { AnimalTable } from "@/components/animals/animal-table";
+import type { AnimalFormData } from "@/components/animals/types";
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -12,7 +14,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -22,20 +23,8 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
-import {
 	type GetV1AnimalsQueryParamsStatusEnumKey,
-	type GetV1EnumsAnimalsStatus200,
-	type PostV1AnimalsMutationRequestSexEnumKey,
-	type PostV1AnimalsMutationRequestStatusEnumKey,
 	postV1AnimalsMutationRequestSchema,
-	useGetV1EnumsAnimalsSex,
 	useGetV1EnumsAnimalsStatus,
 } from "@/gen";
 import { useDeleteV1AnimalsId } from "@/gen/hooks/animalsController/useDeleteV1AnimalsId";
@@ -47,23 +36,12 @@ import { usePostV1Animals } from "@/gen/hooks/animalsController/usePostV1Animals
 import { usePutV1AnimalsId } from "@/gen/hooks/animalsController/usePutV1AnimalsId";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-	Beef,
-	ChevronLeft,
-	ChevronRight,
-	Pencil,
-	Plus,
-	Search,
-	Trash2,
-} from "lucide-react";
+import { Beef, ChevronLeft, ChevronRight, Plus, Search } from "lucide-react";
 import { useState } from "react";
-import type { z } from "zod/v4";
 
 export const Route = createFileRoute("/animals")({
 	component: AnimalsPage,
 });
-
-type AnimalFormData = z.infer<typeof postV1AnimalsMutationRequestSchema>;
 
 const defaultForm: AnimalFormData = {
 	tag: "",
@@ -75,144 +53,18 @@ const defaultForm: AnimalFormData = {
 	status: "ACTIVE",
 };
 
-function statusBadgeVariant(
-	status: GetV1AnimalsQueryParamsStatusEnumKey,
-): "default" | "secondary" | "destructive" | "success" | "warning" | "outline" {
-	switch (status) {
-		case "ACTIVE":
-			return "success";
-		case "INACTIVE":
-			return "warning";
-		case "SOLD":
-			return "secondary";
-		case "DECEASED":
-			return "destructive";
-		default:
-			return "outline";
-	}
-}
-
-function statusLabel(
-	animalsStatus: GetV1EnumsAnimalsStatus200,
-	status: string,
-) {
-	return animalsStatus.find((item) => item.key === status)?.label ?? status;
-}
-
-function AnimalForm({
-	form,
-	onChange,
-}: {
-	form: AnimalFormData;
-	onChange: (f: AnimalFormData) => void;
-}) {
-	const { data: animalsSex } = useGetV1EnumsAnimalsSex();
-	const { data: animalsStatus } = useGetV1EnumsAnimalsStatus();
-
-	return (
-		<div className="grid grid-cols-2 gap-4">
-			<div className="space-y-1.5">
-				<Label>Tag *</Label>
-				<Input
-					placeholder="Ex: BOV-001"
-					value={form.tag}
-					onChange={(e) => onChange({ ...form, tag: e.target.value })}
-				/>
-			</div>
-			<div className="space-y-1.5">
-				<Label>Espécie *</Label>
-				<Input
-					placeholder="Ex: Bovino"
-					value={form.species}
-					onChange={(e) => onChange({ ...form, species: e.target.value })}
-				/>
-			</div>
-			<div className="space-y-1.5">
-				<Label>Raça</Label>
-				<Input
-					placeholder="Ex: Nelore"
-					value={form.breed}
-					onChange={(e) => onChange({ ...form, breed: e.target.value })}
-				/>
-			</div>
-			<div className="space-y-1.5">
-				<Label>Sexo *</Label>
-				<Select
-					value={form.sex}
-					onValueChange={(v) =>
-						onChange({
-							...form,
-							sex: v as PostV1AnimalsMutationRequestSexEnumKey,
-						})
-					}
-				>
-					<SelectTrigger>
-						<SelectValue placeholder="Selecione" />
-					</SelectTrigger>
-					<SelectContent>
-						{animalsSex?.map((item) => (
-							<SelectItem key={item.key} value={item.key}>
-								{item.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
-			<div className="space-y-1.5">
-				<Label>Data de Nascimento *</Label>
-				<Input
-					type="date"
-					value={form.birthDate}
-					onChange={(e) => onChange({ ...form, birthDate: e.target.value })}
-				/>
-			</div>
-			<div className="space-y-1.5">
-				<Label>Origem</Label>
-				<Input
-					placeholder="Ex: Próprio"
-					value={form.origin}
-					onChange={(e) => onChange({ ...form, origin: e.target.value })}
-				/>
-			</div>
-			<div className="col-span-2 space-y-1.5">
-				<Label>Status</Label>
-				<Select
-					value={form.status}
-					onValueChange={(v) =>
-						onChange({
-							...form,
-							status: v as PostV1AnimalsMutationRequestStatusEnumKey,
-						})
-					}
-				>
-					<SelectTrigger>
-						<SelectValue placeholder="Selecione..." />
-					</SelectTrigger>
-					<SelectContent>
-						{animalsStatus?.map((item) => (
-							<SelectItem key={item.key} value={item.key}>
-								{item.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
-		</div>
-	);
-}
-
 function AnimalsPage() {
 	const qc = useQueryClient();
+	const [createOpen, setCreateOpen] = useState(false);
+	const [form, setForm] = useState<AnimalFormData>(defaultForm);
 	const [page, setPage] = useState(1);
 	const [statusFilter, setStatusFilter] =
 		useState<GetV1AnimalsQueryParamsStatusEnumKey>();
 	const [speciesFilter, setSpeciesFilter] = useState("");
-	const [createOpen, setCreateOpen] = useState(false);
 	const [editAnimal, setEditAnimal] = useState<null | {
 		id: string;
 		form: AnimalFormData;
 	}>(null);
-	const [form, setForm] = useState<AnimalFormData>(defaultForm);
 
 	const { data: animalsStatus } = useGetV1EnumsAnimalsStatus();
 
@@ -248,8 +100,10 @@ function AnimalsPage() {
 
 	const deleteMutation = useDeleteV1AnimalsId({
 		mutation: {
-			onSuccess: () =>
-				qc.invalidateQueries({ queryKey: getV1AnimalsQueryKey() }),
+			onSuccess: () => {
+				qc.invalidateQueries({ queryKey: getV1AnimalsQueryKey() });
+				setEditAnimal(null);
+			},
 		},
 	});
 
@@ -270,6 +124,27 @@ function AnimalsPage() {
 			data: {
 				...editAnimal.form,
 			},
+		});
+	}
+
+	function handleEdit(animal: any) {
+		setEditAnimal({
+			id: animal.id,
+			form: {
+				tag: animal.tag,
+				species: animal.species,
+				breed: animal.breed || "",
+				sex: animal.sex,
+				birthDate: animal.birthDate,
+				origin: animal.origin || "",
+				status: animal.status,
+			},
+		});
+	}
+
+	function handleDelete(animal: any) {
+		deleteMutation.mutate({
+			id: animal.id,
 		});
 	}
 
@@ -361,78 +236,16 @@ function AnimalsPage() {
 									<p className="text-sm">Nenhum animal encontrado</p>
 								</div>
 							) : (
-								<Table>
-									<TableHeader>
-										<TableRow>
-											<TableHead>Tag</TableHead>
-											<TableHead>Espécie</TableHead>
-											<TableHead>Raça</TableHead>
-											<TableHead>Sexo</TableHead>
-											<TableHead>Nascimento</TableHead>
-											<TableHead>Status</TableHead>
-											<TableHead className="text-right">Ações</TableHead>
-										</TableRow>
-									</TableHeader>
-									<TableBody>
-										{animals.map((animal) => (
-											<TableRow key={animal.id}>
-												<TableCell className="font-mono font-medium">
-													{animal.tag}
-												</TableCell>
-												<TableCell>{animal.species}</TableCell>
-												<TableCell>{animal.breed ?? "—"}</TableCell>
-												<TableCell>
-													{animal.sex === "MALE" ? "Macho" : "Fêmea"}
-												</TableCell>
-												<TableCell>
-													{new Date(animal.birthDate).toLocaleDateString(
-														"pt-BR",
-													)}
-												</TableCell>
-												<TableCell>
-													<Badge variant={statusBadgeVariant(animal.status)}>
-														{statusLabel(animalsStatus!, animal.status)}
-													</Badge>
-												</TableCell>
-												<TableCell className="text-right">
-													<div className="flex justify-end gap-1">
-														<Button
-															variant="ghost"
-															size="icon-sm"
-															onClick={() =>
-																setEditAnimal({
-																	id: animal.id,
-																	form: {
-																		tag: animal.tag,
-																		species: animal.species,
-																		breed: animal.breed ?? "",
-																		sex: animal.sex as PostV1AnimalsMutationRequestSexEnumKey,
-																		birthDate: animal.birthDate.split("T")[0],
-																		origin: animal?.origin ?? "",
-																		status:
-																			animal.status as PostV1AnimalsMutationRequestStatusEnumKey,
-																	},
-																})
-															}
-														>
-															<Pencil className="size-3.5" />
-														</Button>
-														<Button
-															variant="ghost"
-															size="icon-sm"
-															onClick={() => {
-																if (confirm(`Excluir ${animal.tag}?`))
-																	deleteMutation.mutate({ id: animal.id });
-															}}
-														>
-															<Trash2 className="size-3.5 text-destructive" />
-														</Button>
-													</div>
-												</TableCell>
-											</TableRow>
-										))}
-									</TableBody>
-								</Table>
+								<AnimalTable
+									animals={animals}
+									animalsStatus={animalsStatus}
+									onDelete={handleDelete}
+									onEdit={handleEdit}
+									editAnimal={editAnimal}
+									setEditAnimal={setEditAnimal}
+									handleUpdate={handleUpdate}
+									updateMutationPending={updateMutation.isPending}
+								/>
 							)}
 						</CardContent>
 					</Card>
@@ -465,33 +278,6 @@ function AnimalsPage() {
 					)}
 				</div>
 			</div>
-
-			<Dialog
-				open={!!editAnimal}
-				onOpenChange={(o) => {
-					if (!o) setEditAnimal(null);
-				}}
-			>
-				<DialogContent className="max-w-lg">
-					<DialogHeader>
-						<DialogTitle>Editar Animal</DialogTitle>
-					</DialogHeader>
-					{editAnimal && (
-						<AnimalForm
-							form={editAnimal.form}
-							onChange={(f) => setEditAnimal({ ...editAnimal, form: f })}
-						/>
-					)}
-					<DialogFooter>
-						<Button variant="outline" onClick={() => setEditAnimal(null)}>
-							Cancelar
-						</Button>
-						<Button onClick={handleUpdate} disabled={updateMutation.isPending}>
-							{updateMutation.isPending ? "Salvando..." : "Salvar"}
-						</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
 		</AppLayout>
 	);
 }

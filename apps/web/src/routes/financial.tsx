@@ -58,17 +58,19 @@ type FinancialFormData = z.infer<
 	typeof postV1FinancialRecordsMutationRequestSchema
 >;
 
+const INITIAL_FINANCIAL_FORM: FinancialFormData = {
+	type: "INCOME",
+	category: "",
+	amount: 0,
+	date: "",
+	description: "",
+};
+
 function FinancialPage() {
 	const qc = useQueryClient();
 	const [open, setOpen] = useState(false);
 	const { data: financialTypes } = useGetV1EnumsFinancialTypes();
-	const [form, setForm] = useState<FinancialFormData>({
-		type: "INCOME",
-		category: "",
-		amount: 0,
-		date: "",
-		description: "",
-	});
+	const [form, setForm] = useState<FinancialFormData>(INITIAL_FINANCIAL_FORM);
 	const [typeFilter, setTypeFilter] = useState("all");
 
 	const recordsQuery = useGetV1FinancialRecords();

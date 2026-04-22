@@ -58,29 +58,36 @@ function AnimalSelect({
   )
 }
 
+const INITIAL_ESTRUS_FORM = {
+  animalId: '',
+  date: '',
+  notes: '',
+}
+
+const INITIAL_PREGNANCY_FORM = {
+  motherId: '',
+  fatherId: '',
+  matingDate: '',
+  expectedBirthDate: '',
+}
+
+const INITIAL_BIRTH_FORM = {
+  pregnancyId: '',
+  birthDate: '',
+  numberOfOffspring: '1',
+  notes: '',
+}
+
 function ReproductionPage() {
-  const [estrusForm, setEstrusForm] = useState({
-    animalId: '',
-    date: '',
-    notes: '',
-  })
-  const [pregnancyForm, setPregnancyForm] = useState({
-    motherId: '',
-    fatherId: '',
-    matingDate: '',
-    expectedBirthDate: '',
-  })
-  const [birthForm, setBirthForm] = useState({
-    pregnancyId: '',
-    birthDate: '',
-    numberOfOffspring: '1',
-    notes: '',
-  })
+  const [estrusForm, setEstrusForm] = useState(INITIAL_ESTRUS_FORM)
+  const [pregnancyForm, setPregnancyForm] = useState(INITIAL_PREGNANCY_FORM)
+  const [birthForm, setBirthForm] = useState(INITIAL_BIRTH_FORM)
   const [feedback, setFeedback] = useState<{
     tab: string
     msg: string
     ok: boolean
   } | null>(null)
+
 
   const pregnanciesQuery = useGetV1ReproductionPregnancies()
   const pregnancies = pregnanciesQuery.data?.data ?? []
@@ -93,7 +100,7 @@ function ReproductionPage() {
   const estrusMutation = usePostV1ReproductionEstrus({
     mutation: {
       onSuccess: () => {
-        setEstrusForm({ animalId: '', date: '', notes: '' })
+        setEstrusForm(INITIAL_ESTRUS_FORM)
         showFeedback('estrus', true, 'Cio registrado!')
       },
       onError: () => showFeedback('estrus', false, 'Erro ao registrar.'),
@@ -103,12 +110,7 @@ function ReproductionPage() {
   const pregnancyMutation = usePostV1ReproductionPregnancies({
     mutation: {
       onSuccess: () => {
-        setPregnancyForm({
-          motherId: '',
-          fatherId: '',
-          matingDate: '',
-          expectedBirthDate: '',
-        })
+        setPregnancyForm(INITIAL_PREGNANCY_FORM)
         showFeedback('pregnancy', true, 'Gestação registrada!')
       },
       onError: () =>
@@ -119,12 +121,7 @@ function ReproductionPage() {
   const birthMutation = usePostV1ReproductionBirth({
     mutation: {
       onSuccess: () => {
-        setBirthForm({
-          pregnancyId: '',
-          birthDate: '',
-          numberOfOffspring: '1',
-          notes: '',
-        })
+        setBirthForm(INITIAL_BIRTH_FORM)
         showFeedback('birth', true, 'Parto registrado!')
       },
       onError: () => showFeedback('birth', false, 'Erro ao registrar parto.'),

@@ -37,16 +37,21 @@ function LoginPage() {
   const login = useSetAtom(loginAtom)
   const navigate = useNavigate()
 
-  const [loginEmail, setLoginEmail] = useState('')
-  const [loginPassword, setLoginPassword] = useState('')
+  const [loginForm, setLoginForm] = useState({
+    email: '',
+    password: '',
+  })
   const [loginError, setLoginError] = useState('')
 
-  const [regName, setRegName] = useState('')
-  const [regEmail, setRegEmail] = useState('')
-  const [regPassword, setRegPassword] = useState('')
-  const [regOrgId, setRegOrgId] = useState('')
+  const [regForm, setRegForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    organizationId: '',
+  })
   const [regError, setRegError] = useState('')
   const [regSuccess, setRegSuccess] = useState('')
+
 
   const { data: organizations, isLoading: isLoadingOrganizations } =
     useGetOrganizations()
@@ -79,7 +84,7 @@ function LoginPage() {
     e.preventDefault()
     setLoginError('')
     loginMutation.mutate({
-      data: { email: loginEmail, password: loginPassword },
+      data: { email: loginForm.email, password: loginForm.password },
     })
   }
 
@@ -89,10 +94,10 @@ function LoginPage() {
     setRegSuccess('')
     registerMutation.mutate({
       data: {
-        name: regName,
-        email: regEmail,
-        password: regPassword,
-        organizationId: regOrgId,
+        name: regForm.name,
+        email: regForm.email,
+        password: regForm.password,
+        organizationId: regForm.organizationId,
       },
     })
   }
@@ -136,8 +141,8 @@ function LoginPage() {
                       id="email"
                       type="email"
                       placeholder="nome@empresa.com"
-                      value={loginEmail}
-                      onChange={e => setLoginEmail(e.target.value)}
+                      value={loginForm.email}
+                      onChange={e => setLoginForm({ ...loginForm, email: e.target.value })}
                       required
                     />
                   </div>
@@ -147,8 +152,8 @@ function LoginPage() {
                       id="password"
                       type="password"
                       placeholder="••••••••"
-                      value={loginPassword}
-                      onChange={e => setLoginPassword(e.target.value)}
+                      value={loginForm.password}
+                      onChange={e => setLoginForm({ ...loginForm, password: e.target.value })}
                       required
                     />
                   </div>
@@ -184,8 +189,8 @@ function LoginPage() {
                     <Input
                       id="reg-name"
                       placeholder="Seu nome"
-                      value={regName}
-                      onChange={e => setRegName(e.target.value)}
+                      value={regForm.name}
+                      onChange={e => setRegForm({ ...regForm, name: e.target.value })}
                       required
                     />
                   </div>
@@ -195,8 +200,8 @@ function LoginPage() {
                       id="reg-email"
                       type="email"
                       placeholder="nome@empresa.com"
-                      value={regEmail}
-                      onChange={e => setRegEmail(e.target.value)}
+                      value={regForm.email}
+                      onChange={e => setRegForm({ ...regForm, email: e.target.value })}
                       required
                     />
                   </div>
@@ -206,8 +211,8 @@ function LoginPage() {
                       id="reg-password"
                       type="password"
                       placeholder="Mínimo 8 caracteres"
-                      value={regPassword}
-                      onChange={e => setRegPassword(e.target.value)}
+                      value={regForm.password}
+                      onChange={e => setRegForm({ ...regForm, password: e.target.value })}
                       required
                       minLength={8}
                     />
@@ -215,7 +220,7 @@ function LoginPage() {
                   <div className="space-y-1.5">
                     <Label htmlFor="reg-org">Organização</Label>
                     <Select
-                      onValueChange={value => setRegOrgId(value)}
+                      onValueChange={value => setRegForm({ ...regForm, organizationId: value })}
                       disabled={isLoadingOrganizations}
                     >
                       <SelectTrigger>

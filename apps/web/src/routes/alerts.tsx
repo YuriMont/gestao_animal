@@ -43,10 +43,16 @@ const ALERT_TYPES = [
   { value: 'MILK_LOW', label: 'Produção de leite baixa' },
 ]
 
+const INITIAL_ALERT_FORM = {
+  name: '',
+  type: '',
+  threshold: '',
+}
+
 function AlertsPage() {
   const qc = useQueryClient()
   const [open, setOpen] = useState(false)
-  const [form, setForm] = useState({ name: '', type: '', threshold: '' })
+  const [form, setForm] = useState(INITIAL_ALERT_FORM)
 
   const rulesQuery = useGetV1AlertsRules()
   const rules = Array.isArray(rulesQuery.data)
@@ -58,7 +64,7 @@ function AlertsPage() {
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: getV1AlertsRulesQueryKey() })
         setOpen(false)
-        setForm({ name: '', type: '', threshold: '' })
+        setForm(INITIAL_ALERT_FORM)
       },
     },
   })
