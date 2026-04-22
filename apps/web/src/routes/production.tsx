@@ -1,104 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Plus } from 'lucide-react'
-import { useState } from 'react'
 import { AppLayout } from '@/components/layout/app-layout'
 import { PageHeader } from '@/components/layout/page-header'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
-import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
-import { usePostV1ProductionMilk } from '@/gen/hooks/productionController/usePostV1ProductionMilk'
-import { usePostV1ProductionWeight } from '@/gen/hooks/productionController/usePostV1ProductionWeight'
+import { WeightForm } from '@/components/production/weight-form'
+import { MilkForm } from '@/components/production/milk-form'
 
 export const Route = createFileRoute('/production')({
   component: ProductionPage,
 })
 
-function AnimalSelect({
-  value,
-  onChange,
-}: {
-  value: string
-  onChange: (v: string) => void
-}) {
-  const animalsQuery = useGetV1Animals({ limit: 100 })
-  const animals = animalsQuery.data?.data ?? []
-  return (
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger>
-        <SelectValue placeholder="Selecione o animal" />
-      </SelectTrigger>
-      <SelectContent>
-        {animals.map(a => (
-          <SelectItem key={a.id} value={a.id}>
-            {a.tag} — {a.species}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  )
-}
-
-const INITIAL_WEIGHT_FORM = {
-  animalId: '',
-  weight: '',
-  date: '',
-  notes: '',
-}
-
-const INITIAL_MILK_FORM = {
-  animalId: '',
-  liters: '',
-  date: '',
-  session: '',
-  notes: '',
-}
-
 function ProductionPage() {
-  const [weightForm, setWeightForm] = useState(INITIAL_WEIGHT_FORM)
-  const [milkForm, setMilkForm] = useState(INITIAL_MILK_FORM)
-  const [feedback, setFeedback] = useState<{
-    tab: string
-    msg: string
-    ok: boolean
-  } | null>(null)
-
-
-  function showFeedback(tab: string, ok: boolean, msg: string) {
-    setFeedback({ tab, ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
-  }
-
-  const weightMutation = usePostV1ProductionWeight({
-    mutation: {
-      onSuccess: () => {
-        setWeightForm(INITIAL_WEIGHT_FORM)
-        showFeedback('weight', true, 'Peso registrado!')
-      },
-      onError: () => showFeedback('weight', false, 'Erro ao registrar peso.'),
-    },
-  })
-
-  const milkMutation = usePostV1ProductionMilk({
-    mutation: {
-      onSuccess: () => {
-        setMilkForm(INITIAL_MILK_FORM)
-        showFeedback('milk', true, 'Produção registrada!')
-      },
-      onError: () => showFeedback('milk', false, 'Erro ao registrar produção.'),
-    },
-  })
-
   return (
     <AppLayout>
       <div className="flex flex-col">
@@ -106,203 +17,19 @@ function ProductionPage() {
           title="Produção"
           description="Registre pesos e produção de leite do rebanho"
         />
-        <div className="p-6 mx-auto">
-          <Tabs defaultValue="weight">
-            <TabsList>
+        <div className="p-6 mx-auto w-full max-w-lg">
+          <Tabs defaultValue="weight" className="w-full">
+            <TabsList className="w-full grid grid-cols-2">
               <TabsTrigger value="weight">Pesagem</TabsTrigger>
               <TabsTrigger value="milk">Produção de Leite</TabsTrigger>
             </TabsList>
 
             <TabsContent value="weight" className="mt-4">
-              <Card className="max-w-lg">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Plus className="size-4" />
-                    Registrar Peso
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-1.5">
-                    <Label>Animal *</Label>
-                    <AnimalSelect
-                      value={weightForm.animalId}
-                      onChange={v =>
-                        setWeightForm({ ...weightForm, animalId: v })
-                      }
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <Label>Peso (kg) *</Label>
-                      <Input
-                        type="number"
-                        step="0.1"
-                        placeholder="Ex: 450.5"
-                        value={weightForm.weight}
-                        onChange={e =>
-                          setWeightForm({
-                            ...weightForm,
-                            weight: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label>Data *</Label>
-                      <Input
-                        type="date"
-                        value={weightForm.date}
-                        onChange={e =>
-                          setWeightForm({ ...weightForm, date: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Observações</Label>
-                    <Textarea
-                      placeholder="Notas..."
-                      value={weightForm.notes}
-                      onChange={e =>
-                        setWeightForm({ ...weightForm, notes: e.target.value })
-                      }
-                    />
-                  </div>
-                  {feedback?.tab === 'weight' && (
-                    <p
-                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
-                    >
-                      {feedback.msg}
-                    </p>
-                  )}
-                  <Button
-                    className="w-full"
-                    disabled={
-                      weightMutation.isPending ||
-                      !weightForm.animalId ||
-                      !weightForm.weight ||
-                      !weightForm.date
-                    }
-                    onClick={() =>
-                      weightMutation.mutate({
-                        data: {
-                          animalId: weightForm.animalId,
-                          weight: Number(weightForm.weight),
-                          date: weightForm.date,
-                          notes: weightForm.notes || undefined,
-                        },
-                      })
-                    }
-                  >
-                    {weightMutation.isPending
-                      ? 'Salvando...'
-                      : 'Registrar Pesagem'}
-                  </Button>
-                </CardContent>
-              </Card>
+              <WeightForm />
             </TabsContent>
 
             <TabsContent value="milk" className="mt-4">
-              <Card className="max-w-lg">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Plus className="size-4" />
-                    Registrar Produção de Leite
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-1.5">
-                    <Label>Animal (Fêmea) *</Label>
-                    <AnimalSelect
-                      value={milkForm.animalId}
-                      onChange={v => setMilkForm({ ...milkForm, animalId: v })}
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <Label>Litros *</Label>
-                      <Input
-                        type="number"
-                        step="0.1"
-                        placeholder="Ex: 20.5"
-                        value={milkForm.liters}
-                        onChange={e =>
-                          setMilkForm({ ...milkForm, liters: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label>Data *</Label>
-                      <Input
-                        type="date"
-                        value={milkForm.date}
-                        onChange={e =>
-                          setMilkForm({ ...milkForm, date: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Turno</Label>
-                    <Select
-                      value={milkForm.session}
-                      onValueChange={v =>
-                        setMilkForm({ ...milkForm, session: v })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o turno" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="morning">Manhã</SelectItem>
-                        <SelectItem value="afternoon">Tarde</SelectItem>
-                        <SelectItem value="evening">Noite</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Observações</Label>
-                    <Textarea
-                      placeholder="Notas..."
-                      value={milkForm.notes}
-                      onChange={e =>
-                        setMilkForm({ ...milkForm, notes: e.target.value })
-                      }
-                    />
-                  </div>
-                  {feedback?.tab === 'milk' && (
-                    <p
-                      className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
-                    >
-                      {feedback.msg}
-                    </p>
-                  )}
-                  <Button
-                    className="w-full"
-                    disabled={
-                      milkMutation.isPending ||
-                      !milkForm.animalId ||
-                      !milkForm.liters ||
-                      !milkForm.date
-                    }
-                    onClick={() =>
-                      milkMutation.mutate({
-                        data: {
-                          animalId: milkForm.animalId,
-                          liters: Number(milkForm.liters),
-                          date: milkForm.date,
-                          session: milkForm.session || undefined,
-                          notes: milkForm.notes || undefined,
-                        },
-                      })
-                    }
-                  >
-                    {milkMutation.isPending
-                      ? 'Salvando...'
-                      : 'Registrar Produção'}
-                  </Button>
-                </CardContent>
-              </Card>
+              <MilkForm />
             </TabsContent>
           </Tabs>
         </div>
