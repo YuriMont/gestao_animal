@@ -8,14 +8,14 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AnimalSelect } from "./animal-select";
 
+// API schema: animalId, diagnosis, medication, dosage?, startDate, endDate?
 const INITIAL_TREATMENT_FORM = {
 	animalId: "",
-	treatmentType: "",
+	diagnosis: "",
 	medication: "",
 	dosage: "",
 	startDate: "",
 	endDate: "",
-	notes: "",
 };
 
 export function TreatmentForm() {
@@ -58,21 +58,21 @@ export function TreatmentForm() {
 					/>
 				</div>
 				<div className="space-y-1.5">
-					<Label>Tipo de Tratamento *</Label>
+					<Label>Diagnóstico *</Label>
 					<Input
 						placeholder="Ex: Vermifugação"
-						value={treatmentForm.treatmentType}
+						value={treatmentForm.diagnosis}
 						onChange={(e) =>
 							setTreatmentForm({
 								...treatmentForm,
-								treatmentType: e.target.value,
+								diagnosis: e.target.value,
 							})
 						}
 					/>
 				</div>
 				<div className="grid grid-cols-2 gap-4">
 					<div className="space-y-1.5">
-						<Label>Medicamento</Label>
+						<Label>Medicamento *</Label>
 						<Input
 							placeholder="Nome do medicamento"
 							value={treatmentForm.medication}
@@ -126,19 +126,6 @@ export function TreatmentForm() {
 						/>
 					</div>
 				</div>
-				<div className="space-y-1.5">
-					<Label>Observações</Label>
-					<Textarea
-						placeholder="Notas adicionais..."
-						value={treatmentForm.notes}
-						onChange={(e) =>
-							setTreatmentForm({
-								...treatmentForm,
-								notes: e.target.value,
-							})
-						}
-					/>
-				</div>
 				{feedback && (
 					<p
 						className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
@@ -151,19 +138,19 @@ export function TreatmentForm() {
 					disabled={
 						treatmentMutation.isPending ||
 						!treatmentForm.animalId ||
-						!treatmentForm.treatmentType ||
+						!treatmentForm.diagnosis ||
+						!treatmentForm.medication ||
 						!treatmentForm.startDate
 					}
 					onClick={() =>
 						treatmentMutation.mutate({
 							data: {
 								animalId: treatmentForm.animalId,
-								treatmentType: treatmentForm.treatmentType,
+								diagnosis: treatmentForm.diagnosis,
 								medication: treatmentForm.medication,
 								dosage: treatmentForm.dosage || undefined,
 								startDate: treatmentForm.startDate,
 								endDate: treatmentForm.endDate || undefined,
-								notes: treatmentForm.notes || undefined,
 							},
 						})
 					}

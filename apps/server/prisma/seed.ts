@@ -9,7 +9,10 @@ import {
   FinancialType,
   PregnancyStatus,
   PrismaClient,
-} from '../generated/prisma/client'
+  Species,
+  AnimalOrigin,
+  InseminationType
+} from '@prisma/client'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -26,12 +29,14 @@ async function main() {
   await prisma.weightRecord.deleteMany()
   await prisma.birth.deleteMany()
   await prisma.pregnancy.deleteMany()
+  await prisma.insemination.deleteMany()
   await prisma.estrus.deleteMany()
   await prisma.treatment.deleteMany()
   await prisma.vaccine.deleteMany()
   await prisma.healthRecord.deleteMany()
-  await prisma.paddock.deleteMany()
   await prisma.animal.deleteMany()
+  await prisma.breed.deleteMany()
+  await prisma.paddock.deleteMany()
   await prisma.user.deleteMany()
   await prisma.organization.deleteMany()
 
@@ -94,80 +99,99 @@ async function main() {
   ])
   console.log('✅ Piquetes criados')
 
+  // ── Raças ────────────────────────────────────────────────────────────────
+  const [nelore, angus] = await Promise.all([
+    prisma.breed.create({
+      data: { name: 'Nelore', species: Species.CATTLE, organizationId: org.id },
+    }),
+    prisma.breed.create({
+      data: { name: 'Angus', species: Species.CATTLE, organizationId: org.id },
+    }),
+  ])
+  console.log('✅ Raças criadas')
+
   // ── Animais ───────────────────────────────────────────────────────────────
 
   const animalsData = [
     {
       tag: 'SJ-001',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2019-03-15'),
-      origin: 'NASCIDO_NA_FAZENDA',
+      origin: AnimalOrigin.BORN_ON_FARM,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete1.id,
     },
     {
       tag: 'SJ-002',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2020-06-20'),
-      origin: 'NASCIDO_NA_FAZENDA',
+      origin: AnimalOrigin.BORN_ON_FARM,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete1.id,
     },
     {
       tag: 'SJ-003',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2021-01-10'),
-      origin: 'COMPRADO',
+      origin: AnimalOrigin.PURCHASED,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete2.id,
     },
     {
       tag: 'SJ-004',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2021-09-05'),
-      origin: 'NASCIDO_NA_FAZENDA',
+      origin: AnimalOrigin.BORN_ON_FARM,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete2.id,
     },
     {
       tag: 'SJ-005',
-      species: 'Bovino',
-      breed: 'Angus',
+      species: Species.CATTLE,
+      breedId: angus.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2020-04-12'),
-      origin: 'COMPRADO',
+      origin: AnimalOrigin.PURCHASED,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete3.id,
     },
     {
       tag: 'SJ-006',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.MALE,
       birthDate: new Date('2018-11-08'),
-      origin: 'NASCIDO_NA_FAZENDA',
+      origin: AnimalOrigin.BORN_ON_FARM,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete4.id,
     },
     {
       tag: 'SJ-007',
-      species: 'Bovino',
-      breed: 'Angus',
+      species: Species.CATTLE,
+      breedId: angus.id,
       sex: AnimalSex.MALE,
       birthDate: new Date('2019-07-22'),
-      origin: 'COMPRADO',
+      origin: AnimalOrigin.PURCHASED,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete4.id,
     },
     {
       tag: 'SJ-008',
-      species: 'Bovino',
-      breed: 'Nelore',
+      species: Species.CATTLE,
+      breedId: nelore.id,
       sex: AnimalSex.FEMALE,
       birthDate: new Date('2022-02-18'),
-      origin: 'NASCIDO_NA_FAZENDA',
+      origin: AnimalOrigin.BORN_ON_FARM,
       status: AnimalStatus.ACTIVE,
+      paddockId: piquete3.id,
     },
   ]
 

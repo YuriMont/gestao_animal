@@ -13,7 +13,6 @@ import {
 	type GetV1EnumsAnimalsStatus200,
 } from "@/gen";
 import { Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -34,10 +33,12 @@ interface AnimalTableProps {
 		id: string;
 		form: AnimalFormData;
 	};
-	setEditAnimal: (animal: null | {
-		id: string;
-		form: AnimalFormData;
-	}) => void;
+	setEditAnimal: (
+		animal: null | {
+			id: string;
+			form: AnimalFormData;
+		},
+	) => void;
 	handleUpdate: () => void;
 	updateMutationPending: boolean;
 }
@@ -95,7 +96,7 @@ export function AnimalTable({
 								{animal.tag}
 							</TableCell>
 							<TableCell>{animal.species}</TableCell>
-							<TableCell>{animal.breed ?? "—"}</TableCell>
+							<TableCell>{animal.breedName ?? "—"}</TableCell>
 							<TableCell>{animal.sex === "MALE" ? "Macho" : "Fêmea"}</TableCell>
 							<TableCell>
 								{new Date(animal.birthDate).toLocaleDateString("pt-BR")}
@@ -107,10 +108,18 @@ export function AnimalTable({
 							</TableCell>
 							<TableCell className="text-right">
 								<div className="flex justify-end gap-1">
-									<Button variant="ghost" size="icon-sm" onClick={() => onEdit(animal)}>
+									<Button
+										variant="ghost"
+										size="icon-sm"
+										onClick={() => onEdit(animal)}
+									>
 										<Pencil className="size-3.5" />
 									</Button>
-									<Button variant="ghost" size="icon-sm" onClick={() => onDelete(animal)}>
+									<Button
+										variant="ghost"
+										size="icon-sm"
+										onClick={() => onDelete(animal)}
+									>
 										<Trash2 className="size-3.5 text-destructive" />
 									</Button>
 								</div>

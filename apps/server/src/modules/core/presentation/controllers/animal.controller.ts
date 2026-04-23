@@ -34,7 +34,11 @@ export const animalController = {
     const result = await useCase.execute(request.tenantId!, request.query)
 
     return reply.send({
-      data: result.animals.map(a => ({ ...a.props, id: a.id })),
+      data: result.animals.map(a => ({
+        id: a.id,
+        ...a.props,
+        breedName: (a.props as any).breedName ?? null,
+      })),
       meta: {
         total: result.total,
         page: result.page,
@@ -50,7 +54,7 @@ export const animalController = {
   ) {
     const useCase = new GetAnimalByIdUseCase(getRepo())
     const animal = await useCase.execute(request.params.id, request.tenantId!)
-    return reply.send({ ...animal.props, id: animal.id })
+    return reply.send({ id: animal.id, ...animal.props, breedName: (animal.props as any).breedName ?? null })
   },
 
   async update(
@@ -63,7 +67,7 @@ export const animalController = {
       request.tenantId!,
       request.body
     )
-    return reply.send({ ...animal.props, id: animal.id })
+    return reply.send({ id: animal.id, ...animal.props, breedName: (animal.props as any).breedName ?? null })
   },
 
   async delete(

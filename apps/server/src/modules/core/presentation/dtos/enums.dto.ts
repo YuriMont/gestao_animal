@@ -18,6 +18,25 @@ const TRANSLATIONS = {
       MALE: 'MALE',
       FEMALE: 'FEMALE',
     },
+    species: {
+      CATTLE: 'CATTLE',
+      SHEEP: 'SHEEP',
+      GOAT: 'GOAT',
+      HORSE: 'HORSE',
+      PIG: 'PIG',
+    },
+    animalOrigin: {
+      BORN_ON_FARM: 'BORN_ON_FARM',
+      PURCHASED: 'PURCHASED',
+      DONATED: 'DONATED',
+      EXTERNAL_TRANSFER: 'EXTERNAL_TRANSFER',
+      OTHER: 'OTHER',
+    },
+    inseminationType: {
+      NATURAL_MATING: 'NATURAL_MATING',
+      ARTIFICIAL_INSEMINATION: 'ARTIFICIAL_INSEMINATION',
+      EMBRYO_TRANSFER: 'EMBRYO_TRANSFER',
+    },
     pregnancyStatus: {
       PENDING: 'PENDING',
       CONFIRMED: 'CONFIRMED',
@@ -62,6 +81,25 @@ const TRANSLATIONS = {
       MALE: 'Macho',
       FEMALE: 'Fêmea',
     },
+    species: {
+      CATTLE: 'Bovino',
+      SHEEP: 'Ovino',
+      GOAT: 'Caprino',
+      HORSE: 'Equino',
+      PIG: 'Suíno',
+    },
+    animalOrigin: {
+      BORN_ON_FARM: 'Nascido na Fazenda',
+      PURCHASED: 'Comprado',
+      DONATED: 'Doado',
+      EXTERNAL_TRANSFER: 'Transferência Externa',
+      OTHER: 'Outro',
+    },
+    inseminationType: {
+      NATURAL_MATING: 'Monta Natural',
+      ARTIFICIAL_INSEMINATION: 'Inseminação Artificial',
+      EMBRYO_TRANSFER: 'Transferência de Embrião',
+    },
     pregnancyStatus: {
       PENDING: 'Pendente',
       CONFIRMED: 'Confirmada',
@@ -100,8 +138,8 @@ export const getEnumLabel = (
   lang: Lang = 'en'
 ): string => {
   return (
-    TRANSLATIONS[lang]?.[enumName as keyof (typeof TRANSLATIONS)['en']]?.[
-      key as keyof (typeof TRANSLATIONS)['en']['role']
+    (TRANSLATIONS[lang]?.[enumName as keyof (typeof TRANSLATIONS)['en']] as any)?.[
+      key
     ]?.toString() || key
   )
 }
@@ -119,6 +157,9 @@ export type EnumName =
   | 'role'
   | 'animalStatus'
   | 'animalSex'
+  | 'species'
+  | 'animalOrigin'
+  | 'inseminationType'
   | 'pregnancyStatus'
   | 'birthStatus'
   | 'financialType'
@@ -128,10 +169,10 @@ export type EnumName =
   | 'milkSession'
 
 export const DOMAIN_ENUM_MAP: Record<EnumDomain, EnumName[]> = {
-  animals: ['animalStatus', 'animalSex'],
+  animals: ['animalStatus', 'animalSex', 'species', 'animalOrigin'],
   users: ['role'],
   organizations: [],
-  reproduction: ['pregnancyStatus', 'birthStatus'],
+  reproduction: ['pregnancyStatus', 'birthStatus', 'inseminationType'],
   production: ['financialType'],
   financial: ['financialType', 'financialCategory'],
   alerts: [],
@@ -148,6 +189,10 @@ export const getEnumValues = (
       values.push('ACTIVE', 'SOLD', 'DECEASED', 'QUARANTINE')
     } else if (enumName === 'animalSex') {
       values.push('MALE', 'FEMALE')
+    } else if (enumName === 'species') {
+      values.push('CATTLE', 'SHEEP', 'GOAT', 'HORSE', 'PIG')
+    } else if (enumName === 'animalOrigin') {
+      values.push('BORN_ON_FARM', 'PURCHASED', 'DONATED', 'EXTERNAL_TRANSFER', 'OTHER')
     }
   } else if (domain === 'users') {
     if (enumName === 'role') {
@@ -158,6 +203,8 @@ export const getEnumValues = (
       values.push('PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED')
     } else if (enumName === 'birthStatus') {
       values.push('ALIVE', 'STILLBORN', 'ABORTED')
+    } else if (enumName === 'inseminationType') {
+      values.push('NATURAL_MATING', 'ARTIFICIAL_INSEMINATION', 'EMBRYO_TRANSFER')
     }
   } else if (domain === 'production') {
     if (enumName === 'financialType') {

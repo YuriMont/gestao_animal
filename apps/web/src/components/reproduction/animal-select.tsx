@@ -18,7 +18,7 @@ export function AnimalSelect({
 }) {
   const animalsQuery = useGetV1Animals({
     limit: 100,
-    ...(femaleOnly ? { sex: 'FEMALE' } : { sex: 'MALE' }),
+    ...(femaleOnly !== undefined ? { sex: femaleOnly ? 'FEMALE' : 'MALE' } : {}),
   })
   const animals = animalsQuery.data?.data ?? []
   return (

@@ -7,7 +7,7 @@ export interface IReproductionRepository {
   createPregnancy(pregnancy: Pregnancy): Promise<Pregnancy>
   createBirth(birth: Birth): Promise<Birth>
 
-  findPregnanciesByOrganization(organizationId: string): Promise<Pregnancy[]>
+  findPregnanciesByOrganization(organizationId: string, page?: number, limit?: number): Promise<{ pregnancies: Pregnancy[]; total: number }>
   findReproductionHistoryByAnimal(
     animalId: string,
     organizationId: string

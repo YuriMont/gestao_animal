@@ -63,8 +63,8 @@ export class PrismaFinancialRepository implements IFinancialRepository {
     let totalRevenue = 0
 
     records.forEach(r => {
-      if (r.type === 'COST') totalCost += r.amount
-      if (r.type === 'REVENUE') totalRevenue += r.amount
+      if (r.type === 'EXPENSE') totalCost += r.amount
+      if (r.type === 'INCOME') totalRevenue += r.amount
     })
 
     return {

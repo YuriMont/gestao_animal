@@ -6,21 +6,36 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useGetV1EnumsReproductionPregnancyStatus } from '@/gen/hooks/enumsController/useGetV1EnumsReproductionPregnancyStatus'
+import {
+  getV1ReproductionPregnanciesQueryKey,
+  useGetV1ReproductionPregnancies,
+} from '@/gen/hooks/reproductionController/useGetV1ReproductionPregnancies'
 import { usePostV1ReproductionPregnancies } from '@/gen/hooks/reproductionController/usePostV1ReproductionPregnancies'
-import { useGetV1ReproductionPregnancies } from '@/gen/hooks/reproductionController/useGetV1ReproductionPregnancies'
+import type { PostV1ReproductionPregnanciesMutationRequestStatusEnumKey } from '@/gen/models/reproductionController/PostV1ReproductionPregnancies'
+import { useQueryClient } from '@tanstack/react-query'
 import { AnimalSelect } from './animal-select'
 
 const INITIAL_PREGNANCY_FORM = {
-  motherId: '',
-  fatherId: '',
-  matingDate: '',
-  expectedBirthDate: '',
+  animalId: '',
+  detectedDate: '',
+  expectedDate: '',
+  status: 'PENDING' as PostV1ReproductionPregnanciesMutationRequestStatusEnumKey,
 }
 
 export function PregnancyView() {
+  const qc = useQueryClient()
   const [pregnancyForm, setPregnancyForm] = useState(INITIAL_PREGNANCY_FORM)
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
 
+  const { data: pregnancyStatuses } = useGetV1EnumsReproductionPregnancyStatus()
   const pregnanciesQuery = useGetV1ReproductionPregnancies()
   const pregnancies = pregnanciesQuery.data?.data ?? []
 
@@ -34,7 +49,7 @@ export function PregnancyView() {
       onSuccess: () => {
         setPregnancyForm(INITIAL_PREGNANCY_FORM)
         showFeedback(true, 'Gestação registrada!')
-        pregnanciesQuery.refetch()
+        qc.invalidateQueries({ queryKey: getV1ReproductionPregnanciesQueryKey() })
       },
       onError: () =>
         showFeedback(false, 'Erro ao registrar gestação.'),
@@ -52,34 +67,25 @@ export function PregnancyView() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-1.5">
-            <Label>Mãe (Fêmea) *</Label>
+            <Label>Animal (Fêmea) *</Label>
             <AnimalSelect
-              value={pregnancyForm.motherId}
+              value={pregnancyForm.animalId}
               onChange={v =>
-                setPregnancyForm({ ...pregnancyForm, motherId: v })
+                setPregnancyForm({ ...pregnancyForm, animalId: v })
               }
               femaleOnly
             />
           </div>
-          <div className="space-y-1.5">
-            <Label>Pai (Macho)</Label>
-            <AnimalSelect
-              value={pregnancyForm.fatherId}
-              onChange={v =>
-                setPregnancyForm({ ...pregnancyForm, fatherId: v })
-              }
-            />
-          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>Data Acasalamento *</Label>
+              <Label>Data de Detecção *</Label>
               <Input
                 type="date"
-                value={pregnancyForm.matingDate}
+                value={pregnancyForm.detectedDate}
                 onChange={e =>
                   setPregnancyForm({
                     ...pregnancyForm,
-                    matingDate: e.target.value,
+                    detectedDate: e.target.value,
                   })
                 }
               />
@@ -88,15 +94,38 @@ export function PregnancyView() {
               <Label>Previsão de Parto</Label>
               <Input
                 type="date"
-                value={pregnancyForm.expectedBirthDate}
+                value={pregnancyForm.expectedDate}
                 onChange={e =>
                   setPregnancyForm({
                     ...pregnancyForm,
-                    expectedBirthDate: e.target.value,
+                    expectedDate: e.target.value,
                   })
                 }
               />
             </div>
+          </div>
+          <div className="space-y-1.5">
+            <Label>Status</Label>
+            <Select
+              value={pregnancyForm.status}
+              onValueChange={v =>
+                setPregnancyForm({
+                  ...pregnancyForm,
+                  status: v as PostV1ReproductionPregnanciesMutationRequestStatusEnumKey,
+                })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {pregnancyStatuses?.map(item => (
+                  <SelectItem key={item.key} value={item.key}>
+                    {item.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           {feedback && (
             <p
@@ -109,17 +138,17 @@ export function PregnancyView() {
             className="w-full"
             disabled={
               pregnancyMutation.isPending ||
-              !pregnancyForm.motherId ||
-              !pregnancyForm.matingDate
+              !pregnancyForm.animalId ||
+              !pregnancyForm.detectedDate
             }
             onClick={() =>
               pregnancyMutation.mutate({
                 data: {
-                  motherId: pregnancyForm.motherId,
-                  fatherId: pregnancyForm.fatherId || undefined,
-                  matingDate: pregnancyForm.matingDate,
-                  expectedBirthDate:
-                    pregnancyForm.expectedBirthDate || undefined,
+                  animalId: pregnancyForm.animalId,
+                  detectedDate: pregnancyForm.detectedDate,
+                  expectedDate:
+                    pregnancyForm.expectedDate || undefined,
+                  status: pregnancyForm.status,
                 },
               })
             }
@@ -156,15 +185,16 @@ export function PregnancyView() {
                   className="flex items-center justify-between rounded-lg border px-3 py-2 text-sm"
                 >
                   <span className="font-medium">
-                    {p.motherId ?? 'Desconhecida'}
+                    {p.animalId ?? 'Desconhecida'}
                   </span>
-                  <Badge variant="default">
-                    {p.expectedBirthDate
-                      ? new Date(
-                          p.expectedBirthDate
-                        ).toLocaleDateString('pt-BR')
-                      : 'Sem previsão'}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">{p.status}</Badge>
+                    {p.expectedDate && (
+                      <Badge variant="default">
+                        {new Date(p.expectedDate).toLocaleDateString('pt-BR')}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

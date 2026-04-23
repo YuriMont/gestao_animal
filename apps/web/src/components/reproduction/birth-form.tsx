@@ -4,19 +4,30 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useGetV1EnumsReproductionBirthStatus } from '@/gen/hooks/enumsController/useGetV1EnumsReproductionBirthStatus'
 import { usePostV1ReproductionBirth } from '@/gen/hooks/reproductionController/usePostV1ReproductionBirth'
+import type { PostV1ReproductionBirthMutationRequestStatusEnumKey } from '@/gen/models/reproductionController/PostV1ReproductionBirth'
+import { AnimalSelect } from './animal-select'
 
 const INITIAL_BIRTH_FORM = {
-  pregnancyId: '',
+  motherId: '',
+  fatherId: '',
   birthDate: '',
-  numberOfOffspring: '1',
-  notes: '',
+  offspringTag: '',
+  status: 'ALIVE' as PostV1ReproductionBirthMutationRequestStatusEnumKey,
 }
 
 export function BirthForm() {
   const [birthForm, setBirthForm] = useState(INITIAL_BIRTH_FORM)
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
+  const { data: birthStatuses } = useGetV1EnumsReproductionBirthStatus()
 
   function showFeedback(ok: boolean, msg: string) {
     setFeedback({ ok, msg })
@@ -43,16 +54,18 @@ export function BirthForm() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-1.5">
-          <Label>ID da Gestação *</Label>
-          <Input
-            placeholder="UUID da gestação"
-            value={birthForm.pregnancyId}
-            onChange={e =>
-              setBirthForm({
-                ...birthForm,
-                pregnancyId: e.target.value,
-              })
-            }
+          <Label>Mãe (Fêmea) *</Label>
+          <AnimalSelect
+            value={birthForm.motherId}
+            onChange={v => setBirthForm({ ...birthForm, motherId: v })}
+            femaleOnly
+          />
+        </div>
+        <div className="space-y-1.5">
+          <Label>Pai (Macho)</Label>
+          <AnimalSelect
+            value={birthForm.fatherId}
+            onChange={v => setBirthForm({ ...birthForm, fatherId: v })}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -62,37 +75,43 @@ export function BirthForm() {
               type="date"
               value={birthForm.birthDate}
               onChange={e =>
-                setBirthForm({
-                  ...birthForm,
-                  birthDate: e.target.value,
-                })
+                setBirthForm({ ...birthForm, birthDate: e.target.value })
               }
             />
           </div>
           <div className="space-y-1.5">
-            <Label>Nº de Filhotes *</Label>
+            <Label>Tag do Filhote</Label>
             <Input
-              type="number"
-              min="1"
-              value={birthForm.numberOfOffspring}
+              placeholder="Ex: BOV-050"
+              value={birthForm.offspringTag}
               onChange={e =>
-                setBirthForm({
-                  ...birthForm,
-                  numberOfOffspring: e.target.value,
-                })
+                setBirthForm({ ...birthForm, offspringTag: e.target.value })
               }
             />
           </div>
         </div>
         <div className="space-y-1.5">
-          <Label>Observações</Label>
-          <Textarea
-            placeholder="Notas do parto..."
-            value={birthForm.notes}
-            onChange={e =>
-              setBirthForm({ ...birthForm, notes: e.target.value })
+          <Label>Status *</Label>
+          <Select
+            value={birthForm.status}
+            onValueChange={v =>
+              setBirthForm({
+                ...birthForm,
+                status: v as PostV1ReproductionBirthMutationRequestStatusEnumKey,
+              })
             }
-          />
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {birthStatuses?.map(item => (
+                <SelectItem key={item.key} value={item.key}>
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         {feedback && (
           <p
@@ -105,18 +124,17 @@ export function BirthForm() {
           className="w-full"
           disabled={
             birthMutation.isPending ||
-            !birthForm.pregnancyId ||
+            !birthForm.motherId ||
             !birthForm.birthDate
           }
           onClick={() =>
             birthMutation.mutate({
               data: {
-                pregnancyId: birthForm.pregnancyId,
+                motherId: birthForm.motherId,
+                fatherId: birthForm.fatherId || undefined,
                 birthDate: birthForm.birthDate,
-                numberOfOffspring: Number(
-                  birthForm.numberOfOffspring
-                ),
-                notes: birthForm.notes || undefined,
+                offspringTag: birthForm.offspringTag || undefined,
+                status: birthForm.status,
               },
             })
           }

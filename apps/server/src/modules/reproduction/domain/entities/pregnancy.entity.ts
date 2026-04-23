@@ -1,8 +1,10 @@
+import type { PregnancyStatus } from '@prisma/client'
+
 export interface PregnancyProps {
   animalId: string
   detectedDate: Date
   expectedDate?: Date
-  status: string
+  status: PregnancyStatus
   organizationId: string
 }
 

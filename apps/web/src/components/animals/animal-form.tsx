@@ -8,10 +8,14 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import {
-	useGetV1EnumsAnimalsSex,
-	useGetV1EnumsAnimalsStatus,
+	type PostV1AnimalsMutationRequestOriginEnumKey,
 	type PostV1AnimalsMutationRequestSexEnumKey,
+	type PostV1AnimalsMutationRequestSpeciesEnumKey,
 	type PostV1AnimalsMutationRequestStatusEnumKey,
+	useGetV1EnumsAnimalsOrigin,
+	useGetV1EnumsAnimalsSex,
+	useGetV1EnumsAnimalsSpecies,
+	useGetV1EnumsAnimalsStatus,
 } from "@/gen";
 import type { AnimalFormData } from "./types";
 
@@ -23,6 +27,8 @@ interface AnimalFormProps {
 export function AnimalForm({ form, onChange }: AnimalFormProps) {
 	const { data: animalsSex } = useGetV1EnumsAnimalsSex();
 	const { data: animalsStatus } = useGetV1EnumsAnimalsStatus();
+	const { data: animalsSpecies } = useGetV1EnumsAnimalsSpecies();
+	const { data: animalsOrigin } = useGetV1EnumsAnimalsOrigin();
 
 	return (
 		<div className="grid grid-cols-2 gap-4">
@@ -36,18 +42,33 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
 			</div>
 			<div className="space-y-1.5">
 				<Label>Espécie *</Label>
-				<Input
-					placeholder="Ex: Bovino"
+				<Select
 					value={form.species}
-					onChange={(e) => onChange({ ...form, species: e.target.value })}
-				/>
+					onValueChange={(v) =>
+						onChange({
+							...form,
+							species: v as PostV1AnimalsMutationRequestSpeciesEnumKey,
+						})
+					}
+				>
+					<SelectTrigger>
+						<SelectValue placeholder="Selecione" />
+					</SelectTrigger>
+					<SelectContent>
+						{animalsSpecies?.map((item) => (
+							<SelectItem key={item.key} value={item.key}>
+								{item.label}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 			<div className="space-y-1.5">
 				<Label>Raça</Label>
 				<Input
 					placeholder="Ex: Nelore"
-					value={form.breed}
-					onChange={(e) => onChange({ ...form, breed: e.target.value })}
+					value={form.breedId ?? ""}
+					onChange={(e) => onChange({ ...form, breedId: e.target.value })}
 				/>
 			</div>
 			<div className="space-y-1.5">
@@ -83,11 +104,27 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
 			</div>
 			<div className="space-y-1.5">
 				<Label>Origem</Label>
-				<Input
-					placeholder="Ex: Próprio"
-					value={form.origin}
-					onChange={(e) => onChange({ ...form, origin: e.target.value })}
-				/>
+				<Select
+					value={form.origin ?? ""}
+					onValueChange={(v) =>
+						onChange({
+							...form,
+							origin:
+								(v as PostV1AnimalsMutationRequestOriginEnumKey) || undefined,
+						})
+					}
+				>
+					<SelectTrigger>
+						<SelectValue placeholder="Selecione" />
+					</SelectTrigger>
+					<SelectContent>
+						{animalsOrigin?.map((item) => (
+							<SelectItem key={item.key} value={item.key}>
+								{item.label}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 			<div className="col-span-2 space-y-1.5">
 				<Label>Status</Label>

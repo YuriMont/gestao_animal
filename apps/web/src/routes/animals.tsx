@@ -46,7 +46,7 @@ export const Route = createFileRoute("/animals")({
 const defaultForm: AnimalFormData = {
 	tag: "",
 	species: "",
-	breed: "",
+	breedId: "",
 	sex: "FEMALE",
 	birthDate: "",
 	origin: "",
@@ -58,9 +58,17 @@ function AnimalsPage() {
 	const [createOpen, setCreateOpen] = useState(false);
 	const [form, setForm] = useState<AnimalFormData>(defaultForm);
 	const [page, setPage] = useState(1);
+
+	// "Draft" state — only committed to query on Buscar click
+	const [statusDraft, setStatusDraft] =
+		useState<GetV1AnimalsQueryParamsStatusEnumKey>();
+	const [speciesDraft, setSpeciesDraft] = useState("");
+
+	// Committed filters that actually drive the query
 	const [statusFilter, setStatusFilter] =
 		useState<GetV1AnimalsQueryParamsStatusEnumKey>();
 	const [speciesFilter, setSpeciesFilter] = useState("");
+
 	const [editAnimal, setEditAnimal] = useState<null | {
 		id: string;
 		form: AnimalFormData;
@@ -133,7 +141,7 @@ function AnimalsPage() {
 			form: {
 				tag: animal.tag,
 				species: animal.species,
-				breed: animal.breed || "",
+				breedId: animal.breedId || "",
 				sex: animal.sex,
 				birthDate: animal.birthDate,
 				origin: animal.origin || "",
@@ -147,6 +155,22 @@ function AnimalsPage() {
 			id: animal.id,
 		});
 	}
+
+	function handleSearch() {
+		setPage(1);
+		setStatusFilter(statusDraft);
+		setSpeciesFilter(speciesDraft);
+	}
+
+	function handleClearFilters() {
+		setStatusDraft(undefined);
+		setSpeciesDraft("");
+		setPage(1);
+		setStatusFilter(undefined);
+		setSpeciesFilter("");
+	}
+
+	const hasActiveFilters = !!statusFilter || !!speciesFilter;
 
 	return (
 		<AppLayout>
@@ -183,32 +207,29 @@ function AnimalsPage() {
 				</PageHeader>
 
 				<div className="p-6 space-y-4">
-					<div className="flex gap-3">
-						<div className="flex items-center gap-2 flex-1 max-w-xs">
+					{/* Search bar — committed only on button click */}
+					<div className="flex gap-3 flex-wrap">
+						<div className="flex items-center gap-2 flex-1 min-w-48 max-w-xs">
 							<Search className="size-4 text-muted-foreground shrink-0" />
 							<Input
 								placeholder="Filtrar por espécie..."
-								value={speciesFilter}
-								onChange={(e) => {
-									setSpeciesFilter(e.target.value);
-									setPage(1);
-								}}
+								value={speciesDraft}
+								onChange={(e) => setSpeciesDraft(e.target.value)}
+								onKeyDown={(e) => e.key === "Enter" && handleSearch()}
 								className="h-8"
 							/>
 						</div>
 						<Select
-							value={statusFilter}
+							value={statusDraft ?? "all"}
 							onValueChange={(v) => {
 								if (v === "all") {
-									setStatusFilter(undefined);
+									setStatusDraft(undefined);
 								} else {
-									setStatusFilter(v as GetV1AnimalsQueryParamsStatusEnumKey);
+									setStatusDraft(v as GetV1AnimalsQueryParamsStatusEnumKey);
 								}
-
-								setPage(1);
 							}}
 						>
-							<SelectTrigger className="w-40 h-8">
+							<SelectTrigger className="w-44 h-8">
 								<SelectValue placeholder="Todos os status" />
 							</SelectTrigger>
 							<SelectContent>
@@ -220,6 +241,20 @@ function AnimalsPage() {
 								))}
 							</SelectContent>
 						</Select>
+						<Button size="sm" onClick={handleSearch} className="h-8">
+							<Search className="size-3.5" />
+							Buscar
+						</Button>
+						{hasActiveFilters && (
+							<Button
+								size="sm"
+								variant="ghost"
+								onClick={handleClearFilters}
+								className="h-8"
+							>
+								Limpar filtros
+							</Button>
+						)}
 					</div>
 
 					<Card>

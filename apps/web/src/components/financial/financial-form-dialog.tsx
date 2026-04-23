@@ -1,8 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import type { RecordTypeEnumKey } from "@/gen";
-import { useGetV1EnumsFinancialTypes } from "@/gen/hooks/enumsController/useGetV1EnumsFinancialTypes";
+import {
+	useGetV1EnumsFinancialCategories,
+	useGetV1EnumsFinancialTypes,
+} from "@/gen";
 import {
 	getV1FinancialRecordsQueryKey,
 } from "@/gen/hooks/financialController/useGetV1FinancialRecords";
@@ -10,6 +12,7 @@ import {
 	getV1FinancialSummaryQueryKey,
 } from "@/gen/hooks/financialController/useGetV1FinancialSummary";
 import { usePostV1FinancialRecords } from "@/gen/hooks/financialController/usePostV1FinancialRecords";
+import type { PostV1FinancialRecordsMutationRequestTypeEnumKey } from "@/gen/models/financialController/PostV1FinancialRecords";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -31,7 +34,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 const INITIAL_FINANCIAL_FORM = {
-	type: "INCOME" as RecordTypeEnumKey,
+	type: "INCOME" as PostV1FinancialRecordsMutationRequestTypeEnumKey,
 	category: "",
 	amount: 0,
 	date: "",
@@ -42,6 +45,7 @@ export function FinancialFormDialog() {
 	const qc = useQueryClient();
 	const [open, setOpen] = useState(false);
 	const { data: financialTypes } = useGetV1EnumsFinancialTypes();
+	const { data: financialCategories } = useGetV1EnumsFinancialCategories();
 	const [form, setForm] = useState(INITIAL_FINANCIAL_FORM);
 
 	const createMutation = usePostV1FinancialRecords({
@@ -50,13 +54,7 @@ export function FinancialFormDialog() {
 				qc.invalidateQueries({ queryKey: getV1FinancialRecordsQueryKey() });
 				qc.invalidateQueries({ queryKey: getV1FinancialSummaryQueryKey() });
 				setOpen(false);
-				setForm({
-					type: "EXPENSE" as RecordTypeEnumKey,
-					category: "",
-					amount: 0,
-					date: "",
-					description: "",
-				});
+				setForm(INITIAL_FINANCIAL_FORM);
 			},
 		},
 	});
@@ -80,7 +78,10 @@ export function FinancialFormDialog() {
 							<Select
 								value={form.type}
 								onValueChange={(v) =>
-									setForm({ ...form, type: v as RecordTypeEnumKey })
+									setForm({
+										...form,
+										type: v as PostV1FinancialRecordsMutationRequestTypeEnumKey,
+									})
 								}
 							>
 								<SelectTrigger>
@@ -97,13 +98,21 @@ export function FinancialFormDialog() {
 						</div>
 						<div className="space-y-1.5">
 							<Label>Categoria *</Label>
-							<Input
-								placeholder="Ex: Venda de gado"
+							<Select
 								value={form.category}
-								onChange={(e) =>
-									setForm({ ...form, category: e.target.value })
-								}
-							/>
+								onValueChange={(v) => setForm({ ...form, category: v })}
+							>
+								<SelectTrigger>
+									<SelectValue placeholder="Selecione..." />
+								</SelectTrigger>
+								<SelectContent>
+									{financialCategories?.map((item) => (
+										<SelectItem key={item.key} value={item.key}>
+											{item.label}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
 						</div>
 					</div>
 					<div className="grid grid-cols-2 gap-4">

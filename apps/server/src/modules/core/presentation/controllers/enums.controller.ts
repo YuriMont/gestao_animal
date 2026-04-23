@@ -8,6 +8,12 @@ export const enumsController = {
   getAnimalSex: async (request: FastifyRequest, reply: FastifyReply) => {
     reply.send(getEnumValues('animals', 'animalSex'))
   },
+  getSpecies: async (request: FastifyRequest, reply: FastifyReply) => {
+    reply.send(getEnumValues('animals', 'species'))
+  },
+  getAnimalOrigin: async (request: FastifyRequest, reply: FastifyReply) => {
+    reply.send(getEnumValues('animals', 'animalOrigin'))
+  },
   getUserRoles: async (request: FastifyRequest, reply: FastifyReply) => {
     reply.send(getEnumValues('users', 'role'))
   },
@@ -16,6 +22,9 @@ export const enumsController = {
   },
   getBirthStatus: async (request: FastifyRequest, reply: FastifyReply) => {
     reply.send(getEnumValues('reproduction', 'birthStatus'))
+  },
+  getInseminationType: async (request: FastifyRequest, reply: FastifyReply) => {
+    reply.send(getEnumValues('reproduction', 'inseminationType'))
   },
   getFinancialTypes: async (request: FastifyRequest, reply: FastifyReply) => {
     reply.send(getEnumValues('financial', 'financialType'))

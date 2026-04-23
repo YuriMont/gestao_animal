@@ -11,7 +11,8 @@ function toEntity(a: any): Animal {
     {
       tag: a.tag,
       species: a.species,
-      breed: a.breed ?? undefined,
+      breedId: a.breedId ?? undefined,
+      breedName: a.breed?.name ?? undefined,
       sex: a.sex,
       birthDate: a.birthDate,
       origin: a.origin ?? undefined,
@@ -22,6 +23,8 @@ function toEntity(a: any): Animal {
   )
 }
 
+const ANIMAL_INCLUDE = { breed: true } as const
+
 export class PrismaAnimalRepository implements IAnimalRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
@@ -30,13 +33,14 @@ export class PrismaAnimalRepository implements IAnimalRepository {
       data: {
         tag: animal.props.tag,
         species: animal.props.species,
-        breed: animal.props.breed ?? undefined,
+        breedId: animal.props.breedId ?? undefined,
         sex: animal.props.sex,
         birthDate: animal.props.birthDate,
         origin: animal.props.origin ?? undefined,
         status: animal.props.status,
         organizationId: animal.props.organizationId,
       },
+      include: ANIMAL_INCLUDE,
     })
     return toEntity(created)
   }
@@ -44,6 +48,7 @@ export class PrismaAnimalRepository implements IAnimalRepository {
   async findById(id: string, organizationId: string): Promise<Animal | null> {
     const animal = await this.prisma.animal.findFirst({
       where: { id, organizationId },
+      include: ANIMAL_INCLUDE,
     })
     return animal ? toEntity(animal) : null
   }
@@ -51,6 +56,7 @@ export class PrismaAnimalRepository implements IAnimalRepository {
   async findByTag(tag: string, organizationId: string): Promise<Animal | null> {
     const animal = await this.prisma.animal.findFirst({
       where: { tag, organizationId },
+      include: ANIMAL_INCLUDE,
     })
     return animal ? toEntity(animal) : null
   }
@@ -75,6 +81,7 @@ export class PrismaAnimalRepository implements IAnimalRepository {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
+        include: ANIMAL_INCLUDE,
       }),
       this.prisma.animal.count({ where }),
     ])
@@ -94,12 +101,13 @@ export class PrismaAnimalRepository implements IAnimalRepository {
       data: {
         tag: animal.props.tag,
         species: animal.props.species,
-        breed: animal.props.breed ?? undefined,
+        breedId: animal.props.breedId ?? undefined,
         sex: animal.props.sex,
         birthDate: animal.props.birthDate,
         origin: animal.props.origin ?? undefined,
         status: animal.props.status,
       },
+      include: ANIMAL_INCLUDE,
     })
     return toEntity(updated)
   }

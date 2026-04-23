@@ -183,7 +183,7 @@ app.get(
       tags: ["MinhaTag"],
       summary: "Descrição curta",
       security: [{ bearerAuth: [] }], // sempre para rotas /v1
-      params: z.object({ id: z.string().uuid() }),
+      params: z.object({ id: z.string() }),
       response: { 200: minhaResponseSchema },
     },
   },

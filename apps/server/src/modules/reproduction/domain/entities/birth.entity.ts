@@ -1,9 +1,11 @@
+import type { BirthStatus } from '@prisma/client'
+
 export interface BirthProps {
   motherId: string
   fatherId?: string
   birthDate: Date
   offspringTag?: string
-  status: string
+  status: BirthStatus
   organizationId: string
 }
 

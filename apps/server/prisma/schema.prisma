@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -19,11 +18,34 @@ enum AnimalStatus {
   INACTIVE
   SOLD
   DECEASED
+  QUARANTINE
 }
 
 enum AnimalSex {
   FEMALE
   MALE
+}
+
+enum Species {
+  CATTLE
+  SHEEP
+  GOAT
+  HORSE
+  PIG
+}
+
+enum AnimalOrigin {
+  BORN_ON_FARM
+  PURCHASED
+  DONATED
+  EXTERNAL_TRANSFER
+  OTHER
+}
+
+enum InseminationType {
+  NATURAL_MATING
+  ARTIFICIAL_INSEMINATION
+  EMBRYO_TRANSFER
 }
 
 enum PregnancyStatus {
@@ -53,10 +75,11 @@ enum FinancialCategory {
 }
 
 model Organization {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   users          User[]
   animals        Animal[]
@@ -65,6 +88,7 @@ model Organization {
   vaccines       Vaccine[]
   treatments     Treatment[]
   estrusCycles   Estrus[]
+  inseminations  Insemination[]
   pregnancies    Pregnancy[]
   births         Birth[]
   weightRecords  WeightRecord[]
@@ -72,6 +96,7 @@ model Organization {
   financials     FinancialRecord[]
   alertRules     AlertRule[]
   notifications  Notification[]
+  breeds         Breed[]
 
   @@map("organizations")
 }
@@ -85,32 +110,53 @@ model User {
   organizationId String       @db.ObjectId
   organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@map("users")
 }
 
-model Animal {
+model Breed {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  tag            String       @unique
-  species        String
-  breed          String?
-  sex            String
-  birthDate      DateTime
-  origin         String?
-  status         AnimalStatus @default(ACTIVE)
+  name           String
+  species        Species
   organizationId String       @db.ObjectId
   organization   Organization @relation(fields: [organizationId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  animals        Animal[]
+
+  @@unique([name, species, organizationId])
+  @@map("breeds")
+}
+
+model Animal {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  tag            String
+  species        Species
+  breedId        String?      @db.ObjectId
+  breed          Breed?       @relation(fields: [breedId], references: [id])
+  sex            String
+  birthDate      DateTime
+  origin         AnimalOrigin?
+  status         AnimalStatus @default(ACTIVE)
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  paddockId      String?      @db.ObjectId
+  paddock        Paddock?     @relation(fields: [paddockId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   healthRecords HealthRecord[]
   vaccines      Vaccine[]
   treatments    Treatment[]
   estrusCycles  Estrus[]
   pregnancies   Pregnancy[]
+  
+  inseminations        Insemination[] @relation("FemaleInseminations")
+  inseminationsAsFather Insemination[] @relation("MaleInseminations")
 
   birthsAsMother Birth[] @relation("MotherToBirth")
   birthsAsFather Birth[] @relation("FatherToBirth")
@@ -118,6 +164,7 @@ model Animal {
   weightRecords  WeightRecord[]
   milkProduction MilkProduction[]
 
+  @@unique([tag, organizationId])
   @@map("animals")
 }
 
@@ -130,6 +177,8 @@ model Paddock {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  animals   Animal[]
 
   @@map("paddocks")
 }
@@ -201,6 +250,27 @@ model Estrus {
   @@map("estrus")
 }
 
+model Insemination {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  animalId       String           @db.ObjectId
+  animal         Animal           @relation("FemaleInseminations", fields: [animalId], references: [id])
+  type           InseminationType
+  date           DateTime         @default(now())
+  
+  fatherId       String?          @db.ObjectId
+  father         Animal?          @relation("MaleInseminations", fields: [fatherId], references: [id])
+  
+  semenBatch     String?
+  success        Boolean?
+  
+  organizationId String           @db.ObjectId
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+
+  pregnancies    Pregnancy[]
+
+  @@map("inseminations")
+}
+
 model Pregnancy {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
   animalId       String          @db.ObjectId
@@ -208,6 +278,8 @@ model Pregnancy {
   detectedDate   DateTime
   expectedDate   DateTime?
   status         PregnancyStatus @default(PENDING)
+  inseminationId String?         @db.ObjectId
+  insemination   Insemination?   @relation(fields: [inseminationId], references: [id])
   organizationId String          @db.ObjectId
   organization   Organization    @relation(fields: [organizationId], references: [id])
 

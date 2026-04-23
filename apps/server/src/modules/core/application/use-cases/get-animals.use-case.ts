@@ -1,10 +1,10 @@
 import type { Animal } from '@src/modules/core/domain/entities/animal.entity'
 import type { IAnimalRepository } from '@src/modules/core/domain/repositories/animal.repository'
-import type { AnimalSex, AnimalStatus } from 'generated/prisma'
+import type { AnimalSex, AnimalStatus, Species } from '@prisma/client'
 
 export interface GetAnimalsFilters {
   status?: AnimalStatus
-  species?: string
+  species?: Species
   sex?: AnimalSex
   page?: number
   limit?: number

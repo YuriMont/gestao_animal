@@ -10,8 +10,9 @@ import { AnimalSelect } from './animal-select'
 
 const INITIAL_ESTRUS_FORM = {
   animalId: '',
-  date: '',
-  notes: '',
+  startDate: '',
+  endDate: '',
+  observation: '',
 }
 
 export function EstrusForm() {
@@ -46,29 +47,39 @@ export function EstrusForm() {
           <Label>Fêmea *</Label>
           <AnimalSelect
             value={estrusForm.animalId}
-            onChange={v =>
-              setEstrusForm({ ...estrusForm, animalId: v })
-            }
+            onChange={v => setEstrusForm({ ...estrusForm, animalId: v })}
             femaleOnly
           />
         </div>
-        <div className="space-y-1.5">
-          <Label>Data *</Label>
-          <Input
-            type="date"
-            value={estrusForm.date}
-            onChange={e =>
-              setEstrusForm({ ...estrusForm, date: e.target.value })
-            }
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <Label>Data de Início *</Label>
+            <Input
+              type="date"
+              value={estrusForm.startDate}
+              onChange={e =>
+                setEstrusForm({ ...estrusForm, startDate: e.target.value })
+              }
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label>Data de Fim</Label>
+            <Input
+              type="date"
+              value={estrusForm.endDate}
+              onChange={e =>
+                setEstrusForm({ ...estrusForm, endDate: e.target.value })
+              }
+            />
+          </div>
         </div>
         <div className="space-y-1.5">
           <Label>Observações</Label>
           <Textarea
             placeholder="Notas..."
-            value={estrusForm.notes}
+            value={estrusForm.observation}
             onChange={e =>
-              setEstrusForm({ ...estrusForm, notes: e.target.value })
+              setEstrusForm({ ...estrusForm, observation: e.target.value })
             }
           />
         </div>
@@ -84,14 +95,15 @@ export function EstrusForm() {
           disabled={
             estrusMutation.isPending ||
             !estrusForm.animalId ||
-            !estrusForm.date
+            !estrusForm.startDate
           }
           onClick={() =>
             estrusMutation.mutate({
               data: {
                 animalId: estrusForm.animalId,
-                startDate: estrusForm.date,
-                notes: estrusForm.notes || undefined,
+                startDate: estrusForm.startDate,
+                endDate: estrusForm.endDate || undefined,
+                observation: estrusForm.observation || undefined,
               },
             })
           }

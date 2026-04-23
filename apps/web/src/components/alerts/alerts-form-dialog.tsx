@@ -19,12 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import {
   getV1AlertsRulesQueryKey,
 } from '@/gen/hooks/alertsController/useGetV1AlertsRules'
 import { usePostV1AlertsRules } from '@/gen/hooks/alertsController/usePostV1AlertsRules'
 
-export const ALERT_TYPES = [
+// Alert condition types aligned with backend AlertRule schema (condition + value)
+export const ALERT_CONDITIONS = [
   { value: 'WEIGHT_BELOW', label: 'Peso abaixo do esperado' },
   { value: 'WEIGHT_ABOVE', label: 'Peso acima do esperado' },
   { value: 'VACCINE_DUE', label: 'Vacina vencendo' },
@@ -34,8 +36,8 @@ export const ALERT_TYPES = [
 
 const INITIAL_ALERT_FORM = {
   name: '',
-  type: '',
-  threshold: '',
+  condition: '',
+  value: '',
 }
 
 export function AlertsFormDialog() {
@@ -75,32 +77,29 @@ export function AlertsFormDialog() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label>Tipo de Alerta *</Label>
+            <Label>Condição *</Label>
             <Select
-              value={form.type}
-              onValueChange={v => setForm({ ...form, type: v })}
+              value={form.condition}
+              onValueChange={v => setForm({ ...form, condition: v })}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo" />
+                <SelectValue placeholder="Selecione a condição" />
               </SelectTrigger>
               <SelectContent>
-                {ALERT_TYPES.map(t => (
-                  <SelectItem key={t.value} value={t.value}>
-                    {t.label}
+                {ALERT_CONDITIONS.map(c => (
+                  <SelectItem key={c.value} value={c.value}>
+                    {c.label}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label>Limite / Threshold</Label>
-            <Input
-              type="number"
-              placeholder="Ex: 300 (kg) ou 7 (dias)"
-              value={form.threshold}
-              onChange={e =>
-                setForm({ ...form, threshold: e.target.value })
-              }
+            <Label>Valor / Threshold</Label>
+            <Textarea
+              placeholder="Ex: 300 (kg), 7 (dias)..."
+              value={form.value}
+              onChange={e => setForm({ ...form, value: e.target.value })}
             />
           </div>
         </div>
@@ -110,16 +109,14 @@ export function AlertsFormDialog() {
           </Button>
           <Button
             disabled={
-              createMutation.isPending || !form.name || !form.type
+              createMutation.isPending || !form.name || !form.condition
             }
             onClick={() =>
               createMutation.mutate({
                 data: {
                   name: form.name,
-                  type: form.type,
-                  threshold: form.threshold
-                    ? Number(form.threshold)
-                    : undefined,
+                  condition: form.condition,
+                  value: form.value || undefined,
                 },
               })
             }

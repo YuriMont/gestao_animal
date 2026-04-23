@@ -90,7 +90,7 @@ export class PrismaHealthRepository implements IHealthRepository {
             animalId: t.animalId,
             diagnosis: t.diagnosis,
             medication: t.medication,
-            dosage: t.dosage,
+            dosage: t.dosage ?? undefined,
             startDate: t.startDate,
             endDate: t.endDate ?? undefined,
             organizationId: t.organizationId,

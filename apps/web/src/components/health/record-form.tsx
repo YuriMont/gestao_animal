@@ -8,11 +8,12 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AnimalSelect } from "./animal-select";
 
+// API schema: animalId, date, description, observation?
 const INITIAL_RECORD_FORM = {
 	animalId: "",
-	recordType: "",
-	description: "",
 	date: "",
+	description: "",
+	observation: "",
 };
 
 export function RecordForm() {
@@ -41,7 +42,7 @@ export function RecordForm() {
 			<CardHeader>
 				<CardTitle className="text-base flex items-center gap-2">
 					<Plus className="size-4" />
-					Novo Registro
+					Novo Registro de Saúde
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="space-y-4">
@@ -52,40 +53,38 @@ export function RecordForm() {
 						onChange={(v) => setRecordForm({ ...recordForm, animalId: v })}
 					/>
 				</div>
-				<div className="grid grid-cols-2 gap-4">
-					<div className="space-y-1.5">
-						<Label>Tipo *</Label>
-						<Input
-							placeholder="Ex: Exame"
-							value={recordForm.recordType}
-							onChange={(e) =>
-								setRecordForm({
-									...recordForm,
-									recordType: e.target.value,
-								})
-							}
-						/>
-					</div>
-					<div className="space-y-1.5">
-						<Label>Data *</Label>
-						<Input
-							type="date"
-							value={recordForm.date}
-							onChange={(e) =>
-								setRecordForm({ ...recordForm, date: e.target.value })
-							}
-						/>
-					</div>
+				<div className="space-y-1.5">
+					<Label>Data *</Label>
+					<Input
+						type="date"
+						value={recordForm.date}
+						onChange={(e) =>
+							setRecordForm({ ...recordForm, date: e.target.value })
+						}
+					/>
 				</div>
 				<div className="space-y-1.5">
 					<Label>Descrição *</Label>
 					<Textarea
-						placeholder="Descreva o registro..."
+						placeholder="Descreva o registro de saúde..."
 						value={recordForm.description}
 						onChange={(e) =>
 							setRecordForm({
 								...recordForm,
 								description: e.target.value,
+							})
+						}
+					/>
+				</div>
+				<div className="space-y-1.5">
+					<Label>Observações</Label>
+					<Textarea
+						placeholder="Observações adicionais..."
+						value={recordForm.observation}
+						onChange={(e) =>
+							setRecordForm({
+								...recordForm,
+								observation: e.target.value,
 							})
 						}
 					/>
@@ -102,7 +101,6 @@ export function RecordForm() {
 					disabled={
 						recordMutation.isPending ||
 						!recordForm.animalId ||
-						!recordForm.recordType ||
 						!recordForm.description ||
 						!recordForm.date
 					}
@@ -110,9 +108,9 @@ export function RecordForm() {
 						recordMutation.mutate({
 							data: {
 								animalId: recordForm.animalId,
-								recordType: recordForm.recordType,
-								description: recordForm.description,
 								date: recordForm.date,
+								description: recordForm.description,
+								observation: recordForm.observation || undefined,
 							},
 						})
 					}

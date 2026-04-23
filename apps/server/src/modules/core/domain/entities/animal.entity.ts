@@ -1,12 +1,13 @@
-import type { AnimalSex, AnimalStatus } from 'generated/prisma'
+import type { AnimalSex, AnimalStatus, Species, AnimalOrigin } from '@prisma/client'
 
 export interface AnimalProps {
   tag: string
-  species: string
-  breed?: string
+  species: Species
+  breedId?: string
+  breedName?: string
   sex: AnimalSex
   birthDate: Date
-  origin?: string
+  origin?: AnimalOrigin
   status: AnimalStatus
   organizationId: string
 }
