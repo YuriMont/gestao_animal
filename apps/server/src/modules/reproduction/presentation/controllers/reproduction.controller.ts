@@ -1,11 +1,13 @@
 import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
 import { Birth } from "@src/modules/reproduction/domain/entities/birth.entity";
 import { Estrus } from "@src/modules/reproduction/domain/entities/estrus.entity";
+import { Insemination } from "@src/modules/reproduction/domain/entities/insemination.entity";
 import { Pregnancy } from "@src/modules/reproduction/domain/entities/pregnancy.entity";
 import { PrismaReproductionRepository } from "@src/modules/reproduction/infrastructure/persistence/reproduction.repository";
 import type {
   CreateBirthDTO,
   CreateEstrusDTO,
+  CreateInseminationDTO,
   CreatePregnancyDTO,
 } from "@src/modules/reproduction/presentation/dtos/reproduction.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
@@ -62,6 +64,27 @@ export const reproductionController = {
     });
   },
 
+  async createInsemination(
+    request: FastifyRequest<{ Body: CreateInseminationDTO }>,
+    reply: FastifyReply,
+  ) {
+    const tenantId = request.tenantId!;
+    const repository = new PrismaReproductionRepository(
+      PrismaService.getInstance(),
+    );
+    const insemination = await repository.createInsemination(
+      Insemination.create({
+        ...request.body,
+        date: request.body.date ?? new Date(),
+        organizationId: tenantId,
+      }),
+    );
+    return reply.status(201).send({
+      message: "Insemination recorded",
+      insemination: { id: insemination.id, ...insemination.props },
+    });
+  },
+
   async getPregnancies(
     request: FastifyRequest<{ Querystring: { page: number; limit: number } }>,
     reply: FastifyReply,
@@ -75,6 +98,28 @@ export const reproductionController = {
       await repository.findPregnanciesByOrganization(tenantId, page, limit);
     return reply.send({
       data: pregnancies.map((item) => ({ id: item.id, ...item.props })),
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  },
+
+  async getInseminations(
+    request: FastifyRequest<{ Querystring: { page: number; limit: number } }>,
+    reply: FastifyReply,
+  ) {
+    const tenantId = request.tenantId!;
+    const { page, limit } = request.query;
+    const repository = new PrismaReproductionRepository(
+      PrismaService.getInstance(),
+    );
+    const { inseminations, total } =
+      await repository.findInseminationsByOrganization(tenantId, page, limit);
+    return reply.send({
+      data: inseminations.map((item) => ({ id: item.id, ...item.props })),
       meta: {
         total,
         page,
@@ -101,6 +146,7 @@ export const reproductionController = {
       estrus: history.estrus.map((e) => ({ id: e.id, ...e.props })),
       pregnancies: history.pregnancies.map((p) => ({ id: p.id, ...p.props })),
       births: history.births.map((b) => ({ id: b.id, ...b.props })),
+      inseminations: history.inseminations.map((i) => ({ id: i.id, ...i.props })),
     });
   },
 };
