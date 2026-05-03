@@ -8,10 +8,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	type GetV1AnimalsQueryParamsStatusEnumKey,
-	type GetV1EnumsAnimalsStatus200,
-} from "@/gen";
+import { type GetV1AnimalsQueryParamsStatusEnumKey } from "@/gen";
+import { getEnumLabel } from "@/lib/enum-labels";
 import { Pencil, Trash2 } from "lucide-react";
 import {
 	Dialog,
@@ -26,7 +24,6 @@ import type { AnimalFormData } from "./types";
 
 interface AnimalTableProps {
 	animals: any[];
-	animalsStatus: GetV1EnumsAnimalsStatus200 | undefined;
 	onEdit: (animal: any) => void;
 	onDelete: (animal: any) => void;
 	editAnimal: null | {
@@ -52,22 +49,15 @@ function statusBadgeVariant(
 	> = {
 		ACTIVE: "success",
 		INACTIVE: "warning",
+		QUARANTINE: "warning",
 		SOLD: "secondary",
 		DECEASED: "destructive",
 	};
 	return variants[status] ?? "outline";
 }
 
-function statusLabel(
-	animalsStatus: GetV1EnumsAnimalsStatus200,
-	status: string,
-) {
-	return animalsStatus.find((item) => item.key === status)?.label ?? status;
-}
-
 export function AnimalTable({
 	animals,
-	animalsStatus,
 	onEdit,
 	onDelete,
 	editAnimal,
@@ -95,17 +85,15 @@ export function AnimalTable({
 							<TableCell className="font-mono font-medium">
 								{animal.tag}
 							</TableCell>
-							<TableCell>{animal.species}</TableCell>
+							<TableCell>{getEnumLabel("species", animal.species)}</TableCell>
 							<TableCell>{animal.breedName ?? "—"}</TableCell>
-							<TableCell>{animal.sex === "MALE" ? "Macho" : "Fêmea"}</TableCell>
+							<TableCell>{getEnumLabel("animalSex", animal.sex)}</TableCell>
 							<TableCell>
 								{new Date(animal.birthDate).toLocaleDateString("pt-BR")}
 							</TableCell>
 							<TableCell>
 								<Badge variant={statusBadgeVariant(animal.status)}>
-									{animalsStatus
-										? statusLabel(animalsStatus, animal.status)
-										: animal.status}
+									{getEnumLabel("animalStatus", animal.status)}
 								</Badge>
 							</TableCell>
 							<TableCell className="text-right">

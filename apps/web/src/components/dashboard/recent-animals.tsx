@@ -11,6 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
+import { getEnumLabel } from '@/lib/enum-labels'
 
 function statusBadgeVariant(
   status: string
@@ -21,20 +22,11 @@ function statusBadgeVariant(
   > = {
     ACTIVE: 'success',
     INACTIVE: 'warning',
+    QUARANTINE: 'warning',
     SOLD: 'secondary',
     DECEASED: 'destructive',
   }
   return variants[status] ?? 'outline'
-}
-
-function statusLabel(status: string) {
-  const labels: Record<string, string> = {
-    ACTIVE: 'Ativo',
-    SOLD: 'Vendido',
-    DECEASED: 'Falecido',
-    INACTIVE: 'Quarentena',
-  }
-  return labels[status] ?? status
 }
 
 export function RecentAnimals() {
@@ -75,14 +67,14 @@ export function RecentAnimals() {
                   <TableCell className="font-mono font-medium">
                     {animal.tag}
                   </TableCell>
-                  <TableCell>{animal.species}</TableCell>
+                  <TableCell>{getEnumLabel('species', animal.species)}</TableCell>
                   <TableCell>{animal.breedName ?? '—'}</TableCell>
                   <TableCell>
-                    {animal.sex === 'MALE' ? 'Macho' : 'Fêmea'}
+                    {getEnumLabel('animalSex', animal.sex)}
                   </TableCell>
                   <TableCell>
                     <Badge variant={statusBadgeVariant(animal.status)}>
-                      {statusLabel(animal.status)}
+                      {getEnumLabel('animalStatus', animal.status)}
                     </Badge>
                   </TableCell>
                 </TableRow>

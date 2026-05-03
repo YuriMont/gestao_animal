@@ -1,4 +1,8 @@
-import z from "zod";
+/**
+ * Translations for all enum keys used in the API.
+ * Single source of truth for Portuguese labels on the frontend.
+ * Keep in sync with apps/server/src/modules/core/presentation/dtos/enums.dto.ts
+ */
 
 const LABELS: Record<string, Record<string, string>> = {
   role: {
@@ -65,17 +69,7 @@ const LABELS: Record<string, Record<string, string>> = {
   },
 };
 
-export const getEnumLabel = (enumName: string, key: string): string =>
-  LABELS[enumName]?.[key] ?? key;
-
-export const getEnumValues = (
-  enumName: string,
-): { key: string; label: string }[] =>
-  Object.keys(LABELS[enumName] ?? {}).map((key) => ({
-    key,
-    label: getEnumLabel(enumName, key),
-  }));
-
-export const enumResponseSchema = z.array(
-  z.object({ key: z.string(), label: z.string() }),
-);
+/** Returns the Portuguese label for an enum key, or the key itself if not found. */
+export function getEnumLabel(enumName: string, key: string): string {
+  return LABELS[enumName]?.[key] ?? key;
+}

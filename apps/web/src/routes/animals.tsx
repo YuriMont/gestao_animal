@@ -285,7 +285,6 @@ function AnimalsPage() {
 							) : (
 								<AnimalTable
 									animals={animals}
-									animalsStatus={animalsStatus}
 									onDelete={handleDelete}
 									onEdit={handleEdit}
 									editAnimal={editAnimal}

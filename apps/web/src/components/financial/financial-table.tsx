@@ -20,6 +20,7 @@ import {
 import { DollarSign } from "lucide-react";
 import { useGetV1EnumsFinancialTypes } from "@/gen/hooks/enumsController/useGetV1EnumsFinancialTypes";
 import { useGetV1FinancialRecords } from "@/gen/hooks/financialController/useGetV1FinancialRecords";
+import { getEnumLabel } from "@/lib/enum-labels";
 
 export function FinancialTable() {
 	const [typeFilter, setTypeFilter] = useState("all");
@@ -85,10 +86,10 @@ export function FinancialTable() {
 											<Badge
 												variant={r.type === "INCOME" ? "success" : "destructive"}
 											>
-												{r.type === "INCOME" ? "Receita" : "Custo"}
+												{getEnumLabel("financialType", r.type)}
 											</Badge>
 										</TableCell>
-										<TableCell>{r.category}</TableCell>
+										<TableCell>{getEnumLabel("financialCategory", r.category)}</TableCell>
 										<TableCell className="text-muted-foreground">
 											{r.description ?? "—"}
 										</TableCell>

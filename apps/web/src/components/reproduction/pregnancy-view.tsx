@@ -188,7 +188,9 @@ export function PregnancyView() {
                     {p.animalId ?? 'Desconhecida'}
                   </span>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline">{p.status}</Badge>
+                    <Badge variant="outline">
+                      {pregnancyStatuses?.find(s => s.key === p.status)?.label ?? p.status}
+                    </Badge>
                     {p.expectedDate && (
                       <Badge variant="default">
                         {new Date(p.expectedDate).toLocaleDateString('pt-BR')}
