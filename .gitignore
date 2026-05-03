@@ -39,3 +39,6 @@ apps/web/src/gen/
 
 # Lock files from other package managers (project uses yarn)
 package-lock.json
+
+# Git worktrees
+.worktrees/
