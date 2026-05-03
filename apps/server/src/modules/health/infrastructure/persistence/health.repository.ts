@@ -1,8 +1,8 @@
-import type { PrismaClient } from '@prisma/client'
-import { HealthRecord } from '@src/modules/health/domain/entities/health-record.entity'
-import { Treatment } from '@src/modules/health/domain/entities/treatment.entity'
-import { Vaccine } from '@src/modules/health/domain/entities/vaccine.entity'
-import type { IHealthRepository } from '@src/modules/health/domain/repositories/health.repository'
+import type { PrismaClient } from "@prisma/client";
+import { HealthRecord } from "@src/modules/health/domain/entities/health-record.entity";
+import { Treatment } from "@src/modules/health/domain/entities/treatment.entity";
+import { Vaccine } from "@src/modules/health/domain/entities/vaccine.entity";
+import type { IHealthRepository } from "@src/modules/health/domain/repositories/health.repository";
 
 export class PrismaHealthRepository implements IHealthRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -16,8 +16,8 @@ export class PrismaHealthRepository implements IHealthRepository {
         observation: record.props.observation ?? undefined,
         organizationId: record.props.organizationId,
       },
-    })
-    return HealthRecord.create({ ...record.props }, created.id)
+    });
+    return HealthRecord.create({ ...record.props }, created.id);
   }
 
   async createVaccine(vaccine: Vaccine): Promise<Vaccine> {
@@ -30,8 +30,8 @@ export class PrismaHealthRepository implements IHealthRepository {
         nextDueDate: vaccine.props.nextDueDate ?? undefined,
         organizationId: vaccine.props.organizationId,
       },
-    })
-    return Vaccine.create({ ...vaccine.props }, created.id)
+    });
+    return Vaccine.create({ ...vaccine.props }, created.id);
   }
 
   async createTreatment(treatment: Treatment): Promise<Treatment> {
@@ -45,8 +45,8 @@ export class PrismaHealthRepository implements IHealthRepository {
         endDate: treatment.props.endDate ?? undefined,
         organizationId: treatment.props.organizationId,
       },
-    })
-    return Treatment.create({ ...treatment.props }, created.id)
+    });
+    return Treatment.create({ ...treatment.props }, created.id);
   }
 
   async findByAnimal(animalId: string, organizationId: string) {
@@ -56,10 +56,10 @@ export class PrismaHealthRepository implements IHealthRepository {
       }),
       this.prisma.vaccine.findMany({ where: { animalId, organizationId } }),
       this.prisma.treatment.findMany({ where: { animalId, organizationId } }),
-    ])
+    ]);
 
     return {
-      records: records.map(r =>
+      records: records.map((r) =>
         HealthRecord.create(
           {
             animalId: r.animalId,
@@ -68,10 +68,10 @@ export class PrismaHealthRepository implements IHealthRepository {
             observation: r.observation ?? undefined,
             organizationId: r.organizationId,
           },
-          r.id
-        )
+          r.id,
+        ),
       ),
-      vaccines: vaccines.map(v =>
+      vaccines: vaccines.map((v) =>
         Vaccine.create(
           {
             animalId: v.animalId,
@@ -81,10 +81,10 @@ export class PrismaHealthRepository implements IHealthRepository {
             nextDueDate: v.nextDueDate ?? undefined,
             organizationId: v.organizationId,
           },
-          v.id
-        )
+          v.id,
+        ),
       ),
-      treatments: treatments.map(t =>
+      treatments: treatments.map((t) =>
         Treatment.create(
           {
             animalId: t.animalId,
@@ -95,9 +95,9 @@ export class PrismaHealthRepository implements IHealthRepository {
             endDate: t.endDate ?? undefined,
             organizationId: t.organizationId,
           },
-          t.id
-        )
+          t.id,
+        ),
       ),
-    }
+    };
   }
 }

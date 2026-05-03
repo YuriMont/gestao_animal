@@ -1,19 +1,19 @@
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 export async function tenantContextHook(
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) {
   // In a real scenario, the tenantId is extracted from the decoded JWT payload
   // For now, we check for a header 'x-tenant-id' for development/testing
-  const tenantId = request.headers['x-tenant-id'] as string
+  const tenantId = request.headers["x-tenant-id"] as string;
 
   if (!tenantId) {
     return reply.status(400).send({
-      error: 'Tenant Missing',
-      message: 'Organization ID (x-tenant-id) must be provided in headers',
-    })
+      error: "Tenant Missing",
+      message: "Organization ID (x-tenant-id) must be provided in headers",
+    });
   }
 
-  request.tenantId = tenantId
+  request.tenantId = tenantId;
 }

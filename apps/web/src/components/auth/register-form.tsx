@@ -40,6 +40,7 @@ export function RegisterForm() {
       onSuccess: () => {
         setRegSuccess('Conta criada com sucesso! Faça login.')
         setRegError('')
+        setRegForm({ name: '', email: '', password: '', organizationId: '' })
       },
       onError: () => setRegError('Erro ao criar conta. Verifique os dados.'),
     },

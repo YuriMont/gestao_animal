@@ -1,43 +1,43 @@
-import { PrismaService } from '@src/infrastructure/persistence/prisma.service'
-import { CreateAnimalUseCase } from '@src/modules/core/application/use-cases/create-animal.use-case'
-import { DeleteAnimalUseCase } from '@src/modules/core/application/use-cases/delete-animal.use-case'
-import { GetAnimalByIdUseCase } from '@src/modules/core/application/use-cases/get-animal-by-id.use-case'
-import { GetAnimalsUseCase } from '@src/modules/core/application/use-cases/get-animals.use-case'
-import { UpdateAnimalUseCase } from '@src/modules/core/application/use-cases/update-animal.use-case'
-import { PrismaAnimalRepository } from '@src/modules/core/infrastructure/persistence/animal.repository'
+import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
+import { CreateAnimalUseCase } from "@src/modules/core/application/use-cases/create-animal.use-case";
+import { DeleteAnimalUseCase } from "@src/modules/core/application/use-cases/delete-animal.use-case";
+import { GetAnimalByIdUseCase } from "@src/modules/core/application/use-cases/get-animal-by-id.use-case";
+import { GetAnimalsUseCase } from "@src/modules/core/application/use-cases/get-animals.use-case";
+import { UpdateAnimalUseCase } from "@src/modules/core/application/use-cases/update-animal.use-case";
+import { PrismaAnimalRepository } from "@src/modules/core/infrastructure/persistence/animal.repository";
 import type {
   CreateAnimalDTO,
   ListAnimalsQueryDTO,
   UpdateAnimalDTO,
-} from '@src/modules/core/presentation/dtos/animal.dto'
-import type { FastifyReply, FastifyRequest } from 'fastify'
+} from "@src/modules/core/presentation/dtos/animal.dto";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 function getRepo() {
-  return new PrismaAnimalRepository(PrismaService.getInstance())
+  return new PrismaAnimalRepository(PrismaService.getInstance());
 }
 
 export const animalController = {
   async create(
     request: FastifyRequest<{ Body: CreateAnimalDTO }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const useCase = new CreateAnimalUseCase(getRepo())
-    const animal = await useCase.execute(request.body, request.tenantId!)
-    return reply.status(201).send({ ...animal.props, id: animal.id })
+    const useCase = new CreateAnimalUseCase(getRepo());
+    const animal = await useCase.execute(request.body, request.tenantId!);
+    return reply.status(201).send({ ...animal.props, id: animal.id });
   },
 
   async list(
     request: FastifyRequest<{ Querystring: ListAnimalsQueryDTO }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const useCase = new GetAnimalsUseCase(getRepo())
-    const result = await useCase.execute(request.tenantId!, request.query)
+    const useCase = new GetAnimalsUseCase(getRepo());
+    const result = await useCase.execute(request.tenantId!, request.query);
 
     return reply.send({
-      data: result.animals.map(a => ({
+      data: result.animals.map((a) => ({
         id: a.id,
         ...a.props,
-        breedName: (a.props as any).breedName ?? null,
+        breedName: a.props.breedName ?? null,
       })),
       meta: {
         total: result.total,
@@ -45,37 +45,45 @@ export const animalController = {
         limit: result.limit,
         totalPages: result.totalPages,
       },
-    })
+    });
   },
 
   async getById(
     request: FastifyRequest<{ Params: { id: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const useCase = new GetAnimalByIdUseCase(getRepo())
-    const animal = await useCase.execute(request.params.id, request.tenantId!)
-    return reply.send({ id: animal.id, ...animal.props, breedName: (animal.props as any).breedName ?? null })
+    const useCase = new GetAnimalByIdUseCase(getRepo());
+    const animal = await useCase.execute(request.params.id, request.tenantId!);
+    return reply.send({
+      id: animal.id,
+      ...animal.props,
+      breedName: animal.props.breedName ?? null,
+    });
   },
 
   async update(
     request: FastifyRequest<{ Params: { id: string }; Body: UpdateAnimalDTO }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const useCase = new UpdateAnimalUseCase(getRepo())
+    const useCase = new UpdateAnimalUseCase(getRepo());
     const animal = await useCase.execute(
       request.params.id,
       request.tenantId!,
-      request.body
-    )
-    return reply.send({ id: animal.id, ...animal.props, breedName: (animal.props as any).breedName ?? null })
+      request.body,
+    );
+    return reply.send({
+      id: animal.id,
+      ...animal.props,
+      breedName: animal.props.breedName ?? null,
+    });
   },
 
   async delete(
     request: FastifyRequest<{ Params: { id: string } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const useCase = new DeleteAnimalUseCase(getRepo())
-    await useCase.execute(request.params.id, request.tenantId!)
-    return reply.status(204).send()
+    const useCase = new DeleteAnimalUseCase(getRepo());
+    await useCase.execute(request.params.id, request.tenantId!);
+    return reply.status(204).send();
   },
-}
+};

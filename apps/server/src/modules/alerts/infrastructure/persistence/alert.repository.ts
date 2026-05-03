@@ -1,6 +1,6 @@
-import type { PrismaClient } from '@prisma/client'
-import { AlertRule } from '@src/modules/alerts/domain/entities/alert-rule.entity'
-import type { IAlertRepository } from '@src/modules/alerts/domain/repositories/alert.repository'
+import type { PrismaClient } from "@prisma/client";
+import { AlertRule } from "@src/modules/alerts/domain/entities/alert-rule.entity";
+import type { IAlertRepository } from "@src/modules/alerts/domain/repositories/alert.repository";
 
 export class PrismaAlertRepository implements IAlertRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -13,26 +13,26 @@ export class PrismaAlertRepository implements IAlertRepository {
         value: rule.props.value,
         organizationId: rule.props.organizationId,
       },
-    })
-    return AlertRule.create({ ...rule.props }, created.id)
+    });
+    return AlertRule.create({ ...rule.props }, created.id);
   }
 
   async findRulesByOrganization(
     organizationId: string,
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<{ rules: AlertRule[]; total: number }> {
-    const skip = (page - 1) * limit
+    const skip = (page - 1) * limit;
     const rules = await this.prisma.alertRule.findMany({
       where: { organizationId },
       skip,
       take: limit,
-    })
+    });
     const total = await this.prisma.alertRule.count({
       where: { organizationId },
-    })
+    });
     return {
-      rules: rules.map(r =>
+      rules: rules.map((r) =>
         AlertRule.create(
           {
             name: r.name,
@@ -40,10 +40,10 @@ export class PrismaAlertRepository implements IAlertRepository {
             value: r.value ?? undefined,
             organizationId: r.organizationId,
           },
-          r.id
-        )
+          r.id,
+        ),
       ),
       total,
-    }
+    };
   }
 }

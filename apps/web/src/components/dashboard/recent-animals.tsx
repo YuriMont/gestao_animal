@@ -19,20 +19,20 @@ function statusBadgeVariant(
     string,
     'default' | 'secondary' | 'destructive' | 'success' | 'warning' | 'outline'
   > = {
-    Active: 'success',
-    Quarantine: 'warning',
-    Sold: 'secondary',
-    Deceased: 'destructive',
+    ACTIVE: 'success',
+    INACTIVE: 'warning',
+    SOLD: 'secondary',
+    DECEASED: 'destructive',
   }
   return variants[status] ?? 'outline'
 }
 
 function statusLabel(status: string) {
   const labels: Record<string, string> = {
-    Active: 'Ativo',
-    Sold: 'Vendido',
-    Deceased: 'Falecido',
-    Quarantine: 'Quarentena',
+    ACTIVE: 'Ativo',
+    SOLD: 'Vendido',
+    DECEASED: 'Falecido',
+    INACTIVE: 'Quarentena',
   }
   return labels[status] ?? status
 }
@@ -76,7 +76,7 @@ export function RecentAnimals() {
                     {animal.tag}
                   </TableCell>
                   <TableCell>{animal.species}</TableCell>
-                  <TableCell>{animal.breed ?? '—'}</TableCell>
+                  <TableCell>{animal.breedName ?? '—'}</TableCell>
                   <TableCell>
                     {animal.sex === 'MALE' ? 'Macho' : 'Fêmea'}
                   </TableCell>

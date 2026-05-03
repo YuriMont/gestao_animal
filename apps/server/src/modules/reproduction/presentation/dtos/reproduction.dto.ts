@@ -1,54 +1,54 @@
-import { PregnancyStatus, BirthStatus } from '@prisma/client';
+import { BirthStatus, PregnancyStatus } from "@prisma/client";
 import z from "zod";
 
 export const createEstrusSchema = z.object({
-	animalId: z.string(),
-	startDate: z.coerce.date(),
-	endDate: z.coerce.date().optional(),
-	observation: z.string().optional(),
+  animalId: z.string(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date().optional(),
+  observation: z.string().optional(),
 });
 
 export const estrusResponseSchema = z.object({
-	id: z.string(),
-	animalId: z.string(),
-	startDate: z.date(),
-	endDate: z.date().optional(),
-	observation: z.string().optional(),
-	organizationId: z.string(),
+  id: z.string(),
+  animalId: z.string(),
+  startDate: z.date(),
+  endDate: z.date().optional(),
+  observation: z.string().optional(),
+  organizationId: z.string(),
 });
 
 export const createPregnancySchema = z.object({
-	animalId: z.string(),
-	detectedDate: z.coerce.date(),
-	expectedDate: z.coerce.date().optional(),
-	status: z.nativeEnum(PregnancyStatus),
+  animalId: z.string(),
+  detectedDate: z.coerce.date(),
+  expectedDate: z.coerce.date().optional(),
+  status: z.nativeEnum(PregnancyStatus),
 });
 
 export const pregnancyResponseSchema = z.object({
-	id: z.string(),
-	animalId: z.string(),
-	detectedDate: z.date(),
-	expectedDate: z.date().optional(),
-	status: z.nativeEnum(PregnancyStatus),
-	organizationId: z.string(),
+  id: z.string(),
+  animalId: z.string(),
+  detectedDate: z.date(),
+  expectedDate: z.date().optional(),
+  status: z.nativeEnum(PregnancyStatus),
+  organizationId: z.string(),
 });
 
 export const createBirthSchema = z.object({
-	motherId: z.string(),
-	fatherId: z.string().optional(),
-	birthDate: z.coerce.date(),
-	offspringTag: z.string().optional(),
-	status: z.nativeEnum(BirthStatus),
+  motherId: z.string(),
+  fatherId: z.string().optional(),
+  birthDate: z.coerce.date(),
+  offspringTag: z.string().optional(),
+  status: z.nativeEnum(BirthStatus),
 });
 
 export const birthResponseSchema = z.object({
-	id: z.string(),
-	motherId: z.string(),
-	fatherId: z.string().optional(),
-	birthDate: z.date(),
-	offspringTag: z.string().optional(),
-	status: z.nativeEnum(BirthStatus),
-	organizationId: z.string(),
+  id: z.string(),
+  motherId: z.string(),
+  fatherId: z.string().optional(),
+  birthDate: z.date(),
+  offspringTag: z.string().optional(),
+  status: z.nativeEnum(BirthStatus),
+  organizationId: z.string(),
 });
 
 export type CreateEstrusDTO = z.infer<typeof createEstrusSchema>;

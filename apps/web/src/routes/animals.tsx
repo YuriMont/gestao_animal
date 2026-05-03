@@ -87,13 +87,17 @@ function AnimalsPage() {
 	const animals = animalsQuery.data?.data ?? [];
 	const meta = animalsQuery.data?.meta;
 
+	const [mutationError, setMutationError] = useState<string | null>(null);
+
 	const createMutation = usePostV1Animals({
 		mutation: {
 			onSuccess: () => {
 				qc.invalidateQueries({ queryKey: getV1AnimalsQueryKey() });
 				setCreateOpen(false);
 				setForm(defaultForm);
+				setMutationError(null);
 			},
+			onError: () => setMutationError("Erro ao criar animal. Tente novamente."),
 		},
 	});
 
@@ -102,7 +106,10 @@ function AnimalsPage() {
 			onSuccess: () => {
 				qc.invalidateQueries({ queryKey: getV1AnimalsQueryKey() });
 				setEditAnimal(null);
+				setMutationError(null);
 			},
+			onError: () =>
+				setMutationError("Erro ao atualizar animal. Tente novamente."),
 		},
 	});
 
@@ -112,6 +119,8 @@ function AnimalsPage() {
 				qc.invalidateQueries({ queryKey: getV1AnimalsQueryKey() });
 				setEditAnimal(null);
 			},
+			onError: () =>
+				setMutationError("Erro ao excluir animal. Tente novamente."),
 		},
 	});
 
@@ -191,6 +200,9 @@ function AnimalsPage() {
 								<DialogTitle>Novo Animal</DialogTitle>
 							</DialogHeader>
 							<AnimalForm form={form} onChange={setForm} />
+							{mutationError && (
+								<p className="text-sm text-destructive">{mutationError}</p>
+							)}
 							<DialogFooter>
 								<Button variant="outline" onClick={() => setCreateOpen(false)}>
 									Cancelar

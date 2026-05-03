@@ -1,17 +1,21 @@
-import { NotFoundError } from '@src/common/errors/app-error'
-import { Animal } from '@src/modules/core/domain/entities/animal.entity'
-import type { IAnimalRepository } from '@src/modules/core/domain/repositories/animal.repository'
-
-import type { AnimalSex, AnimalStatus, Species, AnimalOrigin } from '@prisma/client'
+import type {
+  AnimalOrigin,
+  AnimalSex,
+  AnimalStatus,
+  Species,
+} from "@prisma/client";
+import { NotFoundError } from "@src/common/errors/app-error";
+import { Animal } from "@src/modules/core/domain/entities/animal.entity";
+import type { IAnimalRepository } from "@src/modules/core/domain/repositories/animal.repository";
 
 export interface UpdateAnimalData {
-  tag?: string
-  species?: Species
-  breedId?: string
-  sex?: AnimalSex
-  birthDate?: Date
-  origin?: AnimalOrigin
-  status?: AnimalStatus
+  tag?: string;
+  species?: Species;
+  breedId?: string;
+  sex?: AnimalSex;
+  birthDate?: Date;
+  origin?: AnimalOrigin;
+  status?: AnimalStatus;
 }
 
 export class UpdateAnimalUseCase {
@@ -20,10 +24,10 @@ export class UpdateAnimalUseCase {
   async execute(
     id: string,
     organizationId: string,
-    data: UpdateAnimalData
+    data: UpdateAnimalData,
   ): Promise<Animal> {
-    const existing = await this.animalRepository.findById(id, organizationId)
-    if (!existing) throw new NotFoundError('Animal')
+    const existing = await this.animalRepository.findById(id, organizationId);
+    if (!existing) throw new NotFoundError("Animal");
 
     const updated = Animal.create(
       {
@@ -36,9 +40,9 @@ export class UpdateAnimalUseCase {
         status: data.status ?? existing.props.status,
         organizationId: existing.props.organizationId,
       },
-      id
-    )
+      id,
+    );
 
-    return this.animalRepository.update(updated)
+    return this.animalRepository.update(updated);
   }
 }

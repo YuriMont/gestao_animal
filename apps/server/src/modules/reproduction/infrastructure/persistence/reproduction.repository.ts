@@ -1,8 +1,8 @@
-import type { PrismaClient } from '@prisma/client'
-import { Birth } from '@src/modules/reproduction/domain/entities/birth.entity'
-import { Estrus } from '@src/modules/reproduction/domain/entities/estrus.entity'
-import { Pregnancy } from '@src/modules/reproduction/domain/entities/pregnancy.entity'
-import type { IReproductionRepository } from '@src/modules/reproduction/domain/repositories/reproduction.repository'
+import type { PrismaClient } from "@prisma/client";
+import { Birth } from "@src/modules/reproduction/domain/entities/birth.entity";
+import { Estrus } from "@src/modules/reproduction/domain/entities/estrus.entity";
+import { Pregnancy } from "@src/modules/reproduction/domain/entities/pregnancy.entity";
+import type { IReproductionRepository } from "@src/modules/reproduction/domain/repositories/reproduction.repository";
 
 export class PrismaReproductionRepository implements IReproductionRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -16,8 +16,8 @@ export class PrismaReproductionRepository implements IReproductionRepository {
         observation: estrus.props.observation,
         organizationId: estrus.props.organizationId,
       },
-    })
-    return Estrus.create({ ...estrus.props }, created.id)
+    });
+    return Estrus.create({ ...estrus.props }, created.id);
   }
 
   async createPregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
@@ -29,8 +29,8 @@ export class PrismaReproductionRepository implements IReproductionRepository {
         status: pregnancy.props.status,
         organizationId: pregnancy.props.organizationId,
       },
-    })
-    return Pregnancy.create({ ...pregnancy.props }, created.id)
+    });
+    return Pregnancy.create({ ...pregnancy.props }, created.id);
   }
 
   async createBirth(birth: Birth): Promise<Birth> {
@@ -43,26 +43,26 @@ export class PrismaReproductionRepository implements IReproductionRepository {
         status: birth.props.status,
         organizationId: birth.props.organizationId,
       },
-    })
-    return Birth.create({ ...birth.props }, created.id)
+    });
+    return Birth.create({ ...birth.props }, created.id);
   }
 
   async findPregnanciesByOrganization(
     organizationId: string,
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<{ pregnancies: Pregnancy[]; total: number }> {
-    const skip = (page - 1) * limit
+    const skip = (page - 1) * limit;
     const results = await this.prisma.pregnancy.findMany({
       where: { organizationId },
       skip,
       take: limit,
-    })
+    });
     const total = await this.prisma.pregnancy.count({
       where: { organizationId },
-    })
+    });
     return {
-      pregnancies: results.map(p =>
+      pregnancies: results.map((p) =>
         Pregnancy.create(
           {
             animalId: p.animalId,
@@ -71,16 +71,16 @@ export class PrismaReproductionRepository implements IReproductionRepository {
             status: p.status,
             organizationId: p.organizationId,
           },
-          p.id
-        )
+          p.id,
+        ),
       ),
       total,
-    }
+    };
   }
 
   async findReproductionHistoryByAnimal(
     animalId: string,
-    organizationId: string
+    organizationId: string,
   ) {
     const [estrus, pregnancies, births] = await Promise.all([
       this.prisma.estrus.findMany({ where: { animalId, organizationId } }),
@@ -91,10 +91,10 @@ export class PrismaReproductionRepository implements IReproductionRepository {
           organizationId,
         },
       }),
-    ])
+    ]);
 
     return {
-      estrus: estrus.map(e =>
+      estrus: estrus.map((e) =>
         Estrus.create(
           {
             animalId: e.animalId,
@@ -103,10 +103,10 @@ export class PrismaReproductionRepository implements IReproductionRepository {
             observation: e.observation ?? undefined,
             organizationId: e.organizationId,
           },
-          e.id
-        )
+          e.id,
+        ),
       ),
-      pregnancies: pregnancies.map(p =>
+      pregnancies: pregnancies.map((p) =>
         Pregnancy.create(
           {
             animalId: p.animalId,
@@ -115,10 +115,10 @@ export class PrismaReproductionRepository implements IReproductionRepository {
             status: p.status,
             organizationId: p.organizationId,
           },
-          p.id
-        )
+          p.id,
+        ),
       ),
-      births: births.map(b =>
+      births: births.map((b) =>
         Birth.create(
           {
             motherId: b.motherId,
@@ -128,9 +128,9 @@ export class PrismaReproductionRepository implements IReproductionRepository {
             status: b.status,
             organizationId: b.organizationId,
           },
-          b.id
-        )
+          b.id,
+        ),
       ),
-    }
+    };
   }
 }

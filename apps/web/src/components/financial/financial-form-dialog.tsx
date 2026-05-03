@@ -48,6 +48,8 @@ export function FinancialFormDialog() {
 	const { data: financialCategories } = useGetV1EnumsFinancialCategories();
 	const [form, setForm] = useState(INITIAL_FINANCIAL_FORM);
 
+	const [error, setError] = useState<string | null>(null);
+
 	const createMutation = usePostV1FinancialRecords({
 		mutation: {
 			onSuccess: () => {
@@ -55,7 +57,9 @@ export function FinancialFormDialog() {
 				qc.invalidateQueries({ queryKey: getV1FinancialSummaryQueryKey() });
 				setOpen(false);
 				setForm(INITIAL_FINANCIAL_FORM);
+				setError(null);
 			},
+			onError: () => setError("Erro ao salvar lançamento. Tente novamente."),
 		},
 	});
 
@@ -150,6 +154,7 @@ export function FinancialFormDialog() {
 						/>
 					</div>
 				</div>
+				{error && <p className="text-sm text-destructive">{error}</p>}
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>
 						Cancelar

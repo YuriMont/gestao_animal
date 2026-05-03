@@ -103,7 +103,9 @@ export function AnimalTable({
 							</TableCell>
 							<TableCell>
 								<Badge variant={statusBadgeVariant(animal.status)}>
-									{statusLabel(animalsStatus!, animal.status)}
+									{animalsStatus
+										? statusLabel(animalsStatus, animal.status)
+										: animal.status}
 								</Badge>
 							</TableCell>
 							<TableCell className="text-right">

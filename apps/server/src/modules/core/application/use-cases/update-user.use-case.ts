@@ -1,10 +1,10 @@
-import { NotFoundError } from '@src/common/errors/app-error'
-import { User } from '@src/modules/core/domain/entities/user.entity'
-import type { IUserRepository } from '@src/modules/core/domain/repositories/user.repository'
+import { NotFoundError } from "@src/common/errors/app-error";
+import { User } from "@src/modules/core/domain/entities/user.entity";
+import type { IUserRepository } from "@src/modules/core/domain/repositories/user.repository";
 
 export interface UpdateUserData {
-  name?: string
-  role?: 'VET' | 'MANAGER' | 'OPERATOR'
+  name?: string;
+  role?: "VET" | "MANAGER" | "OPERATOR";
 }
 
 export class UpdateUserUseCase {
@@ -13,11 +13,11 @@ export class UpdateUserUseCase {
   async execute(
     id: string,
     organizationId: string,
-    data: UpdateUserData
+    data: UpdateUserData,
   ): Promise<User> {
-    const existing = await this.userRepository.findById(id)
+    const existing = await this.userRepository.findById(id);
     if (!existing || existing.props.organizationId !== organizationId) {
-      throw new NotFoundError('User')
+      throw new NotFoundError("User");
     }
 
     const updated = User.create(
@@ -28,9 +28,9 @@ export class UpdateUserUseCase {
         role: data.role ?? existing.props.role,
         organizationId: existing.props.organizationId,
       },
-      id
-    )
+      id,
+    );
 
-    return this.userRepository.update(updated)
+    return this.userRepository.update(updated);
   }
 }

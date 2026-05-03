@@ -1,67 +1,64 @@
-import { PrismaService } from '@src/infrastructure/persistence/prisma.service'
-import { PrismaFinancialRepository } from '@src/modules/financial/infrastructure/persistence/financial.repository'
-import type { CreateFinancialRecordDTO } from '@src/modules/financial/presentation/dtos/financial.dto'
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
+import { FinancialRecord } from "@src/modules/financial/domain/entities/financial-record.entity";
+import { PrismaFinancialRepository } from "@src/modules/financial/infrastructure/persistence/financial.repository";
+import type { CreateFinancialRecordDTO } from "@src/modules/financial/presentation/dtos/financial.dto";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 export const financialController = {
   async create(
     request: FastifyRequest<{ Body: CreateFinancialRecordDTO }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const tenantId = request.tenantId
+    const tenantId = request.tenantId!;
     const repository = new PrismaFinancialRepository(
-      PrismaService.getInstance()
-    )
+      PrismaService.getInstance(),
+    );
 
-    try {
-      const record = await repository.create({
+    const record = await repository.create(
+      FinancialRecord.create({
         ...request.body,
-        date: request.body.date || new Date(),
-        organizationId: tenantId!,
-      } as any)
-      return reply
-        .status(201)
-        .send({ message: 'Financial record created', record })
-    } catch (error: any) {
-      return reply
-        .status(400)
-        .send({ error: 'Bad Request', message: error.message })
-    }
+        date: request.body.date ?? new Date(),
+        organizationId: tenantId,
+      }),
+    );
+    return reply.status(201).send({
+      message: "Financial record created",
+      record: { id: record.id, ...record.props },
+    });
   },
 
   async getSummary(request: FastifyRequest, reply: FastifyReply) {
-    const tenantId = request.tenantId
+    const tenantId = request.tenantId!;
     const repository = new PrismaFinancialRepository(
-      PrismaService.getInstance()
-    )
-    const summary = await repository.getSummary(tenantId!)
-
-    return reply.send(summary)
+      PrismaService.getInstance(),
+    );
+    const summary = await repository.getSummary(tenantId);
+    return reply.send(summary);
   },
 
   async list(
     request: FastifyRequest<{ Querystring: { page: number; limit: number } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
-    const tenantId = request.tenantId
-    const { page, limit } = request.query
+    const tenantId = request.tenantId!;
+    const { page, limit } = request.query;
     const repository = new PrismaFinancialRepository(
-      PrismaService.getInstance()
-    )
+      PrismaService.getInstance(),
+    );
     const { records, total } = await repository.listByOrganization(
-      tenantId!,
+      tenantId,
       page,
-      limit
-    )
+      limit,
+    );
 
     return reply.send({
-      data: records.map(item => ({ id: item.id, ...item.props })),
+      data: records.map((item) => ({ id: item.id, ...item.props })),
       meta: {
         total,
         page,
         limit,
         totalPages: Math.ceil(total / limit),
       },
-    })
+    });
   },
-}
+};

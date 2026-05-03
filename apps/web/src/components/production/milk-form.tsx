@@ -17,10 +17,9 @@ import { AnimalSelect } from '@/components/health/animal-select'
 
 const INITIAL_MILK_FORM = {
   animalId: '',
-  liters: '',
+  quantity: '',
+  unit: 'L',
   date: '',
-  session: '',
-  notes: '',
 }
 
 export function MilkForm() {
@@ -56,57 +55,45 @@ export function MilkForm() {
           <AnimalSelect
             value={milkForm.animalId}
             onChange={v => setMilkForm({ ...milkForm, animalId: v })}
+            femaleOnly
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Litros *</Label>
+            <Label>Quantidade *</Label>
             <Input
               type="number"
               step="0.1"
               placeholder="Ex: 20.5"
-              value={milkForm.liters}
+              value={milkForm.quantity}
               onChange={e =>
-                setMilkForm({ ...milkForm, liters: e.target.value })
+                setMilkForm({ ...milkForm, quantity: e.target.value })
               }
             />
           </div>
           <div className="space-y-1.5">
-            <Label>Data *</Label>
-            <Input
-              type="date"
-              value={milkForm.date}
-              onChange={e =>
-                setMilkForm({ ...milkForm, date: e.target.value })
-              }
-            />
+            <Label>Unidade *</Label>
+            <Select
+              value={milkForm.unit}
+              onValueChange={v => setMilkForm({ ...milkForm, unit: v })}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="L">Litros (L)</SelectItem>
+                <SelectItem value="mL">Mililitros (mL)</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="space-y-1.5">
-          <Label>Turno</Label>
-          <Select
-            value={milkForm.session}
-            onValueChange={v =>
-              setMilkForm({ ...milkForm, session: v })
-            }
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione o turno" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="morning">Manhã</SelectItem>
-              <SelectItem value="afternoon">Tarde</SelectItem>
-              <SelectItem value="evening">Noite</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-1.5">
-          <Label>Observações</Label>
-          <Textarea
-            placeholder="Notas..."
-            value={milkForm.notes}
+          <Label>Data *</Label>
+          <Input
+            type="date"
+            value={milkForm.date}
             onChange={e =>
-              setMilkForm({ ...milkForm, notes: e.target.value })
+              setMilkForm({ ...milkForm, date: e.target.value })
             }
           />
         </div>
@@ -122,17 +109,16 @@ export function MilkForm() {
           disabled={
             milkMutation.isPending ||
             !milkForm.animalId ||
-            !milkForm.liters ||
+            !milkForm.quantity ||
             !milkForm.date
           }
           onClick={() =>
             milkMutation.mutate({
               data: {
                 animalId: milkForm.animalId,
-                liters: Number(milkForm.liters),
-                date: milkForm.date,
-                session: milkForm.session || undefined,
-                notes: milkForm.notes || undefined,
+                quantity: Number(milkForm.quantity),
+                unit: milkForm.unit,
+                date: milkForm.date || undefined,
               },
             })
           }

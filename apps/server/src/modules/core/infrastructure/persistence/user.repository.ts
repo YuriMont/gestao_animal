@@ -1,21 +1,21 @@
-import type { PrismaClient } from '@prisma/client'
-import { User } from '@src/modules/core/domain/entities/user.entity'
+import type { PrismaClient, User as PrismaUser } from "@prisma/client";
+import { User } from "@src/modules/core/domain/entities/user.entity";
 import type {
   IUserRepository,
   PaginatedUsers,
-} from '@src/modules/core/domain/repositories/user.repository'
+} from "@src/modules/core/domain/repositories/user.repository";
 
-function toEntity(u: any): User {
+function toEntity(u: PrismaUser): User {
   return User.create(
     {
       email: u.email,
       password: u.password,
       name: u.name,
-      role: u.role as any,
+      role: u.role as "VET" | "MANAGER" | "OPERATOR",
       organizationId: u.organizationId,
     },
-    u.id
-  )
+    u.id,
+  );
 }
 
 export class PrismaUserRepository implements IUserRepository {
@@ -30,37 +30,37 @@ export class PrismaUserRepository implements IUserRepository {
         role: user.props.role,
         organizationId: user.props.organizationId,
       },
-    })
-    return toEntity(created)
+    });
+    return toEntity(created);
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { email } })
-    return user ? toEntity(user) : null
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    return user ? toEntity(user) : null;
   }
 
   async findById(id: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { id } })
-    return user ? toEntity(user) : null
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    return user ? toEntity(user) : null;
   }
 
   async listByOrganization(
     organizationId: string,
     page = 1,
-    limit = 20
+    limit = 20,
   ): Promise<PaginatedUsers> {
-    const skip = (page - 1) * limit
-    const where = { organizationId }
+    const skip = (page - 1) * limit;
+    const where = { organizationId };
 
     const [users, total] = await this.prisma.$transaction([
       this.prisma.user.findMany({
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       }),
       this.prisma.user.count({ where }),
-    ])
+    ]);
 
     return {
       users: users.map(toEntity),
@@ -68,7 +68,7 @@ export class PrismaUserRepository implements IUserRepository {
       page,
       limit,
       totalPages: Math.ceil(total / limit),
-    }
+    };
   }
 
   async update(user: User): Promise<User> {
@@ -78,11 +78,11 @@ export class PrismaUserRepository implements IUserRepository {
         name: user.props.name,
         role: user.props.role,
       },
-    })
-    return toEntity(updated)
+    });
+    return toEntity(updated);
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.user.delete({ where: { id } })
+    await this.prisma.user.delete({ where: { id } });
   }
 }

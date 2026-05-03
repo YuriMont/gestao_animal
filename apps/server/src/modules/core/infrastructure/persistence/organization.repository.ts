@@ -1,6 +1,6 @@
-import type { PrismaClient } from '@prisma/client'
-import { Organization } from '@src/modules/core/domain/entities/organization.entity'
-import type { IOrganizationRepository } from '@src/modules/core/domain/repositories/organization.repository'
+import type { PrismaClient } from "@prisma/client";
+import { Organization } from "@src/modules/core/domain/entities/organization.entity";
+import type { IOrganizationRepository } from "@src/modules/core/domain/repositories/organization.repository";
 
 export class PrismaOrganizationRepository implements IOrganizationRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -10,7 +10,7 @@ export class PrismaOrganizationRepository implements IOrganizationRepository {
       data: {
         name: organization.props.name,
       },
-    })
+    });
 
     return Organization.create(
       {
@@ -18,16 +18,16 @@ export class PrismaOrganizationRepository implements IOrganizationRepository {
         createdAt: created.createdAt,
         updatedAt: created.updatedAt,
       },
-      created.id
-    )
+      created.id,
+    );
   }
 
   async findById(id: string): Promise<Organization | null> {
     const org = await this.prisma.organization.findUnique({
       where: { id },
-    })
+    });
 
-    if (!org) return null
+    if (!org) return null;
 
     return Organization.create(
       {
@@ -35,22 +35,22 @@ export class PrismaOrganizationRepository implements IOrganizationRepository {
         createdAt: org.createdAt,
         updatedAt: org.updatedAt,
       },
-      org.id
-    )
+      org.id,
+    );
   }
 
   async list(): Promise<Organization[]> {
-    const orgs = await this.prisma.organization.findMany()
-    return orgs.map(o =>
+    const orgs = await this.prisma.organization.findMany();
+    return orgs.map((o) =>
       Organization.create(
         {
           name: o.name,
           createdAt: o.createdAt,
           updatedAt: o.updatedAt,
         },
-        o.id
-      )
-    )
+        o.id,
+      ),
+    );
   }
 
   async update(organization: Organization): Promise<Organization> {
@@ -59,7 +59,7 @@ export class PrismaOrganizationRepository implements IOrganizationRepository {
       data: {
         name: organization.props.name,
       },
-    })
+    });
 
     return Organization.create(
       {
@@ -67,13 +67,13 @@ export class PrismaOrganizationRepository implements IOrganizationRepository {
         createdAt: updated.createdAt,
         updatedAt: updated.updatedAt,
       },
-      updated.id
-    )
+      updated.id,
+    );
   }
 
   async delete(id: string): Promise<void> {
     await this.prisma.organization.delete({
       where: { id },
-    })
+    });
   }
 }
