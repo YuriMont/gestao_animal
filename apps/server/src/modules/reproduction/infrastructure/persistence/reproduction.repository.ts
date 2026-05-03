@@ -60,7 +60,7 @@ export class PrismaReproductionRepository implements IReproductionRepository {
         organizationId: insemination.props.organizationId,
       },
     });
-    return Insemination.create({ ...insemination.props }, created.id);
+    return Insemination.create({ ...insemination.props, date: created.date }, created.id);
   }
 
   async findPregnanciesByOrganization(
@@ -69,14 +69,16 @@ export class PrismaReproductionRepository implements IReproductionRepository {
     limit: number = 20,
   ): Promise<{ pregnancies: Pregnancy[]; total: number }> {
     const skip = (page - 1) * limit;
-    const results = await this.prisma.pregnancy.findMany({
-      where: { organizationId },
-      skip,
-      take: limit,
-    });
-    const total = await this.prisma.pregnancy.count({
-      where: { organizationId },
-    });
+    const [results, total] = await Promise.all([
+      this.prisma.pregnancy.findMany({
+        where: { organizationId },
+        skip,
+        take: limit,
+      }),
+      this.prisma.pregnancy.count({
+        where: { organizationId },
+      }),
+    ]);
     return {
       pregnancies: results.map((p) =>
         Pregnancy.create(
@@ -131,7 +133,12 @@ export class PrismaReproductionRepository implements IReproductionRepository {
   async findReproductionHistoryByAnimal(
     animalId: string,
     organizationId: string,
-  ) {
+  ): Promise<{
+    estrus: Estrus[];
+    pregnancies: Pregnancy[];
+    births: Birth[];
+    inseminations: Insemination[];
+  }> {
     const [estrus, pregnancies, births, inseminations] = await Promise.all([
       this.prisma.estrus.findMany({ where: { animalId, organizationId } }),
       this.prisma.pregnancy.findMany({ where: { animalId, organizationId } }),
