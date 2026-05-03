@@ -6,8 +6,10 @@ import {
   birthResponseSchema,
   createBirthSchema,
   createEstrusSchema,
+  createInseminationSchema,
   createPregnancySchema,
   estrusResponseSchema,
+  inseminationResponseSchema,
   pregnancyResponseSchema,
 } from "./dtos/reproduction.dto";
 
@@ -66,6 +68,51 @@ export default async function reproductionRoutes(app: FastifyInstance) {
     reproductionController.createBirth,
   );
 
+  app.post(
+    "/reproduction/inseminations",
+    {
+      schema: {
+        tags: ["Reproduction"],
+        summary: "Create insemination record",
+        description:
+          "Register an insemination event for a female animal. Supports natural mating, artificial insemination, and embryo transfer. Links optionally to a male animal and tracks semen batch and outcome.",
+        security: [{ bearerAuth: [] }],
+        body: createInseminationSchema,
+        response: {
+          201: z.object({
+            message: z.string(),
+            insemination: inseminationResponseSchema,
+          }),
+        },
+      },
+    },
+    reproductionController.createInsemination,
+  );
+
+  app.get(
+    "/reproduction/inseminations",
+    {
+      schema: {
+        tags: ["Reproduction"],
+        summary: "Get insemination records",
+        description:
+          "Retrieve a paginated list of insemination records for the organization. Returns all registered insemination events sorted by date descending.",
+        security: [{ bearerAuth: [] }],
+        querystring: z.object({
+          page: z.coerce.number().int().min(1).default(1),
+          limit: z.coerce.number().int().min(1).max(100).default(20),
+        }),
+        response: {
+          200: z.object({
+            data: z.array(inseminationResponseSchema),
+            meta: paginationMetaSchema,
+          }),
+        },
+      },
+    },
+    reproductionController.getInseminations,
+  );
+
   app.get(
     "/reproduction/pregnancies",
     {
@@ -103,6 +150,7 @@ export default async function reproductionRoutes(app: FastifyInstance) {
             estrus: z.array(estrusResponseSchema),
             pregnancies: z.array(pregnancyResponseSchema),
             births: z.array(birthResponseSchema),
+            inseminations: z.array(inseminationResponseSchema),
           }),
         },
       },
