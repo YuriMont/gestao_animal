@@ -79,3 +79,11 @@ export const getEnumValues = (
 export const enumResponseSchema = z.array(
   z.object({ key: z.string(), label: z.string() }),
 );
+
+export const createTranslatedEnumSchema = <T extends z.EnumLike>(
+  enumObj: T,
+) => z.object({
+  key: z.nativeEnum(enumObj),
+  label: z.string(),
+});
+

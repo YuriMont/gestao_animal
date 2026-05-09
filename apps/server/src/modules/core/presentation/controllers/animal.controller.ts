@@ -11,6 +11,20 @@ import type {
   UpdateAnimalDTO,
 } from "@src/modules/core/presentation/dtos/animal.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
+
+function mapAnimalResponse(animal: any) {
+  const props = animal.props ? animal.props : animal;
+  return {
+    ...props,
+    id: animal.id,
+    breedName: props.breedName ?? null,
+    species: { key: props.species, label: getEnumLabel("species", props.species) },
+    sex: { key: props.sex, label: getEnumLabel("animalSex", props.sex) },
+    status: { key: props.status, label: getEnumLabel("animalStatus", props.status) },
+    origin: props.origin ? { key: props.origin, label: getEnumLabel("animalOrigin", props.origin) } : undefined,
+  };
+}
 
 function getRepo() {
   return new PrismaAnimalRepository(PrismaService.getInstance());
@@ -23,7 +37,7 @@ export const animalController = {
   ) {
     const useCase = new CreateAnimalUseCase(getRepo());
     const animal = await useCase.execute(request.body, request.tenantId!);
-    return reply.status(201).send({ ...animal.props, id: animal.id });
+    return reply.status(201).send(mapAnimalResponse(animal));
   },
 
   async list(
@@ -34,11 +48,7 @@ export const animalController = {
     const result = await useCase.execute(request.tenantId!, request.query);
 
     return reply.send({
-      data: result.animals.map((a) => ({
-        id: a.id,
-        ...a.props,
-        breedName: a.props.breedName ?? null,
-      })),
+      data: result.animals.map(mapAnimalResponse),
       meta: {
         total: result.total,
         page: result.page,
@@ -54,11 +64,7 @@ export const animalController = {
   ) {
     const useCase = new GetAnimalByIdUseCase(getRepo());
     const animal = await useCase.execute(request.params.id, request.tenantId!);
-    return reply.send({
-      id: animal.id,
-      ...animal.props,
-      breedName: animal.props.breedName ?? null,
-    });
+    return reply.send(mapAnimalResponse(animal));
   },
 
   async update(
@@ -71,11 +77,7 @@ export const animalController = {
       request.tenantId!,
       request.body,
     );
-    return reply.send({
-      id: animal.id,
-      ...animal.props,
-      breedName: animal.props.breedName ?? null,
-    });
+    return reply.send(mapAnimalResponse(animal));
   },
 
   async delete(

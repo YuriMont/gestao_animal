@@ -3,6 +3,17 @@ import { FinancialRecord } from "@src/modules/financial/domain/entities/financia
 import { PrismaFinancialRepository } from "@src/modules/financial/infrastructure/persistence/financial.repository";
 import type { CreateFinancialRecordDTO } from "@src/modules/financial/presentation/dtos/financial.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
+
+function mapFinancialResponse(record: any) {
+  const props = record.props ? record.props : record;
+  return {
+    ...props,
+    id: record.id,
+    type: { key: props.type, label: getEnumLabel("financialType", props.type) },
+    category: { key: props.category, label: getEnumLabel("financialCategory", props.category) }
+  };
+}
 
 export const financialController = {
   async create(
@@ -23,7 +34,7 @@ export const financialController = {
     );
     return reply.status(201).send({
       message: "Financial record created",
-      record: { id: record.id, ...record.props },
+      record: mapFinancialResponse(record),
     });
   },
 
@@ -52,7 +63,7 @@ export const financialController = {
     );
 
     return reply.send({
-      data: records.map((item) => ({ id: item.id, ...item.props })),
+      data: records.map(mapFinancialResponse),
       meta: {
         total,
         page,

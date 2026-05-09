@@ -5,6 +5,7 @@ import {
   Species,
 } from "@generated/prisma/client";
 import { z } from "zod";
+import { createTranslatedEnumSchema } from "./enums.dto";
 
 export const createAnimalSchema = z.object({
   tag: z.string().min(1),
@@ -43,12 +44,12 @@ export type ListAnimalsQueryDTO = z.infer<typeof listAnimalsQuerySchema>;
 export const animalResponseSchema = z.object({
   id: z.string(),
   tag: z.string(),
-  species: z.nativeEnum(Species),
+  species: createTranslatedEnumSchema(Species),
   breedId: z.string().optional(),
-  sex: z.nativeEnum(AnimalSex),
+  sex: createTranslatedEnumSchema(AnimalSex),
   birthDate: z.date(),
-  origin: z.nativeEnum(AnimalOrigin).optional(),
-  status: z.nativeEnum(AnimalStatus),
+  origin: createTranslatedEnumSchema(AnimalOrigin).optional(),
+  status: createTranslatedEnumSchema(AnimalStatus),
   organizationId: z.string(),
 });
 

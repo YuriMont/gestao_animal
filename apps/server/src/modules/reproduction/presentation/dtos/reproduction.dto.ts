@@ -4,6 +4,7 @@ import {
   PregnancyStatus,
 } from "@generated/prisma/client";
 import z from "zod";
+import { createTranslatedEnumSchema } from "@src/modules/core/presentation/dtos/enums.dto";
 
 export const createEstrusSchema = z.object({
   animalId: z.string(),
@@ -33,7 +34,7 @@ export const pregnancyResponseSchema = z.object({
   animalId: z.string(),
   detectedDate: z.date(),
   expectedDate: z.date().optional(),
-  status: z.nativeEnum(PregnancyStatus),
+  status: createTranslatedEnumSchema(PregnancyStatus),
   organizationId: z.string(),
 });
 
@@ -51,7 +52,7 @@ export const birthResponseSchema = z.object({
   fatherId: z.string().optional(),
   birthDate: z.date(),
   offspringTag: z.string().optional(),
-  status: z.nativeEnum(BirthStatus),
+  status: createTranslatedEnumSchema(BirthStatus),
   organizationId: z.string(),
 });
 
@@ -67,7 +68,7 @@ export const createInseminationSchema = z.object({
 export const inseminationResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
-  type: z.nativeEnum(InseminationType),
+  type: createTranslatedEnumSchema(InseminationType),
   date: z.date(),
   fatherId: z.string().optional(),
   semenBatch: z.string().optional(),

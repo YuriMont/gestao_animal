@@ -29,7 +29,7 @@ export function AnimalSelect({
       <SelectContent>
         {animals.map(a => (
           <SelectItem key={a.id} value={a.id}>
-            {a.tag} — {a.species} ({a.sex === 'MALE' ? 'M' : 'F'})
+            {a.tag} — {a.species.label} ({a.sex.key === 'MALE' ? 'M' : 'F'})
           </SelectItem>
         ))}
       </SelectContent>

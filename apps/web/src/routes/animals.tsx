@@ -45,11 +45,11 @@ export const Route = createFileRoute("/animals")({
 
 const defaultForm: AnimalFormData = {
 	tag: "",
-	species: "",
+	species: "" as any,
 	breedId: "",
 	sex: "FEMALE",
 	birthDate: "",
-	origin: "",
+	origin: "" as any,
 	status: "ACTIVE",
 };
 
@@ -80,7 +80,7 @@ function AnimalsPage() {
 		page,
 		limit: 15,
 		...(statusFilter && { status: statusFilter }),
-		...(speciesFilter && { species: speciesFilter }),
+		...(speciesFilter && { species: speciesFilter as any }),
 	};
 
 	const animalsQuery = useGetV1Animals(params);
@@ -149,12 +149,12 @@ function AnimalsPage() {
 			id: animal.id,
 			form: {
 				tag: animal.tag,
-				species: animal.species,
+				species: animal.species.key,
 				breedId: animal.breedId || "",
-				sex: animal.sex,
+				sex: animal.sex.key,
 				birthDate: animal.birthDate,
-				origin: animal.origin || "",
-				status: animal.status,
+				origin: animal.origin?.key || "",
+				status: animal.status.key,
 			},
 		});
 	}

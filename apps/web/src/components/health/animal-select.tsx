@@ -24,7 +24,7 @@ export function AnimalSelect({
       <SelectContent>
         {animals.map(a => (
           <SelectItem key={a.id} value={a.id}>
-            {a.tag} — {a.species}
+            {a.tag} — {a.species.label}
           </SelectItem>
         ))}
       </SelectContent>

@@ -1,5 +1,6 @@
 import { FinancialCategory, FinancialType } from "@generated/prisma/client";
 import z from "zod";
+import { createTranslatedEnumSchema } from "@src/modules/core/presentation/dtos/enums.dto";
 
 export const createFinancialRecordSchema = z.object({
   type: z.enum(FinancialType),
@@ -11,8 +12,8 @@ export const createFinancialRecordSchema = z.object({
 
 export const financialRecordResponseSchema = z.object({
   id: z.string(),
-  type: z.enum(FinancialType),
-  category: z.enum(FinancialCategory),
+  type: createTranslatedEnumSchema(FinancialType),
+  category: createTranslatedEnumSchema(FinancialCategory),
   amount: z.number(),
   date: z.date(),
   description: z.string().optional(),

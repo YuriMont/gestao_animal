@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { usePostV1ProductionMilk } from '@/gen/hooks/productionController/usePostV1ProductionMilk'
-import { AnimalSelect } from '@/components/health/animal-select'
+import { AnimalSelect } from '@/components/reproduction/animal-select'
 
 const INITIAL_MILK_FORM = {
   animalId: '',

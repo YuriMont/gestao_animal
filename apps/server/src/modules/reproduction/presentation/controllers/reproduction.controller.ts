@@ -11,6 +11,39 @@ import type {
   CreatePregnancyDTO,
 } from "@src/modules/reproduction/presentation/dtos/reproduction.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
+
+function mapEstrus(item: any) {
+  const props = item.props ? item.props : item;
+  return { id: item.id, ...props };
+}
+
+function mapPregnancy(item: any) {
+  const props = item.props ? item.props : item;
+  return {
+    ...props,
+    id: item.id,
+    status: { key: props.status, label: getEnumLabel("pregnancyStatus", props.status) }
+  };
+}
+
+function mapBirth(item: any) {
+  const props = item.props ? item.props : item;
+  return {
+    ...props,
+    id: item.id,
+    status: { key: props.status, label: getEnumLabel("birthStatus", props.status) }
+  };
+}
+
+function mapInsemination(item: any) {
+  const props = item.props ? item.props : item;
+  return {
+    ...props,
+    id: item.id,
+    type: { key: props.type, label: getEnumLabel("inseminationType", props.type) }
+  };
+}
 
 export const reproductionController = {
   async createEstrus(
@@ -26,7 +59,7 @@ export const reproductionController = {
     );
     return reply.status(201).send({
       message: "Estrus cycle recorded",
-      estrus: { id: estrus.id, ...estrus.props },
+      estrus: mapEstrus(estrus),
     });
   },
 
@@ -43,7 +76,7 @@ export const reproductionController = {
     );
     return reply.status(201).send({
       message: "Pregnancy recorded",
-      pregnancy: { id: pregnancy.id, ...pregnancy.props },
+      pregnancy: mapPregnancy(pregnancy),
     });
   },
 
@@ -60,7 +93,7 @@ export const reproductionController = {
     );
     return reply.status(201).send({
       message: "Birth recorded",
-      birth: { id: birth.id, ...birth.props },
+      birth: mapBirth(birth),
     });
   },
 
@@ -81,7 +114,7 @@ export const reproductionController = {
     );
     return reply.status(201).send({
       message: "Insemination recorded",
-      insemination: { id: insemination.id, ...insemination.props },
+      insemination: mapInsemination(insemination),
     });
   },
 
@@ -97,7 +130,7 @@ export const reproductionController = {
     const { pregnancies, total } =
       await repository.findPregnanciesByOrganization(tenantId, page, limit);
     return reply.send({
-      data: pregnancies.map((item) => ({ id: item.id, ...item.props })),
+      data: pregnancies.map(mapPregnancy),
       meta: {
         total,
         page,
@@ -119,7 +152,7 @@ export const reproductionController = {
     const { inseminations, total } =
       await repository.findInseminationsByOrganization(tenantId, page, limit);
     return reply.send({
-      data: inseminations.map((item) => ({ id: item.id, ...item.props })),
+      data: inseminations.map(mapInsemination),
       meta: {
         total,
         page,
@@ -143,13 +176,10 @@ export const reproductionController = {
       tenantId,
     );
     return reply.send({
-      estrus: history.estrus.map((e) => ({ id: e.id, ...e.props })),
-      pregnancies: history.pregnancies.map((p) => ({ id: p.id, ...p.props })),
-      births: history.births.map((b) => ({ id: b.id, ...b.props })),
-      inseminations: history.inseminations.map((i) => ({
-        id: i.id,
-        ...i.props,
-      })),
+      estrus: history.estrus.map(mapEstrus),
+      pregnancies: history.pregnancies.map(mapPregnancy),
+      births: history.births.map(mapBirth),
+      inseminations: history.inseminations.map(mapInsemination),
     });
   },
 };

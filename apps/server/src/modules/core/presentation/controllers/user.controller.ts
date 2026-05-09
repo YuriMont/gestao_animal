@@ -12,6 +12,7 @@ import type {
   UpdateUserDTO,
 } from "@src/modules/core/presentation/dtos/user.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 
 function getRepo() {
   return new PrismaUserRepository(PrismaService.getInstance());
@@ -22,7 +23,7 @@ function safeUser(user: User) {
     id: user.id,
     email: user.props.email,
     name: user.props.name,
-    role: user.props.role,
+    role: { key: user.props.role, label: getEnumLabel("role", user.props.role) },
     organizationId: user.props.organizationId,
   };
 }

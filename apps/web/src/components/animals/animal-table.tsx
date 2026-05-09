@@ -9,7 +9,6 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { type GetV1AnimalsQueryParamsStatusEnumKey } from "@/gen";
-import { getEnumLabel } from "@/lib/enum-labels";
 import { Pencil, Trash2 } from "lucide-react";
 import {
 	Dialog,
@@ -85,15 +84,15 @@ export function AnimalTable({
 							<TableCell className="font-mono font-medium">
 								{animal.tag}
 							</TableCell>
-							<TableCell>{getEnumLabel("species", animal.species)}</TableCell>
+							<TableCell>{animal.species.label}</TableCell>
 							<TableCell>{animal.breedName ?? "—"}</TableCell>
-							<TableCell>{getEnumLabel("animalSex", animal.sex)}</TableCell>
+							<TableCell>{animal.sex.label}</TableCell>
 							<TableCell>
 								{new Date(animal.birthDate).toLocaleDateString("pt-BR")}
 							</TableCell>
 							<TableCell>
-								<Badge variant={statusBadgeVariant(animal.status)}>
-									{getEnumLabel("animalStatus", animal.status)}
+								<Badge variant={statusBadgeVariant(animal.status.key)}>
+									{animal.status.label}
 								</Badge>
 							</TableCell>
 							<TableCell className="text-right">

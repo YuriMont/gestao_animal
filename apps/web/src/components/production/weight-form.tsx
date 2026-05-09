@@ -109,8 +109,7 @@ export function WeightForm() {
               data: {
                 animalId: weightForm.animalId,
                 weight: Number(weightForm.weight),
-                date: weightForm.date,
-                notes: weightForm.notes || undefined,
+                date: weightForm.date || undefined,
               },
             })
           }

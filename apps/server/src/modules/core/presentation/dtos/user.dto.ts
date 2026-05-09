@@ -1,5 +1,6 @@
 import { Role } from "@generated/prisma/client";
 import { z } from "zod";
+import { createTranslatedEnumSchema } from "./enums.dto";
 
 export const createUserSchema = z.object({
   email: z.string().email(),
@@ -29,7 +30,7 @@ export const userResponseSchema = z.object({
   id: z.string(),
   email: z.string(),
   name: z.string(),
-  role: z.enum(Role),
+  role: createTranslatedEnumSchema(Role),
   organizationId: z.string(),
 });
 

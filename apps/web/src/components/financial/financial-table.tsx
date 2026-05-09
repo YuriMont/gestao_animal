@@ -20,7 +20,6 @@ import {
 import { DollarSign } from "lucide-react";
 import { useGetV1EnumsFinancialTypes } from "@/gen/hooks/enumsController/useGetV1EnumsFinancialTypes";
 import { useGetV1FinancialRecords } from "@/gen/hooks/financialController/useGetV1FinancialRecords";
-import { getEnumLabel } from "@/lib/enum-labels";
 
 export function FinancialTable() {
 	const [typeFilter, setTypeFilter] = useState("all");
@@ -31,7 +30,7 @@ export function FinancialTable() {
 	const filteredRecords =
 		typeFilter === "all"
 			? records
-			: records.filter((r) => r.type === typeFilter);
+			: records.filter((r) => r.type.key === typeFilter);
 
 	function fmt(n: number) {
 		return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -84,12 +83,12 @@ export function FinancialTable() {
 									<TableRow key={r.id}>
 										<TableCell>
 											<Badge
-												variant={r.type === "INCOME" ? "success" : "destructive"}
+												variant={r.type.key === "INCOME" ? "success" : "destructive"}
 											>
-												{getEnumLabel("financialType", r.type)}
+												{r.type.label}
 											</Badge>
 										</TableCell>
-										<TableCell>{getEnumLabel("financialCategory", r.category)}</TableCell>
+										<TableCell>{r.category.label}</TableCell>
 										<TableCell className="text-muted-foreground">
 											{r.description ?? "—"}
 										</TableCell>
@@ -97,7 +96,7 @@ export function FinancialTable() {
 											{new Date(r.date).toLocaleDateString("pt-BR")}
 										</TableCell>
 										<TableCell
-											className={`text-right font-medium ${r.type === "INCOME" ? "text-primary" : "text-destructive"}`}
+											className={`text-right font-medium ${r.type.key === "INCOME" ? "text-primary" : "text-destructive"}`}
 										>
 											{fmt(r.amount)}
 										</TableCell>

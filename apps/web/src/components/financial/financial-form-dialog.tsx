@@ -170,7 +170,7 @@ export function FinancialFormDialog() {
 							createMutation.mutate({
 								data: {
 									type: form.type,
-									category: form.category,
+									category: form.category as any,
 									amount: Number(form.amount),
 									date: form.date,
 									description: form.description || undefined,
