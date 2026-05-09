@@ -1,4 +1,5 @@
 import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 import { Birth } from "@src/modules/reproduction/domain/entities/birth.entity";
 import { Estrus } from "@src/modules/reproduction/domain/entities/estrus.entity";
 import { Insemination } from "@src/modules/reproduction/domain/entities/insemination.entity";
@@ -11,7 +12,6 @@ import type {
   CreatePregnancyDTO,
 } from "@src/modules/reproduction/presentation/dtos/reproduction.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 
 function mapEstrus(item: any) {
   const props = item.props ? item.props : item;
@@ -23,7 +23,10 @@ function mapPregnancy(item: any) {
   return {
     ...props,
     id: item.id,
-    status: { key: props.status, label: getEnumLabel("pregnancyStatus", props.status) }
+    status: {
+      key: props.status,
+      label: getEnumLabel("pregnancyStatus", props.status),
+    },
   };
 }
 
@@ -32,7 +35,10 @@ function mapBirth(item: any) {
   return {
     ...props,
     id: item.id,
-    status: { key: props.status, label: getEnumLabel("birthStatus", props.status) }
+    status: {
+      key: props.status,
+      label: getEnumLabel("birthStatus", props.status),
+    },
   };
 }
 
@@ -41,7 +47,10 @@ function mapInsemination(item: any) {
   return {
     ...props,
     id: item.id,
-    type: { key: props.type, label: getEnumLabel("inseminationType", props.type) }
+    type: {
+      key: props.type,
+      label: getEnumLabel("inseminationType", props.type),
+    },
   };
 }
 

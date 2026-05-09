@@ -1,9 +1,9 @@
 import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 import { FinancialRecord } from "@src/modules/financial/domain/entities/financial-record.entity";
 import { PrismaFinancialRepository } from "@src/modules/financial/infrastructure/persistence/financial.repository";
 import type { CreateFinancialRecordDTO } from "@src/modules/financial/presentation/dtos/financial.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 
 function mapFinancialResponse(record: any) {
   const props = record.props ? record.props : record;
@@ -11,7 +11,10 @@ function mapFinancialResponse(record: any) {
     ...props,
     id: record.id,
     type: { key: props.type, label: getEnumLabel("financialType", props.type) },
-    category: { key: props.category, label: getEnumLabel("financialCategory", props.category) }
+    category: {
+      key: props.category,
+      label: getEnumLabel("financialCategory", props.category),
+    },
   };
 }
 

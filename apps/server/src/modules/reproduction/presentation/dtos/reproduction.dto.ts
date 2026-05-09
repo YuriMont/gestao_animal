@@ -3,8 +3,8 @@ import {
   InseminationType,
   PregnancyStatus,
 } from "@generated/prisma/client";
-import z from "zod";
 import { createTranslatedEnumSchema } from "@src/modules/core/presentation/dtos/enums.dto";
+import z from "zod";
 
 export const createEstrusSchema = z.object({
   animalId: z.string(),

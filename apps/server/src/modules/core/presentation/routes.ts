@@ -1,5 +1,6 @@
 import { paginationMetaSchema } from "@src/common/dtos/pagination.dto";
 import { animalController } from "@src/modules/core/presentation/controllers/animal.controller";
+import { breedController } from "@src/modules/core/presentation/controllers/breed.controller";
 import { enumsController } from "@src/modules/core/presentation/controllers/enums.controller";
 import { organizationController } from "@src/modules/core/presentation/controllers/organization.controller";
 import { userController } from "@src/modules/core/presentation/controllers/user.controller";
@@ -9,6 +10,12 @@ import {
   listAnimalsQuerySchema,
   updateAnimalSchema,
 } from "@src/modules/core/presentation/dtos/animal.dto";
+import {
+  breedResponseSchema,
+  createBreedSchema,
+  listBreedsQuerySchema,
+  updateBreedSchema,
+} from "@src/modules/core/presentation/dtos/breed.dto";
 import {
   createOrganizationSchema,
   organizationResponseSchema,
@@ -103,6 +110,86 @@ export default async function coreRoutes(app: FastifyInstance) {
       },
     },
     animalController.delete,
+  );
+
+  // ── Breeds ────────────────────────────────────────────────────────────────
+  app.post(
+    "/breeds",
+    {
+      schema: {
+        tags: ["Breeds"],
+        summary: "Create a new breed",
+        description: "Creates a new breed for the authenticated organization.",
+        security: [{ bearerAuth: [] }],
+        body: createBreedSchema,
+        response: { 201: breedResponseSchema },
+      },
+    },
+    breedController.create,
+  );
+
+  app.get(
+    "/breeds",
+    {
+      schema: {
+        tags: ["Breeds"],
+        summary: "List breeds",
+        description:
+          "Returns a paginated list of breeds for the organization. Supports filtering by species.",
+        security: [{ bearerAuth: [] }],
+        querystring: listBreedsQuerySchema,
+        response: {
+          200: z.object({
+            data: z.array(breedResponseSchema),
+            meta: paginationMetaSchema,
+          }),
+        },
+      },
+    },
+    breedController.list,
+  );
+
+  app.get(
+    "/breeds/:id",
+    {
+      schema: {
+        tags: ["Breeds"],
+        summary: "Get breed by ID",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        response: { 200: breedResponseSchema },
+      },
+    },
+    breedController.getById,
+  );
+
+  app.put(
+    "/breeds/:id",
+    {
+      schema: {
+        tags: ["Breeds"],
+        summary: "Update breed",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        body: updateBreedSchema,
+        response: { 200: breedResponseSchema },
+      },
+    },
+    breedController.update,
+  );
+
+  app.delete(
+    "/breeds/:id",
+    {
+      schema: {
+        tags: ["Breeds"],
+        summary: "Delete breed",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        response: { 204: z.null() },
+      },
+    },
+    breedController.delete,
   );
 
   // ── Organizations ────────────────────────────────────────────────────────

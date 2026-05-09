@@ -10,8 +10,8 @@ import type {
   ListAnimalsQueryDTO,
   UpdateAnimalDTO,
 } from "@src/modules/core/presentation/dtos/animal.dto";
-import type { FastifyReply, FastifyRequest } from "fastify";
 import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 function mapAnimalResponse(animal: any) {
   const props = animal.props ? animal.props : animal;
@@ -19,10 +19,18 @@ function mapAnimalResponse(animal: any) {
     ...props,
     id: animal.id,
     breedName: props.breedName ?? null,
-    species: { key: props.species, label: getEnumLabel("species", props.species) },
+    species: {
+      key: props.species,
+      label: getEnumLabel("species", props.species),
+    },
     sex: { key: props.sex, label: getEnumLabel("animalSex", props.sex) },
-    status: { key: props.status, label: getEnumLabel("animalStatus", props.status) },
-    origin: props.origin ? { key: props.origin, label: getEnumLabel("animalOrigin", props.origin) } : undefined,
+    status: {
+      key: props.status,
+      label: getEnumLabel("animalStatus", props.status),
+    },
+    origin: props.origin
+      ? { key: props.origin, label: getEnumLabel("animalOrigin", props.origin) }
+      : undefined,
   };
 }
 

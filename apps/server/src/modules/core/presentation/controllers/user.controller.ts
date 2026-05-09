@@ -6,13 +6,13 @@ import { ListUsersUseCase } from "@src/modules/core/application/use-cases/list-u
 import { UpdateUserUseCase } from "@src/modules/core/application/use-cases/update-user.use-case";
 import type { User } from "@src/modules/core/domain/entities/user.entity";
 import { PrismaUserRepository } from "@src/modules/core/infrastructure/persistence/user.repository";
+import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 import type {
   CreateUserDTO,
   ListUsersQueryDTO,
   UpdateUserDTO,
 } from "@src/modules/core/presentation/dtos/user.dto";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { getEnumLabel } from "@src/modules/core/presentation/dtos/enums.dto";
 
 function getRepo() {
   return new PrismaUserRepository(PrismaService.getInstance());
@@ -23,7 +23,10 @@ function safeUser(user: User) {
     id: user.id,
     email: user.props.email,
     name: user.props.name,
-    role: { key: user.props.role, label: getEnumLabel("role", user.props.role) },
+    role: {
+      key: user.props.role,
+      label: getEnumLabel("role", user.props.role),
+    },
     organizationId: user.props.organizationId,
   };
 }

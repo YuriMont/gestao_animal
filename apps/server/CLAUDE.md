@@ -56,7 +56,7 @@ src/
 │   └── fastify.d.ts              # Augmentação: request.tenantId, request.user
 └── modules/
     ├── auth/                     # POST /auth/login, POST /auth/register
-    ├── core/                     # Animals, Organizations, Users (CRUD completo)
+    ├── core/                     # Animals, Breeds, Organizations, Users (CRUD completo)
     ├── health/                   # HealthRecords, Vaccines, Treatments
     ├── reproduction/             # Estrus, Pregnancies, Births
     ├── production/               # WeightRecords, MilkProduction
@@ -172,6 +172,22 @@ ALLOWED_ORIGINS="http://localhost:3000,http://localhost:5173"
 
 ---
 
+## Breeds
+
+CRUD completo disponível em `/v1/breeds`.
+
+| Método | Rota             | Descrição                          |
+| ------ | ---------------- | ---------------------------------- |
+| POST   | `/v1/breeds`     | Cria raça (body: `name`, `species`) |
+| GET    | `/v1/breeds`     | Lista paginada (filtro: `species`) |
+| GET    | `/v1/breeds/:id` | Busca por ID                       |
+| PUT    | `/v1/breeds/:id` | Atualiza raça                      |
+| DELETE | `/v1/breeds/:id` | Remove raça                        |
+
+**Unicidade**: `name + species + organizationId`. Violação retorna `409 CONFLICT`.
+
+---
+
 ## Como adicionar uma rota
 
 ```typescript
@@ -225,6 +241,7 @@ import rateLimit from "@fastify/rate-limit";
 | Banco não encontrado                  | PostgreSQL não está rodando                   | Verificar se o PostgreSQL está ativo     |
 | `x-tenant-id` obrigatório             | JWT não enviado / middleware legado ativo | Enviar `Authorization: Bearer <token>` |
 | `Animal with this tag already exists` | Tag duplicada no org                      | Use tag única por organização          |
+| `Breed with this name and species already exists` | Raça duplicada no org             | `name` + `species` deve ser único por organização |
 | CORS error                            | Origem não permitida                      | Adicionar em `ALLOWED_ORIGINS`         |
 
 ---
