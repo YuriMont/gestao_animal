@@ -32,7 +32,7 @@ yarn format       # Biome format
 yarn generate     # Kubb — regenera src/gen/ a partir do OpenAPI do backend
 ```
 
-> **`yarn generate` exige o backend rodando** em `VITE_API_URL` (padrão: `http://localhost:3333`).
+> **`yarn generate` exige o backend rodando** em `VITE_API_URL` (padrão: `http://localhost:3333`), que por sua vez depende do PostgreSQL.
 > Nunca edite arquivos em `src/gen/` manualmente — eles são sobrescritos a cada geração.
 
 ---

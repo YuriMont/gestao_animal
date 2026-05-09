@@ -1,4 +1,4 @@
-import type { PregnancyStatus } from "@prisma/client";
+import type { PregnancyStatus } from "@generated/prisma/client";
 
 export interface PregnancyProps {
   animalId: string;

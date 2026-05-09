@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { Organization } from "@src/modules/core/domain/entities/organization.entity";
 import type { IOrganizationRepository } from "@src/modules/core/domain/repositories/organization.repository";
 

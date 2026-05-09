@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 enum Role {
@@ -75,7 +75,7 @@ enum FinancialCategory {
 }
 
 model Organization {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(uuid())
   name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -102,12 +102,12 @@ model Organization {
 }
 
 model User {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   email          String       @unique
   password       String
   name           String
   role           Role         @default(OPERATOR)
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime  @default(now())
@@ -118,10 +118,10 @@ model User {
 }
 
 model Breed {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   name           String
   species        Species
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   animals        Animal[]
@@ -131,18 +131,18 @@ model Breed {
 }
 
 model Animal {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   tag            String
   species        Species
-  breedId        String?      @db.ObjectId
+  breedId        String?
   breed          Breed?       @relation(fields: [breedId], references: [id])
   sex            String
   birthDate      DateTime
   origin         AnimalOrigin?
   status         AnimalStatus @default(ACTIVE)
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
-  paddockId      String?      @db.ObjectId
+  paddockId      String?
   paddock        Paddock?     @relation(fields: [paddockId], references: [id])
 
   createdAt DateTime  @default(now())
@@ -169,10 +169,10 @@ model Animal {
 }
 
 model Paddock {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   name           String
   area           Float?
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -184,13 +184,13 @@ model Paddock {
 }
 
 model HealthRecord {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  animalId       String
   animal         Animal       @relation(fields: [animalId], references: [id])
   date           DateTime     @default(now())
   description    String
   observation    String?
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -200,14 +200,14 @@ model HealthRecord {
 }
 
 model Vaccine {
-  id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId         String       @db.ObjectId
+  id               String       @id @default(uuid())
+  animalId         String
   animal           Animal       @relation(fields: [animalId], references: [id])
   vaccineName      String
   doseNumber       Int          @default(1)
   dateAdministered DateTime
   nextDueDate      DateTime?
-  organizationId   String       @db.ObjectId
+  organizationId   String
   organization     Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -217,15 +217,15 @@ model Vaccine {
 }
 
 model Treatment {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  animalId       String
   animal         Animal       @relation(fields: [animalId], references: [id])
   diagnosis      String
   medication     String
   dosage         String?
   startDate      DateTime
   endDate        DateTime?
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -235,13 +235,13 @@ model Treatment {
 }
 
 model Estrus {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  animalId       String
   animal         Animal       @relation(fields: [animalId], references: [id])
   startDate      DateTime
   endDate        DateTime?
   observation    String?
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -251,19 +251,19 @@ model Estrus {
 }
 
 model Insemination {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String           @db.ObjectId
+  id             String           @id @default(uuid())
+  animalId       String    
   animal         Animal           @relation("FemaleInseminations", fields: [animalId], references: [id])
   type           InseminationType
   date           DateTime         @default(now())
   
-  fatherId       String?          @db.ObjectId
+  fatherId       String?   
   father         Animal?          @relation("MaleInseminations", fields: [fatherId], references: [id])
   
   semenBatch     String?
   success        Boolean?
   
-  organizationId String           @db.ObjectId
+  organizationId String    
   organization   Organization     @relation(fields: [organizationId], references: [id])
 
   pregnancies    Pregnancy[]
@@ -272,15 +272,15 @@ model Insemination {
 }
 
 model Pregnancy {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String          @db.ObjectId
+  id             String          @id @default(uuid())
+  animalId       String   
   animal         Animal          @relation(fields: [animalId], references: [id])
   detectedDate   DateTime
   expectedDate   DateTime?
   status         PregnancyStatus @default(PENDING)
-  inseminationId String?         @db.ObjectId
+  inseminationId String?  
   insemination   Insemination?   @relation(fields: [inseminationId], references: [id])
-  organizationId String          @db.ObjectId
+  organizationId String   
   organization   Organization    @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -290,15 +290,15 @@ model Pregnancy {
 }
 
 model Birth {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  motherId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  motherId       String
   mother         Animal       @relation("MotherToBirth", fields: [motherId], references: [id])
-  fatherId       String?      @db.ObjectId
+  fatherId       String?
   father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])
   birthDate      DateTime
   offspringTag   String?
   status         BirthStatus  @default(ALIVE)
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -308,12 +308,12 @@ model Birth {
 }
 
 model WeightRecord {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  animalId       String
   animal         Animal       @relation(fields: [animalId], references: [id])
   weight         Float
   date           DateTime     @default(now())
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -323,13 +323,13 @@ model WeightRecord {
 }
 
 model MilkProduction {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  animalId       String       @db.ObjectId
+  id             String       @id @default(uuid())
+  animalId       String
   animal         Animal       @relation(fields: [animalId], references: [id])
   quantity       Float
   unit           String
   date           DateTime     @default(now())
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -339,13 +339,13 @@ model MilkProduction {
 }
 
 model FinancialRecord {
-  id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  id             String            @id @default(uuid())
   type           FinancialType
   category       FinancialCategory
   amount         Float
   date           DateTime          @default(now())
   description    String?
-  organizationId String            @db.ObjectId
+  organizationId String     
   organization   Organization      @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -355,11 +355,11 @@ model FinancialRecord {
 }
 
 model AlertRule {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   name           String
   condition      String
   value          String?
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())
@@ -369,11 +369,11 @@ model AlertRule {
 }
 
 model Notification {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(uuid())
   ruleId         String?
   message        String
   isRead         Boolean      @default(false)
-  organizationId String       @db.ObjectId
+  organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @default(now())

@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { MilkProduction } from "@src/modules/production/domain/entities/milk-production.entity";
 import { WeightRecord } from "@src/modules/production/domain/entities/weight-record.entity";
 import type { IProductionRepository } from "@src/modules/production/domain/repositories/production.repository";

@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { AlertRule } from "@src/modules/alerts/domain/entities/alert-rule.entity";
 import type { IAlertRepository } from "@src/modules/alerts/domain/repositories/alert.repository";
 

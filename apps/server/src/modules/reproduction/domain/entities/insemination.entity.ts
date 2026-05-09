@@ -1,4 +1,4 @@
-import type { InseminationType } from "@prisma/client";
+import type { InseminationType } from "@generated/prisma/client";
 
 export interface InseminationProps {
   animalId: string;

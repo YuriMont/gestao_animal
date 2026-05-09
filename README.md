@@ -1,13 +1,13 @@
 # Gestão Animal
 
-Monorepo full-stack para gerenciamento de rebanhos. Backend REST com Fastify + Prisma + MongoDB e frontend SPA com React + TanStack Router.
+Monorepo full-stack para gerenciamento de rebanhos. Backend REST com Fastify + Prisma + PostgreSQL e frontend SPA com React + TanStack Router.
 
 ## Estrutura
 
 ```
 gestao_animal/
 ├── apps/
-│   ├── server/   # API REST (Fastify + Prisma + MongoDB)
+│   ├── server/   # API REST (Fastify + Prisma + PostgreSQL)
 │   └── web/      # SPA React (TanStack Router + React Query + Jotai)
 └── packages/
     └── biome-config/   # Configuração Biome compartilhada
@@ -17,7 +17,7 @@ gestao_animal/
 
 - Node.js 20+
 - Yarn 1.22+
-- MongoDB Atlas (ou instância local)
+- PostgreSQL 15+ (local ou cloud)
 
 ## Instalação
 
@@ -30,7 +30,7 @@ yarn install
 **`apps/server/.env`**
 
 ```env
-DATABASE_URL=mongodb+srv://...
+DATABASE_URL=postgresql://user:password@localhost:5432/gestao_animal
 JWT_SECRET=string-aleatoria-32-chars-minimo
 PORT=3333
 NODE_ENV=development
@@ -62,6 +62,7 @@ yarn dev
 ```bash
 cd apps/server
 yarn prisma db push
+yarn prisma db seed
 ```
 
 ### Regenerar cliente após mudanças na API
@@ -103,7 +104,7 @@ src/modules/<domínio>/
 
 **Módulos:** `auth` · `core` (animals, organizations, users) · `health` · `reproduction` · `production` · `financial` · `alerts`
 
-**Stack:** Fastify 5 · Prisma 7 · MongoDB · Zod 4 · JWT · Bcrypt · @scalar/fastify-api-reference
+**Stack:** Fastify 5 · Prisma 7 · PostgreSQL · Zod 4 · JWT · Bcrypt · @scalar/fastify-api-reference
 
 ### Frontend (`apps/web`)
 
@@ -125,7 +126,7 @@ Todo modelo Prisma carrega `organizationId`. O JWT inclui esse campo; o middlewa
 
 ## Banco de dados
 
-MongoDB via Prisma 7 (sem migrations). Após alterar `schema.prisma`, rode:
+PostgreSQL via Prisma 7 (sem migrations — `db push`). Após alterar `schema.prisma`, rode:
 
 ```bash
 cd apps/server
@@ -159,5 +160,5 @@ yarn format   # corrige
 
 - Editar `src/gen/` ou `src/routeTree.gen.ts` — arquivos gerados
 - Commitar `.env`
-- Usar `prisma migrate` — o projeto usa `prisma db push` (MongoDB)
+- Usar `prisma migrate` — o projeto usa `prisma db push` (PostgreSQL)
 - Instalar ESLint ou Prettier

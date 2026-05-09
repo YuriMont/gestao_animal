@@ -1,4 +1,9 @@
-import { AnimalOrigin, AnimalSex, AnimalStatus, Species } from "@prisma/client";
+import {
+  AnimalOrigin,
+  AnimalSex,
+  AnimalStatus,
+  Species,
+} from "@generated/prisma/client";
 import { z } from "zod";
 
 export const createAnimalSchema = z.object({

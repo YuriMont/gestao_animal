@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { FinancialRecord } from "@src/modules/financial/domain/entities/financial-record.entity";
 import type { IFinancialRepository } from "@src/modules/financial/domain/repositories/financial.repository";
 

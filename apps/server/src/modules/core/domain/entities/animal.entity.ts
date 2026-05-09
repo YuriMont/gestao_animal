@@ -3,7 +3,7 @@ import type {
   AnimalSex,
   AnimalStatus,
   Species,
-} from "@prisma/client";
+} from "@generated/prisma/client";
 
 export interface AnimalProps {
   tag: string;

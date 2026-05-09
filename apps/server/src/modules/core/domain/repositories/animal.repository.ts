@@ -1,4 +1,8 @@
-import type { AnimalSex, AnimalStatus, Species } from "@prisma/client";
+import type {
+  AnimalSex,
+  AnimalStatus,
+  Species,
+} from "@generated/prisma/client";
 import type { Animal } from "@src/modules/core/domain/entities/animal.entity";
 
 export interface AnimalFilters {

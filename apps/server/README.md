@@ -1,6 +1,6 @@
 # Animal Management API
 
-This is the backend server for the Animal Management system, built with Fastify, TypeScript, and Zod.
+This is the backend server for the Animal Management system, built with Fastify, TypeScript, Prisma, and PostgreSQL.
 
 ## 🚀 Tech Stack
 

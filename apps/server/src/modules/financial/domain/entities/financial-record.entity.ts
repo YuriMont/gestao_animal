@@ -1,4 +1,7 @@
-import type { FinancialCategory, FinancialType } from "@prisma/client";
+import type {
+  FinancialCategory,
+  FinancialType,
+} from "@generated/prisma/client";
 
 export interface FinancialRecordProps {
   type: FinancialType;

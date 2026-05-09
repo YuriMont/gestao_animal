@@ -1,4 +1,8 @@
-import { BirthStatus, InseminationType, PregnancyStatus } from "@prisma/client";
+import {
+  BirthStatus,
+  InseminationType,
+  PregnancyStatus,
+} from "@generated/prisma/client";
 import z from "zod";
 
 export const createEstrusSchema = z.object({
@@ -78,4 +82,6 @@ export type PregnancyResponseDTO = z.infer<typeof pregnancyResponseSchema>;
 export type CreateBirthDTO = z.infer<typeof createBirthSchema>;
 export type BirthResponseDTO = z.infer<typeof birthResponseSchema>;
 export type CreateInseminationDTO = z.infer<typeof createInseminationSchema>;
-export type InseminationResponseDTO = z.infer<typeof inseminationResponseSchema>;
+export type InseminationResponseDTO = z.infer<
+  typeof inseminationResponseSchema
+>;

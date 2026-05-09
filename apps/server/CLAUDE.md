@@ -11,7 +11,7 @@ Guia de referência rápida para Claude Code e outros agentes de IA trabalhando 
 | Framework | Fastify v5 + TypeScript 6                           |
 | Validação | Zod v4 + `fastify-type-provider-zod`                |
 | ORM       | Prisma v6                                           |
-| Banco     | MongoDB                                             |
+| Banco     | PostgreSQL                                          |
 | Auth      | JWT via `jsonwebtoken` + `bcrypt` (12 rounds)       |
 | Docs      | Swagger (`@fastify/swagger`) + Scalar UI em `/docs` |
 | Linting   | Biome v2                                            |
@@ -27,7 +27,7 @@ yarn run lint         # Biome check + auto-fix
 yarn run format       # Biome format
 
 yarn prisma generate  # regenera o Prisma Client após mudar o schema
-yarn prisma db push   # aplica schema no MongoDB (sem migrations)
+yarn prisma db push   # aplica schema no PostgreSQL (sem migrations)
 yarn prisma studio    # GUI para inspecionar o banco
 ```
 
@@ -147,7 +147,7 @@ app.delete('/something/:id', {
 ## Variáveis de ambiente necessárias
 
 ```bash
-DATABASE_URL="mongodb+srv://user:password@cluster.mongodb.net/animal_db"
+DATABASE_URL="postgresql://user:password@localhost:5432/gestao_animal"
 JWT_SECRET="string-longa-e-aleatoria-minimo-32-chars"
 PORT=3333
 NODE_ENV=development
@@ -221,7 +221,8 @@ import rateLimit from "@fastify/rate-limit";
 | Problema                              | Causa provável                            | Solução                                |
 | ------------------------------------- | ----------------------------------------- | -------------------------------------- |
 | `JWT_SECRET is not configured`        | `.env` não carregado                      | Verificar `dotenv` e caminho do `.env` |
-| `PrismaClient` não encontrado         | Client não gerado                         | `yarn prisma generate`                 |
+| `PrismaClient` não encontrado         | Client não gerado                             | `yarn prisma generate`                 |
+| Banco não encontrado                  | PostgreSQL não está rodando                   | Verificar se o PostgreSQL está ativo     |
 | `x-tenant-id` obrigatório             | JWT não enviado / middleware legado ativo | Enviar `Authorization: Bearer <token>` |
 | `Animal with this tag already exists` | Tag duplicada no org                      | Use tag única por organização          |
 | CORS error                            | Origem não permitida                      | Adicionar em `ALLOWED_ORIGINS`         |

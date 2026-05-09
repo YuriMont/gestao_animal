@@ -4,7 +4,7 @@
 
 Monorepo Yarn com Turbo para um sistema de gestão animal full-stack. Composto por:
 
-- `apps/server` — API REST (Fastify + Prisma + MongoDB)
+- `apps/server` — API REST (Fastify + Prisma + PostgreSQL)
 - `apps/web` — SPA React (TanStack Router + React Query + Jotai)
 - `packages/biome-config` — Configuração Biome compartilhada
 
@@ -39,7 +39,7 @@ yarn generate       # requer backend rodando em VITE_API_URL
 
 **`apps/server/.env`** (nunca commitado):
 ```
-DATABASE_URL=mongodb+srv://...
+DATABASE_URL=postgresql://user:password@localhost:5432/gestao_animal
 JWT_SECRET=string-aleatoria-32-chars-minimo
 PORT=3333
 NODE_ENV=development
@@ -123,7 +123,7 @@ Todo modelo Prisma tem `organizationId`. O JWT carrega o `organizationId` do usu
 
 ## Banco de dados
 
-MongoDB via Prisma 7 (schemaless). Sem arquivos de migration — usar `prisma db push` após alterar `apps/server/prisma/schema.prisma`.
+PostgreSQL via Prisma 7. Sem arquivos de migration — usar `prisma db push` após alterar `apps/server/prisma/schema.prisma`.
 
 Modelos: Organization, User, Animal, Paddock, HealthRecord, Vaccine, Treatment, Estrus, Pregnancy, Birth, WeightRecord, MilkProduction, FinancialRecord, AlertRule, Notification.
 
@@ -135,5 +135,5 @@ Biome (não ESLint/Prettier). Configuração base em `packages/biome-config/biom
 
 - Editar `src/gen/` ou `src/routeTree.gen.ts` — são arquivos gerados
 - Commitar `.env`
-- Usar `prisma migrate` — o projeto usa `prisma db push` (MongoDB)
+- Usar `prisma migrate` — o projeto usa `prisma db push` (PostgreSQL)
 - Instalar ESLint ou Prettier — o projeto usa Biome

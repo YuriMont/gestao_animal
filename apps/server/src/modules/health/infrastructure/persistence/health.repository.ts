@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { HealthRecord } from "@src/modules/health/domain/entities/health-record.entity";
 import { Treatment } from "@src/modules/health/domain/entities/treatment.entity";
 import { Vaccine } from "@src/modules/health/domain/entities/vaccine.entity";

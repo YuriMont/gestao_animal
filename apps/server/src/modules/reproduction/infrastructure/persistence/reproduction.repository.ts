@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { Birth } from "@src/modules/reproduction/domain/entities/birth.entity";
 import { Estrus } from "@src/modules/reproduction/domain/entities/estrus.entity";
 import { Insemination } from "@src/modules/reproduction/domain/entities/insemination.entity";
@@ -60,7 +60,10 @@ export class PrismaReproductionRepository implements IReproductionRepository {
         organizationId: insemination.props.organizationId,
       },
     });
-    return Insemination.create({ ...insemination.props, date: created.date }, created.id);
+    return Insemination.create(
+      { ...insemination.props, date: created.date },
+      created.id,
+    );
   }
 
   async findPregnanciesByOrganization(

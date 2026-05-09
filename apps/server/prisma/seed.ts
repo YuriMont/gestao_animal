@@ -1,3 +1,8 @@
+import { PrismaPg } from "@prisma/adapter-pg";
+import bcrypt from "bcrypt";
+import * as dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import {
   AnimalOrigin,
   AnimalSex,
@@ -9,16 +14,20 @@ import {
   PregnancyStatus,
   PrismaClient,
   Species,
-} from "@prisma/client";
-import bcrypt from "bcrypt";
-import * as dotenv from "dotenv";
-import path from "path";
+} from "../src/generated/prisma/client";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-const prisma = new PrismaClient();
+const connectionString = `${process.env.DATABASE_URL}`;
+
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  console.log("Conectando ao banco de dados com a string:", connectionString);
   console.log("🌱 Iniciando seed...");
 
   // Limpa o banco em ordem reversa de dependência

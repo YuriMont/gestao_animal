@@ -1,4 +1,4 @@
-import type { BirthStatus } from "@prisma/client";
+import type { BirthStatus } from "@generated/prisma/client";
 
 export interface BirthProps {
   motherId: string;

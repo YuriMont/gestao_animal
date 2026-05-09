@@ -3,7 +3,7 @@ import type {
   AnimalSex,
   AnimalStatus,
   Species,
-} from "@prisma/client";
+} from "@generated/prisma/client";
 import { NotFoundError } from "@src/common/errors/app-error";
 import { Animal } from "@src/modules/core/domain/entities/animal.entity";
 import type { IAnimalRepository } from "@src/modules/core/domain/repositories/animal.repository";

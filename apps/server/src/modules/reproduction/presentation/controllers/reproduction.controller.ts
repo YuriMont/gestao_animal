@@ -146,7 +146,10 @@ export const reproductionController = {
       estrus: history.estrus.map((e) => ({ id: e.id, ...e.props })),
       pregnancies: history.pregnancies.map((p) => ({ id: p.id, ...p.props })),
       births: history.births.map((b) => ({ id: b.id, ...b.props })),
-      inseminations: history.inseminations.map((i) => ({ id: i.id, ...i.props })),
+      inseminations: history.inseminations.map((i) => ({
+        id: i.id,
+        ...i.props,
+      })),
     });
   },
 };

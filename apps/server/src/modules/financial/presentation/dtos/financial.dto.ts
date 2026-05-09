@@ -1,4 +1,4 @@
-import { FinancialCategory, FinancialType } from "@prisma/client";
+import { FinancialCategory, FinancialType } from "@generated/prisma/client";
 import z from "zod";
 
 export const createFinancialRecordSchema = z.object({

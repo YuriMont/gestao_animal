@@ -1,4 +1,4 @@
-import type { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@generated/prisma/client";
 import { Animal } from "@src/modules/core/domain/entities/animal.entity";
 import type {
   AnimalFilters,
