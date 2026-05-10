@@ -1,38 +1,40 @@
-import { useState } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { usePostV1ReproductionEstrus } from '@/gen/hooks/reproductionController/usePostV1ReproductionEstrus'
-import { AnimalSelect } from './animal-select'
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { usePostV1ReproductionEstrus } from "@/gen/hooks/reproductionController/usePostV1ReproductionEstrus";
+import { AnimalSelect } from "./animal-select";
 
 const INITIAL_ESTRUS_FORM = {
-  animalId: '',
-  startDate: '',
-  endDate: '',
-  observation: '',
-}
+  animalId: "",
+  startDate: "",
+  endDate: "",
+  observation: "",
+};
 
 export function EstrusForm() {
-  const [estrusForm, setEstrusForm] = useState(INITIAL_ESTRUS_FORM)
-  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
+  const [estrusForm, setEstrusForm] = useState(INITIAL_ESTRUS_FORM);
+  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
+    null,
+  );
 
   function showFeedback(ok: boolean, msg: string) {
-    setFeedback({ ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
+    setFeedback({ ok, msg });
+    setTimeout(() => setFeedback(null), 3000);
   }
 
   const estrusMutation = usePostV1ReproductionEstrus({
     mutation: {
       onSuccess: () => {
-        setEstrusForm(INITIAL_ESTRUS_FORM)
-        showFeedback(true, 'Cio registrado!')
+        setEstrusForm(INITIAL_ESTRUS_FORM);
+        showFeedback(true, "Cio registrado!");
       },
-      onError: () => showFeedback(false, 'Erro ao registrar.'),
+      onError: () => showFeedback(false, "Erro ao registrar."),
     },
-  })
+  });
 
   return (
     <Card className="max-w-lg">
@@ -47,7 +49,7 @@ export function EstrusForm() {
           <Label>Fêmea *</Label>
           <AnimalSelect
             value={estrusForm.animalId}
-            onChange={v => setEstrusForm({ ...estrusForm, animalId: v })}
+            onChange={(v) => setEstrusForm({ ...estrusForm, animalId: v })}
             femaleOnly
           />
         </div>
@@ -57,7 +59,7 @@ export function EstrusForm() {
             <Input
               type="date"
               value={estrusForm.startDate}
-              onChange={e =>
+              onChange={(e) =>
                 setEstrusForm({ ...estrusForm, startDate: e.target.value })
               }
             />
@@ -67,7 +69,7 @@ export function EstrusForm() {
             <Input
               type="date"
               value={estrusForm.endDate}
-              onChange={e =>
+              onChange={(e) =>
                 setEstrusForm({ ...estrusForm, endDate: e.target.value })
               }
             />
@@ -78,14 +80,14 @@ export function EstrusForm() {
           <Textarea
             placeholder="Notas..."
             value={estrusForm.observation}
-            onChange={e =>
+            onChange={(e) =>
               setEstrusForm({ ...estrusForm, observation: e.target.value })
             }
           />
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
+            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
@@ -108,9 +110,9 @@ export function EstrusForm() {
             })
           }
         >
-          {estrusMutation.isPending ? 'Salvando...' : 'Registrar Cio'}
+          {estrusMutation.isPending ? "Salvando..." : "Registrar Cio"}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

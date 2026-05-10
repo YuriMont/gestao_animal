@@ -1,21 +1,21 @@
-import { createFileRoute, Link, redirect } from '@tanstack/react-router'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { AlertCircle, LogOut, RefreshCw } from 'lucide-react'
-import { useEffect } from 'react'
-import { isAuthenticatedAtom, logoutAtom } from '@/atoms/auth'
-import { Button } from '@/components/ui/button'
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { useAtomValue, useSetAtom } from "jotai";
+import { AlertCircle, LogOut, RefreshCw } from "lucide-react";
+import { useEffect } from "react";
+import { isAuthenticatedAtom, logoutAtom } from "@/atoms/auth";
+import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute('/unauthorized')({
+export const Route = createFileRoute("/unauthorized")({
   component: UnauthorizedPage,
-})
+});
 
 function UnauthorizedPage() {
-  const isAuthenticated = useAtomValue(isAuthenticatedAtom)
-  const logout = useSetAtom(logoutAtom)
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+  const logout = useSetAtom(logoutAtom);
 
   useEffect(() => {
-    if (isAuthenticated) redirect({ to: '/' })
-  }, [isAuthenticated])
+    if (isAuthenticated) redirect({ to: "/" });
+  }, [isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-muted/40 flex items-center justify-center">
@@ -43,7 +43,7 @@ function UnauthorizedPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Route
+export default Route;

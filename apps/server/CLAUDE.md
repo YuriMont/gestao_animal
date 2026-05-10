@@ -47,8 +47,10 @@ src/
 ├── common/
 │   ├── errors/
 │   │   └── app-error.ts          # AppError, NotFoundError, ConflictError, etc.
-│   └── middleware/
-│       └── tenant-context.ts     # Extrai x-tenant-id (fallback dev; JWT é primário)
+│   └── lib/
+│       ├── index.ts              # Barrel export
+│       ├── pagination.ts         # PaginationMeta, paginated(), PaginatedResult<T>
+│       └── enums.ts              # getEnumLabel(), getEnumValues(), createTranslatedEnumSchema()
 ├── infrastructure/
 │   └── persistence/
 │       └── prisma.service.ts     # Singleton do PrismaClient
@@ -61,25 +63,28 @@ src/
     ├── reproduction/             # Estrus, Pregnancies, Births
     ├── production/               # WeightRecords, MilkProduction
     ├── financial/                # FinancialRecords
-    └── alerts/                   # AlertRules, Notifications
+    └── alerts/                   # AlertRules
 ```
 
-Cada módulo segue a estrutura:
+Cada módulo segue a estrutura **"Flat by Default"** (3-4 arquivos por resource):
 
 ```
 modules/<domínio>/
-├── domain/
-│   ├── entities/           # Classes de domínio (imutáveis, sem Prisma)
-│   └── repositories/       # Interfaces IXxxRepository
-├── infrastructure/
-│   └── persistence/        # risma@6.19 @prisma/client@6.19XxxRepository — implementação das interfaces
-├── application/
-│   └── use-cases/          # Um arquivo por caso de uso
-└── presentation/
-    ├── dtos/               # Schemas Zod para input/output
-    ├── controllers/        # Handlers Fastify (orquestram use cases)
-    └── routes.ts           # Registra rotas com schemas e controllers
+├── <dominio>.module.ts      # Fábrica de DI: instancia repo → service → controller
+├── routes.ts                # Registro de rotas (importa controllers do module)
+└── <recurso>/
+    ├── <recurso>.types.ts       # Schemas Zod + interfaces (entrada/saída)
+    ├── <recurso>.repository.ts  # Interface + implementação Prisma (mesmo arquivo)
+    ├── <recurso>.service.ts     # Lógica de negócio (1 classe, N métodos)
+    └── <recurso>.controller.ts  # Handlers Fastify (singleton com DI via constructor)
 ```
+
+Para módulos com uma única entidade (ex: `alerts`, `health`), os arquivos ficam na raiz. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
+
+**Quando aprofundar** (escalabilidade gradual):
+- Lógica complexa → extraia `domain/` entities + use-cases do service
+- Múltiplos providers → extraia interface do repositório
+- Regra compartilhada → mova para `common/lib/`
 
 ---
 
@@ -160,15 +165,27 @@ ALLOWED_ORIGINS="http://localhost:3000,http://localhost:5173"
 
 ## Como adicionar um novo módulo
 
-1. **Crie a estrutura de pastas** seguindo o padrão `modules/<nome>/domain|infrastructure|application|presentation`
-2. **Defina a entity** em `domain/entities/<nome>.entity.ts` — classe simples, sem Prisma
-3. **Defina a interface** em `domain/repositories/<nome>.repository.ts`
-4. **Implemente o repositório** em `infrastructure/persistence/prisma-<nome>.repository.ts`
-5. **Crie use cases** em `application/use-cases/` — um arquivo por operação
-6. **Crie DTOs** (schemas Zod) em `presentation/dtos/<nome>.dto.ts`
-7. **Crie o controller** em `presentation/controllers/<nome>.controller.ts`
-8. **Registre as rotas** em `presentation/routes.ts`
-9. **Importe em `app.ts`** dentro do bloco `v1` (ou no bloco público se não precisar de auth)
+1. **Crie a estrutura de pastas:** para módulos com entidade única, arquivos na raiz do módulo. Para múltiplas entidades (ex: `core`), crie um subdiretório por entidade.
+2. **Defina os schemas Zod** em `<recurso>.types.ts` — input, output, query (substitui entities + dtos)
+3. **Defina interface + implementação Prisma** em `<recurso>.repository.ts` (mesmo arquivo)
+4. **Crie a lógica de negócio** em `<recurso>.service.ts` — 1 classe, N métodos (substitui N use-cases)
+5. **Crie o controller** em `<recurso>.controller.ts` — classe com DI via constructor (singleton)
+6. **Crie o module** em `<dominio>.module.ts` — fábrica que instancia repo → service → controller
+7. **Registre as rotas** em `routes.ts` — importe controllers do module
+8. **Importe em `app.ts`** dentro do bloco `v1` (ou no bloco público se não precisar de auth)
+
+```typescript
+// Exemplo: <dominio>.module.ts
+import { PrismaService } from "@src/infrastructure/persistence/prisma.service";
+import { MeuResourceController } from "./meu-resource.controller";
+import { PrismaMeuResourceRepository } from "./meu-resource.repository";
+import { MeuResourceService } from "./meu-resource.service";
+
+const prisma = PrismaService.getInstance();
+const repo = new PrismaMeuResourceRepository(prisma);
+const service = new MeuResourceService(repo);
+export const meuResourceController = new MeuResourceController(service);
+```
 
 ---
 
@@ -191,7 +208,7 @@ CRUD completo disponível em `/v1/breeds`.
 ## Como adicionar uma rota
 
 ```typescript
-// presentation/routes.ts
+// routes.ts
 app.get(
   "/meu-recurso/:id",
   {
@@ -211,12 +228,13 @@ app.get(
 
 ## Convenções de código
 
-- **Entities** são imutáveis — nunca mute `props` diretamente; use `Entity.create()`
-- **Repositórios** sempre recebem `organizationId` para isolar dados por tenant
-- **Use cases** lançam `AppError` (ou subclasses) — nunca `new Error()` diretamente
-- **Controllers** não têm `try/catch` — o `errorHandler` global captura tudo
-- **DTOs** definem o contrato público da API; entities definem o modelo de domínio
-- **Senhas** nunca são retornadas em respostas — `safeUser()` nos controllers de usuário
+- **Types**: Schemas Zod definem contratos de input/output; interfaces TypeScript para records do banco
+- **Repositórios**: Interface + implementação Prisma no mesmo arquivo; assinaturas recebem dados prontos (sem entity classes)
+- **Services**: Lançam `AppError` (ou subclasses) — nunca `new Error()` diretamente
+- **Controllers**: Não têm `try/catch` — o `errorHandler` global captura tudo. Usam arrow functions para preservar `this`
+- **DI**: Controllers são singletons instanciados no `<dominio>.module.ts` — nunca `new Controller()` por request
+- **Records**: O tipo retornado do repositório é o `Record` (Prisma shape), não uma entity class
+- **Senhas**: Nunca são retornadas em respostas — `safeUser()` nos services de usuário
 
 ---
 

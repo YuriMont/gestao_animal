@@ -1,14 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { AppLayout } from '@/components/layout/app-layout'
-import { PageHeader } from '@/components/layout/page-header'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { EstrusForm } from '@/components/reproduction/estrus-form'
-import { PregnancyView } from '@/components/reproduction/pregnancy-view'
-import { BirthForm } from '@/components/reproduction/birth-form'
+import { createFileRoute } from "@tanstack/react-router";
+import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/layout/page-header";
+import { BirthForm } from "@/components/reproduction/birth-form";
+import { EstrusForm } from "@/components/reproduction/estrus-form";
+import { PregnancyView } from "@/components/reproduction/pregnancy-view";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const Route = createFileRoute('/reproduction')({
+export const Route = createFileRoute("/reproduction")({
   component: ReproductionPage,
-})
+});
 
 function ReproductionPage() {
   return (
@@ -41,5 +41,5 @@ function ReproductionPage() {
         </div>
       </div>
     </AppLayout>
-  )
+  );
 }

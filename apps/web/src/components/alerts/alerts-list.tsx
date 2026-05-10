@@ -1,14 +1,14 @@
-import { Bell } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useGetV1AlertsRules } from '@/gen/hooks/alertsController/useGetV1AlertsRules'
-import { ALERT_CONDITIONS } from './alerts-form-dialog'
+import { Bell } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetV1AlertsRules } from "@/gen/hooks/alertsController/useGetV1AlertsRules";
+import { ALERT_CONDITIONS } from "./alerts-form-dialog";
 
 export function AlertsList() {
-  const rulesQuery = useGetV1AlertsRules()
+  const rulesQuery = useGetV1AlertsRules();
   // API returns { data: AlertRule[], total: number }
-  const rules = rulesQuery.data?.data ?? []
+  const rules = rulesQuery.data?.data ?? [];
 
   return (
     <Card>
@@ -48,16 +48,14 @@ export function AlertsList() {
                   <div>
                     <p className="text-sm font-medium">{rule.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {ALERT_CONDITIONS.find(c => c.value === rule.condition)
+                      {ALERT_CONDITIONS.find((c) => c.value === rule.condition)
                         ?.label ?? rule.condition}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   {rule.value != null && (
-                    <Badge variant="outline">
-                      Limite: {rule.value}
-                    </Badge>
+                    <Badge variant="outline">Limite: {rule.value}</Badge>
                   )}
                 </div>
               </div>
@@ -66,5 +64,5 @@ export function AlertsList() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

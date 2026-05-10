@@ -1,14 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { AppLayout } from '@/components/layout/app-layout'
-import { PageHeader } from '@/components/layout/page-header'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { VaccineForm } from '@/components/health/vaccine-form'
-import { TreatmentForm } from '@/components/health/treatment-form'
-import { RecordForm } from '@/components/health/record-form'
+import { createFileRoute } from "@tanstack/react-router";
+import { RecordForm } from "@/components/health/record-form";
+import { TreatmentForm } from "@/components/health/treatment-form";
+import { VaccineForm } from "@/components/health/vaccine-form";
+import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/layout/page-header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const Route = createFileRoute('/health')({
+export const Route = createFileRoute("/health")({
   component: HealthPage,
-})
+});
 
 function HealthPage() {
   return (
@@ -41,5 +41,5 @@ function HealthPage() {
         </div>
       </div>
     </AppLayout>
-  )
+  );
 }

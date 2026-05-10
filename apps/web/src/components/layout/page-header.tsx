@@ -1,12 +1,12 @@
-import type * as React from 'react'
-import { cn } from '@/lib/utils'
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 type PageHeaderProps = {
-  title: string
-  description?: string
-  children?: React.ReactNode
-  className?: string
-}
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+  className?: string;
+};
 
 export function PageHeader({
   title,
@@ -17,8 +17,8 @@ export function PageHeader({
   return (
     <div
       className={cn(
-        'flex items-start justify-between border-b px-6 py-5',
-        className
+        "flex items-start justify-between border-b px-6 py-5",
+        className,
       )}
     >
       <div>
@@ -29,5 +29,5 @@ export function PageHeader({
       </div>
       {children && <div className="flex items-center gap-2">{children}</div>}
     </div>
-  )
+  );
 }

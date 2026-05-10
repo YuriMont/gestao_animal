@@ -1,11 +1,11 @@
 import rateLimit from "@fastify/rate-limit";
-import alertRoutes from "@src/modules/alerts/presentation/routes";
-import authRoutes from "@src/modules/auth/presentation/routes";
-import animalRoutes from "@src/modules/core/presentation/routes";
-import financialRoutes from "@src/modules/financial/presentation/routes";
-import healthRoutes from "@src/modules/health/presentation/routes";
-import productionRoutes from "@src/modules/production/presentation/routes";
-import reproductionRoutes from "@src/modules/reproduction/presentation/routes";
+import alertRoutes from "@src/modules/alerts/routes";
+import authRoutes from "@src/modules/auth/routes";
+import coreRoutes from "@src/modules/core/routes";
+import financialRoutes from "@src/modules/financial/routes";
+import healthRoutes from "@src/modules/health/routes";
+import productionRoutes from "@src/modules/production/routes";
+import reproductionRoutes from "@src/modules/reproduction/routes";
 import { authPlugin } from "@src/plugins/auth";
 import corsPlugin from "@src/plugins/cors";
 import errorHandlerPlugin from "@src/plugins/errorHandler";
@@ -17,8 +17,8 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { organizationController } from "./modules/core/presentation/controllers/organization.controller";
-import { organizationResponseSchema } from "./modules/core/presentation/dtos/organization.dto";
+import { organizationController } from "./modules/core/core.module";
+import { organizationResponseSchema } from "./modules/core/organizations/organizations.types";
 
 export async function createApp() {
   const app = fastify({
@@ -91,7 +91,7 @@ export async function createApp() {
   app.register(
     async (v1) => {
       v1.addHook("preHandler", authPlugin);
-      await v1.register(animalRoutes);
+      await v1.register(coreRoutes);
       await v1.register(healthRoutes);
       await v1.register(reproductionRoutes);
       await v1.register(productionRoutes);

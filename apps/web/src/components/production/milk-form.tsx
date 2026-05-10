@@ -1,45 +1,46 @@
-import { useState } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { AnimalSelect } from "@/components/reproduction/animal-select";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { usePostV1ProductionMilk } from '@/gen/hooks/productionController/usePostV1ProductionMilk'
-import { AnimalSelect } from '@/components/reproduction/animal-select'
+} from "@/components/ui/select";
+import { usePostV1ProductionMilk } from "@/gen/hooks/productionController/usePostV1ProductionMilk";
 
 const INITIAL_MILK_FORM = {
-  animalId: '',
-  quantity: '',
-  unit: 'L',
-  date: '',
-}
+  animalId: "",
+  quantity: "",
+  unit: "L",
+  date: "",
+};
 
 export function MilkForm() {
-  const [milkForm, setMilkForm] = useState(INITIAL_MILK_FORM)
-  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
+  const [milkForm, setMilkForm] = useState(INITIAL_MILK_FORM);
+  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
+    null,
+  );
 
   function showFeedback(ok: boolean, msg: string) {
-    setFeedback({ ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
+    setFeedback({ ok, msg });
+    setTimeout(() => setFeedback(null), 3000);
   }
 
   const milkMutation = usePostV1ProductionMilk({
     mutation: {
       onSuccess: () => {
-        setMilkForm(INITIAL_MILK_FORM)
-        showFeedback(true, 'Produção registrada!')
+        setMilkForm(INITIAL_MILK_FORM);
+        showFeedback(true, "Produção registrada!");
       },
-      onError: () => showFeedback(false, 'Erro ao registrar produção.'),
+      onError: () => showFeedback(false, "Erro ao registrar produção."),
     },
-  })
+  });
 
   return (
     <Card className="max-w-lg">
@@ -54,7 +55,7 @@ export function MilkForm() {
           <Label>Animal (Fêmea) *</Label>
           <AnimalSelect
             value={milkForm.animalId}
-            onChange={v => setMilkForm({ ...milkForm, animalId: v })}
+            onChange={(v) => setMilkForm({ ...milkForm, animalId: v })}
             femaleOnly
           />
         </div>
@@ -66,7 +67,7 @@ export function MilkForm() {
               step="0.1"
               placeholder="Ex: 20.5"
               value={milkForm.quantity}
-              onChange={e =>
+              onChange={(e) =>
                 setMilkForm({ ...milkForm, quantity: e.target.value })
               }
             />
@@ -75,7 +76,7 @@ export function MilkForm() {
             <Label>Unidade *</Label>
             <Select
               value={milkForm.unit}
-              onValueChange={v => setMilkForm({ ...milkForm, unit: v })}
+              onValueChange={(v) => setMilkForm({ ...milkForm, unit: v })}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -92,14 +93,12 @@ export function MilkForm() {
           <Input
             type="date"
             value={milkForm.date}
-            onChange={e =>
-              setMilkForm({ ...milkForm, date: e.target.value })
-            }
+            onChange={(e) => setMilkForm({ ...milkForm, date: e.target.value })}
           />
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
+            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
@@ -123,11 +122,9 @@ export function MilkForm() {
             })
           }
         >
-          {milkMutation.isPending
-            ? 'Salvando...'
-            : 'Registrar Produção'}
+          {milkMutation.isPending ? "Salvando..." : "Registrar Produção"}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

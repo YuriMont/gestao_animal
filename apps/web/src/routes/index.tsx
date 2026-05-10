@@ -1,37 +1,37 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useAtomValue } from 'jotai'
-import { Activity, Beef, DollarSign, TrendingUp } from 'lucide-react'
-import { userAtom } from '@/atoms/auth'
-import { AppLayout } from '@/components/layout/app-layout'
-import { PageHeader } from '@/components/layout/page-header'
-import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
-import { useGetV1FinancialSummary } from '@/gen/hooks/financialController/useGetV1FinancialSummary'
-import { StatCard } from '@/components/dashboard/stat-card'
-import { RecentAnimals } from '@/components/dashboard/recent-animals'
+import { createFileRoute } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
+import { Activity, Beef, DollarSign, TrendingUp } from "lucide-react";
+import { userAtom } from "@/atoms/auth";
+import { RecentAnimals } from "@/components/dashboard/recent-animals";
+import { StatCard } from "@/components/dashboard/stat-card";
+import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/layout/page-header";
+import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
+import { useGetV1FinancialSummary } from "@/gen/hooks/financialController/useGetV1FinancialSummary";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: Dashboard,
-})
+});
 
 function Dashboard() {
-  const user = useAtomValue(userAtom)
-  const animalsQuery = useGetV1Animals({ limit: 1, page: 1 })
+  const user = useAtomValue(userAtom);
+  const animalsQuery = useGetV1Animals({ limit: 1, page: 1 });
   const activeAnimalsQuery = useGetV1Animals({
-    status: 'ACTIVE',
+    status: "ACTIVE",
     limit: 1,
-  })
+  });
 
-  const financialSummary = useGetV1FinancialSummary()
+  const financialSummary = useGetV1FinancialSummary();
 
-  const totalAnimals = animalsQuery.data?.meta.total ?? 0
-  const activeAnimals = activeAnimalsQuery.data?.meta.total ?? 0
-  const summary = financialSummary.data
+  const totalAnimals = animalsQuery.data?.meta.total ?? 0;
+  const activeAnimals = activeAnimalsQuery.data?.meta.total ?? 0;
+  const summary = financialSummary.data;
 
   return (
     <AppLayout>
       <div className="flex flex-col">
         <PageHeader
-          title={`Olá, ${user?.name?.split(' ')[0] ?? 'Usuário'} 👋`}
+          title={`Olá, ${user?.name?.split(" ")[0] ?? "Usuário"} 👋`}
           description="Visão geral da sua propriedade"
         />
 
@@ -53,8 +53,8 @@ function Dashboard() {
               title="Receita Total"
               value={
                 summary
-                  ? `R$ ${summary.totalRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-                  : '—'
+                  ? `R$ ${summary.totalRevenue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+                  : "—"
               }
               icon={TrendingUp}
               loading={financialSummary.isLoading}
@@ -63,14 +63,14 @@ function Dashboard() {
               title="Lucro Líquido"
               value={
                 summary
-                  ? `R$ ${summary.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-                  : '—'
+                  ? `R$ ${summary.balance.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+                  : "—"
               }
               icon={DollarSign}
               loading={financialSummary.isLoading}
-              trend={summary && summary.balance >= 0 ? 'up' : 'down'}
+              trend={summary && summary.balance >= 0 ? "up" : "down"}
               trendLabel={
-                summary && summary.balance >= 0 ? 'Positivo' : 'Negativo'
+                summary && summary.balance >= 0 ? "Positivo" : "Negativo"
               }
             />
           </div>
@@ -79,5 +79,5 @@ function Dashboard() {
         </div>
       </div>
     </AppLayout>
-  )
+  );
 }

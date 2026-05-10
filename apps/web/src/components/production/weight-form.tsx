@@ -1,38 +1,40 @@
-import { useState } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { usePostV1ProductionWeight } from '@/gen/hooks/productionController/usePostV1ProductionWeight'
-import { AnimalSelect } from '@/components/health/animal-select'
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { AnimalSelect } from "@/components/health/animal-select";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { usePostV1ProductionWeight } from "@/gen/hooks/productionController/usePostV1ProductionWeight";
 
 const INITIAL_WEIGHT_FORM = {
-  animalId: '',
-  weight: '',
-  date: '',
-  notes: '',
-}
+  animalId: "",
+  weight: "",
+  date: "",
+  notes: "",
+};
 
 export function WeightForm() {
-  const [weightForm, setWeightForm] = useState(INITIAL_WEIGHT_FORM)
-  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
+  const [weightForm, setWeightForm] = useState(INITIAL_WEIGHT_FORM);
+  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
+    null,
+  );
 
   function showFeedback(ok: boolean, msg: string) {
-    setFeedback({ ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
+    setFeedback({ ok, msg });
+    setTimeout(() => setFeedback(null), 3000);
   }
 
   const weightMutation = usePostV1ProductionWeight({
     mutation: {
       onSuccess: () => {
-        setWeightForm(INITIAL_WEIGHT_FORM)
-        showFeedback(true, 'Peso registrado!')
+        setWeightForm(INITIAL_WEIGHT_FORM);
+        showFeedback(true, "Peso registrado!");
       },
-      onError: () => showFeedback(false, 'Erro ao registrar peso.'),
+      onError: () => showFeedback(false, "Erro ao registrar peso."),
     },
-  })
+  });
 
   return (
     <Card className="max-w-lg">
@@ -47,9 +49,7 @@ export function WeightForm() {
           <Label>Animal *</Label>
           <AnimalSelect
             value={weightForm.animalId}
-            onChange={v =>
-              setWeightForm({ ...weightForm, animalId: v })
-            }
+            onChange={(v) => setWeightForm({ ...weightForm, animalId: v })}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -60,7 +60,7 @@ export function WeightForm() {
               step="0.1"
               placeholder="Ex: 450.5"
               value={weightForm.weight}
-              onChange={e =>
+              onChange={(e) =>
                 setWeightForm({
                   ...weightForm,
                   weight: e.target.value,
@@ -73,7 +73,7 @@ export function WeightForm() {
             <Input
               type="date"
               value={weightForm.date}
-              onChange={e =>
+              onChange={(e) =>
                 setWeightForm({ ...weightForm, date: e.target.value })
               }
             />
@@ -84,14 +84,14 @@ export function WeightForm() {
           <Textarea
             placeholder="Notas..."
             value={weightForm.notes}
-            onChange={e =>
+            onChange={(e) =>
               setWeightForm({ ...weightForm, notes: e.target.value })
             }
           />
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
+            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
@@ -114,11 +114,9 @@ export function WeightForm() {
             })
           }
         >
-          {weightMutation.isPending
-            ? 'Salvando...'
-            : 'Registrar Pesagem'}
+          {weightMutation.isPending ? "Salvando..." : "Registrar Pesagem"}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

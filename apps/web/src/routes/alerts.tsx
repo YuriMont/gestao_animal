@@ -1,12 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { AppLayout } from '@/components/layout/app-layout'
-import { PageHeader } from '@/components/layout/page-header'
-import { AlertsFormDialog } from '@/components/alerts/alerts-form-dialog'
-import { AlertsList } from '@/components/alerts/alerts-list'
+import { createFileRoute } from "@tanstack/react-router";
+import { AlertsFormDialog } from "@/components/alerts/alerts-form-dialog";
+import { AlertsList } from "@/components/alerts/alerts-list";
+import { AppLayout } from "@/components/layout/app-layout";
+import { PageHeader } from "@/components/layout/page-header";
 
-export const Route = createFileRoute('/alerts')({
+export const Route = createFileRoute("/alerts")({
   component: AlertsPage,
-})
+});
 
 function AlertsPage() {
   return (
@@ -24,5 +24,5 @@ function AlertsPage() {
         </div>
       </div>
     </AppLayout>
-  )
+  );
 }

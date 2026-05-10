@@ -53,30 +53,31 @@ VITE_API_URL=http://localhost:3333
 
 ## Arquitetura do backend (`apps/server`)
 
-Segue Clean Architecture por módulo:
+Segue padrão **"Flat by Default"** — 3-4 arquivos por resource, com escalabilidade gradual:
 
 ```
 src/modules/<domínio>/
-├── domain/
-│   ├── entities/           # Classes puras TypeScript
-│   └── repositories/       # Interfaces IXxxRepository
-├── infrastructure/
-│   └── persistence/        # Implementações PrismaXxxRepository
-├── application/
-│   └── use-cases/          # Lógica de negócio
-└── presentation/
-    ├── dtos/               # Schemas Zod
-    ├── controllers/        # Handlers Fastify
-    └── routes.ts           # Registro de rotas + OpenAPI
+├── <dominio>.module.ts      # Fábrica de DI
+├── routes.ts                # Registro de rotas
+└── <recurso>/
+    ├── <recurso>.types.ts       # Schemas Zod + interfaces
+    ├── <recurso>.repository.ts  # Interface + implementação Prisma
+    ├── <recurso>.service.ts     # Lógica de negócio
+    └── <recurso>.controller.ts  # Handlers Fastify (singleton com DI)
 ```
 
-Módulos existentes: `auth`, `core` (animals, organizations, users), `health`, `reproduction`, `production`, `financial`, `alerts`.
+Para módulos com uma única entidade (ex: `alerts`, `health`), os arquivos ficam na raiz do módulo. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
+
+Módulos existentes: `auth`, `core` (animals, breeds, organizations, users), `health`, `reproduction`, `production`, `financial`, `alerts`.
+
+Módulos com entidade única (ex: `health`, `financial`) têm os arquivos na raiz. Módulos com múltiplas entidades (ex: `core` com `animals/`, `breeds/`, `users/`, `organizations/`) usam subdiretórios.
 
 **Adicionar endpoint:**
-1. Schema Zod em `modules/<domínio>/presentation/dtos/`
-2. Controller em `modules/<domínio>/presentation/controllers/`
-3. Registrar em `modules/<domínio>/presentation/routes.ts`
-4. Conferir no Swagger UI: `http://localhost:3333/docs`
+1. Crie schemas Zod em `<recurso>.types.ts`
+2. Implemente lógica em `<recurso>.service.ts`
+3. Adicione handler em `<recurso>.controller.ts`
+4. Registre a rota em `routes.ts`
+5. Conferir no Swagger UI: `http://localhost:3333/docs`
 
 ## Arquitetura do frontend (`apps/web`)
 

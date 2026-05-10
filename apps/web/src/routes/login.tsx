@@ -1,23 +1,23 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useAtomValue } from 'jotai'
-import { Leaf } from 'lucide-react'
-import { useEffect } from 'react'
-import { isAuthenticatedAtom } from '@/atoms/auth'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { LoginForm } from '@/components/auth/login-form'
-import { RegisterForm } from '@/components/auth/register-form'
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
+import { Leaf } from "lucide-react";
+import { useEffect } from "react";
+import { isAuthenticatedAtom } from "@/atoms/auth";
+import { LoginForm } from "@/components/auth/login-form";
+import { RegisterForm } from "@/components/auth/register-form";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute("/login")({
   component: LoginPage,
-})
+});
 
 function LoginPage() {
-  const isAuthenticated = useAtomValue(isAuthenticatedAtom)
-  const navigate = useNavigate()
+  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate({ to: '/' })
-  }, [isAuthenticated, navigate])
+    if (isAuthenticated) navigate({ to: "/" });
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -52,5 +52,5 @@ function LoginPage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }

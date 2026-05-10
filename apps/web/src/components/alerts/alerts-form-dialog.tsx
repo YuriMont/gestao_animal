@@ -1,7 +1,7 @@
-import { useQueryClient } from '@tanstack/react-query'
-import { Plus } from 'lucide-react'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useQueryClient } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,51 +9,49 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import {
-  getV1AlertsRulesQueryKey,
-} from '@/gen/hooks/alertsController/useGetV1AlertsRules'
-import { usePostV1AlertsRules } from '@/gen/hooks/alertsController/usePostV1AlertsRules'
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { getV1AlertsRulesQueryKey } from "@/gen/hooks/alertsController/useGetV1AlertsRules";
+import { usePostV1AlertsRules } from "@/gen/hooks/alertsController/usePostV1AlertsRules";
 
 // Alert condition types aligned with backend AlertRule schema (condition + value)
 export const ALERT_CONDITIONS = [
-  { value: 'WEIGHT_BELOW', label: 'Peso abaixo do esperado' },
-  { value: 'WEIGHT_ABOVE', label: 'Peso acima do esperado' },
-  { value: 'VACCINE_DUE', label: 'Vacina vencendo' },
-  { value: 'PREGNANCY_DUE', label: 'Parto previsto' },
-  { value: 'MILK_LOW', label: 'Produção de leite baixa' },
-]
+  { value: "WEIGHT_BELOW", label: "Peso abaixo do esperado" },
+  { value: "WEIGHT_ABOVE", label: "Peso acima do esperado" },
+  { value: "VACCINE_DUE", label: "Vacina vencendo" },
+  { value: "PREGNANCY_DUE", label: "Parto previsto" },
+  { value: "MILK_LOW", label: "Produção de leite baixa" },
+];
 
 const INITIAL_ALERT_FORM = {
-  name: '',
-  condition: '',
-  value: '',
-}
+  name: "",
+  condition: "",
+  value: "",
+};
 
 export function AlertsFormDialog() {
-  const qc = useQueryClient()
-  const [open, setOpen] = useState(false)
-  const [form, setForm] = useState(INITIAL_ALERT_FORM)
+  const qc = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState(INITIAL_ALERT_FORM);
 
   const createMutation = usePostV1AlertsRules({
     mutation: {
       onSuccess: () => {
-        qc.invalidateQueries({ queryKey: getV1AlertsRulesQueryKey() })
-        setOpen(false)
-        setForm(INITIAL_ALERT_FORM)
+        qc.invalidateQueries({ queryKey: getV1AlertsRulesQueryKey() });
+        setOpen(false);
+        setForm(INITIAL_ALERT_FORM);
       },
     },
-  })
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -73,20 +71,20 @@ export function AlertsFormDialog() {
             <Input
               placeholder="Ex: Vacina Aftosa Vencendo"
               value={form.name}
-              onChange={e => setForm({ ...form, name: e.target.value })}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
           </div>
           <div className="space-y-1.5">
             <Label>Condição *</Label>
             <Select
               value={form.condition}
-              onValueChange={v => setForm({ ...form, condition: v })}
+              onValueChange={(v) => setForm({ ...form, condition: v })}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Selecione a condição" />
               </SelectTrigger>
               <SelectContent>
-                {ALERT_CONDITIONS.map(c => (
+                {ALERT_CONDITIONS.map((c) => (
                   <SelectItem key={c.value} value={c.value}>
                     {c.label}
                   </SelectItem>
@@ -99,7 +97,7 @@ export function AlertsFormDialog() {
             <Textarea
               placeholder="Ex: 300 (kg), 7 (dias)..."
               value={form.value}
-              onChange={e => setForm({ ...form, value: e.target.value })}
+              onChange={(e) => setForm({ ...form, value: e.target.value })}
             />
           </div>
         </div>
@@ -108,9 +106,7 @@ export function AlertsFormDialog() {
             Cancelar
           </Button>
           <Button
-            disabled={
-              createMutation.isPending || !form.name || !form.condition
-            }
+            disabled={createMutation.isPending || !form.name || !form.condition}
             onClick={() =>
               createMutation.mutate({
                 data: {
@@ -121,10 +117,10 @@ export function AlertsFormDialog() {
               })
             }
           >
-            {createMutation.isPending ? 'Salvando...' : 'Criar Regra'}
+            {createMutation.isPending ? "Salvando..." : "Criar Regra"}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

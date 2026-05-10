@@ -1,48 +1,50 @@
-import { useState } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useGetV1EnumsReproductionBirthStatus } from '@/gen/hooks/enumsController/useGetV1EnumsReproductionBirthStatus'
-import { usePostV1ReproductionBirth } from '@/gen/hooks/reproductionController/usePostV1ReproductionBirth'
-import type { PostV1ReproductionBirthMutationRequestStatusEnumKey } from '@/gen/models/reproductionController/PostV1ReproductionBirth'
-import { AnimalSelect } from './animal-select'
+} from "@/components/ui/select";
+import { useGetV1EnumsReproductionBirthStatus } from "@/gen/hooks/enumsController/useGetV1EnumsReproductionBirthStatus";
+import { usePostV1ReproductionBirth } from "@/gen/hooks/reproductionController/usePostV1ReproductionBirth";
+import type { PostV1ReproductionBirthMutationRequestStatusEnumKey } from "@/gen/models/reproductionController/PostV1ReproductionBirth";
+import { AnimalSelect } from "./animal-select";
 
 const INITIAL_BIRTH_FORM = {
-  motherId: '',
-  fatherId: '',
-  birthDate: '',
-  offspringTag: '',
-  status: 'ALIVE' as PostV1ReproductionBirthMutationRequestStatusEnumKey,
-}
+  motherId: "",
+  fatherId: "",
+  birthDate: "",
+  offspringTag: "",
+  status: "ALIVE" as PostV1ReproductionBirthMutationRequestStatusEnumKey,
+};
 
 export function BirthForm() {
-  const [birthForm, setBirthForm] = useState(INITIAL_BIRTH_FORM)
-  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
-  const { data: birthStatuses } = useGetV1EnumsReproductionBirthStatus()
+  const [birthForm, setBirthForm] = useState(INITIAL_BIRTH_FORM);
+  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
+    null,
+  );
+  const { data: birthStatuses } = useGetV1EnumsReproductionBirthStatus();
 
   function showFeedback(ok: boolean, msg: string) {
-    setFeedback({ ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
+    setFeedback({ ok, msg });
+    setTimeout(() => setFeedback(null), 3000);
   }
 
   const birthMutation = usePostV1ReproductionBirth({
     mutation: {
       onSuccess: () => {
-        setBirthForm(INITIAL_BIRTH_FORM)
-        showFeedback(true, 'Parto registrado!')
+        setBirthForm(INITIAL_BIRTH_FORM);
+        showFeedback(true, "Parto registrado!");
       },
-      onError: () => showFeedback(false, 'Erro ao registrar parto.'),
+      onError: () => showFeedback(false, "Erro ao registrar parto."),
     },
-  })
+  });
 
   return (
     <Card className="max-w-lg">
@@ -57,7 +59,7 @@ export function BirthForm() {
           <Label>Mãe (Fêmea) *</Label>
           <AnimalSelect
             value={birthForm.motherId}
-            onChange={v => setBirthForm({ ...birthForm, motherId: v })}
+            onChange={(v) => setBirthForm({ ...birthForm, motherId: v })}
             femaleOnly
           />
         </div>
@@ -65,7 +67,7 @@ export function BirthForm() {
           <Label>Pai (Macho)</Label>
           <AnimalSelect
             value={birthForm.fatherId}
-            onChange={v => setBirthForm({ ...birthForm, fatherId: v })}
+            onChange={(v) => setBirthForm({ ...birthForm, fatherId: v })}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -74,7 +76,7 @@ export function BirthForm() {
             <Input
               type="date"
               value={birthForm.birthDate}
-              onChange={e =>
+              onChange={(e) =>
                 setBirthForm({ ...birthForm, birthDate: e.target.value })
               }
             />
@@ -84,7 +86,7 @@ export function BirthForm() {
             <Input
               placeholder="Ex: BOV-050"
               value={birthForm.offspringTag}
-              onChange={e =>
+              onChange={(e) =>
                 setBirthForm({ ...birthForm, offspringTag: e.target.value })
               }
             />
@@ -94,10 +96,11 @@ export function BirthForm() {
           <Label>Status *</Label>
           <Select
             value={birthForm.status}
-            onValueChange={v =>
+            onValueChange={(v) =>
               setBirthForm({
                 ...birthForm,
-                status: v as PostV1ReproductionBirthMutationRequestStatusEnumKey,
+                status:
+                  v as PostV1ReproductionBirthMutationRequestStatusEnumKey,
               })
             }
           >
@@ -105,7 +108,7 @@ export function BirthForm() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {birthStatuses?.map(item => (
+              {birthStatuses?.map((item) => (
                 <SelectItem key={item.key} value={item.key}>
                   {item.label}
                 </SelectItem>
@@ -115,7 +118,7 @@ export function BirthForm() {
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
+            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
@@ -139,11 +142,9 @@ export function BirthForm() {
             })
           }
         >
-          {birthMutation.isPending
-            ? 'Salvando...'
-            : 'Registrar Parto'}
+          {birthMutation.isPending ? "Salvando..." : "Registrar Parto"}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

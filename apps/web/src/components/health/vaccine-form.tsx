@@ -1,38 +1,40 @@
-import { useState } from 'react'
-import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { usePostV1HealthVaccines } from '@/gen/hooks/healthController/usePostV1HealthVaccines'
-import { AnimalSelect } from './animal-select'
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { usePostV1HealthVaccines } from "@/gen/hooks/healthController/usePostV1HealthVaccines";
+import { AnimalSelect } from "./animal-select";
 
 const INITIAL_VACCINE_FORM = {
-  animalId: '',
-  vaccineName: '',
-  doseNumber: '1',
-  dateAdministered: '',
-  nextDueDate: '',
-}
+  animalId: "",
+  vaccineName: "",
+  doseNumber: "1",
+  dateAdministered: "",
+  nextDueDate: "",
+};
 
 export function VaccineForm() {
-  const [vaccineForm, setVaccineForm] = useState(INITIAL_VACCINE_FORM)
-  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(null)
+  const [vaccineForm, setVaccineForm] = useState(INITIAL_VACCINE_FORM);
+  const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
+    null,
+  );
 
   function showFeedback(ok: boolean, msg: string) {
-    setFeedback({ ok, msg })
-    setTimeout(() => setFeedback(null), 3000)
+    setFeedback({ ok, msg });
+    setTimeout(() => setFeedback(null), 3000);
   }
 
   const vaccineMutation = usePostV1HealthVaccines({
     mutation: {
       onSuccess: () => {
-        setVaccineForm(INITIAL_VACCINE_FORM)
-        showFeedback(true, 'Vacina registrada com sucesso!')
+        setVaccineForm(INITIAL_VACCINE_FORM);
+        showFeedback(true, "Vacina registrada com sucesso!");
       },
-      onError: () => showFeedback(false, 'Erro ao registrar vacina.'),
+      onError: () => showFeedback(false, "Erro ao registrar vacina."),
     },
-  })
+  });
 
   return (
     <Card className="max-w-lg">
@@ -47,9 +49,7 @@ export function VaccineForm() {
           <Label>Animal *</Label>
           <AnimalSelect
             value={vaccineForm.animalId}
-            onChange={v =>
-              setVaccineForm({ ...vaccineForm, animalId: v })
-            }
+            onChange={(v) => setVaccineForm({ ...vaccineForm, animalId: v })}
           />
         </div>
         <div className="space-y-1.5">
@@ -57,7 +57,7 @@ export function VaccineForm() {
           <Input
             placeholder="Ex: Febre Aftosa"
             value={vaccineForm.vaccineName}
-            onChange={e =>
+            onChange={(e) =>
               setVaccineForm({
                 ...vaccineForm,
                 vaccineName: e.target.value,
@@ -72,7 +72,7 @@ export function VaccineForm() {
               type="number"
               min="1"
               value={vaccineForm.doseNumber}
-              onChange={e =>
+              onChange={(e) =>
                 setVaccineForm({
                   ...vaccineForm,
                   doseNumber: e.target.value,
@@ -85,7 +85,7 @@ export function VaccineForm() {
             <Input
               type="date"
               value={vaccineForm.dateAdministered}
-              onChange={e =>
+              onChange={(e) =>
                 setVaccineForm({
                   ...vaccineForm,
                   dateAdministered: e.target.value,
@@ -99,7 +99,7 @@ export function VaccineForm() {
           <Input
             type="date"
             value={vaccineForm.nextDueDate}
-            onChange={e =>
+            onChange={(e) =>
               setVaccineForm({
                 ...vaccineForm,
                 nextDueDate: e.target.value,
@@ -109,7 +109,7 @@ export function VaccineForm() {
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? 'text-primary' : 'text-destructive'}`}
+            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
@@ -134,11 +134,9 @@ export function VaccineForm() {
             })
           }
         >
-          {vaccineMutation.isPending
-            ? 'Salvando...'
-            : 'Registrar Vacina'}
+          {vaccineMutation.isPending ? "Salvando..." : "Registrar Vacina"}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

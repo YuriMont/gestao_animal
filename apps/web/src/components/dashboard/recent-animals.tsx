@@ -1,7 +1,7 @@
-import { Beef } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Beef } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -9,28 +9,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { useGetV1Animals } from '@/gen/hooks/animalsController/useGetV1Animals'
+} from "@/components/ui/table";
+import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
 
 function statusBadgeVariant(
-  status: string
-): 'default' | 'secondary' | 'destructive' | 'success' | 'warning' | 'outline' {
+  status: string,
+): "default" | "secondary" | "destructive" | "success" | "warning" | "outline" {
   const variants: Record<
     string,
-    'default' | 'secondary' | 'destructive' | 'success' | 'warning' | 'outline'
+    "default" | "secondary" | "destructive" | "success" | "warning" | "outline"
   > = {
-    ACTIVE: 'success',
-    INACTIVE: 'warning',
-    QUARANTINE: 'warning',
-    SOLD: 'secondary',
-    DECEASED: 'destructive',
-  }
-  return variants[status] ?? 'outline'
+    ACTIVE: "success",
+    INACTIVE: "warning",
+    QUARANTINE: "warning",
+    SOLD: "secondary",
+    DECEASED: "destructive",
+  };
+  return variants[status] ?? "outline";
 }
 
 export function RecentAnimals() {
-  const animalsQuery = useGetV1Animals({ limit: 10, page: 1 })
-  const animals = animalsQuery.data?.data ?? []
+  const animalsQuery = useGetV1Animals({ limit: 10, page: 1 });
+  const animals = animalsQuery.data?.data ?? [];
 
   return (
     <Card>
@@ -61,16 +61,14 @@ export function RecentAnimals() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {animals.map(animal => (
+              {animals.map((animal) => (
                 <TableRow key={animal.id}>
                   <TableCell className="font-mono font-medium">
                     {animal.tag}
                   </TableCell>
                   <TableCell>{animal.species.label}</TableCell>
-                  <TableCell>{animal.breed?.name ?? '—'}</TableCell>
-                  <TableCell>
-                    {animal.sex.label}
-                  </TableCell>
+                  <TableCell>{animal.breed?.name ?? "—"}</TableCell>
+                  <TableCell>{animal.sex.label}</TableCell>
                   <TableCell>
                     <Badge variant={statusBadgeVariant(animal.status.key)}>
                       {animal.status.label}
@@ -83,5 +81,5 @@ export function RecentAnimals() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

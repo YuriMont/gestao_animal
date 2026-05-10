@@ -1,9 +1,9 @@
-import { useNavigate } from '@tanstack/react-router'
-import { useSetAtom } from 'jotai'
-import type * as React from 'react'
-import { useState } from 'react'
-import { loginAtom } from '@/atoms/auth'
-import { Button } from '@/components/ui/button'
+import { useNavigate } from "@tanstack/react-router";
+import { useSetAtom } from "jotai";
+import type * as React from "react";
+import { useState } from "react";
+import { loginAtom } from "@/atoms/auth";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,46 +11,44 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { usePostAuthLogin } from '@/gen/hooks/authController/usePostAuthLogin'
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { usePostAuthLogin } from "@/gen/hooks/authController/usePostAuthLogin";
 
 export function LoginForm() {
-  const login = useSetAtom(loginAtom)
-  const navigate = useNavigate()
+  const login = useSetAtom(loginAtom);
+  const navigate = useNavigate();
 
   const [loginForm, setLoginForm] = useState({
-    email: '',
-    password: '',
-  })
-  const [loginError, setLoginError] = useState('')
+    email: "",
+    password: "",
+  });
+  const [loginError, setLoginError] = useState("");
 
   const loginMutation = usePostAuthLogin({
     mutation: {
-      onSuccess: res => {
-        login({ token: res.token, user: res.user })
-        navigate({ to: '/' })
+      onSuccess: (res) => {
+        login({ token: res.token, user: res.user });
+        navigate({ to: "/" });
       },
-      onError: () => setLoginError('E-mail ou senha inválidos.'),
+      onError: () => setLoginError("E-mail ou senha inválidos."),
     },
-  })
+  });
 
   function handleLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setLoginError('')
+    e.preventDefault();
+    setLoginError("");
     loginMutation.mutate({
       data: { email: loginForm.email, password: loginForm.password },
-    })
+    });
   }
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Bem-vindo de volta</CardTitle>
-        <CardDescription>
-          Entre com sua conta para continuar
-        </CardDescription>
+        <CardDescription>Entre com sua conta para continuar</CardDescription>
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="space-y-4">
@@ -61,7 +59,9 @@ export function LoginForm() {
               type="email"
               placeholder="nome@empresa.com"
               value={loginForm.email}
-              onChange={e => setLoginForm({ ...loginForm, email: e.target.value })}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, email: e.target.value })
+              }
               required
             />
           </div>
@@ -72,7 +72,9 @@ export function LoginForm() {
               type="password"
               placeholder="••••••••"
               value={loginForm.password}
-              onChange={e => setLoginForm({ ...loginForm, password: e.target.value })}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, password: e.target.value })
+              }
               required
             />
           </div>
@@ -86,10 +88,10 @@ export function LoginForm() {
             className="w-full"
             disabled={loginMutation.isPending}
           >
-            {loginMutation.isPending ? 'Entrando...' : 'Entrar'}
+            {loginMutation.isPending ? "Entrando..." : "Entrar"}
           </Button>
         </CardFooter>
       </form>
     </Card>
-  )
+  );
 }

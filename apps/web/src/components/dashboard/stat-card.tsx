@@ -1,8 +1,8 @@
-import type * as React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { TrendingDown, TrendingUp } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { TrendingDown, TrendingUp } from "lucide-react";
+import type * as React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export function StatCard({
   title,
@@ -12,12 +12,12 @@ export function StatCard({
   trendLabel,
   loading,
 }: {
-  title: string
-  value: string | number
-  icon: React.ComponentType<{ className?: string }>
-  trend?: 'up' | 'down'
-  trendLabel?: string
-  loading?: boolean
+  title: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  trend?: "up" | "down";
+  trendLabel?: string;
+  loading?: boolean;
 }) {
   return (
     <Card>
@@ -40,11 +40,11 @@ export function StatCard({
             {trend && trendLabel && (
               <span
                 className={cn(
-                  'mb-0.5 flex items-center text-xs font-medium',
-                  trend === 'up' ? 'text-primary' : 'text-destructive'
+                  "mb-0.5 flex items-center text-xs font-medium",
+                  trend === "up" ? "text-primary" : "text-destructive",
                 )}
               >
-                {trend === 'up' ? (
+                {trend === "up" ? (
                   <TrendingUp className="size-3" />
                 ) : (
                   <TrendingDown className="size-3" />
@@ -56,5 +56,5 @@ export function StatCard({
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
