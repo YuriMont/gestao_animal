@@ -180,7 +180,7 @@ export function PregnancyView() {
             </p>
           ) : (
             <div className="space-y-2">
-              {pregnancies.slice(0, 6).map((p: any) => (
+              {pregnancies.slice(0, 6).map((p) => (
                 <div
                   key={p.id}
                   className="flex items-center justify-between rounded-lg border px-3 py-2 text-sm"
@@ -190,8 +190,8 @@ export function PregnancyView() {
                   </span>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">
-                      {pregnancyStatuses?.find((s) => s.key === p.status)
-                        ?.label ?? p.status}
+                      {pregnancyStatuses?.find((s) => s.key === p.status.key)
+                        ?.label ?? p.status.label}
                     </Badge>
                     {p.expectedDate && (
                       <Badge variant="default">

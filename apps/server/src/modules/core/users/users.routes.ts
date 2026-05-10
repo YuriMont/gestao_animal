@@ -9,7 +9,6 @@ import {
   updateUserSchema,
 } from "./users.types";
 
-
 const userResponseSchema = z.object({
   id: z.string(),
   email: z.string(),

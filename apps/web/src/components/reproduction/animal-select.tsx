@@ -11,10 +11,12 @@ export function AnimalSelect({
   value,
   onChange,
   femaleOnly,
+  id,
 }: {
   value: string;
   onChange: (v: string) => void;
   femaleOnly?: boolean;
+  id?: string;
 }) {
   const animalsQuery = useGetV1Animals({
     limit: 100,
@@ -25,7 +27,7 @@ export function AnimalSelect({
   const animals = animalsQuery.data?.data ?? [];
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger>
+      <SelectTrigger id={id}>
         <SelectValue placeholder="Selecione o animal" />
       </SelectTrigger>
       <SelectContent>

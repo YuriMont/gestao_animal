@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Baby } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,7 +24,11 @@ const INITIAL_BIRTH_FORM = {
   status: "ALIVE" as PostV1ReproductionBirthMutationRequestStatusEnumKey,
 };
 
-export function BirthForm() {
+type BirthFormProps = {
+  onSuccess?: () => void;
+};
+
+export function BirthForm({ onSuccess }: BirthFormProps) {
   const [birthForm, setBirthForm] = useState(INITIAL_BIRTH_FORM);
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
     null,
@@ -41,22 +45,25 @@ export function BirthForm() {
       onSuccess: () => {
         setBirthForm(INITIAL_BIRTH_FORM);
         showFeedback(true, "Parto registrado!");
+        onSuccess?.();
       },
       onError: () => showFeedback(false, "Erro ao registrar parto."),
     },
   });
 
   return (
-    <Card className="max-w-lg">
-      <CardHeader>
-        <CardTitle className="text-base flex items-center gap-2">
-          <Plus className="size-4" />
-          Registrar Parto
+    <Card className="h-full p-0 gap-0">
+      <CardHeader className="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+        <CardTitle className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2 py-4">
+          <Baby className="size-4 text-emerald-600" />
+          Partos
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-6">
         <div className="space-y-1.5">
-          <Label>Mãe (Fêmea) *</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Mãe (Fêmea) *
+          </Label>
           <AnimalSelect
             value={birthForm.motherId}
             onChange={(v) => setBirthForm({ ...birthForm, motherId: v })}
@@ -64,7 +71,9 @@ export function BirthForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label>Pai (Macho)</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Pai (Macho)
+          </Label>
           <AnimalSelect
             value={birthForm.fatherId}
             onChange={(v) => setBirthForm({ ...birthForm, fatherId: v })}
@@ -72,9 +81,12 @@ export function BirthForm() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Data do Parto *</Label>
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Data do Parto *
+            </Label>
             <Input
               type="date"
+              className="focus-visible:ring-emerald-500"
               value={birthForm.birthDate}
               onChange={(e) =>
                 setBirthForm({ ...birthForm, birthDate: e.target.value })
@@ -82,9 +94,12 @@ export function BirthForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label>Tag do Filhote</Label>
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Tag do Filhote
+            </Label>
             <Input
               placeholder="Ex: BOV-050"
+              className="focus-visible:ring-emerald-500"
               value={birthForm.offspringTag}
               onChange={(e) =>
                 setBirthForm({ ...birthForm, offspringTag: e.target.value })
@@ -93,7 +108,9 @@ export function BirthForm() {
           </div>
         </div>
         <div className="space-y-1.5">
-          <Label>Status *</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Status *
+          </Label>
           <Select
             value={birthForm.status}
             onValueChange={(v) =>
@@ -104,8 +121,8 @@ export function BirthForm() {
               })
             }
           >
-            <SelectTrigger>
-              <SelectValue />
+            <SelectTrigger className="focus-visible:ring-emerald-500">
+              <SelectValue placeholder="Selecione..." />
             </SelectTrigger>
             <SelectContent>
               {birthStatuses?.map((item) => (
@@ -118,13 +135,13 @@ export function BirthForm() {
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+            className={`text-sm ${feedback.ok ? "text-emerald-600" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
         )}
         <Button
-          className="w-full"
+          className="w-full bg-emerald-600 hover:bg-emerald-700"
           disabled={
             birthMutation.isPending ||
             !birthForm.motherId ||

@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { FileText } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { usePostV1HealthRecords } from "@/gen/hooks/healthController/usePostV1HealthRecords";
 import { AnimalSelect } from "./animal-select";
 
-// API schema: animalId, date, description, observation?
 const INITIAL_RECORD_FORM = {
   animalId: "",
   date: "",
@@ -16,7 +15,11 @@ const INITIAL_RECORD_FORM = {
   observation: "",
 };
 
-export function RecordForm() {
+type RecordFormProps = {
+  onSuccess?: () => void;
+};
+
+export function RecordForm({ onSuccess }: RecordFormProps) {
   const [recordForm, setRecordForm] = useState(INITIAL_RECORD_FORM);
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
     null,
@@ -32,31 +35,37 @@ export function RecordForm() {
       onSuccess: () => {
         setRecordForm(INITIAL_RECORD_FORM);
         showFeedback(true, "Registro criado!");
+        onSuccess?.();
       },
       onError: () => showFeedback(false, "Erro ao criar registro."),
     },
   });
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-base flex items-center gap-2">
-          <Plus className="size-4" />
-          Novo Registro de Saúde
+    <Card className="h-full py-0">
+      <CardHeader className="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+        <CardTitle className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2 py-4">
+          <FileText className="size-4 text-emerald-600" />
+          Registro
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-4 p-6">
         <div className="space-y-1.5">
-          <Label>Animal *</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Animal *
+          </Label>
           <AnimalSelect
             value={recordForm.animalId}
             onChange={(v) => setRecordForm({ ...recordForm, animalId: v })}
           />
         </div>
         <div className="space-y-1.5">
-          <Label>Data *</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Data *
+          </Label>
           <Input
             type="date"
+            className="focus-visible:ring-emerald-500"
             value={recordForm.date}
             onChange={(e) =>
               setRecordForm({ ...recordForm, date: e.target.value })
@@ -64,9 +73,12 @@ export function RecordForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label>Descrição *</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Descrição *
+          </Label>
           <Textarea
             placeholder="Descreva o registro de saúde..."
+            className="focus-visible:ring-emerald-500"
             value={recordForm.description}
             onChange={(e) =>
               setRecordForm({
@@ -77,9 +89,12 @@ export function RecordForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label>Observações</Label>
+          <Label className="text-xs font-semibold text-slate-500 uppercase">
+            Observações
+          </Label>
           <Textarea
             placeholder="Observações adicionais..."
+            className="focus-visible:ring-emerald-500"
             value={recordForm.observation}
             onChange={(e) =>
               setRecordForm({
@@ -91,13 +106,13 @@ export function RecordForm() {
         </div>
         {feedback && (
           <p
-            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+            className={`text-sm ${feedback.ok ? "text-emerald-600" : "text-destructive"}`}
           >
             {feedback.msg}
           </p>
         )}
         <Button
-          className="w-full"
+          className="w-full bg-emerald-600 hover:bg-emerald-700"
           disabled={
             recordMutation.isPending ||
             !recordForm.animalId ||
