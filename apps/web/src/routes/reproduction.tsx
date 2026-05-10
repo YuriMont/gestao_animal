@@ -91,7 +91,7 @@ function ReproductionPage() {
                   id="animal-select"
                   value={selectedAnimal}
                   onChange={setSelectedAnimal}
-				  femaleOnly
+                  sex="FEMALE"
                 />
               </div>
             </motion.div>

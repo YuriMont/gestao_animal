@@ -5,24 +5,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { GetV1AnimalsQueryParamsSexEnumKey } from "@/gen";
 import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
 
 export function AnimalSelect({
   value,
   onChange,
-  femaleOnly,
+  sex,
   id,
 }: {
   value: string;
   onChange: (v: string) => void;
-  femaleOnly?: boolean;
+  sex?: GetV1AnimalsQueryParamsSexEnumKey;
   id?: string;
 }) {
   const animalsQuery = useGetV1Animals({
     limit: 100,
-    ...(femaleOnly !== undefined
-      ? { sex: femaleOnly ? "FEMALE" : "MALE" }
-      : {}),
+    sex,
   });
   const animals = animalsQuery.data?.data ?? [];
   return (

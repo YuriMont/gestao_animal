@@ -1,6 +1,7 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { AnimalSelect } from "@/components/reproduction/animal-select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,20 +13,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePostV1ProductionMilk } from "@/gen/hooks/productionController/usePostV1ProductionMilk";
+import {
+  getV1ProductionMetricsAnimalidQueryKey,
+  usePostV1ProductionMilk,
+} from "@/gen/hooks";
+
+interface MilkFormProps {
+  animalId: string;
+  onSuccess?: () => void;
+}
 
 const INITIAL_MILK_FORM = {
-  animalId: "",
   quantity: "",
   unit: "L",
   date: "",
 };
 
-export function MilkForm() {
+export function MilkForm({ animalId, onSuccess }: MilkFormProps) {
   const [milkForm, setMilkForm] = useState(INITIAL_MILK_FORM);
   const [feedback, setFeedback] = useState<{ msg: string; ok: boolean } | null>(
     null,
   );
+  const qc = useQueryClient();
 
   function showFeedback(ok: boolean, msg: string) {
     setFeedback({ ok, msg });
@@ -37,13 +46,17 @@ export function MilkForm() {
       onSuccess: () => {
         setMilkForm(INITIAL_MILK_FORM);
         showFeedback(true, "Produção registrada!");
+        qc.invalidateQueries({
+          queryKey: getV1ProductionMetricsAnimalidQueryKey(animalId),
+        });
+        onSuccess?.();
       },
       onError: () => showFeedback(false, "Erro ao registrar produção."),
     },
   });
 
   return (
-    <Card className="max-w-lg">
+    <Card>
       <CardHeader>
         <CardTitle className="text-base flex items-center gap-2">
           <Plus className="size-4" />
@@ -51,14 +64,6 @@ export function MilkForm() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-1.5">
-          <Label>Animal (Fêmea) *</Label>
-          <AnimalSelect
-            value={milkForm.animalId}
-            onChange={(v) => setMilkForm({ ...milkForm, animalId: v })}
-            femaleOnly
-          />
-        </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Quantidade *</Label>
@@ -97,24 +102,28 @@ export function MilkForm() {
           />
         </div>
         {feedback && (
-          <p
-            className={`text-sm ${feedback.ok ? "text-primary" : "text-destructive"}`}
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className={`text-xs font-medium px-3 py-2 rounded-md ${
+              feedback.ok
+                ? "bg-emerald-100 text-emerald-700"
+                : "bg-red-100 text-red-700"
+            }`}
           >
             {feedback.msg}
-          </p>
+          </motion.p>
         )}
         <Button
-          className="w-full"
+          className="w-full bg-emerald-600 hover:bg-emerald-700"
           disabled={
-            milkMutation.isPending ||
-            !milkForm.animalId ||
-            !milkForm.quantity ||
-            !milkForm.date
+            milkMutation.isPending || !milkForm.quantity || !milkForm.date
           }
           onClick={() =>
             milkMutation.mutate({
               data: {
-                animalId: milkForm.animalId,
+                animalId,
                 quantity: Number(milkForm.quantity),
                 unit: milkForm.unit,
                 date: milkForm.date || undefined,

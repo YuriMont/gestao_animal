@@ -67,7 +67,7 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
           <AnimalSelect
             value={birthForm.motherId}
             onChange={(v) => setBirthForm({ ...birthForm, motherId: v })}
-            femaleOnly
+            sex="FEMALE"
           />
         </div>
         <div className="space-y-1.5">
@@ -77,6 +77,7 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
           <AnimalSelect
             value={birthForm.fatherId}
             onChange={(v) => setBirthForm({ ...birthForm, fatherId: v })}
+            sex="MALE"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">

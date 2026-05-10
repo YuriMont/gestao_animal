@@ -86,7 +86,7 @@ export function PregnancyForm({ onSuccess }: PregnancyFormProps) {
             onChange={(v) =>
               setPregnancyForm({ ...pregnancyForm, animalId: v })
             }
-            femaleOnly
+            sex="FEMALE"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
