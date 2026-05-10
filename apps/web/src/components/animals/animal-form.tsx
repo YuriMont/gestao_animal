@@ -12,6 +12,7 @@ import {
 	type PostV1AnimalsMutationRequestSexEnumKey,
 	type PostV1AnimalsMutationRequestSpeciesEnumKey,
 	type PostV1AnimalsMutationRequestStatusEnumKey,
+	useGetV1Breeds,
 	useGetV1EnumsAnimalsOrigin,
 	useGetV1EnumsAnimalsSex,
 	useGetV1EnumsAnimalsSpecies,
@@ -29,6 +30,10 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
 	const { data: animalsStatus } = useGetV1EnumsAnimalsStatus();
 	const { data: animalsSpecies } = useGetV1EnumsAnimalsSpecies();
 	const { data: animalsOrigin } = useGetV1EnumsAnimalsOrigin();
+	const { data: breedsData } = useGetV1Breeds(
+		{ species: form.species ?? undefined },
+		{ query: { enabled: !!form.species } },
+	);
 
 	return (
 		<div className="grid grid-cols-2 gap-4">
@@ -48,6 +53,7 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
 						onChange({
 							...form,
 							species: v as PostV1AnimalsMutationRequestSpeciesEnumKey,
+							breedId: undefined,
 						})
 					}
 				>
@@ -65,11 +71,27 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
 			</div>
 			<div className="space-y-1.5">
 				<Label>Raça</Label>
-				<Input
-					placeholder="Ex: Nelore"
+				<Select
 					value={form.breedId ?? ""}
-					onChange={(e) => onChange({ ...form, breedId: e.target.value })}
-				/>
+					onValueChange={(v) => onChange({ ...form, breedId: v })}
+				>
+					<SelectTrigger>
+						<SelectValue
+							placeholder={
+								form.species
+									? "Selecione a raça"
+									: "Selecione uma espécie primeiro"
+							}
+						/>
+					</SelectTrigger>
+					<SelectContent>
+						{breedsData?.data.map((breed) => (
+							<SelectItem key={breed.id} value={breed.id}>
+								{breed.name}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 			<div className="space-y-1.5">
 				<Label>Sexo *</Label>

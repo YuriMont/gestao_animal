@@ -45,7 +45,7 @@ export const animalResponseSchema = z.object({
   id: z.string(),
   tag: z.string(),
   species: createTranslatedEnumSchema(Species),
-  breedId: z.string().optional(),
+  breed: z.object({ id: z.string(), name: z.string() }).optional(),
   sex: createTranslatedEnumSchema(AnimalSex),
   birthDate: z.date(),
   origin: createTranslatedEnumSchema(AnimalOrigin).optional(),

@@ -67,7 +67,7 @@ export function RecentAnimals() {
                     {animal.tag}
                   </TableCell>
                   <TableCell>{animal.species.label}</TableCell>
-                  <TableCell>{(animal as any).breedName ?? '—'}</TableCell>
+                  <TableCell>{animal.breed?.name ?? '—'}</TableCell>
                   <TableCell>
                     {animal.sex.label}
                   </TableCell>

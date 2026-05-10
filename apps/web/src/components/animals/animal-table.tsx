@@ -1,3 +1,4 @@
+import { Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +9,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { type GetV1AnimalsQueryParamsStatusEnumKey } from "@/gen";
-import { Pencil, Trash2 } from "lucide-react";
+import type { GetV1AnimalsQueryParamsStatusEnumKey } from "@/gen";
+import type { Animal } from "@/types/animal";
 import {
 	Dialog,
 	DialogContent,
@@ -17,14 +18,13 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "../ui/dialog";
-
 import { AnimalForm } from "./animal-form";
 import type { AnimalFormData } from "./types";
 
 interface AnimalTableProps {
-	animals: any[];
-	onEdit: (animal: any) => void;
-	onDelete: (animal: any) => void;
+	animals: Animal[];
+	onEdit: (animal: Animal) => void;
+	onDelete: (animal: Animal) => void;
 	editAnimal: null | {
 		id: string;
 		form: AnimalFormData;
@@ -85,7 +85,7 @@ export function AnimalTable({
 								{animal.tag}
 							</TableCell>
 							<TableCell>{animal.species.label}</TableCell>
-							<TableCell>{animal.breedName ?? "—"}</TableCell>
+							<TableCell>{animal.breed?.name ?? "—"}</TableCell>
 							<TableCell>{animal.sex.label}</TableCell>
 							<TableCell>
 								{new Date(animal.birthDate).toLocaleDateString("pt-BR")}

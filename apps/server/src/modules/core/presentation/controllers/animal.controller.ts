@@ -15,10 +15,13 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 
 function mapAnimalResponse(animal: any) {
   const props = animal.props ? animal.props : animal;
+  const { breedId: _breedId, breedName: _breedName, ...rest } = props;
   return {
-    ...props,
+    ...rest,
     id: animal.id,
-    breedName: props.breedName ?? null,
+    breed: _breedId
+      ? { id: _breedId, name: _breedName ?? "" }
+      : undefined,
     species: {
       key: props.species,
       label: getEnumLabel("species", props.species),
