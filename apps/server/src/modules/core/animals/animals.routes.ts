@@ -4,24 +4,11 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { animalController } from "../core.module";
 import {
+  animalResponseSchema,
   createAnimalSchema,
   listAnimalsQuerySchema,
   updateAnimalSchema,
 } from "./animals.types";
-
-const enumField = z.object({ key: z.string(), label: z.string() });
-
-const animalResponseSchema = z.object({
-  id: z.string(),
-  tag: z.string(),
-  species: enumField,
-  breed: z.object({ id: z.string(), name: z.string() }).nullish(),
-  sex: enumField,
-  birthDate: z.date(),
-  origin: enumField.optional(),
-  status: enumField,
-  organizationId: z.string(),
-});
 
 export default async function animalRoutes(app: FastifyInstance) {
   app.post(

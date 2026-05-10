@@ -90,3 +90,5 @@ export function createTranslatedEnumSchema<T extends Record<string, string>>(
     label: z.string(),
   });
 }
+
+export const enumField = z.object({ key: z.string(), label: z.string() });

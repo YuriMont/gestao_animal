@@ -1,4 +1,4 @@
-import { getEnumValues } from "@src/common/lib/enums";
+import { enumField, getEnumValues } from "@src/common/lib/enums";
 import { paginationMetaSchema } from "@src/common/lib/pagination";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
@@ -9,7 +9,6 @@ import {
   updateUserSchema,
 } from "./users.types";
 
-const enumField = z.object({ key: z.string(), label: z.string() });
 
 const userResponseSchema = z.object({
   id: z.string(),

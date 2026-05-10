@@ -73,6 +73,7 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
         <Label>Raça</Label>
         <Select
           value={form.breedId ?? ""}
+          disabled={!form.species}
           onValueChange={(v) => onChange({ ...form, breedId: v })}
         >
           <SelectTrigger>

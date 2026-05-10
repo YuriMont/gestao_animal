@@ -2,12 +2,13 @@ import { getEnumLabel } from "@src/common/lib/enums";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { AnimalService } from "./animals.service";
 import type {
+  AnimalPayload,
   CreateAnimalDTO,
   ListAnimalsQuery,
   UpdateAnimalDTO,
 } from "./animals.types";
 
-function mapAnimal(a: any) {
+function mapAnimal(a: AnimalPayload) {
   return {
     ...a,
     species: { key: a.species, label: getEnumLabel("species", a.species) },
