@@ -38,7 +38,7 @@ export function RecordForm() {
   });
 
   return (
-    <Card className="max-w-lg">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-base flex items-center gap-2">
           <Plus className="size-4" />
