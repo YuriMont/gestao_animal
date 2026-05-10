@@ -15,8 +15,8 @@ const estrusResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
   startDate: z.date(),
-  endDate: z.date().optional(),
-  observation: z.string().optional(),
+  endDate: z.date().nullish(),
+  observation: z.string().nullish(),
   organizationId: z.string(),
 });
 
@@ -24,7 +24,7 @@ const pregnancyResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
   detectedDate: z.date(),
-  expectedDate: z.date().optional(),
+  expectedDate: z.date().nullish(),
   status: enumField,
   organizationId: z.string(),
 });
@@ -32,9 +32,9 @@ const pregnancyResponseSchema = z.object({
 const birthResponseSchema = z.object({
   id: z.string(),
   motherId: z.string(),
-  fatherId: z.string().optional(),
+  fatherId: z.string().nullish(),
   birthDate: z.date(),
-  offspringTag: z.string().optional(),
+  offspringTag: z.string().nullish(),
   status: enumField,
   organizationId: z.string(),
 });
@@ -44,9 +44,9 @@ const inseminationResponseSchema = z.object({
   animalId: z.string(),
   type: enumField,
   date: z.date(),
-  fatherId: z.string().optional(),
-  semenBatch: z.string().optional(),
-  success: z.boolean().optional(),
+  fatherId: z.string().nullish(),
+  semenBatch: z.string().nullish(),
+  success: z.boolean().nullish(),
   organizationId: z.string(),
 });
 

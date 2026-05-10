@@ -34,7 +34,7 @@ const animalResponseSchema = z.object({
   id: z.string(),
   tag: z.string(),
   species: enumField,
-  breed: z.object({ id: z.string(), name: z.string() }).optional(),
+  breed: z.object({ id: z.string(), name: z.string() }).nullish(),
   sex: enumField,
   birthDate: z.date(),
   origin: enumField.optional(),

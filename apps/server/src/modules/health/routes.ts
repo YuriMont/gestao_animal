@@ -12,7 +12,7 @@ const recordSchema = z.object({
   animalId: z.string(),
   date: z.date(),
   description: z.string(),
-  observation: z.string().optional(),
+  observation: z.string().nullish(),
   organizationId: z.string(),
 });
 
@@ -22,7 +22,7 @@ const vaccineSchema = z.object({
   vaccineName: z.string(),
   doseNumber: z.number(),
   dateAdministered: z.date(),
-  nextDueDate: z.date().optional(),
+  nextDueDate: z.date().nullish(),
   organizationId: z.string(),
 });
 
@@ -31,9 +31,9 @@ const treatmentSchema = z.object({
   animalId: z.string(),
   diagnosis: z.string(),
   medication: z.string(),
-  dosage: z.string().optional(),
+  dosage: z.string().nullish(),
   startDate: z.date(),
-  endDate: z.date().optional(),
+  endDate: z.date().nullish(),
   organizationId: z.string(),
 });
 

@@ -10,7 +10,7 @@ const recordResponseSchema = z.object({
   category: z.object({ key: z.string(), label: z.string() }),
   amount: z.number(),
   date: z.date(),
-  description: z.string().optional(),
+  description: z.string().nullish(),
   organizationId: z.string(),
 });
 
