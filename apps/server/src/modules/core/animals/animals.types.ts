@@ -39,4 +39,5 @@ export interface AnimalWithBreed {
   birthDate: Date;
   origin?: string | null;
   status: string;
+  organizationId: string;
 }

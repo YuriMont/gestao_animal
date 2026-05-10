@@ -19,6 +19,7 @@ function toRecord(a: any): AnimalWithBreed {
     birthDate: a.birthDate,
     origin: a.origin,
     status: a.status,
+    organizationId: a.organizationId,
   };
 }
 
