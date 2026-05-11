@@ -16,7 +16,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as FinancialRouteImport } from './routes/financial'
 import { Route as AnimalsRouteImport } from './routes/animals'
-import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
@@ -54,11 +53,6 @@ const AnimalsRoute = AnimalsRouteImport.update({
   path: '/animals',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AlertsRoute = AlertsRouteImport.update({
-  id: '/alerts',
-  path: '/alerts',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,7 +61,6 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
   '/animals': typeof AnimalsRoute
   '/financial': typeof FinancialRoute
   '/health': typeof HealthRoute
@@ -78,7 +71,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
   '/animals': typeof AnimalsRoute
   '/financial': typeof FinancialRoute
   '/health': typeof HealthRoute
@@ -90,7 +82,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
   '/animals': typeof AnimalsRoute
   '/financial': typeof FinancialRoute
   '/health': typeof HealthRoute
@@ -103,7 +94,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/alerts'
     | '/animals'
     | '/financial'
     | '/health'
@@ -114,7 +104,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/alerts'
     | '/animals'
     | '/financial'
     | '/health'
@@ -125,7 +114,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/alerts'
     | '/animals'
     | '/financial'
     | '/health'
@@ -137,7 +125,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AlertsRoute: typeof AlertsRoute
   AnimalsRoute: typeof AnimalsRoute
   FinancialRoute: typeof FinancialRoute
   HealthRoute: typeof HealthRoute
@@ -198,13 +185,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnimalsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/alerts': {
-      id: '/alerts'
-      path: '/alerts'
-      fullPath: '/alerts'
-      preLoaderRoute: typeof AlertsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -217,7 +197,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AlertsRoute: AlertsRoute,
   AnimalsRoute: AnimalsRoute,
   FinancialRoute: FinancialRoute,
   HealthRoute: HealthRoute,

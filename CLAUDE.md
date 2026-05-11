@@ -66,9 +66,9 @@ src/modules/<domínio>/
     └── <recurso>.controller.ts  # Handlers Fastify (singleton com DI)
 ```
 
-Para módulos com uma única entidade (ex: `alerts`, `health`), os arquivos ficam na raiz do módulo. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
+Para módulos com uma única entidade (ex: `health`), os arquivos ficam na raiz do módulo. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
 
-Módulos existentes: `auth`, `core` (animals, breeds, organizations, users), `health`, `reproduction`, `production`, `financial`, `alerts`.
+Módulos existentes: `auth`, `core` (animals, breeds, organizations, users), `health`, `reproduction`, `production`, `financial`.
 
 Módulos com entidade única (ex: `health`, `financial`) têm os arquivos na raiz. Módulos com múltiplas entidades (ex: `core` com `animals/`, `breeds/`, `users/`, `organizations/`) usam subdiretórios.
 
@@ -126,7 +126,7 @@ Todo modelo Prisma tem `organizationId`. O JWT carrega o `organizationId` do usu
 
 PostgreSQL via Prisma 7. Sem arquivos de migration — usar `prisma db push` após alterar `apps/server/prisma/schema.prisma`.
 
-Modelos: Organization, User, Animal, Paddock, HealthRecord, Vaccine, Treatment, Estrus, Pregnancy, Birth, WeightRecord, MilkProduction, FinancialRecord, AlertRule, Notification.
+Modelos: Organization, User, Animal, Paddock, HealthRecord, Vaccine, Treatment, Estrus, Pregnancy, Birth, WeightRecord, MilkProduction, FinancialRecord.
 
 ## Linting
 

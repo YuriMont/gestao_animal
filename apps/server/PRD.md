@@ -215,18 +215,6 @@ id, type (COST|REVENUE), category, amount, date, description?,
 organizationId
 ```
 
-#### AlertRule
-
-```
-id, name, condition (ex: "vaccine_overdue"), value?, organizationId
-```
-
-#### Notification
-
-```
-id, ruleId?, message, isRead (default false), organizationId
-```
-
 ---
 
 ## 7. API — Endpoints
@@ -368,16 +356,7 @@ Authorization: Bearer <token>
 
 ---
 
-### 7.9 Alertas (`/v1/alerts`)
-
-| Método | Rota               | Descrição             |
-| ------ | ------------------ | --------------------- |
-| `POST` | `/v1/alerts/rules` | Criar regra de alerta |
-| `GET`  | `/v1/alerts/rules` | Listar regras         |
-
----
-
-### 7.10 Sistema (público)
+### 7.9 Sistema (público)
 
 | Método | Rota    | Descrição                       |
 | ------ | ------- | ------------------------------- |
@@ -386,7 +365,7 @@ Authorization: Bearer <token>
 
 ---
 
-### 7.11 Enums (`/v1/enums`)
+### 7.10 Enums (`/v1/enums`)
 
 | Método | Rota                                | Descrição                                |
 | ------ | ----------------------------------- | ---------------------------------------- |
@@ -540,7 +519,6 @@ yarn run dev
 
 | #   | Feature                                   | Descrição                                                                           |
 | --- | ----------------------------------------- | ----------------------------------------------------------------------------------- |
-| 6   | **Motor de alertas**                      | Tabela `AlertRule` existe mas não há job que avalie as regras e crie `Notification` |
 | 7   | **Gestão de Paddocks**                    | Modelo `Paddock` existe no banco mas não tem rotas implementadas                    |
 | 8   | **Troca de senha**                        | Não existe endpoint para o usuário alterar a própria senha                          |
 | 9   | **Filtros avançados em saúde/reprodução** | Endpoints de listagem dos módulos secundários não têm query filters                 |

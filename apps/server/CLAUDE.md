@@ -63,7 +63,6 @@ src/
     ├── reproduction/             # Estrus, Pregnancies, Births
     ├── production/               # WeightRecords, MilkProduction
     ├── financial/                # FinancialRecords
-    └── alerts/                   # AlertRules
 ```
 
 Cada módulo segue a estrutura **"Flat by Default"** (3-4 arquivos por resource):
@@ -79,7 +78,7 @@ modules/<domínio>/
     └── <recurso>.controller.ts  # Handlers Fastify (singleton com DI via constructor)
 ```
 
-Para módulos com uma única entidade (ex: `alerts`, `health`), os arquivos ficam na raiz. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
+Para módulos com uma única entidade (ex: `health`), os arquivos ficam na raiz. Para módulos com múltiplas entidades (ex: `core` com `animals`, `breeds`, `users`, `organizations`), cada entidade tem seu próprio subdiretório.
 
 **Quando aprofundar** (escalabilidade gradual):
 - Lógica complexa → extraia `domain/` entities + use-cases do service

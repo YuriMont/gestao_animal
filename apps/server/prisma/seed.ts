@@ -31,8 +31,6 @@ async function main() {
   console.log("🌱 Iniciando seed...");
 
   // Limpa o banco em ordem reversa de dependência
-  await prisma.notification.deleteMany();
-  await prisma.alertRule.deleteMany();
   await prisma.financialRecord.deleteMany();
   await prisma.milkProduction.deleteMany();
   await prisma.weightRecord.deleteMany();
@@ -588,65 +586,6 @@ async function main() {
     ),
   );
   console.log("✅ Registros financeiros criados");
-
-  // ── Regras de alerta ──────────────────────────────────────────────────────
-  const [ruleVacina, ruleGestacao, rulePeso] = await Promise.all([
-    prisma.alertRule.create({
-      data: {
-        name: "Vacina vencida",
-        condition: "vaccine_overdue",
-        value: "7",
-        organizationId: org.id,
-      },
-    }),
-    prisma.alertRule.create({
-      data: {
-        name: "Parto próximo",
-        condition: "birth_expected_days",
-        value: "14",
-        organizationId: org.id,
-      },
-    }),
-    prisma.alertRule.create({
-      data: {
-        name: "Queda de produção",
-        condition: "milk_drop_percent",
-        value: "20",
-        organizationId: org.id,
-      },
-    }),
-  ]);
-  console.log("✅ Regras de alerta criadas");
-
-  // ── Notificações ──────────────────────────────────────────────────────────
-  await Promise.all([
-    prisma.notification.create({
-      data: {
-        ruleId: ruleGestacao.id,
-        message:
-          "SJ-001 (Nelore) tem parto previsto para 01/09/2025 — faltam 14 dias.",
-        isRead: false,
-        organizationId: org.id,
-      },
-    }),
-    prisma.notification.create({
-      data: {
-        ruleId: ruleVacina.id,
-        message: "Reforço de aftosa vence em 15/07/2025 para 6 animais.",
-        isRead: false,
-        organizationId: org.id,
-      },
-    }),
-    prisma.notification.create({
-      data: {
-        ruleId: rulePeso.id,
-        message: "Produção de leite de SJ-002 caiu 22% na última semana.",
-        isRead: true,
-        organizationId: org.id,
-      },
-    }),
-  ]);
-  console.log("✅ Notificações criadas");
 
   console.log("\n✨ Seed concluído com sucesso!");
   console.log("\n📋 Credenciais de acesso:");

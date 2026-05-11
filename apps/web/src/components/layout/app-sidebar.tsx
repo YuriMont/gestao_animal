@@ -3,7 +3,6 @@ import { useAtomValue, useSetAtom } from "jotai";
 import {
   BarChart3,
   Beef,
-  Bell,
   DollarSign,
   Heart,
   LayoutDashboard,
@@ -24,7 +23,6 @@ const navItems = [
   { label: "Reprodução", href: "/reproduction", icon: Heart },
   { label: "Produção", href: "/production", icon: BarChart3 },
   { label: "Financeiro", href: "/financial", icon: DollarSign },
-  { label: "Alertas", href: "/alerts", icon: Bell },
 ] as const;
 
 export function AppSidebar({ mobile = false }: { mobile?: boolean }) {

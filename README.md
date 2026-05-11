@@ -102,7 +102,7 @@ src/modules/<domínio>/
     └── routes.ts         # Registro de rotas + OpenAPI
 ```
 
-**Módulos:** `auth` · `core` (animals, organizations, users) · `health` · `reproduction` · `production` · `financial` · `alerts`
+**Módulos:** `auth` · `core` (animals, organizations, users) · `health` · `reproduction` · `production` · `financial`
 
 **Stack:** Fastify 5 · Prisma 7 · PostgreSQL · Zod 4 · JWT · Bcrypt · @scalar/fastify-api-reference
 
@@ -118,7 +118,7 @@ src/modules/<domínio>/
 | UI               | shadcn/ui + Tailwind CSS 4       |
 | Build            | Vite 8                           |
 
-**Rotas disponíveis:** `/` · `/login` · `/animals` · `/health` · `/reproduction` · `/production` · `/financial` · `/alerts`
+**Rotas disponíveis:** `/` · `/login` · `/animals` · `/health` · `/reproduction` · `/production` · `/financial`
 
 ### Multi-tenancy
 
@@ -133,7 +133,7 @@ cd apps/server
 yarn prisma db push
 ```
 
-**Modelos:** Organization · User · Animal · Paddock · HealthRecord · Vaccine · Treatment · Estrus · Pregnancy · Birth · WeightRecord · MilkProduction · FinancialRecord · AlertRule · Notification
+**Modelos:** Organization · User · Animal · Paddock · HealthRecord · Vaccine · Treatment · Estrus · Pregnancy · Birth · WeightRecord · MilkProduction · FinancialRecord
 
 ## Geração de código (Kubb)
 

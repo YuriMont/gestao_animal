@@ -102,16 +102,6 @@ Controle de entradas e saídas da propriedade.
 
 ### 7. Alertas e notificações
 
-Sistema de regras automáticas para eventos importantes.
-
-**Alertas típicos:** vencimento de vacina, previsão de parto, animal sem pesagem há X dias.
-
-**Sub-recursos:**
-- **Regras** — configuração da condição e limiar
-- **Notificações** — alertas disparados, leitura/marcação
-
-**Endpoints:** `/v1/alerts/rules`, `/v1/alerts/notifications`
-
 ---
 
 ## Arquitetura de dados
@@ -130,8 +120,6 @@ Organization
         ├── WeightRecord
         └── MilkProduction
   └── FinancialRecord
-  └── AlertRule
-        └── Notification
 ```
 
 Todo modelo possui `organizationId` para isolamento multi-tenant.
@@ -161,7 +149,6 @@ Login (POST /auth/login)
 | `/reproduction` | Ciclo reprodutivo | Protegida |
 | `/production` | Peso e leite | Protegida |
 | `/financial` | Financeiro | Protegida |
-| `/alerts` | Alertas e regras | Protegida |
 
 ---
 

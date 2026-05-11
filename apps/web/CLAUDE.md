@@ -69,7 +69,6 @@ src/
 │   ├── reproduction.tsx
 │   ├── production.tsx
 │   ├── financial.tsx
-│   └── alerts.tsx
 ├── gen/                  # GERADO pelo Kubb — não editar
 │   ├── clients/          # Funções Axios tipadas (uma pasta por tag OpenAPI)
 │   ├── hooks/            # Hooks React Query (useGetV1Animals, usePostV1Animals…)
@@ -99,7 +98,6 @@ TanStack Router com file-based routing. Cada arquivo em `src/routes/` vira uma r
 | `reproduction.tsx` | `/reproduction` | Ciclos reprodutivos                                            |
 | `production.tsx`   | `/production`   | Métricas de produção                                           |
 | `financial.tsx`    | `/financial`    | Registros financeiros                                          |
-| `alerts.tsx`       | `/alerts`       | Regras de alerta                                               |
 
 `routeTree.gen.ts` é gerado automaticamente pelo plugin Vite do TanStack Router — nunca editar à mão.
 

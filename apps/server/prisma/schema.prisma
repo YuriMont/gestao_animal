@@ -94,8 +94,6 @@ model Organization {
   weightRecords  WeightRecord[]
   milkProduction MilkProduction[]
   financials     FinancialRecord[]
-  alertRules     AlertRule[]
-  notifications  Notification[]
   breeds         Breed[]
 
   @@map("organizations")
@@ -352,32 +350,4 @@ model FinancialRecord {
   updatedAt DateTime @updatedAt
 
   @@map("financial_records")
-}
-
-model AlertRule {
-  id             String       @id @default(uuid())
-  name           String
-  condition      String
-  value          String?
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("alert_rules")
-}
-
-model Notification {
-  id             String       @id @default(uuid())
-  ruleId         String?
-  message        String
-  isRead         Boolean      @default(false)
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("notifications")
 }

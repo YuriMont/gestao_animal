@@ -34,7 +34,7 @@ Este arquivo (`@AGENT.md`) atua como a fonte central de verdade para todos os ag
 > **Nota Importante:** Dentro dos diretórios do frontend (`apps/web`) e do backend (`apps/server`) existem arquivos `.md` específicos que detalham de forma mais aprofundada a arquitetura, o escopo, as convenções e as regras de negócio locais. Recomenda-se consultá-los para obter diretrizes granulares sobre cada ambiente.
 
 ### Backend (Clean Architecture por Módulo de Domínio)
-O backend não utiliza MVC tradicional. Ele isola as regras de negócio em módulos: `auth`, `core` (animals, organizations, users), `health`, `reproduction`, `production`, `financial` e `alerts`.
+O backend não utiliza MVC tradicional. Ele isola as regras de negócio em módulos: `auth`, `core` (animals, organizations, users), `health`, `reproduction`, `production` e `financial`.
 Cada módulo obedece à estrutura:
 *   `domain/`: Contém as classes TypeScript puras (Entities) e as interfaces dos repositórios (`IXxxRepository`). **Sem dependência de bibliotecas externas.**
 *   `infrastructure/`: Contém as implementações dos repositórios (ex: `PrismaXxxRepository`).

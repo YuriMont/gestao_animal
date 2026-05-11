@@ -1,5 +1,4 @@
 import rateLimit from "@fastify/rate-limit";
-import alertRoutes from "@src/modules/alerts/routes";
 import authRoutes from "@src/modules/auth/routes";
 import coreRoutes from "@src/modules/core/routes";
 import financialRoutes from "@src/modules/financial/routes";
@@ -96,7 +95,6 @@ export async function createApp() {
       await v1.register(reproductionRoutes);
       await v1.register(productionRoutes);
       await v1.register(financialRoutes);
-      await v1.register(alertRoutes);
     },
     { prefix: "/v1" },
   );
