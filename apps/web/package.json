@@ -12,6 +12,8 @@
     "generate": "kubb generate"
   },
   "dependencies": {
+    "@fontsource-variable/cabin": "^5.0.0",
+    "@fontsource-variable/dm-sans": "^5.0.0",
     "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-query": "^5.99.0",
