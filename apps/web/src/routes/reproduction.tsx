@@ -57,18 +57,19 @@ function ReproductionPage() {
         >
           <Button
             onClick={() => setIsModalOpen(true)}
-            className="gap-2 bg-emerald-600 hover:bg-emerald-700"
+            className="gap-2 bg-emerald-600 hover:bg-emerald-700 h-10 touch-target text-sm sm:text-base"
           >
             <Plus className="size-4" />
-            Lançar Registro
+            <span className="hidden xs:inline">Lançar Registro</span>
+            <span className="xs:hidden">Novo</span>
           </Button>
         </PageHeader>
-        <div className="p-6 mx-auto w-full max-w-7xl">
+        <div className="p-4 sm:p-6 mx-auto w-full max-w-7xl">
           <div className="flex flex-col gap-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
+              className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
             >
               <div className="space-y-1">
                 <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -80,7 +81,7 @@ function ReproductionPage() {
                   completo.
                 </p>
               </div>
-              <div className="flex flex-col gap-2 w-full max-w-xs">
+              <div className="flex flex-col gap-2 w-full sm:max-w-xs">
                 <label
                   htmlFor="animal-select"
                   className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1"
@@ -92,6 +93,7 @@ function ReproductionPage() {
                   value={selectedAnimal}
                   onChange={setSelectedAnimal}
                   sex="FEMALE"
+                  className="touch-target"
                 />
               </div>
             </motion.div>
@@ -158,7 +160,7 @@ function ReproductionPage() {
         </div>
 
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-[calc(100%-2rem)] sm:max-w-2xl w-full mx-auto max-h-[85vh] sm:max-h-[90vh]">
             <DialogHeader>
               <DialogTitle>Novo Registro Reprodutivo</DialogTitle>
             </DialogHeader>

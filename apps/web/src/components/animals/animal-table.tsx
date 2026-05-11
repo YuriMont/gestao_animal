@@ -66,57 +66,61 @@ export function AnimalTable({
 }: AnimalTableProps) {
   return (
     <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Tag</TableHead>
-            <TableHead>Espécie</TableHead>
-            <TableHead>Raça</TableHead>
-            <TableHead>Sexo</TableHead>
-            <TableHead>Nascimento</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Ações</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {animals.map((animal) => (
-            <TableRow key={animal.id}>
-              <TableCell className="font-mono font-medium">
-                {animal.tag}
-              </TableCell>
-              <TableCell>{animal.species.label}</TableCell>
-              <TableCell>{animal.breed?.name ?? "—"}</TableCell>
-              <TableCell>{animal.sex.label}</TableCell>
-              <TableCell>
-                {new Date(animal.birthDate).toLocaleDateString("pt-BR")}
-              </TableCell>
-              <TableCell>
-                <Badge variant={statusBadgeVariant(animal.status.key)}>
-                  {animal.status.label}
-                </Badge>
-              </TableCell>
-              <TableCell className="text-right">
-                <div className="flex justify-end gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    onClick={() => onEdit(animal)}
-                  >
-                    <Pencil className="size-3.5" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    onClick={() => onDelete(animal)}
-                  >
-                    <Trash2 className="size-3.5 text-destructive" />
-                  </Button>
-                </div>
-              </TableCell>
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <Table className="min-w-[600px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Tag</TableHead>
+              <TableHead>Espécie</TableHead>
+              <TableHead>Raça</TableHead>
+              <TableHead>Sexo</TableHead>
+              <TableHead>Nascimento</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Ações</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {animals.map((animal) => (
+              <TableRow key={animal.id}>
+                <TableCell className="font-mono font-medium">
+                  {animal.tag}
+                </TableCell>
+                <TableCell>{animal.species.label}</TableCell>
+                <TableCell>{animal.breed?.name ?? "—"}</TableCell>
+                <TableCell>{animal.sex.label}</TableCell>
+                <TableCell>
+                  {new Date(animal.birthDate).toLocaleDateString("pt-BR")}
+                </TableCell>
+                <TableCell>
+                  <Badge variant={statusBadgeVariant(animal.status.key)}>
+                    {animal.status.label}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      onClick={() => onEdit(animal)}
+                      aria-label={`Editar ${animal.tag}`}
+                    >
+                      <Pencil className="size-3.5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      onClick={() => onDelete(animal)}
+                      aria-label={`Excluir ${animal.tag}`}
+                    >
+                      <Trash2 className="size-3.5 text-destructive" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
       <Dialog
         open={!!editAnimal}
         onOpenChange={(o) => {

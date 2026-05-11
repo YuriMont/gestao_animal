@@ -23,10 +23,10 @@ export function ReproductionStats({
 
   return (
     <div className="space-y-4">
-      <h2 className="font-display text-lg font-semibold text-foreground">
+      <h2 className="font-display text-base sm:text-lg font-semibold text-foreground px-1">
         Reprodução
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card className="overflow-hidden">
           <CardContent className="p-5">
             <div className="flex items-center justify-between">

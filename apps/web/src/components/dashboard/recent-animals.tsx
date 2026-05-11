@@ -42,49 +42,49 @@ export function RecentAnimals() {
       </CardHeader>
       <CardContent className="p-0">
         {animalsQuery.isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 p-3 sm:p-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <Skeleton key={i} className="h-24 w-full rounded-xl" />
+              <Skeleton key={i} className="h-20 sm:h-24 w-full rounded-xl" />
             ))}
           </div>
         ) : animals.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 py-12 px-4 text-muted-foreground">
-            <div className="p-4 rounded-2xl bg-muted">
-              <Beef className="size-8" />
+          <div className="flex flex-col items-center gap-2 py-10 sm:py-12 px-4 text-muted-foreground">
+            <div className="p-3 sm:p-4 rounded-2xl bg-muted">
+              <Beef className="size-7 sm:size-8" />
             </div>
             <p className="text-sm font-medium">Nenhum animal cadastrado</p>
             <p className="text-xs">Comece adicionando animais ao seu rebanho</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 p-3 sm:p-4">
             {animals.map((animal, index) => (
               <div
                 key={animal.id}
                 className={cn(
-                  "group relative p-4 rounded-xl border border-border bg-card hover:bg-accent/50 transition-all duration-200 cursor-pointer",
+                  "group relative p-3 sm:p-4 rounded-xl border border-border bg-card hover:bg-accent/50 transition-all duration-200 cursor-pointer",
                   "animate-slide-up",
                 )}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="flex items-start justify-between mb-2">
-                  <span className="font-mono font-semibold text-sm">
+                <div className="flex items-start justify-between mb-1.5 sm:mb-2">
+                  <span className="font-mono font-semibold text-xs sm:text-sm">
                     {animal.tag}
                   </span>
                   <Badge
                     variant={statusBadgeVariant(animal.status.key)}
-                    className="text-[10px] px-1.5 py-0"
+                    className="text-[9px] sm:text-[10px] px-1 py-0"
                   >
                     {animal.status.label}
                   </Badge>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">
+                <div className="space-y-0.5 sm:space-y-1">
+                  <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                     {animal.species.label}
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <span
                       className={cn(
-                        "text-xs font-medium px-2 py-0.5 rounded-full",
+                        "text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 rounded-full",
                         animal.sex.key === "MALE"
                           ? "bg-blue-500/10 text-blue-600"
                           : "bg-rose-500/10 text-rose-600",
@@ -92,8 +92,8 @@ export function RecentAnimals() {
                     >
                       {animal.sex.key === "MALE" ? "M" : "F"}
                     </span>
-                    <span className="text-xs text-muted-foreground">
-                      {animal.breed?.name ?? "Sem raça"}
+                    <span className="text-[10px] sm:text-xs text-muted-foreground truncate">
+                      {animal.breed?.name ?? "—"}
                     </span>
                   </div>
                 </div>

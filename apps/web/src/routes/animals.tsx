@@ -195,7 +195,7 @@ function AnimalsPage() {
                 Novo Animal
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg">
+            <DialogContent className="max-w-[calc(100%-2rem)] sm:max-w-lg w-full mx-auto">
               <DialogHeader>
                 <DialogTitle>Novo Animal</DialogTitle>
               </DialogHeader>
@@ -218,18 +218,20 @@ function AnimalsPage() {
           </Dialog>
         </PageHeader>
 
-        <div className="p-6 space-y-4">
+        <div className="p-4 sm:p-6 space-y-4">
           {/* Search bar — committed only on button click */}
-          <div className="flex gap-3 flex-wrap">
-            <div className="flex items-center gap-2 flex-1 min-w-48 max-w-xs">
-              <Search className="size-4 text-muted-foreground shrink-0" />
-              <Input
-                placeholder="Filtrar por espécie..."
-                value={speciesDraft}
-                onChange={(e) => setSpeciesDraft(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="h-8"
-              />
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex items-center gap-2 flex-1">
+              <div className="relative flex-1 max-w-xs sm:max-w-none">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <Input
+                  placeholder="Filtrar por espécie..."
+                  value={speciesDraft}
+                  onChange={(e) => setSpeciesDraft(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                  className="h-10 pl-9 touch-target"
+                />
+              </div>
             </div>
             <Select
               value={statusDraft ?? "all"}
@@ -241,7 +243,7 @@ function AnimalsPage() {
                 }
               }}
             >
-              <SelectTrigger className="w-44 h-8">
+              <SelectTrigger className="w-full sm:w-44 h-10 touch-target">
                 <SelectValue placeholder="Todos os status" />
               </SelectTrigger>
               <SelectContent>
@@ -253,18 +255,25 @@ function AnimalsPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button size="sm" onClick={handleSearch} className="h-8">
-              <Search className="size-3.5" />
-              Buscar
+          </div>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              onClick={handleSearch}
+              className="h-10 touch-target"
+            >
+              <Search className="size-3.5 mr-1.5" />
+              <span className="hidden sm:inline">Buscar</span>
+              <span className="sm:hidden">Ir</span>
             </Button>
             {hasActiveFilters && (
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={handleClearFilters}
-                className="h-8"
+                className="h-10 touch-target"
               >
-                Limpar filtros
+                Limpar
               </Button>
             )}
           </div>
@@ -297,25 +306,29 @@ function AnimalsPage() {
           </Card>
 
           {meta && meta.totalPages > 1 && (
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>{meta.total} animais no total</span>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
+              <span className="text-center sm:text-left">
+                {meta.total} animais no total
+              </span>
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   disabled={page <= 1}
                   onClick={() => setPage((p) => p - 1)}
+                  className="touch-target h-9 w-9 p-0"
                 >
                   <ChevronLeft className="size-4" />
                 </Button>
-                <span>
-                  Página {page} de {meta.totalPages}
+                <span className="text-xs sm:text-sm">
+                  {page}/{meta.totalPages}
                 </span>
                 <Button
                   variant="outline"
                   size="sm"
                   disabled={page >= meta.totalPages}
                   onClick={() => setPage((p) => p + 1)}
+                  className="touch-target h-9 w-9 p-0"
                 >
                   <ChevronRight className="size-4" />
                 </Button>

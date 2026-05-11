@@ -98,36 +98,36 @@ export function QuickStats({
   loading,
 }: QuickStatsProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <StatCard
-        title="Total de Animais"
+        title="Total"
         value={totalAnimals}
         icon={Beef}
         color="primary"
         loading={loading}
       />
       <StatCard
-        title="Animais Ativos"
+        title="Ativos"
         value={activeAnimals}
         icon={Activity}
         color="success"
         loading={loading}
       />
       <StatCard
-        title="Receita Total"
-        value={`R$ ${revenue.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}`}
+        title="Receita"
+        value={`R$ ${revenue.toLocaleString("pt-BR", { minimumFractionDigits: 0, notation: "compact" })}`}
         icon={TrendingUp}
         color="warning"
         loading={loading}
       />
       <StatCard
         title="Balanço"
-        value={`R$ ${balance.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}`}
+        value={`R$ ${Math.abs(balance).toLocaleString("pt-BR", { minimumFractionDigits: 0, notation: "compact" })}`}
         icon={DollarSign}
         color={balance >= 0 ? "success" : "destructive"}
         loading={loading}
         trend={balance >= 0 ? "up" : "down"}
-        trendLabel={balance >= 0 ? "Positivo" : "Negativo"}
+        trendLabel={balance >= 0 ? "+" : "-"}
       />
     </div>
   );
