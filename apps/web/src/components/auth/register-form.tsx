@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from "lucide-react";
 import type * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ export function RegisterForm() {
   });
   const [regError, setRegError] = useState("");
   const [regSuccess, setRegSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { data: organizations, isLoading: isLoadingOrganizations } =
     useGetOrganizations();
@@ -95,17 +97,31 @@ export function RegisterForm() {
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="reg-password">Senha</Label>
-            <Input
-              id="reg-password"
-              type="password"
-              placeholder="Mínimo 8 caracteres"
-              value={regForm.password}
-              onChange={(e) =>
-                setRegForm({ ...regForm, password: e.target.value })
-              }
-              required
-              minLength={8}
-            />
+            <div className="relative">
+              <Input
+                id="reg-password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Mínimo 8 caracteres"
+                value={regForm.password}
+                onChange={(e) =>
+                  setRegForm({ ...regForm, password: e.target.value })
+                }
+                required
+                minLength={8}
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="reg-org">Organização</Label>
