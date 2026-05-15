@@ -46,9 +46,6 @@ export function PregnancyForm({ onSuccess }: PregnancyFormProps) {
   const { data: pregnancyStatuses } =
     useGetV1EnumsReproductionPregnancyStatus();
 
-  const pregnanciesQuery = useGetV1ReproductionPregnancies();
-  const pregnancies = pregnanciesQuery.data?.data ?? [];
-
   function showFeedback(ok: boolean, msg: string) {
     setFeedback({ ok, msg });
     setTimeout(() => setFeedback(null), 3000);
@@ -176,45 +173,6 @@ export function PregnancyForm({ onSuccess }: PregnancyFormProps) {
         >
           {pregnancyMutation.isPending ? "Salvando..." : "Registrar Gestação"}
         </Button>
-
-        <div className="mt-4">
-          <h3 className="text-sm font-medium mb-3">Gestações Ativas</h3>
-          {pregnanciesQuery.isLoading ? (
-            <div className="space-y-2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <Skeleton key={i} className="h-8 w-full" />
-              ))}
-            </div>
-          ) : pregnancies.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">
-              Nenhuma gestação registrada
-            </p>
-          ) : (
-            <div className="space-y-2">
-              {pregnancies.slice(0, 6).map((p) => (
-                <div
-                  key={p.id}
-                  className="flex items-center justify-between rounded-lg border px-3 py-2 text-sm"
-                >
-                  <span className="font-medium">
-                    {p.animalId ?? "Desconhecida"}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline">
-                      {pregnancyStatuses?.find((s) => s.key === p.status.key)
-                        ?.label ?? p.status.label}
-                    </Badge>
-                    {p.expectedDate && (
-                      <Badge variant="default">
-                        {new Date(p.expectedDate).toLocaleDateString("pt-BR")}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
       </CardContent>
     </Card>
   );

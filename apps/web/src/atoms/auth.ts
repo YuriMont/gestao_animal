@@ -9,12 +9,21 @@ export type AuthUser = {
   organizationId: string;
 };
 
+function getInitialAuth(): boolean {
+  if (typeof window === "undefined") return false;
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
+  return !!(token && user);
+}
+
 export const tokenAtom = atomWithStorage<string | null>("token", null);
 export const userAtom = atomWithStorage<AuthUser | null>("user", null);
 
 export const isAuthenticatedAtom = atom(
   (get) => !!get(tokenAtom) && !!get(userAtom),
 );
+
+export const initialAuthAtom = atom<boolean>(getInitialAuth());
 
 export const loginAtom = atom(
   null,

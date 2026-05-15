@@ -202,7 +202,7 @@ export function PregnanciesTable({
                 className="group transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50"
               >
                 <TableCell className="font-semibold text-slate-700 dark:text-slate-300">
-                  {p.animalId ?? "—"}
+                  {p.animalTag ?? p.animalId ?? "—"}
                 </TableCell>
                 <TableCell className="text-slate-600 dark:text-slate-400">
                   <div className="flex items-center gap-2">
@@ -325,10 +325,10 @@ export function BirthsTable({ births, loading }: BirthsTableProps) {
                 className="group transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50"
               >
                 <TableCell className="font-semibold text-slate-700 dark:text-slate-300">
-                  {b.motherId ?? "—"}
+                  {b.motherTag ?? b.motherId ?? "—"}
                 </TableCell>
                 <TableCell className="text-slate-600 dark:text-slate-400">
-                  {b.fatherId ?? "—"}
+                  {b.fatherTag ?? b.fatherId ?? "—"}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
@@ -410,7 +410,7 @@ export function EstrusTable({ estrus, loading }: EstrusTableProps) {
                 className="group transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50"
               >
                 <TableCell className="font-semibold text-slate-700 dark:text-slate-300">
-                  {e.animalId ?? "—"}
+                  {e.animalTag ?? e.animalId ?? "—"}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
@@ -518,7 +518,7 @@ export function InseminationsTable({
                 className="group transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50"
               >
                 <TableCell className="font-semibold text-slate-700 dark:text-slate-300">
-                  {i.animalId ?? "—"}
+                  {i.animalTag ?? i.animalId ?? "—"}
                 </TableCell>
                 <TableCell>
                   <Badge variant="secondary">{i.type.label}</Badge>
@@ -532,7 +532,7 @@ export function InseminationsTable({
                   </div>
                 </TableCell>
                 <TableCell className="text-slate-500">
-                  {i.fatherId || i.semenBatch || "—"}
+                  {i.fatherTag ?? i.fatherId ?? i.semenBatch ?? "—"}
                 </TableCell>
                 <TableCell>
                   {i.success === null || i.success === undefined ? (
@@ -564,11 +564,21 @@ export function InseminationsTable({
 interface ReproductionHistoryTablesProps {
   data: GetV1ReproductionHistoryAnimalid200;
   loading: boolean;
+  animalsMap?: Map<string, string>;
+}
+
+function getAnimalTag(
+  animalId: string | null | undefined,
+  animalsMap?: Map<string, string>,
+): string {
+  if (!animalId) return "—";
+  return animalsMap?.get(animalId) ?? animalId;
 }
 
 export function ReproductionHistoryTables({
   data,
   loading,
+  animalsMap,
 }: ReproductionHistoryTablesProps) {
   const { estrus, pregnancies, births, inseminations } = data;
 

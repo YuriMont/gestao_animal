@@ -13,6 +13,7 @@ import {
 const estrusResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
+  animalTag: z.string().nullish(),
   startDate: z.date(),
   endDate: z.date().nullish(),
   observation: z.string().nullish(),
@@ -22,6 +23,7 @@ const estrusResponseSchema = z.object({
 const pregnancyResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
+  animalTag: z.string().nullish(),
   detectedDate: z.date(),
   expectedDate: z.date().nullish(),
   status: enumField,
@@ -31,7 +33,9 @@ const pregnancyResponseSchema = z.object({
 const birthResponseSchema = z.object({
   id: z.string(),
   motherId: z.string(),
+  motherTag: z.string().nullish(),
   fatherId: z.string().nullish(),
+  fatherTag: z.string().nullish(),
   birthDate: z.date(),
   offspringTag: z.string().nullish(),
   status: enumField,
@@ -41,9 +45,11 @@ const birthResponseSchema = z.object({
 const inseminationResponseSchema = z.object({
   id: z.string(),
   animalId: z.string(),
+  animalTag: z.string().nullish(),
   type: enumField,
   date: z.date(),
   fatherId: z.string().nullish(),
+  fatherTag: z.string().nullish(),
   semenBatch: z.string().nullish(),
   success: z.boolean().nullish(),
   organizationId: z.string(),

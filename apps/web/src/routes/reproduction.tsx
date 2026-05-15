@@ -93,7 +93,6 @@ function ReproductionPage() {
                   value={selectedAnimal}
                   onChange={setSelectedAnimal}
                   sex="FEMALE"
-                  className="touch-target"
                 />
               </div>
             </motion.div>

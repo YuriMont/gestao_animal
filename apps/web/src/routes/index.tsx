@@ -133,7 +133,7 @@ function Dashboard() {
           </section>
 
           <section
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-slide-up"
+            className="grid grid-cols-1 gap-6 animate-slide-up"
             style={{ animationDelay: "350ms" }}
           >
             <FinancialOverview
@@ -142,7 +142,6 @@ function Dashboard() {
               balance={summary?.balance ?? 0}
               loading={loading}
             />
-            <QuickAlerts />
           </section>
         </div>
       </div>
@@ -156,79 +155,4 @@ function sumAllMilk(_animals: any[]): number {
 
 function calculateAverageWeight(_animals: any[]): number {
   return Math.floor(Math.random() * 50 + 400);
-}
-
-function QuickAlerts() {
-  const alerts = [
-    {
-      id: 1,
-      message: "Vacina aftosa vencendo em 15 dias para 3 animais",
-      type: "warning",
-      time: "2h",
-    },
-    {
-      id: 2,
-      message: "SJ-005 prenha há mais de 280 dias — verificar",
-      type: "info",
-      time: "5h",
-    },
-    {
-      id: 3,
-      message: "Nova pesagem pendente para touros",
-      type: "info",
-      time: "1d",
-    },
-  ];
-
-  const typeStyles = {
-    warning: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-    info: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-    error: "bg-destructive/10 text-destructive border-destructive/20",
-  };
-
-  return (
-    <div className="rounded-2xl border border-border bg-card overflow-hidden">
-      <div className="p-5 border-b border-border">
-        <h3 className="font-display text-base font-semibold">Atenções</h3>
-        <p className="text-xs text-muted-foreground mt-1">
-          Itens que requerem sua atenção
-        </p>
-      </div>
-      <div className="divide-y divide-border">
-        {alerts.map((alert, index) => (
-          <div
-            key={alert.id}
-            className="p-4 hover:bg-accent/50 transition-colors cursor-pointer animate-slide-up"
-            style={{ animationDelay: `${400 + index * 50}ms` }}
-          >
-            <div className="flex items-start gap-3">
-              <div
-                className={`mt-0.5 p-1.5 rounded-lg border ${typeStyles[alert.type as keyof typeof typeStyles]}`}
-              >
-                <svg
-                  className="size-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium leading-snug">
-                  {alert.message}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  há {alert.time}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 }

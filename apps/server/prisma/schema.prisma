@@ -81,20 +81,21 @@ model Organization {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  users          User[]
-  animals        Animal[]
-  paddocks       Paddock[]
-  healthRecords  HealthRecord[]
-  vaccines       Vaccine[]
-  treatments     Treatment[]
-  estrusCycles   Estrus[]
-  inseminations  Insemination[]
-  pregnancies    Pregnancy[]
-  births         Birth[]
-  weightRecords  WeightRecord[]
-  milkProduction MilkProduction[]
-  financials     FinancialRecord[]
-  breeds         Breed[]
+  users              User[]
+  animals            Animal[]
+  paddocks           Paddock[]
+  healthRecords      HealthRecord[]
+  vaccines           Vaccine[]
+  treatments         Treatment[]
+  estrusCycles       Estrus[]
+  inseminations      Insemination[]
+  pregnancies        Pregnancy[]
+  births             Birth[]
+  weightRecords      WeightRecord[]
+  milkProduction     MilkProduction[]
+  financials         FinancialRecord[]
+  breeds             Breed[]
+  parasiteMonitoring ParasiteMonitoring[]
 
   @@map("organizations")
 }
@@ -138,6 +139,7 @@ model Animal {
   birthDate      DateTime
   origin         AnimalOrigin?
   status         AnimalStatus @default(ACTIVE)
+  currentWeight  Float?
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
   paddockId      String?
@@ -147,11 +149,12 @@ model Animal {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  healthRecords HealthRecord[]
-  vaccines      Vaccine[]
-  treatments    Treatment[]
-  estrusCycles  Estrus[]
-  pregnancies   Pregnancy[]
+  healthRecords        HealthRecord[]
+  vaccines             Vaccine[]
+  treatments           Treatment[]
+  estrusCycles         Estrus[]
+  pregnancies          Pregnancy[]
+  parasiteMonitoring   ParasiteMonitoring[]
   
   inseminations        Insemination[] @relation("FemaleInseminations")
   inseminationsAsFather Insemination[] @relation("MaleInseminations")
@@ -195,6 +198,24 @@ model HealthRecord {
   updatedAt DateTime @updatedAt
 
   @@map("health_records")
+}
+
+model ParasiteMonitoring {
+  id                String       @id @default(uuid())
+  animalId          String
+  animal            Animal       @relation(fields: [animalId], references: [id])
+  date              DateTime     @default(now())
+  famacha           Int?
+  opg               Int?
+  nextParasiteCheck DateTime?
+  observation       String?
+  organizationId   String
+  organization      Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("parasite_monitoring")
 }
 
 model Vaccine {
@@ -295,6 +316,7 @@ model Birth {
   father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])
   birthDate      DateTime
   offspringTag   String?
+  offspringWeight Float?
   status         BirthStatus  @default(ALIVE)
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])

@@ -126,6 +126,23 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
         />
       </div>
       <div className="space-y-1.5">
+        <Label>Peso (kg)</Label>
+        <Input
+          type="number"
+          step="0.01"
+          placeholder="Ex: 250.5"
+          value={form.currentWeight ?? ""}
+          onChange={(e) =>
+            onChange({
+              ...form,
+              currentWeight: e.target.value
+                ? parseFloat(e.target.value)
+                : undefined,
+            })
+          }
+        />
+      </div>
+      <div className="space-y-1.5">
         <Label>Origem</Label>
         <Select
           value={form.origin ?? ""}
@@ -149,7 +166,7 @@ export function AnimalForm({ form, onChange }: AnimalFormProps) {
           </SelectContent>
         </Select>
       </div>
-      <div className="col-span-2 space-y-1.5">
+      <div className="space-y-1.5">
         <Label>Status</Label>
         <Select
           value={form.status}

@@ -26,6 +26,7 @@ export const createBirthSchema = z.object({
   fatherId: z.string().optional(),
   birthDate: z.coerce.date(),
   offspringTag: z.string().optional(),
+  offspringWeight: z.coerce.number().optional(),
   status: z.nativeEnum(BirthStatus),
 });
 export type CreateBirthDTO = z.infer<typeof createBirthSchema>;
@@ -43,6 +44,7 @@ export type CreateInseminationDTO = z.infer<typeof createInseminationSchema>;
 export interface EstrusRecord {
   id: string;
   animalId: string;
+  animalTag?: string | null;
   startDate: Date;
   endDate?: Date | null;
   observation?: string | null;
@@ -52,6 +54,7 @@ export interface EstrusRecord {
 export interface PregnancyRecord {
   id: string;
   animalId: string;
+  animalTag?: string | null;
   detectedDate: Date;
   expectedDate?: Date | null;
   status: string;
@@ -61,9 +64,12 @@ export interface PregnancyRecord {
 export interface BirthRecord {
   id: string;
   motherId: string;
+  motherTag?: string | null;
   fatherId?: string | null;
+  fatherTag?: string | null;
   birthDate: Date;
   offspringTag?: string | null;
+  offspringWeight?: number | null;
   status: string;
   organizationId: string;
 }
@@ -71,9 +77,11 @@ export interface BirthRecord {
 export interface InseminationRecord {
   id: string;
   animalId: string;
+  animalTag?: string | null;
   type: string;
   date: Date;
   fatherId?: string | null;
+  fatherTag?: string | null;
   semenBatch?: string | null;
   success?: boolean | null;
   organizationId: string;

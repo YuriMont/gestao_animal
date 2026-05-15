@@ -6,6 +6,7 @@ import {
   createTreatmentSchema,
   createVaccineSchema,
 } from "./health.types";
+import parasitologyRoutes from "./parasitology/parasitology.routes";
 
 const recordSchema = z.object({
   id: z.string(),
@@ -38,6 +39,8 @@ const treatmentSchema = z.object({
 });
 
 export default async function healthRoutes(app: FastifyInstance) {
+  app.register(parasitologyRoutes, { prefix: "/parasitology" });
+
   app.post(
     "/health/records",
     {

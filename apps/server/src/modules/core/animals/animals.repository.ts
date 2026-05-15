@@ -69,9 +69,21 @@ export class PrismaAnimalRepository implements IAnimalRepository {
     organizationId: string,
     filters: ListAnimalsQuery,
   ): Promise<{ animals: AnimalPayload[]; total: number }> {
-    const { page = 1, limit = 20, ...where } = filters;
+    const { page = 1, limit = 20, tag, birthDateStart, birthDateEnd, ...where } = filters;
     const skip = (page - 1) * limit;
-    const dbWhere = { organizationId, ...where };
+
+    const dbWhere: any = { organizationId, ...where };
+
+    if (tag) {
+      dbWhere.tag = { contains: tag, mode: "insensitive" };
+    }
+
+    if (birthDateStart || birthDateEnd) {
+      dbWhere.birthDate = {};
+      if (birthDateStart) dbWhere.birthDate.gte = birthDateStart;
+      if (birthDateEnd) dbWhere.birthDate.lte = birthDateEnd;
+    }
+
     const [animals, total] = await this.prisma.$transaction([
       this.prisma.animal.findMany({
         where: dbWhere,

@@ -21,6 +21,7 @@ const INITIAL_BIRTH_FORM = {
   fatherId: "",
   birthDate: "",
   offspringTag: "",
+  offspringWeight: "",
   status: "ALIVE" as PostV1ReproductionBirthMutationRequestStatusEnumKey,
 };
 
@@ -108,31 +109,48 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
             />
           </div>
         </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs font-semibold text-slate-500 uppercase">
-            Status *
-          </Label>
-          <Select
-            value={birthForm.status}
-            onValueChange={(v) =>
-              setBirthForm({
-                ...birthForm,
-                status:
-                  v as PostV1ReproductionBirthMutationRequestStatusEnumKey,
-              })
-            }
-          >
-            <SelectTrigger className="focus-visible:ring-emerald-500">
-              <SelectValue placeholder="Selecione..." />
-            </SelectTrigger>
-            <SelectContent>
-              {birthStatuses?.map((item) => (
-                <SelectItem key={item.key} value={item.key}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Peso do Filhote (kg)
+            </Label>
+            <Input
+              type="number"
+              step="0.01"
+              placeholder="Ex: 25.5"
+              className="focus-visible:ring-emerald-500"
+              value={birthForm.offspringWeight}
+              onChange={(e) =>
+                setBirthForm({ ...birthForm, offspringWeight: e.target.value })
+              }
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Status *
+            </Label>
+            <Select
+              value={birthForm.status}
+              onValueChange={(v) =>
+                setBirthForm({
+                  ...birthForm,
+                  status:
+                    v as PostV1ReproductionBirthMutationRequestStatusEnumKey,
+                })
+              }
+            >
+              <SelectTrigger className="focus-visible:ring-emerald-500">
+                <SelectValue placeholder="Selecione..." />
+              </SelectTrigger>
+              <SelectContent>
+                {birthStatuses?.map((item) => (
+                  <SelectItem key={item.key} value={item.key}>
+                    {item.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         {feedback && (
           <p
@@ -155,6 +173,9 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
                 fatherId: birthForm.fatherId || undefined,
                 birthDate: birthForm.birthDate,
                 offspringTag: birthForm.offspringTag || undefined,
+                offspringWeight: birthForm.offspringWeight
+                  ? parseFloat(birthForm.offspringWeight)
+                  : undefined,
                 status: birthForm.status,
               },
             })

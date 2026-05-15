@@ -11,8 +11,8 @@ import {
   Stethoscope,
 } from "lucide-react";
 import type * as React from "react";
-import { useEffect } from "react";
-import { isAuthenticatedAtom } from "@/atoms/auth";
+import { useEffect, useState } from "react";
+import { initialAuthAtom, isAuthenticatedAtom } from "@/atoms/auth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -28,16 +28,23 @@ const mobileNavItems = [
 ] as const;
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
+  const [isReady, setIsReady] = useState(false);
+  const initialAuth = useAtomValue(initialAuthAtom);
   const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    setIsReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (isReady && !initialAuth) {
       navigate({ to: "/login" });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isReady, initialAuth, navigate]);
 
-  if (!isAuthenticated) return null;
+  if (!isReady) return null;
+  if (!initialAuth) return null;
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

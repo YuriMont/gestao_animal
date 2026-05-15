@@ -4,6 +4,8 @@ import { Activity, History, Plus } from "lucide-react";
 import { useState } from "react";
 import { AnimalSelect } from "@/components/health/animal-select";
 import { HealthTables } from "@/components/health/health-tables";
+import { ParasitologyForm } from "@/components/health/parasitology-form";
+import { ParasitologySection } from "@/components/health/parasitology-section";
 import { RecordForm } from "@/components/health/record-form";
 import { TreatmentForm } from "@/components/health/treatment-form";
 import { VaccineForm } from "@/components/health/vaccine-form";
@@ -107,11 +109,16 @@ function HealthPage() {
                       <Skeleton className="rounded-2xl border h-64 w-full" />
                     </div>
                   ) : (
-                    <HealthTables
-                      data={
-                        data ?? { records: [], vaccines: [], treatments: [] }
-                      }
-                    />
+                    <div className="space-y-10">
+                      {selectedAnimal && (
+                        <ParasitologySection animalId={selectedAnimal} />
+                      )}
+                      <HealthTables
+                        data={
+                          data ?? { records: [], vaccines: [], treatments: [] }
+                        }
+                      />
+                    </div>
                   )}
                 </motion.div>
               </div>
@@ -144,6 +151,12 @@ function HealthPage() {
                 >
                   Registro
                 </TabsTrigger>
+                <TabsTrigger
+                  value="parasitology"
+                  className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-amber-600"
+                >
+                  Parasitologia
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="vaccine" className="mt-4">
                 <VaccineForm onSuccess={() => setIsModalOpen(false)} />
@@ -153,6 +166,9 @@ function HealthPage() {
               </TabsContent>
               <TabsContent value="record" className="mt-4">
                 <RecordForm onSuccess={() => setIsModalOpen(false)} />
+              </TabsContent>
+              <TabsContent value="parasitology" className="mt-4">
+                <ParasitologyForm onSuccess={() => setIsModalOpen(false)} />
               </TabsContent>
             </Tabs>
           </DialogContent>

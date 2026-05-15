@@ -15,6 +15,7 @@ export const createAnimalSchema = z.object({
   sex: z.nativeEnum(AnimalSex),
   birthDate: z.coerce.date(),
   origin: z.nativeEnum(AnimalOrigin).optional(),
+  currentWeight: z.coerce.number().optional(),
   status: z.nativeEnum(AnimalStatus).default(AnimalStatus.ACTIVE),
 });
 export type CreateAnimalDTO = z.infer<typeof createAnimalSchema>;
@@ -26,6 +27,10 @@ export const listAnimalsQuerySchema = z.object({
   status: z.nativeEnum(AnimalStatus).optional(),
   species: z.nativeEnum(Species).optional(),
   sex: z.nativeEnum(AnimalSex).optional(),
+  tag: z.string().optional(),
+  birthDateStart: z.coerce.date().optional(),
+  birthDateEnd: z.coerce.date().optional(),
+  breedId: z.string().optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
 });
