@@ -198,9 +198,11 @@ export class PrismaReproductionRepository implements IReproductionRepository {
 					status: true,
 					motherId: true,
 					fatherId: true,
+					inseminationId: true,
 					organizationId: true,
 					mother: { select: { tag: true } },
 					father: { select: { tag: true } },
+					insemination: { select: { date: true } },
 				},
 			}),
 			this.prisma.insemination.findMany({

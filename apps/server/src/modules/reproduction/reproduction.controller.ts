@@ -137,9 +137,13 @@ export class ReproductionController {
         ...p,
         status: mapEnum("pregnancyStatus", p.status),
       })),
-      births: history.births.map((b) => ({
+      births: history.births.map((b: any) => ({
         ...b,
         status: mapEnum("birthStatus", b.status),
+        inseminationId: b.inseminationId ?? null,
+        inseminationDate: b.insemination?.date 
+          ? new Date(b.insemination.date).toISOString().split("T")[0]
+          : null,
       })),
       inseminations: history.inseminations.map((i) => ({
         ...i,

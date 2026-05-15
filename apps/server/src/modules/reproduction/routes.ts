@@ -36,6 +36,8 @@ const birthResponseSchema = z.object({
   motherTag: z.string().nullish(),
   fatherId: z.string().nullish(),
   fatherTag: z.string().nullish(),
+  inseminationId: z.string().nullish(),
+  inseminationDate: z.string().nullish(),
   birthDate: z.date(),
   offspringTag: z.string().nullish(),
   status: enumField,

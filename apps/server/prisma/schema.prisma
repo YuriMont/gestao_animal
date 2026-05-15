@@ -287,6 +287,8 @@ model Insemination {
 
   pregnancies    Pregnancy[]
 
+  births         Birth[]         @relation("InseminationToBirth")
+
   @@map("inseminations")
 }
 
@@ -314,6 +316,8 @@ model Birth {
   mother         Animal       @relation("MotherToBirth", fields: [motherId], references: [id])
   fatherId       String?
   father         Animal?      @relation("FatherToBirth", fields: [fatherId], references: [id])
+  inseminationId String?
+  insemination   Insemination? @relation("InseminationToBirth", fields: [inseminationId], references: [id])
   birthDate      DateTime
   offspringTag   String?
   offspringWeight Float?

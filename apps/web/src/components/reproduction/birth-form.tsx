@@ -11,14 +11,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  useGetV1ReproductionInseminations,
+  usePostV1ReproductionBirth,
+} from "@/gen/hooks";
 import { useGetV1EnumsReproductionBirthStatus } from "@/gen/hooks/enumsController/useGetV1EnumsReproductionBirthStatus";
-import { usePostV1ReproductionBirth } from "@/gen/hooks/reproductionController/usePostV1ReproductionBirth";
 import type { PostV1ReproductionBirthMutationRequestStatusEnumKey } from "@/gen/models/reproductionController/PostV1ReproductionBirth";
 import { AnimalSelect } from "./animal-select";
 
 const INITIAL_BIRTH_FORM = {
   motherId: "",
   fatherId: "",
+  inseminationId: "",
+  conceptionType: "NATURAL" as "NATURAL" | "INSEMINATED",
   birthDate: "",
   offspringTag: "",
   offspringWeight: "",
@@ -35,6 +41,16 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
     null,
   );
   const { data: birthStatuses } = useGetV1EnumsReproductionBirthStatus();
+
+  const { data: inseminationsData, isLoading: inseminationsLoading } =
+    useGetV1ReproductionInseminations(
+      { limit: 100 },
+      { query: { enabled: !!birthForm.motherId } },
+    );
+
+  const motherInseminations =
+    inseminationsData?.data.filter((i) => i.animalId === birthForm.motherId) ??
+    [];
 
   function showFeedback(ok: boolean, msg: string) {
     setFeedback({ ok, msg });
@@ -67,20 +83,95 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
           </Label>
           <AnimalSelect
             value={birthForm.motherId}
-            onChange={(v) => setBirthForm({ ...birthForm, motherId: v })}
+            onChange={(v) =>
+              setBirthForm({
+                ...birthForm,
+                motherId: v,
+                inseminationId: "",
+                fatherId: "",
+              })
+            }
             sex="FEMALE"
           />
         </div>
         <div className="space-y-1.5">
           <Label className="text-xs font-semibold text-slate-500 uppercase">
-            Pai (Macho)
+            Tipo de Concepção
           </Label>
-          <AnimalSelect
-            value={birthForm.fatherId}
-            onChange={(v) => setBirthForm({ ...birthForm, fatherId: v })}
-            sex="MALE"
-          />
+          <Select
+            value={birthForm.conceptionType}
+            onValueChange={(v) =>
+              setBirthForm({
+                ...birthForm,
+                conceptionType: v as "NATURAL" | "INSEMINATED",
+                fatherId: v === "INSEMINATED" ? "" : birthForm.fatherId,
+                inseminationId: v === "NATURAL" ? "" : birthForm.inseminationId,
+              })
+            }
+          >
+            <SelectTrigger className="focus-visible:ring-emerald-500">
+              <SelectValue placeholder="Selecione..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="NATURAL">Natural (Monta)</SelectItem>
+              <SelectItem value="INSEMINATED">Inseminação Artificial</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
+        {birthForm.conceptionType === "NATURAL" ? (
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Pai (Macho)
+            </Label>
+            <AnimalSelect
+              value={birthForm.fatherId}
+              onChange={(v) => setBirthForm({ ...birthForm, fatherId: v })}
+              sex="MALE"
+            />
+          </div>
+        ) : (
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold text-slate-500 uppercase">
+              Inseminação *
+            </Label>
+            {birthForm.motherId ? (
+              <Select
+                value={birthForm.inseminationId}
+                onValueChange={(v) =>
+                  setBirthForm({
+                    ...birthForm,
+                    inseminationId: v === "__none__" ? "" : v,
+                  })
+                }
+              >
+                <SelectTrigger className="focus-visible:ring-emerald-500">
+                  <SelectValue placeholder="Selecione..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__none__">Nenhuma</SelectItem>
+                  {inseminationsLoading ? (
+                    <div className="p-2">
+                      <Skeleton className="h-4 w-full" />
+                    </div>
+                  ) : (
+                    motherInseminations.map((insem) => (
+                      <SelectItem key={insem.id} value={insem.id}>
+                        {insem.date
+                          ? new Date(insem.date).toLocaleDateString("pt-BR")
+                          : "Sem data"}{" "}
+                        ({insem.type?.label || insem.type?.key})
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Selecione a mãe primeiro
+              </p>
+            )}
+          </div>
+        )}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label className="text-xs font-semibold text-slate-500 uppercase">
@@ -171,6 +262,7 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
               data: {
                 motherId: birthForm.motherId,
                 fatherId: birthForm.fatherId || undefined,
+                inseminationId: birthForm.inseminationId || undefined,
                 birthDate: birthForm.birthDate,
                 offspringTag: birthForm.offspringTag || undefined,
                 offspringWeight: birthForm.offspringWeight

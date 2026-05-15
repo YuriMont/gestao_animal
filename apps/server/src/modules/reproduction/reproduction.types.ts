@@ -24,6 +24,7 @@ export type CreatePregnancyDTO = z.infer<typeof createPregnancySchema>;
 export const createBirthSchema = z.object({
   motherId: z.string(),
   fatherId: z.string().optional(),
+  inseminationId: z.string().optional(),
   birthDate: z.coerce.date(),
   offspringTag: z.string().optional(),
   offspringWeight: z.coerce.number().optional(),
@@ -67,6 +68,8 @@ export interface BirthRecord {
   motherTag?: string | null;
   fatherId?: string | null;
   fatherTag?: string | null;
+  inseminationId?: string | null;
+  inseminationDate?: string | null;
   birthDate: Date;
   offspringTag?: string | null;
   offspringWeight?: number | null;

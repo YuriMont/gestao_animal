@@ -1,12 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { Baby, ChevronRight, Flower, Heart, History, Plus } from "lucide-react";
+import {
+  Baby,
+  ChevronRight,
+  Flower,
+  Heart,
+  History,
+  Pipette,
+  Plus,
+} from "lucide-react";
 import { useState } from "react";
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { AnimalSelect } from "@/components/reproduction/animal-select";
 import { BirthForm } from "@/components/reproduction/birth-form";
 import { EstrusForm } from "@/components/reproduction/estrus-form";
+import { InseminationForm } from "@/components/reproduction/insemination-form";
 import { PregnancyForm } from "@/components/reproduction/pregnancy-form";
 import {
   ReproductionHistoryTables,
@@ -173,6 +182,13 @@ function ReproductionPage() {
                   Estro/Cio
                 </TabsTrigger>
                 <TabsTrigger
+                  value="insemination"
+                  className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-emerald-600"
+                >
+                  <Pipette className="size-4 mr-2" />
+                  Inseminação
+                </TabsTrigger>
+                <TabsTrigger
                   value="pregnancy"
                   className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-emerald-600"
                 >
@@ -189,6 +205,9 @@ function ReproductionPage() {
               </TabsList>
               <TabsContent value="estrus" className="mt-4">
                 <EstrusForm onSuccess={() => setIsModalOpen(false)} />
+              </TabsContent>
+              <TabsContent value="insemination" className="mt-4">
+                <InseminationForm onSuccess={() => setIsModalOpen(false)} />
               </TabsContent>
               <TabsContent value="pregnancy" className="mt-4">
                 <PregnancyForm onSuccess={() => setIsModalOpen(false)} />
