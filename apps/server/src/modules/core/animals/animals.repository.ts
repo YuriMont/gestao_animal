@@ -69,7 +69,14 @@ export class PrismaAnimalRepository implements IAnimalRepository {
     organizationId: string,
     filters: ListAnimalsQuery,
   ): Promise<{ animals: AnimalPayload[]; total: number }> {
-    const { page = 1, limit = 20, tag, birthDateStart, birthDateEnd, ...where } = filters;
+    const {
+      page = 1,
+      limit = 20,
+      tag,
+      birthDateStart,
+      birthDateEnd,
+      ...where
+    } = filters;
     const skip = (page - 1) * limit;
 
     const dbWhere: any = { organizationId, ...where };

@@ -12,6 +12,17 @@ export type CreateFinancialRecordDTO = z.infer<
   typeof createFinancialRecordSchema
 >;
 
+export const updateFinancialRecordSchema = z.object({
+  type: z.enum(FinancialType).optional(),
+  category: z.nativeEnum(FinancialCategory).optional(),
+  amount: z.number().positive().optional(),
+  date: z.coerce.date().optional(),
+  description: z.string().optional(),
+});
+export type UpdateFinancialRecordDTO = z.infer<
+  typeof updateFinancialRecordSchema
+>;
+
 export interface FinancialRecordRecord {
   id: string;
   type: string;

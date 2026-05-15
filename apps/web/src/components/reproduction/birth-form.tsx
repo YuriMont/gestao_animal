@@ -114,7 +114,9 @@ export function BirthForm({ onSuccess }: BirthFormProps) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="NATURAL">Natural (Monta)</SelectItem>
-              <SelectItem value="INSEMINATED">Inseminação Artificial</SelectItem>
+              <SelectItem value="INSEMINATED">
+                Inseminação Artificial
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetV1AnimalsId } from "@/gen/hooks/animalsController/useGetV1AnimalsId";
 import { useGetV1ProductionMetricsAnimalid } from "@/gen/hooks/productionController/useGetV1ProductionMetricsAnimalid";
 
 export const Route = createFileRoute("/production")({
@@ -28,12 +29,19 @@ function ProductionPage() {
   const [selectedAnimal, setSelectedAnimal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { data: animalData } = useGetV1AnimalsId(selectedAnimal, {
+    query: { enabled: !!selectedAnimal },
+  });
+
   const { data, isLoading } = useGetV1ProductionMetricsAnimalid(
     selectedAnimal,
     {
       query: { enabled: !!selectedAnimal },
     },
   );
+
+  const isMale = animalData?.sex.key === "MALE";
+  const showMilk = !isMale;
 
   return (
     <AppLayout>
@@ -134,9 +142,14 @@ function ProductionPage() {
                         lastWeight={data?.lastWeight ?? null}
                         lastMilk={data?.lastMilk ?? null}
                         loading={isLoading}
+                        showMilk={showMilk}
                       />
 
-                      <ProductionTables data={data} loading={isLoading} />
+                      <ProductionTables
+                        data={data}
+                        loading={isLoading}
+                        showMilk={showMilk}
+                      />
                     </div>
                   )}
                 </motion.div>
@@ -161,15 +174,20 @@ function ProductionPage() {
                 </Button>
               </div>
             ) : (
-              <Tabs defaultValue="milk" className="w-full">
+              <Tabs
+                defaultValue={showMilk ? "milk" : "weight"}
+                className="w-full"
+              >
                 <TabsList className="w-full justify-start bg-slate-100 dark:bg-slate-800 gap-1">
-                  <TabsTrigger
-                    value="milk"
-                    className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-emerald-600"
-                  >
-                    <MilkIcon className="size-4 mr-2" />
-                    Ordenha
-                  </TabsTrigger>
+                  {showMilk && (
+                    <TabsTrigger
+                      value="milk"
+                      className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-emerald-600"
+                    >
+                      <MilkIcon className="size-4 mr-2" />
+                      Ordenha
+                    </TabsTrigger>
+                  )}
                   <TabsTrigger
                     value="weight"
                     className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-emerald-600"
@@ -178,12 +196,14 @@ function ProductionPage() {
                     Pesagem
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="milk" className="mt-4">
-                  <MilkForm
-                    animalId={selectedAnimal}
-                    onSuccess={() => setIsModalOpen(false)}
-                  />
-                </TabsContent>
+                {showMilk && (
+                  <TabsContent value="milk" className="mt-4">
+                    <MilkForm
+                      animalId={selectedAnimal}
+                      onSuccess={() => setIsModalOpen(false)}
+                    />
+                  </TabsContent>
+                )}
                 <TabsContent value="weight" className="mt-4">
                   <WeightForm
                     animalId={selectedAnimal}

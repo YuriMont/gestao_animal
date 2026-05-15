@@ -8,6 +8,7 @@ interface ProductionStatsProps {
   lastWeight: number | null;
   lastMilk: number | null;
   loading: boolean;
+  showMilk?: boolean;
 }
 
 export function ProductionStats({
@@ -16,22 +17,27 @@ export function ProductionStats({
   lastWeight,
   lastMilk,
   loading,
+  showMilk = true,
 }: ProductionStatsProps) {
   const stats = [
-    {
-      label: "Total Produzido",
-      value: totalMilk != null ? `${totalMilk.toFixed(1)} L` : "—",
-      icon: Milk,
-      color: "text-emerald-500",
-      bg: "bg-emerald-100 dark:bg-emerald-900/30",
-    },
-    {
-      label: "Última Ordenha",
-      value: lastMilk != null ? `${lastMilk.toFixed(1)} L` : "—",
-      icon: TrendingUp,
-      color: "text-blue-500",
-      bg: "bg-blue-100 dark:bg-blue-900/30",
-    },
+    ...(showMilk
+      ? [
+          {
+            label: "Total Produzido",
+            value: totalMilk != null ? `${totalMilk.toFixed(1)} L` : "—",
+            icon: Milk,
+            color: "text-emerald-500",
+            bg: "bg-emerald-100 dark:bg-emerald-900/30",
+          },
+          {
+            label: "Última Ordenha",
+            value: lastMilk != null ? `${lastMilk.toFixed(1)} L` : "—",
+            icon: TrendingUp,
+            color: "text-blue-500",
+            bg: "bg-blue-100 dark:bg-blue-900/30",
+          },
+        ]
+      : []),
     {
       label: "Peso Médio",
       value: averageWeight != null ? `${averageWeight.toFixed(1)} kg` : "—",

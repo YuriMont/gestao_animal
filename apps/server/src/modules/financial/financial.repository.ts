@@ -3,6 +3,7 @@ import type {
   CreateFinancialRecordDTO,
   FinancialRecordRecord,
   FinancialSummary,
+  UpdateFinancialRecordDTO,
 } from "./financial.types";
 
 export interface IFinancialRepository {
@@ -15,6 +16,16 @@ export interface IFinancialRepository {
     limit: number,
   ): Promise<{ records: FinancialRecordRecord[]; total: number }>;
   getSummary(organizationId: string): Promise<FinancialSummary>;
+  getById(
+    id: string,
+    organizationId: string,
+  ): Promise<FinancialRecordRecord | null>;
+  update(
+    id: string,
+    data: UpdateFinancialRecordDTO,
+    organizationId: string,
+  ): Promise<FinancialRecordRecord>;
+  delete(id: string, organizationId: string): Promise<void>;
 }
 
 export class PrismaFinancialRepository implements IFinancialRepository {
@@ -60,5 +71,31 @@ export class PrismaFinancialRepository implements IFinancialRepository {
     const totalRevenue = incomeAgg._sum.amount ?? 0;
 
     return { totalCost, totalRevenue, balance: totalRevenue - totalCost };
+  }
+
+  async getById(
+    id: string,
+    organizationId: string,
+  ): Promise<FinancialRecordRecord | null> {
+    return this.prisma.financialRecord.findFirst({
+      where: { id, organizationId },
+    });
+  }
+
+  async update(
+    id: string,
+    data: UpdateFinancialRecordDTO,
+    organizationId: string,
+  ): Promise<FinancialRecordRecord> {
+    return this.prisma.financialRecord.update({
+      where: { id, organizationId },
+      data,
+    });
+  }
+
+  async delete(id: string, organizationId: string): Promise<void> {
+    await this.prisma.financialRecord.delete({
+      where: { id, organizationId },
+    });
   }
 }

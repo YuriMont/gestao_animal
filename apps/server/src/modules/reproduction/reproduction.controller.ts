@@ -141,7 +141,7 @@ export class ReproductionController {
         ...b,
         status: mapEnum("birthStatus", b.status),
         inseminationId: b.inseminationId ?? null,
-        inseminationDate: b.insemination?.date 
+        inseminationDate: b.insemination?.date
           ? new Date(b.insemination.date).toISOString().split("T")[0]
           : null,
       })),

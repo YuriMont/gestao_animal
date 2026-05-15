@@ -2,7 +2,10 @@ import { paginationMetaSchema } from "@src/common/lib/pagination";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { financialController } from "./financial.module";
-import { createFinancialRecordSchema } from "./financial.types";
+import {
+  createFinancialRecordSchema,
+  updateFinancialRecordSchema,
+} from "./financial.types";
 
 const recordResponseSchema = z.object({
   id: z.string(),
@@ -73,5 +76,53 @@ export default async function financialRoutes(app: FastifyInstance) {
       },
     },
     financialController.list,
+  );
+
+  app.get(
+    "/financial/records/:id",
+    {
+      schema: {
+        tags: ["Financial"],
+        summary: "Get financial record by ID",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        response: { 200: recordResponseSchema },
+      },
+    },
+    financialController.getById,
+  );
+
+  app.put(
+    "/financial/records/:id",
+    {
+      schema: {
+        tags: ["Financial"],
+        summary: "Update financial record",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        body: updateFinancialRecordSchema,
+        response: {
+          200: z.object({
+            message: z.string(),
+            record: recordResponseSchema,
+          }),
+        },
+      },
+    },
+    financialController.update,
+  );
+
+  app.delete(
+    "/financial/records/:id",
+    {
+      schema: {
+        tags: ["Financial"],
+        summary: "Delete financial record",
+        security: [{ bearerAuth: [] }],
+        params: z.object({ id: z.string() }),
+        response: { 204: z.literal(null) },
+      },
+    },
+    financialController.delete,
   );
 }
