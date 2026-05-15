@@ -510,13 +510,15 @@ function AnimalsPage() {
                   <div className="space-y-2">
                     <Label>Período de nascimento</Label>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col items-center sm:flex-row gap-3">
                       <Input
                         type="date"
                         value={birthDateStartDraft}
                         onChange={(e) => setBirthDateStartDraft(e.target.value)}
                         className="h-10 rounded-xl"
                       />
+
+                      à
 
                       <Input
                         type="date"
