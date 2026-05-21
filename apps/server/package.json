@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/server.js",
+    "start": "tsx src/server.ts",
     "seed": "tsx prisma/seed.ts",
     "lint": "biome check --write .",
     "format": "biome format ."
