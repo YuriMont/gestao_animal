@@ -564,21 +564,11 @@ export function InseminationsTable({
 interface ReproductionHistoryTablesProps {
   data: GetV1ReproductionHistoryAnimalid200;
   loading: boolean;
-  animalsMap?: Map<string, string>;
-}
-
-function getAnimalTag(
-  animalId: string | null | undefined,
-  animalsMap?: Map<string, string>,
-): string {
-  if (!animalId) return "—";
-  return animalsMap?.get(animalId) ?? animalId;
 }
 
 export function ReproductionHistoryTables({
   data,
   loading,
-  animalsMap,
 }: ReproductionHistoryTablesProps) {
   const { estrus, pregnancies, births, inseminations } = data;
 

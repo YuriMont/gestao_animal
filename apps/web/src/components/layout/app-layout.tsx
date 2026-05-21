@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import type * as React from "react";
 import { useEffect, useState } from "react";
-import { initialAuthAtom, isAuthenticatedAtom } from "@/atoms/auth";
+import { initialAuthAtom } from "@/atoms/auth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -30,7 +30,6 @@ const mobileNavItems = [
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false);
   const initialAuth = useAtomValue(initialAuthAtom);
-  const isAuthenticated = useAtomValue(isAuthenticatedAtom);
   const navigate = useNavigate();
 
   useEffect(() => {

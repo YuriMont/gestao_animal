@@ -121,9 +121,10 @@ export function FinancialTable() {
                     </TableCell>
                     <TableCell>
                       <FinancialActions
-                        record={r}
-                        onEdit={() => {}}
-                        onDelete={() => {}}
+                        record={{
+                          ...r,
+                          description: r.description ?? undefined,
+                        }}
                       />
                     </TableCell>
                   </TableRow>

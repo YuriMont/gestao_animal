@@ -15,7 +15,6 @@ import {
 import {
   getV1ReproductionInseminationsQueryKey,
   useGetV1EnumsReproductionInseminationTypes,
-  useGetV1ReproductionInseminations,
   usePostV1ReproductionInseminations,
 } from "@/gen/hooks";
 import type { PostV1ReproductionInseminationsMutationRequestTypeEnumKey } from "@/gen/models/reproductionController/PostV1ReproductionInseminations";

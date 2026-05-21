@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,12 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useGetV1EnumsReproductionPregnancyStatus } from "@/gen/hooks/enumsController/useGetV1EnumsReproductionPregnancyStatus";
-import {
-  getV1ReproductionPregnanciesQueryKey,
-  useGetV1ReproductionPregnancies,
-} from "@/gen/hooks/reproductionController/useGetV1ReproductionPregnancies";
+import { getV1ReproductionPregnanciesQueryKey } from "@/gen/hooks/reproductionController/useGetV1ReproductionPregnancies";
 import { usePostV1ReproductionPregnancies } from "@/gen/hooks/reproductionController/usePostV1ReproductionPregnancies";
 import type { PostV1ReproductionPregnanciesMutationRequestStatusEnumKey } from "@/gen/models/reproductionController/PostV1ReproductionPregnancies";
 import { AnimalSelect } from "./animal-select";

@@ -11,16 +11,18 @@ export function AnimalSelect({
   value,
   onChange,
   id,
+  className,
 }: {
   value: string;
   onChange: (v: string) => void;
   id?: string;
+  className?: string;
 }) {
   const animalsQuery = useGetV1Animals({ limit: 100 });
   const animals = animalsQuery.data?.data ?? [];
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger id={id}>
+      <SelectTrigger id={id} className={className}>
         <SelectValue placeholder="Selecione o animal" />
       </SelectTrigger>
       <SelectContent>
