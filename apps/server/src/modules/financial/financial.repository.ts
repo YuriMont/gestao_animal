@@ -94,8 +94,8 @@ export class PrismaFinancialRepository implements IFinancialRepository {
   }
 
   async delete(id: string, organizationId: string): Promise<void> {
-    await this.prisma.financialRecord.delete({
-      where: { id, organizationId },
-    });
+    await this.prisma.$transaction([
+      this.prisma.financialRecord.delete({ where: { id, organizationId } }),
+    ]);
   }
 }

@@ -83,7 +83,9 @@ export class PrismaParasiteMonitoringRepository
       throw new NotFoundError("Parasite monitoring record not found");
     }
 
-    await this.prisma.parasiteMonitoring.delete({ where: { id } });
+    await this.prisma.$transaction([
+      this.prisma.parasiteMonitoring.delete({ where: { id } }),
+    ]);
   }
 
   async list(

@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { History, MilkIcon, Plus, Scale } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { MilkForm } from "@/components/production/milk-form";
@@ -23,9 +23,13 @@ import { useGetV1ProductionMetricsAnimalid } from "@/gen/hooks/productionControl
 
 export const Route = createFileRoute("/production")({
   component: ProductionPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    animalId: search.animalId as string | undefined,
+  }),
 });
 
 function ProductionPage() {
+  const search = useSearch({ from: "/production" });
   const [selectedAnimal, setSelectedAnimal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,6 +46,12 @@ function ProductionPage() {
 
   const isMale = animalData?.sex.key === "MALE";
   const showMilk = !isMale;
+
+  useEffect(() => {
+    if (search.animalId) {
+      setSelectedAnimal(search.animalId);
+    }
+  }, [search.animalId]);
 
   return (
     <AppLayout>

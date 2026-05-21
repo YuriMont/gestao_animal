@@ -85,6 +85,12 @@ export class PrismaBreedRepository implements IBreedRepository {
   }
 
   async delete(id: string, organizationId: string): Promise<void> {
-    await this.prisma.breed.delete({ where: { id, organizationId } });
+    await this.prisma.$transaction([
+      this.prisma.animal.updateMany({
+        where: { breedId: id },
+        data: { breedId: null },
+      }),
+      this.prisma.breed.delete({ where: { id, organizationId } }),
+    ]);
   }
 }

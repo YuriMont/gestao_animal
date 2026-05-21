@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Baby,
@@ -9,7 +9,7 @@ import {
   Pipette,
   Plus,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppLayout } from "@/components/layout/app-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { AnimalSelect } from "@/components/reproduction/animal-select";
@@ -33,9 +33,13 @@ import { useGetV1ReproductionHistoryAnimalid } from "@/gen/hooks/reproductionCon
 
 export const Route = createFileRoute("/reproduction")({
   component: ReproductionPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    animalId: search.animalId as string | undefined,
+  }),
 });
 
 function ReproductionPage() {
+  const search = useSearch({ from: "/reproduction" });
   const [selectedAnimal, setSelectedAnimal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -56,6 +60,12 @@ function ReproductionPage() {
   const pregnantAnimals = historyData.pregnancies.filter(
     (p) => p.status.key !== "COMPLETED" && p.status.key !== "FAILED",
   ).length;
+
+  useEffect(() => {
+    if (search.animalId) {
+      setSelectedAnimal(search.animalId);
+    }
+  }, [search.animalId]);
 
   return (
     <AppLayout>

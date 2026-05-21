@@ -1,4 +1,6 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Heart, Menu, Milk, Pencil, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,10 +16,18 @@ import type { Animal } from "@/types/animal";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { AnimalForm } from "./animal-form";
 import type { AnimalFormData } from "./types";
 
@@ -37,6 +47,7 @@ interface AnimalTableProps {
   ) => void;
   handleUpdate: () => void;
   updateMutationPending: boolean;
+  deleteMutationPending: boolean;
 }
 
 function statusBadgeVariant(
@@ -63,7 +74,40 @@ export function AnimalTable({
   setEditAnimal,
   handleUpdate,
   updateMutationPending,
+  deleteMutationPending,
 }: AnimalTableProps) {
+  const navigate = useNavigate();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [animalToDelete, setAnimalToDelete] = useState<Animal | null>(null);
+
+  function handleEditClick(animal: Animal) {
+    onEdit(animal);
+  }
+
+  function handleHealthClick(animal: Animal) {
+    navigate({ to: "/health", search: { animalId: animal.id } });
+  }
+
+  function handleReproductionClick(animal: Animal) {
+    navigate({ to: "/reproduction", search: { animalId: animal.id } });
+  }
+
+  function handleProductionClick(animal: Animal) {
+    navigate({ to: "/production", search: { animalId: animal.id } });
+  }
+
+  function handleDeleteClick(animal: Animal) {
+    setAnimalToDelete(animal);
+    setDeleteDialogOpen(true);
+  }
+
+  function confirmDelete() {
+    if (animalToDelete) {
+      onDelete(animalToDelete);
+      setDeleteDialogOpen(false);
+      setAnimalToDelete(null);
+    }
+  }
   return (
     <>
       <div className="overflow-x-auto -mx-4 sm:mx-0">
@@ -92,29 +136,56 @@ export function AnimalTable({
                   {new Date(animal.birthDate).toLocaleDateString("pt-BR")}
                 </TableCell>
                 <TableCell>
-                  <Badge variant={statusBadgeVariant(animal.status.key)}>
+                  <Badge
+                    variant={statusBadgeVariant(
+                      animal.status.key as GetV1AnimalsQueryParamsStatusEnumKey,
+                    )}
+                  >
                     {animal.status.label}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <div className="flex justify-end gap-1">
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      onClick={() => onEdit(animal)}
-                      aria-label={`Editar ${animal.tag}`}
-                    >
-                      <Pencil className="size-3.5" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      onClick={() => onDelete(animal)}
-                      aria-label={`Excluir ${animal.tag}`}
-                    >
-                      <Trash2 className="size-3.5 text-destructive" />
-                    </Button>
-                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost">
+                        <Menu className="size-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onClick={() => handleEditClick(animal)}>
+                        <Pencil className="mr-2 size-4" />
+                        Editar
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleHealthClick(animal)}
+                      >
+                        <Plus className="mr-2 size-4" />
+                        Saúde
+                      </DropdownMenuItem>
+                      {animal.sex.key === "FEMALE" && (
+                        <DropdownMenuItem
+                          onClick={() => handleReproductionClick(animal)}
+                        >
+                          <Heart className="mr-2 size-4" />
+                          Reprodução
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem
+                        onClick={() => handleProductionClick(animal)}
+                      >
+                        <Milk className="mr-2 size-4" />
+                        Produção
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        variant="destructive"
+                        onClick={() => handleDeleteClick(animal)}
+                      >
+                        <Trash2 className="mr-2 size-4" />
+                        Excluir
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}
@@ -143,6 +214,32 @@ export function AnimalTable({
             </Button>
             <Button onClick={handleUpdate} disabled={updateMutationPending}>
               {updateMutationPending ? "Salvando..." : "Salvar"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Excluir Animal</DialogTitle>
+            <DialogDescription>
+              Tem certeza que deseja excluir o animal {animalToDelete?.tag}?
+              Esta ação não pode ser desfeita.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDelete}
+              disabled={deleteMutationPending}
+            >
+              {deleteMutationPending ? "Excluindo..." : "Excluir"}
             </Button>
           </DialogFooter>
         </DialogContent>

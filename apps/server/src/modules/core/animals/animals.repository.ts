@@ -122,6 +122,22 @@ export class PrismaAnimalRepository implements IAnimalRepository {
   }
 
   async delete(id: string, organizationId: string): Promise<void> {
-    await this.prisma.animal.delete({ where: { id, organizationId } });
+    await this.prisma.$transaction([
+      this.prisma.healthRecord.deleteMany({ where: { animalId: id } }),
+      this.prisma.vaccine.deleteMany({ where: { animalId: id } }),
+      this.prisma.treatment.deleteMany({ where: { animalId: id } }),
+      this.prisma.estrus.deleteMany({ where: { animalId: id } }),
+      this.prisma.parasiteMonitoring.deleteMany({ where: { animalId: id } }),
+      this.prisma.weightRecord.deleteMany({ where: { animalId: id } }),
+      this.prisma.milkProduction.deleteMany({ where: { animalId: id } }),
+      this.prisma.pregnancy.deleteMany({ where: { animalId: id } }),
+      this.prisma.insemination.deleteMany({
+        where: { OR: [{ animalId: id }, { fatherId: id }] },
+      }),
+      this.prisma.birth.deleteMany({
+        where: { OR: [{ motherId: id }, { fatherId: id }] },
+      }),
+      this.prisma.animal.delete({ where: { id, organizationId } }),
+    ]);
   }
 }

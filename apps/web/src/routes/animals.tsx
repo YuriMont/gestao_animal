@@ -517,9 +517,7 @@ function AnimalsPage() {
                         onChange={(e) => setBirthDateStartDraft(e.target.value)}
                         className="h-10 rounded-xl"
                       />
-
                       à
-
                       <Input
                         type="date"
                         value={birthDateEndDraft}
@@ -562,6 +560,7 @@ function AnimalsPage() {
                   setEditAnimal={setEditAnimal}
                   handleUpdate={handleUpdate}
                   updateMutationPending={updateMutation.isPending}
+                  deleteMutationPending={deleteMutation.isPending}
                 />
               )}
             </CardContent>

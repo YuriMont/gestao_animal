@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Activity, History, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimalSelect } from "@/components/health/animal-select";
 import { HealthTables } from "@/components/health/health-tables";
 import { ParasitologyForm } from "@/components/health/parasitology-form";
@@ -24,13 +24,23 @@ import { useGetV1HealthHistoryAnimalid } from "@/gen/hooks/healthController/useG
 
 export const Route = createFileRoute("/health")({
   component: HealthPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    animalId: search.animalId as string | undefined,
+  }),
 });
 
 function HealthPage() {
+  const search = useSearch({ from: "/health" });
   const [selectedAnimal, setSelectedAnimal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading } = useGetV1HealthHistoryAnimalid(selectedAnimal);
+
+  useEffect(() => {
+    if (search.animalId) {
+      setSelectedAnimal(search.animalId);
+    }
+  }, [search.animalId]);
 
   return (
     <AppLayout>
