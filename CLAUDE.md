@@ -132,6 +132,22 @@ Modelos: Organization, User, Animal, Paddock, HealthRecord, Vaccine, Treatment, 
 
 Biome (não ESLint/Prettier). Configuração base em `packages/biome-config/biome.json`, estendida por cada app. Rode `yarn format` antes de commitar.
 
+## Skills (para agentes Claude Code / Opencode)
+
+Skills em `.agents/skills/` (espelhadas em `.claude/skills/` via symlink). Use quando relevante:
+
+| Skill | Quando usar |
+|-------|-------------|
+| `brainstorming` | Antes de qualquer trabalho criativo — explorar requisitos e design |
+| `caveman` | Quando o usuário pedir modo econômico ("caveman mode", "be brief", `/caveman`) |
+| `executing-plans` | Para executar planos de implementação com checkpoints |
+| `frontend-design` | Ao construir componentes/páginas/UI frontend |
+| `grill-me` | Quando o usuário quiser estressar um plano ("grill me") |
+| `systematic-debugging` | Ao encontrar bugs, test failures ou comportamento inesperado |
+| `turborepo` | Ao configurar tarefas Turbo, pipelines, cache, CI |
+| `web-design-guidelines` | Quando o usuário pedir "review my UI", "check accessibility", "audit design" |
+| `writing-plans` | Ao transformar spec/requisitos em plano de implementação |
+
 ## O que nunca fazer
 
 - Editar `src/gen/` ou `src/routeTree.gen.ts` — são arquivos gerados

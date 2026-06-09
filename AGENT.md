@@ -88,6 +88,22 @@ O ciclo ideal de desenvolvimento de uma nova funcionalidade (Ex: Novo CRUD) deve
 *   Commitar `.env`.
 *   Usar `prisma migrate` (MongoDB exige `prisma db push`).
 
+## 📋 Skills Disponíveis (para Claude Code e Opencode)
+
+Skills em `.agents/skills/` (espelhadas em `.claude/skills/` via symlink). **Devem ser usadas por agentes sempre que o contexto se aplicar.**
+
+| Skill | Foco | Quando Ativar |
+|-------|------|---------------|
+| `brainstorming` | Exploração de requisitos | Antes de qualquer trabalho criativo (features, componentes, mudanças de comportamento) |
+| `caveman` | Comunicação ultra-tersa | Modo econômico de tokens (`/caveman`, "be brief") |
+| `executing-plans` | Execução de planos | Quando um plano de implementação escrito precisa ser executado com checkpoints |
+| `frontend-design` | UI de alta qualidade | Ao construir páginas, componentes ou qualquer interface frontend |
+| `grill-me` | Stress test de planos | Quando o usuário pedir "grill me" ou quiser validar um design |
+| `systematic-debugging` | Debug científico | Bugs, test failures, comportamento inesperado — antes de qualquer fix |
+| `turborepo` | Build system | Configurar pipelines, cache, CI, dependências entre pacotes |
+| `web-design-guidelines` | Revisão de UI | "Review my UI", "check accessibility", "audit design" |
+| `writing-plans` | Planos de implementação | Transformar spec em plano detalhado com tasks atômicas |
+
 ## 🧠 Context7 (Padrões e Documentação de Referência)
 
 Os agentes envolvidos neste projeto **possuem e devem utilizar ativamente a skill `Context7`**. Esta habilidade atua como um injetor de contexto atualizado e de alto nível para garantir que as decisões de código acompanhem as melhores práticas e a documentação oficial da stack (Fastify 5, Prisma 7, React 19, Tailwind v4, etc).
