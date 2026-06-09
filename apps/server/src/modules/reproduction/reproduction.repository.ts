@@ -8,6 +8,7 @@ import type {
   EstrusRecord,
   InseminationRecord,
   PregnancyRecord,
+  ReproductionSummary,
 } from "./reproduction.types";
 
 export interface IReproductionRepository {
@@ -42,6 +43,7 @@ export interface IReproductionRepository {
     births: BirthRecord[];
     inseminations: InseminationRecord[];
   }>;
+  getSummary(organizationId: string): Promise<ReproductionSummary>;
 }
 
 export class PrismaReproductionRepository implements IReproductionRepository {
@@ -157,6 +159,40 @@ export class PrismaReproductionRepository implements IReproductionRepository {
     }));
 
     return { inseminations: inseminationsMap, total };
+  }
+
+  async getSummary(organizationId: string): Promise<ReproductionSummary> {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfNextMonth = new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      1,
+    );
+
+    const [pregnantAnimals, birthsThisMonth, pendingInseminations] =
+      await Promise.all([
+        this.prisma.pregnancy.count({
+          where: {
+            organizationId,
+            status: { in: ["PENDING", "CONFIRMED"] },
+          },
+        }),
+        this.prisma.birth.count({
+          where: {
+            organizationId,
+            birthDate: { gte: startOfMonth, lt: startOfNextMonth },
+          },
+        }),
+        this.prisma.insemination.count({
+          where: {
+            organizationId,
+            success: null,
+          },
+        }),
+      ]);
+
+    return { pregnantAnimals, birthsThisMonth, pendingInseminations };
   }
 
   async findAnimalHistory(animalId: string, organizationId: string) {

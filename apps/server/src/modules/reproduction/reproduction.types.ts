@@ -89,3 +89,9 @@ export interface InseminationRecord {
   success?: boolean | null;
   organizationId: string;
 }
+
+export interface ReproductionSummary {
+  pregnantAnimals: number;
+  birthsThisMonth: number;
+  pendingInseminations: number;
+}

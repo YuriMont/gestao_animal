@@ -17,8 +17,8 @@ export function FinancialOverview({
   loading,
 }: FinancialOverviewProps) {
   const maxValue = Math.max(totalRevenue, totalCost);
-  const revenuePercent = maxValue > 0 ? (totalRevenue / maxValue) * 100 : 50;
-  const costPercent = maxValue > 0 ? (totalCost / maxValue) * 100 : 30;
+  const revenuePercent = maxValue > 0 ? (totalRevenue / maxValue) * 100 : 0;
+  const costPercent = maxValue > 0 ? (totalCost / maxValue) * 100 : 0;
   const isPositive = balance >= 0;
 
   return (

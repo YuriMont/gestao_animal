@@ -10,6 +10,9 @@ import { QuickStats } from "@/components/dashboard/stat-card";
 import { AppLayout } from "@/components/layout/app-layout";
 import { useGetV1Animals } from "@/gen/hooks/animalsController/useGetV1Animals";
 import { useGetV1FinancialSummary } from "@/gen/hooks/financialController/useGetV1FinancialSummary";
+import { useGetV1HealthSummary } from "@/gen/hooks/healthController/useGetV1HealthSummary";
+import { useGetV1ProductionSummary } from "@/gen/hooks/productionController/useGetV1ProductionSummary";
+import { useGetV1ReproductionSummary } from "@/gen/hooks/reproductionController/useGetV1ReproductionSummary";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -19,7 +22,6 @@ function Dashboard() {
   const user = useAtomValue(userAtom);
 
   const animalsQuery = useGetV1Animals({ limit: 100, page: 1 });
-  const allAnimals = animalsQuery.data?.data ?? [];
   const totalAnimals = animalsQuery.data?.meta.total ?? 0;
 
   const activeAnimalsQuery = useGetV1Animals({
@@ -37,10 +39,17 @@ function Dashboard() {
   const financialSummary = useGetV1FinancialSummary();
   const summary = financialSummary.data;
 
+  const reproductionSummary = useGetV1ReproductionSummary();
+  const productionSummary = useGetV1ProductionSummary();
+  const healthSummary = useGetV1HealthSummary();
+
   const loading =
     animalsQuery.isLoading ||
     activeAnimalsQuery.isLoading ||
-    financialSummary.isLoading;
+    financialSummary.isLoading ||
+    reproductionSummary.isLoading ||
+    productionSummary.isLoading ||
+    healthSummary.isLoading;
 
   const firstName = user?.name?.split(" ")[0] ?? "Usuário";
   const hour = new Date().getHours();
@@ -111,10 +120,12 @@ function Dashboard() {
             style={{ animationDelay: "250ms" }}
           >
             <ReproductionStats
-              pregnantAnimals={2}
+              pregnantAnimals={reproductionSummary.data?.pregnantAnimals ?? 0}
               totalFemales={totalFemales}
-              birthsThisMonth={1}
-              pendingInseminations={3}
+              birthsThisMonth={reproductionSummary.data?.birthsThisMonth ?? 0}
+              pendingInseminations={
+                reproductionSummary.data?.pendingInseminations ?? 0
+              }
               loading={loading}
             />
           </section>
@@ -124,10 +135,10 @@ function Dashboard() {
             style={{ animationDelay: "300ms" }}
           >
             <ProductionHealthStats
-              totalMilk={sumAllMilk(allAnimals)}
-              averageWeight={calculateAverageWeight(allAnimals)}
-              activeTreatments={2}
-              vaccinesDue={5}
+              totalMilk={productionSummary.data?.totalMilk ?? null}
+              averageWeight={productionSummary.data?.averageWeight ?? null}
+              activeTreatments={healthSummary.data?.activeTreatments ?? 0}
+              vaccinesDue={healthSummary.data?.vaccinesDue ?? 0}
               loading={loading}
             />
           </section>
@@ -147,12 +158,4 @@ function Dashboard() {
       </div>
     </AppLayout>
   );
-}
-
-function sumAllMilk(_animals: any[]): number {
-  return Math.floor(Math.random() * 500 + 100);
-}
-
-function calculateAverageWeight(_animals: any[]): number {
-  return Math.floor(Math.random() * 50 + 400);
 }

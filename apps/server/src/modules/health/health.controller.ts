@@ -53,4 +53,9 @@ export class HealthController {
     );
     return reply.send(history);
   };
+
+  getSummary = async (_request: FastifyRequest, reply: FastifyReply) => {
+    const summary = await this.healthService.getSummary(_request.tenantId!);
+    return reply.send(summary);
+  };
 }

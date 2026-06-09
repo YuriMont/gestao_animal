@@ -56,3 +56,8 @@ export interface TreatmentRecord {
   endDate?: Date | null;
   organizationId: string;
 }
+
+export interface HealthSummary {
+  activeTreatments: number;
+  vaccinesDue: number;
+}

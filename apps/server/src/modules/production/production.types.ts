@@ -39,3 +39,8 @@ export interface AnimalMetrics {
   lastWeight?: number;
   lastMilk?: number;
 }
+
+export interface ProductionSummary {
+  totalMilk: number;
+  averageWeight: number;
+}

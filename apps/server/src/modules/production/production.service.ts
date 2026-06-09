@@ -4,6 +4,7 @@ import type {
   CreateMilkDTO,
   CreateWeightDTO,
   MilkProductionRecord,
+  ProductionSummary,
   WeightRecord,
 } from "./production.types";
 
@@ -30,6 +31,10 @@ export class ProductionService {
       date: data.date ?? new Date(),
       organizationId: orgId,
     });
+  }
+
+  async getSummary(orgId: string): Promise<ProductionSummary> {
+    return this.repo.getSummary(orgId);
   }
 
   async getMetrics(animalId: string, orgId: string): Promise<AnimalMetrics> {

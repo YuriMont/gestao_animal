@@ -39,4 +39,11 @@ export class ProductionController {
     );
     return reply.send(metrics);
   };
+
+  getSummary = async (_request: FastifyRequest, reply: FastifyReply) => {
+    const summary = await this.productionService.getSummary(
+      _request.tenantId!,
+    );
+    return reply.send(summary);
+  };
 }

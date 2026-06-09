@@ -38,8 +38,26 @@ const treatmentSchema = z.object({
   organizationId: z.string(),
 });
 
+const healthSummarySchema = z.object({
+  activeTreatments: z.number(),
+  vaccinesDue: z.number(),
+});
+
 export default async function healthRoutes(app: FastifyInstance) {
   app.register(parasitologyRoutes, { prefix: "/parasitology" });
+
+  app.get(
+    "/health/summary",
+    {
+      schema: {
+        tags: ["Health"],
+        summary: "Get health summary for dashboard",
+        security: [{ bearerAuth: [] }],
+        response: { 200: healthSummarySchema },
+      },
+    },
+    healthController.getSummary,
+  );
 
   app.post(
     "/health/records",

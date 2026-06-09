@@ -8,6 +8,7 @@ import type {
   EstrusRecord,
   InseminationRecord,
   PregnancyRecord,
+  ReproductionSummary,
 } from "./reproduction.types";
 
 export class ReproductionService {
@@ -52,5 +53,9 @@ export class ReproductionService {
 
   async getAnimalHistory(animalId: string, orgId: string) {
     return this.repo.findAnimalHistory(animalId, orgId);
+  }
+
+  async getSummary(orgId: string): Promise<ReproductionSummary> {
+    return this.repo.getSummary(orgId);
   }
 }

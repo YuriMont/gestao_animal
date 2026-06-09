@@ -57,7 +57,26 @@ const inseminationResponseSchema = z.object({
   organizationId: z.string(),
 });
 
+const reproductionSummarySchema = z.object({
+  pregnantAnimals: z.number(),
+  birthsThisMonth: z.number(),
+  pendingInseminations: z.number(),
+});
+
 export default async function reproductionRoutes(app: FastifyInstance) {
+  app.get(
+    "/reproduction/summary",
+    {
+      schema: {
+        tags: ["Reproduction"],
+        summary: "Get reproduction summary for dashboard",
+        security: [{ bearerAuth: [] }],
+        response: { 200: reproductionSummarySchema },
+      },
+    },
+    reproductionController.getSummary,
+  );
+
   app.post(
     "/reproduction/estrus",
     {

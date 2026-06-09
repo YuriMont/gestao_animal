@@ -28,7 +28,25 @@ const metricsSchema = z.object({
   lastMilk: z.number().optional(),
 });
 
+const productionSummarySchema = z.object({
+  totalMilk: z.number(),
+  averageWeight: z.number(),
+});
+
 export default async function productionRoutes(app: FastifyInstance) {
+  app.get(
+    "/production/summary",
+    {
+      schema: {
+        tags: ["Production"],
+        summary: "Get production summary for dashboard",
+        security: [{ bearerAuth: [] }],
+        response: { 200: productionSummarySchema },
+      },
+    },
+    productionController.getSummary,
+  );
+
   app.post(
     "/production/weight",
     {

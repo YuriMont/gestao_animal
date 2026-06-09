@@ -4,6 +4,7 @@ import type {
   CreateTreatmentDTO,
   CreateVaccineDTO,
   HealthRecord,
+  HealthSummary,
   TreatmentRecord,
   VaccineRecord,
 } from "./health.types";
@@ -26,6 +27,7 @@ export interface IHealthRepository {
     vaccines: VaccineRecord[];
     treatments: TreatmentRecord[];
   }>;
+  getSummary(organizationId: string): Promise<HealthSummary>;
 }
 
 export class PrismaHealthRepository implements IHealthRepository {
@@ -47,6 +49,24 @@ export class PrismaHealthRepository implements IHealthRepository {
     data: CreateTreatmentDTO & { organizationId: string },
   ): Promise<TreatmentRecord> {
     return this.prisma.treatment.create({ data });
+  }
+
+  async getSummary(organizationId: string): Promise<HealthSummary> {
+    const now = new Date();
+
+    const [activeTreatments, vaccinesDue] = await Promise.all([
+      this.prisma.treatment.count({
+        where: { organizationId, endDate: null },
+      }),
+      this.prisma.vaccine.count({
+        where: {
+          organizationId,
+          nextDueDate: { lte: now },
+        },
+      }),
+    ]);
+
+    return { activeTreatments, vaccinesDue };
   }
 
   async findByAnimal(animalId: string, organizationId: string) {

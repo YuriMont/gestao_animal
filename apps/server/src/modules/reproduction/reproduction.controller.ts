@@ -151,4 +151,11 @@ export class ReproductionController {
       })),
     });
   };
+
+  getSummary = async (_request: FastifyRequest, reply: FastifyReply) => {
+    const summary = await this.reproductionService.getSummary(
+      _request.tenantId!,
+    );
+    return reply.send(summary);
+  };
 }

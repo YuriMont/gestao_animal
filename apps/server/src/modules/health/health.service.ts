@@ -4,6 +4,7 @@ import type {
   CreateTreatmentDTO,
   CreateVaccineDTO,
   HealthRecord,
+  HealthSummary,
   TreatmentRecord,
   VaccineRecord,
 } from "./health.types";
@@ -34,5 +35,9 @@ export class HealthService {
 
   async getAnimalHistory(animalId: string, orgId: string) {
     return this.repo.findByAnimal(animalId, orgId);
+  }
+
+  async getSummary(orgId: string): Promise<HealthSummary> {
+    return this.repo.getSummary(orgId);
   }
 }
